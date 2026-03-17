@@ -1,0 +1,340 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "16341791918a8fdfdd": {
+      "type": "breadcrumb",
+      "settings": {
+        "container": "container",
+        "text_alignment": "center",
+        "hide_current": false,
+        "hide_on_mb": false,
+        "animations": "inherit"
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "7867d69c-9018-4e43-9ab1-c0dabc50ab83": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "body"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "judge_me_reviews_preview_badge_xeHjiP": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "disabled": true,
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_saving": false,
+            "sale_badge_type": "percentage"
+          }
+        },
+        "visitors_iebkP6": {
+          "type": "visitors",
+          "settings": {
+            "color_scheme": "",
+            "live_views_text": "{count_number} people are viewing this right now",
+            "live_views_range": "20-30",
+            "live_view_duration": "10",
+            "live_view_icon_blinks": true
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "size_title": "Size"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "show_atc_button": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "rating_UwM4Yg": {
+          "type": "rating",
+          "settings": {}
+        },
+        "shipping_T6i4ny": {
+          "type": "shipping",
+          "settings": {
+            "show_delivery_times": true,
+            "deliver_text": "Estimated Delivery:",
+            "deliver_days": "7",
+            "date_format": "%b %d",
+            "show_shipping_text": true,
+            "shipping_text": "<p><strong>Free Shipping & Returns: </strong>On all orders over $75</p>"
+          }
+        },
+        "collapsible_tab_4qmhTL": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Description",
+            "content": "<p>Oil-Infused Straightening Brush<br/><br/>Care First. Style Second.<br/><br/>This straightening brush is designed for people who want smooth results without over-exposing hair to heat.<br/><br/>Unlike traditional straightening tools that rely on direct, repeated heat, this brush features an oil-infused roller system that allows hair to receive lightweight nourishment before it reaches the heating zone. The result is smoother glide, fewer passes, and a more comfortable everyday styling experience.<br/><br/></p>",
+            "liquid": "",
+            "default_open": false
+          }
+        },
+        "collapsible_tab_NBcE6z": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Features",
+            "content": "<p><br/>Oil First, Heat Second<br/><br/>30s Fast Heat-Up<br/><br/>0.125\" Precision Teeth<br/><br/>9 Heat Settings<br/><br/>3D Heat-Insulating Design<br/><br/>Auto Shut-Off Safety<br/><br/></p>",
+            "liquid": "",
+            "default_open": false
+          }
+        },
+        "collapsible_tab_mM3yhE": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "What's Inside",
+            "content": "<p><br/>Each straightening brush set includes thoughtfully selected accessories to support your styling routine:<br/><br/>Oil-Infused Straightening Brush<br/>Designed with a care-first system to smooth hair before heat styling.<br/><br/>2 Hair Sectioning Clips<br/>Helps divide hair into manageable sections for easier, more even styling.<br/><br/>Oil  Pads<br/>Designed for use with the oil roller to evenly absorb and deliver hair oil during styling.<br/>(Recommended for single use.)<br/><br/>Cleaning Brush<br/>Helps gently remove residue from the oil chamber and brush area after use.<br/><br/>Silk Hair Scrunchie<br/>Soft on hair, designed to reduce friction and creasing when tying hair up.<br/><br/></p>",
+            "liquid": "",
+            "default_open": false
+          }
+        }
+      },
+      "block_order": [
+        "7867d69c-9018-4e43-9ab1-c0dabc50ab83",
+        "title",
+        "judge_me_reviews_preview_badge_xeHjiP",
+        "price",
+        "visitors_iebkP6",
+        "variant_picker",
+        "buy_buttons",
+        "rating_UwM4Yg",
+        "shipping_T6i4ny",
+        "collapsible_tab_4qmhTL",
+        "collapsible_tab_NBcE6z",
+        "collapsible_tab_mM3yhE"
+      ],
+      "settings": {
+        "container": "container",
+        "layout": "layout-4",
+        "show_atwl": true,
+        "enable_history_state": true,
+        "enable_variant_group_images": true,
+        "disable_selected_variant_default": false,
+        "show_featured_media": true,
+        "show_zoom_button": true,
+        "enable_video_autoplay": false,
+        "show_nav_media_mobile": false,
+        "show_pagination_mobile": false,
+        "use_sticky_atc": true,
+        "use_sticky_atc_on_mobile": true,
+        "enable_dynamic_checkout": true,
+        "sticky_atc_wishtlist": false,
+        "sticky_atc_compare": false
+      }
+    },
+    "custom_content_9eecKT": {
+      "type": "custom-content",
+      "blocks": {
+        "text_aEh8FN": {
+          "type": "text",
+          "settings": {
+            "title": "Care First. Straighten Second.",
+            "subheading": "A more thoughtful way to style with heat.",
+            "text": "",
+            "width": "100%",
+            "alignment": "center",
+            "align_text": "center",
+            "text_size": "small",
+            "text_color": "inherit",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "m-button--primary",
+            "button_size": "",
+            "block_custom_class": "",
+            "animations": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "text_aEh8FN"
+      ],
+      "name": "Custom content",
+      "settings": {
+        "heading": "",
+        "heading_size": "h3",
+        "subheading": "",
+        "description": "",
+        "header_alignment": "center",
+        "container": "container-fluid",
+        "color_scheme": "",
+        "content_color_scheme": "",
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "gap": 30,
+        "gap_mobile": 16,
+        "use_scroll_mobile": false,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "enable_preload_image": false,
+        "custom_class": ""
+      }
+    },
+    "blocks_ihtQ3e": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_1049ae1_zQfbpt": {
+          "type": "ai_gen_block_1049ae1",
+          "name": "Full width image",
+          "settings": {
+            "image": "shopify://shop_images/1940x1200.jpg",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "border_radius": 0
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_1049ae1_XCVmfj": {
+          "type": "ai_gen_block_1049ae1",
+          "settings": {
+            "image": "shopify://shop_images/3000x1800_01_1.jpg",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "border_radius": 0
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_1049ae1_LEH89M": {
+          "type": "ai_gen_block_1049ae1",
+          "name": "Full width image",
+          "settings": {
+            "image": "shopify://shop_images/3000x1800_03.jpg",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "border_radius": 0
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_1049ae1_a6JVEk": {
+          "type": "ai_gen_block_1049ae1",
+          "name": "Full width image",
+          "settings": {
+            "image": "shopify://shop_images/3000x1800_02.jpg",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "border_radius": 0
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_1049ae1_fajNHG": {
+          "type": "ai_gen_block_1049ae1",
+          "name": "Full width image",
+          "settings": {
+            "image": "shopify://shop_images/3000x1800_04.jpg",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "border_radius": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_1049ae1_zQfbpt",
+        "ai_gen_block_1049ae1_XCVmfj",
+        "ai_gen_block_1049ae1_LEH89M",
+        "ai_gen_block_1049ae1_a6JVEk",
+        "ai_gen_block_1049ae1_fajNHG"
+      ],
+      "name": "Full width image",
+      "settings": {}
+    },
+    "1762930190240780d1": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "product-details-tabs": {
+      "type": "product-details-tabs",
+      "blocks": {
+        "tab_qieBDD": {
+          "type": "tab",
+          "settings": {
+            "header": "Shipping & Return",
+            "content": "<p>Shipping cost is based on weight. Just add products to your cart and use the Shipping Calculator to see the shipping price.</p><p>We want you to be 100% satisfied with your purchase. Items can be returned or exchanged within 30 days of delivery.</p>",
+            "content_page": ""
+          }
+        }
+      },
+      "block_order": [
+        "tab_qieBDD"
+      ],
+      "disabled": true,
+      "settings": {
+        "container": "container",
+        "color_scheme": "",
+        "default_open": true,
+        "padding_top": 50,
+        "padding_bottom": 0,
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "blocks_8hKGyD": {
+      "type": "_blocks",
+      "name": "Full width image",
+      "settings": {}
+    },
+    "17629351106d35bb0b": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_7NcyVz": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "disabled": true,
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": true,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_7NcyVz"
+      ],
+      "settings": {
+        "heading": "",
+        "heading_size": "h3",
+        "subheading": "",
+        "header_alignment": "center",
+        "container": "container",
+        "background_color": "",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "custom_class": ""
+      }
+    }
+  },
+  "order": [
+    "16341791918a8fdfdd",
+    "main",
+    "custom_content_9eecKT",
+    "blocks_ihtQ3e",
+    "1762930190240780d1",
+    "product-details-tabs",
+    "blocks_8hKGyD",
+    "17629351106d35bb0b"
+  ]
+}

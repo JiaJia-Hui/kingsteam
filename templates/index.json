@@ -1,0 +1,511 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "16233155804447b3cd": {
+      "type": "image-with-text-2",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "",
+        "container": "w-full",
+        "hero_size": "medium",
+        "show_overlay": true,
+        "image": "shopify://shop_images/beauty-natural-6_86ddd3af-2e82-46e5-bc92-4b19e67dda18.jpg",
+        "image_link": "",
+        "parallax": false,
+        "parallax_direction": "vertical",
+        "content_in_container": false,
+        "content_position": "center middle",
+        "text_alignment": "center",
+        "text_size": "medium",
+        "text_color": "white",
+        "title": "Steam. Hydrate. Transcend.",
+        "subtitle": "",
+        "text": "",
+        "button_label": "Shop Now",
+        "button_link": "shopify://collections/shop-all",
+        "button_style": "m-button--primary",
+        "button_size": "m-button--small",
+        "text_alignment_mobile": "center",
+        "use_content_above": true,
+        "custom_class": "",
+        "animations": "inherit",
+        "enable_bg_zoom_effect": true,
+        "enable_preload_image": false
+      }
+    },
+    "17652464915a4d6add": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_028343f_7Kpztf": {
+          "type": "ai_gen_block_028343f",
+          "settings": {
+            "image_aspect_ratio": "16 / 9",
+            "text_alignment": "center",
+            "background_color": "#2d2a25",
+            "text_color": "#f7f6f4",
+            "show_overlay": true,
+            "overlay_opacity": 30,
+            "heading_size": 44,
+            "subheading_size": 20,
+            "hide_arrows": true,
+            "hide_dots": true,
+            "dot_size_mobile": 16,
+            "controls_color": "#ffffff",
+            "controls_icon_color": "#000000",
+            "controls_hover_color": "#f0f0f0",
+            "autoplay": true,
+            "autoplay_speed": 4,
+            "slide_1_image": "shopify://shop_images/beauty-natural-6_86ddd3af-2e82-46e5-bc92-4b19e67dda18.jpg",
+            "slide_1_heading": "Steam. Hydrate. Transcend.",
+            "slide_1_subheading": "Discover The MAGIC of Our Innovative Design.",
+            "slide_1_link": "",
+            "slide_2_image": "shopify://shop_images/3645x2048_04.jpg",
+            "slide_2_heading": "Hair Tools",
+            "slide_2_subheading": "Rejuvenating Remedies For All Kinds Of Hair",
+            "slide_2_link": "",
+            "slide_3_image": "shopify://shop_images/beauty-natural-7.jpg",
+            "slide_3_heading": "Beauty Tools",
+            "slide_3_subheading": "Build Your Beauty.",
+            "slide_3_link": "",
+            "slide_4_image": "shopify://shop_images/3645x2048_07.jpg",
+            "slide_4_heading": "Care Begins with Steam.",
+            "slide_4_subheading": "KINGSTEAM -- Your Care Tech Experts.",
+            "slide_4_link": "",
+            "slide_5_heading": "",
+            "slide_5_subheading": "",
+            "slide_5_link": ""
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_077be23_9Kitw8": {
+          "type": "ai_gen_block_077be23",
+          "name": "Blur heading",
+          "settings": {
+            "heading_text": "",
+            "heading_tag": "h2",
+            "heading_font": "roboto_condensed_n7",
+            "heading_size": 60,
+            "text_alignment": "center",
+            "text_color": "#222222",
+            "blur_color": "#222222",
+            "blur_amount": 8,
+            "blur_opacity": 0.5,
+            "padding_top": 20,
+            "padding_bottom": 20
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_028343f_7Kpztf",
+        "ai_gen_block_077be23_9Kitw8"
+      ],
+      "settings": {}
+    },
+    "collection_image_showcase_pgLThU": {
+      "type": "collection-image-showcase",
+      "blocks": {
+        "collection_MF9YEa": {
+          "type": "collection",
+          "settings": {
+            "collection": "hair-tools",
+            "title": "Hair Tools",
+            "image_1": "shopify://shop_images/salon-blow-drying-hair.jpg",
+            "image_2": "shopify://shop_images/male-stylist-cutting-hair-at-salon.jpg",
+            "image_3": "shopify://shop_images/dental-tools.jpg"
+          }
+        },
+        "collection_VLGLim": {
+          "type": "collection",
+          "settings": {
+            "collection": "hair-care",
+            "title": "Beauty Tools",
+            "image_1": "shopify://shop_images/face-treatment-with-a-smile.jpg",
+            "image_2": "shopify://shop_images/beauty-natural-5.jpg",
+            "image_3": "shopify://shop_images/beauty-natural-4.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "collection_MF9YEa",
+        "collection_VLGLim"
+      ],
+      "disabled": true,
+      "name": "Collection image showcase",
+      "settings": {
+        "container": "container-fluid",
+        "color_scheme": "",
+        "heading": "",
+        "heading_size": "h5",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "17649135672c0c9e9b": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_c35b47b_jT7JaY": {
+          "type": "ai_gen_block_c35b47b",
+          "settings": {
+            "heading": "Featured Products",
+            "subheading": "Discover our latest collection",
+            "products": [
+              "hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1",
+              "dryer-diffuser-for-curly-hair",
+              "oil-care-straightener",
+              "facial-steamer-with-extendable-arm-ozone-table-top-mini-spa-face-steamer-design-for-personal-care-use-at-home-or-salon-white",
+              "stand-ionic-hair-dryer",
+              "hooded-hair-dryer"
+            ],
+            "container_width": 1600,
+            "cards_per_row_desktop": "4",
+            "cards_per_row_tablet": "3",
+            "cards_per_row_mobile": "2",
+            "card_gap": 10,
+            "section_padding_top": 30,
+            "section_padding_bottom": 30,
+            "heading_alignment": "center",
+            "heading_size": 48,
+            "subheading_size": 19,
+            "heading_spacing": 30,
+            "heading_color": "#2a2b25",
+            "subheading_color": "#666666",
+            "holo_intensity": 0.1,
+            "holo_animation_speed": 1,
+            "card_background": "#f2f0ee",
+            "card_border_radius": 2,
+            "card_padding": 40,
+            "image_aspect_ratio": 110,
+            "image_hover_scale": 1.1,
+            "image_placeholder_bg": "#f5f5f5",
+            "show_badge": true,
+            "sale_text": "Sale",
+            "sold_out_text": "Sold Out",
+            "badge_background": "#e84e4e",
+            "badge_text_color": "#ffffff",
+            "badge_font_size": 12,
+            "badge_border_radius": 4,
+            "badge_position_top": 12,
+            "badge_position_left": 12,
+            "show_vendor": false,
+            "vendor_font_size": 11,
+            "vendor_color": "#999999",
+            "title_font_size": 18,
+            "title_color": "#2b2c26",
+            "title_line_clamp": 2,
+            "show_price": true,
+            "price_font_size": 20,
+            "price_color": "#2a2a2a",
+            "compare_price_font_size": 17,
+            "compare_price_color": "#747474",
+            "show_button": true,
+            "button_text": "View Product",
+            "button_padding": 8,
+            "button_font_size": 14,
+            "button_border_radius": 4,
+            "button_border_width": 1,
+            "button_background": "#2d2a25",
+            "button_text_color": "#ffffff",
+            "button_border_color": "#2d2a25",
+            "button_hover_background": "#2d2a25",
+            "button_hover_text_color": "#ffffff",
+            "button_hover_border_color": "#222222",
+            "show_navigation": true,
+            "show_dots": false,
+            "nav_spacing": 30,
+            "arrow_size": 30,
+            "arrow_background": "#ffffff",
+            "arrow_color": "#222222",
+            "arrow_hover_background": "#000000",
+            "arrow_hover_color": "#ffffff",
+            "dot_size": 10,
+            "dot_color": "#dddddd",
+            "dot_active_color": "#000000",
+            "background_color": "#ffffff"
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_077be23_f8gVjz": {
+          "type": "ai_gen_block_077be23",
+          "name": "Blur heading",
+          "settings": {
+            "heading_text": "",
+            "heading_tag": "h2",
+            "heading_font": "roboto_condensed_n7",
+            "heading_size": 60,
+            "text_alignment": "center",
+            "text_color": "#222222",
+            "blur_color": "#222222",
+            "blur_amount": 8,
+            "blur_opacity": 0.5,
+            "padding_top": 25,
+            "padding_bottom": 30
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_4be9e8c_xNd9zG": {
+          "type": "ai_gen_block_4be9e8c",
+          "settings": {
+            "image_width": 40,
+            "gap": 40,
+            "gap_mobile": 20,
+            "content_padding": 40,
+            "content_padding_mobile": 20,
+            "text_alignment": "left",
+            "image_aspect_ratio": 100,
+            "image_border_radius": 0,
+            "heading_size": 50,
+            "heading_color": "#222222",
+            "heading_spacing": 16,
+            "text_size": 20,
+            "text_color": "#666666",
+            "text_spacing": 34,
+            "button_padding_vertical": 12,
+            "button_padding_horizontal": 24,
+            "button_text_size": 16,
+            "button_border_radius": 10,
+            "button_bg_color": "#222222",
+            "button_text_color": "#ffffff",
+            "button_hover_bg_color": "#ffffff",
+            "button_hover_text_color": "#222222",
+            "show_controls": false,
+            "controls_spacing": 30,
+            "arrow_size": 42,
+            "arrow_bg_color": "#ffffff",
+            "arrow_color": "#ffffff",
+            "arrow_hover_bg_color": "#ffffff",
+            "arrow_hover_color": "#ffffff",
+            "dot_size": 10,
+            "dot_color": "#cccccc",
+            "dot_active_color": "#000000",
+            "enable_autoplay": true,
+            "autoplay_speed": 5,
+            "slide_1_enabled": true,
+            "slide_1_image": "shopify://shop_images/14df7e1f9aba774b1f1c0064fc7a9019.jpg",
+            "slide_1_heading": "Ozone Facial Steamer",
+            "slide_1_text": "The Desktop Nano Ionic Facial Steamer offers a professional spa experience from home or salon. Perfect for adults seeking self-care, this steamer is CA Prop 65 compliant, ensuring safety.",
+            "slide_1_button_text": "Shop now",
+            "slide_1_button_link": "shopify://products/facial-steamer-with-extendable-arm-ozone-table-top-mini-spa-face-steamer-design-for-personal-care-use-at-home-or-salon-white",
+            "slide_2_enabled": true,
+            "slide_2_image": "shopify://shop_images/2000x2000_01.jpg",
+            "slide_2_heading": "2 In 1 Hair and Facial Steamer",
+            "slide_2_text": "Give your hair and skin the ultimate refresh. One steamer for deep nourishment and a radiant glow.",
+            "slide_2_button_text": "Shop now",
+            "slide_2_button_link": "shopify://products/hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1",
+            "slide_3_enabled": true,
+            "slide_3_image": "shopify://shop_images/00de08b1cb004d818ec486272b7ef0f4_tplv-fhlh96nyum-origin-jpeg.jpg",
+            "slide_3_heading": "Professional Ionic Hair Dryer",
+            "slide_3_text": "Get that just-left-the-salon feeling, right at home. Our powerful, ionic drying system smooths frizz and boosts shine effortlessly.",
+            "slide_3_button_text": "Shop now",
+            "slide_3_button_link": "shopify://products/stand-ionic-hair-dryer",
+            "slide_4_enabled": false,
+            "slide_4_heading": "Slide 4 Heading",
+            "slide_4_text": "Add your slide description here. This text will appear in the middle of the right section.",
+            "slide_4_button_text": "Shop now",
+            "slide_4_button_link": "",
+            "slide_5_enabled": false,
+            "slide_5_heading": "Slide 5 Heading",
+            "slide_5_text": "Add your slide description here. This text will appear in the middle of the right section.",
+            "slide_5_button_text": "Shop now",
+            "slide_5_button_link": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_c35b47b_jT7JaY",
+        "ai_gen_block_077be23_f8gVjz",
+        "ai_gen_block_4be9e8c_xNd9zG"
+      ],
+      "settings": {}
+    },
+    "scrolling_promotion_ezffbN": {
+      "type": "scrolling-promotion",
+      "blocks": {
+        "image_pQ8cA6": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/vogue.svg",
+            "image_height": 120,
+            "image_link": ""
+          }
+        },
+        "image_4qyLpb": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/bazaar-harper-s.svg",
+            "image_height": 120,
+            "image_link": ""
+          }
+        },
+        "image_Fdk7Kx": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/cosmopolitian.svg",
+            "image_height": 30,
+            "image_link": ""
+          }
+        },
+        "image_6rWXdx": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/glamour.svg",
+            "image_height": 140,
+            "image_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_pQ8cA6",
+        "image_4qyLpb",
+        "image_Fdk7Kx",
+        "image_6rWXdx"
+      ],
+      "name": "Scrolling promotion",
+      "settings": {
+        "container": "w-full",
+        "direction": "left",
+        "speed": 40,
+        "item_gap": 50,
+        "item_gap_mobile": 30,
+        "color_scheme": "default",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "custom_class": ""
+      }
+    },
+    "1762831814354cff78": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "testimonials_CEUB87": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_QhHMrP": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Great product for the price",
+            "description": "<p>\"I received it and used the hair steamer same day, it worked wonderfully. I tested the Facial steamer, the steam flowed well. The nozzle swivels which is a plus.\"</p>",
+            "footer": "<p><a href=\"https://www.amazon.com/gp/profile/amzn1.account.AE74IC23GNKVXTIUYA3F3UBDXTZA/ref=cm_cr_dp_d_gw_tr?ie=UTF8\">Sonya</a></p>",
+            "image_text": "",
+            "image_link": "",
+            "product": ""
+          }
+        },
+        "testimonial_9MrjAr": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Works well! Good for the money!",
+            "description": "<p>\"For what it is the product works quite well. No it's not a high quality beauty shop unit, but i have 3 daughters and a wife that use this religiously. Pretty easy setup amd takedown once you know how. Vot works well.\"</p>",
+            "footer": "<p><a href=\"https://www.amazon.com/gp/profile/amzn1.account.AHJEB6LBSU73E2DI6OIWIWHMPMAQ/ref=cm_cr_arp_d_gw_btm\">Alan G</a></p>",
+            "image_text": "",
+            "image_link": "",
+            "product": ""
+          }
+        },
+        "testimonial_MF7BKH": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Best on the market",
+            "description": "<p>\"I’ve been searching for a hair/facial steamer for months. I read the previous reviews about this one and decided to purchase. I am so happy I did! My hair feels so moisturized and my face is clearer than ever. It’s the right amount of steam for hair & face. Definitely recommend buying this!\"</p>",
+            "footer": "<p><a href=\"https://www.amazon.com/gp/profile/amzn1.account.AEHWPATO5AHZLYVFGRSK2TCFSRNQ/ref=cm_cr_arp_d_gw_btm\">Alesha Sullivan</a></p>",
+            "image_text": "",
+            "image_link": "",
+            "product": ""
+          }
+        },
+        "testimonial_DnVd8C": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Great customer service",
+            "description": "<p>\"This product is wonderful with easy to understand instructions, I checked the product and noticed there was a small crack on one of the handles and emailed customer support directly. She was so helpful and was able to send me a replacement very quickly, she even emailed me back to ensure that I received the replacement. The steam output is strong enough to reach my client at a comfortable distance, it does not leak. I love it!\"</p>",
+            "footer": "<p><a href=\"https://www.amazon.com/gp/profile/amzn1.account.AGVUNBAASTAJHWQFNQTR27IADRFQ/ref=cm_cr_arp_d_gw_btm\">Cynthia</a></p>",
+            "image_text": "",
+            "image_link": "",
+            "product": ""
+          }
+        },
+        "testimonial_NECN8V": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Love it!",
+            "description": "<p>\"I love this steamer. I bought it in December 2024 after reviewing several over a period of months. It was well worth it! I use it every 2 weeks and it has transformed the texture of my hair from damaged, dry and brittle to soft, moisturized and manageable. I am an AA woman with waist line hair for reference.\"</p>",
+            "footer": "<p><a href=\"https://www.amazon.com/gp/profile/amzn1.account.AHRR3GIMGOVGUP5XGRHO5DNM3JHQ/ref=cm_cr_arp_d_gw_btm\">Paris Cole</a></p>",
+            "image_text": "",
+            "image_link": "",
+            "product": ""
+          }
+        },
+        "testimonial_fWGAgg": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Great Deal for Steaming",
+            "description": "<p>\"This 2 in 1 steamer is amazing! It's very easy to use and is highly effective for steaming both the face and hair. My hair feels so moisturized on cleaning day when using it after shampooing and helps get my conditioner to work better. The facial steamer does the same making my skin feel super moist after use. It can get very hot so be careful touching the base but it heats up rather quickly and produces a lot of steam which is nice. It comes with instructions that are very straightforward as to how to clean and maintain it for your convenience.\"</p>",
+            "footer": "<p><a href=\"https://www.amazon.com/gp/profile/amzn1.account.AGVFZMMZGSHN7D6CHRTFRRGV4OAA/ref=cm_cr_dp_d_gw_tr?ie=UTF8\">Nia C</a></p>",
+            "image_text": "",
+            "image_link": "",
+            "product": ""
+          }
+        },
+        "testimonial_CmtKNj": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Facial steamer/hairs teamer",
+            "description": "<p>\"I absolutely love this purchase! It came on time to start, it is very easy to ensemble, quiet wile in use which helps with the relaxation part. The steam comes out amazing and so far I have not experienced any leakage and I run it about 20-25 minutes at a time. Performance is great and I love the versatility of it. Absolutely recommend!!!\"</p>",
+            "footer": "<p><a href=\"https://www.amazon.com/gp/profile/amzn1.account.AGX2CWIS3VFRXOYRJH4VUKNYOCRQ/ref=cm_cr_getr_d_gw_btm?ie=UTF8\">Priscilla Bower</a></p>",
+            "image_text": "",
+            "image_link": "",
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_QhHMrP",
+        "testimonial_9MrjAr",
+        "testimonial_MF7BKH",
+        "testimonial_DnVd8C",
+        "testimonial_NECN8V",
+        "testimonial_fWGAgg",
+        "testimonial_CmtKNj"
+      ],
+      "name": "Testimonials",
+      "settings": {
+        "heading": "Hear It From Our Customers",
+        "heading_size": "h3",
+        "subheading": "",
+        "description": "",
+        "header_alignment": "center",
+        "container": "w-full",
+        "color_scheme": "scheme-ec02f5a5-7e1a-44d8-9dd1-9ac155cc16e1",
+        "design": "testimonials-2",
+        "show_stars": true,
+        "autorotate": false,
+        "show_navigation": false,
+        "show_pagination": true,
+        "star_color": "#2c2c24",
+        "item_color_scheme": "scheme-ec02f5a5-7e1a-44d8-9dd1-9ac155cc16e1",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    }
+  },
+  "order": [
+    "16233155804447b3cd",
+    "17652464915a4d6add",
+    "collection_image_showcase_pgLThU",
+    "17649135672c0c9e9b",
+    "scrolling_promotion_ezffbN",
+    "1762831814354cff78",
+    "testimonials_CEUB87"
+  ]
+}

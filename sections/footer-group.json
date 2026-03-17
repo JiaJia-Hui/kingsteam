@@ -1,0 +1,192 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer",
+  "sections": {
+    "blocks_pBn6yW": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_1049ae1_XFnKkY": {
+          "type": "ai_gen_block_1049ae1",
+          "settings": {
+            "image": "shopify://shop_images/long-blond-hair.jpg",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "border_radius": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_1049ae1_XFnKkY"
+      ],
+      "name": "Full width image",
+      "settings": {}
+    },
+    "newsletter_AhdNBf": {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "settings": {
+        "container": "container-fluid",
+        "color_scheme": "scheme-ec02f5a5-7e1a-44d8-9dd1-9ac155cc16e1",
+        "form_layout": "horizontal",
+        "form_design": "1",
+        "heading": "Stay up to date with all fashion news<br> and exclusive offers",
+        "description": "",
+        "text_size": "h2",
+        "email_placeholder": "Enter your email",
+        "submit_button": "Subscribe",
+        "text_color": "inherit",
+        "show_icon": true,
+        "icon_img_width": "30",
+        "show_agreement": true,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "2bd3b7d0-e898-4720-82ab-227b7e3815b4": {
+          "type": "spacing",
+          "settings": {
+            "width": "20%"
+          }
+        },
+        "7527ffa4-1a31-4e5c-b642-96aa834daf84": {
+          "type": "menu",
+          "settings": {
+            "menu": "copy",
+            "title": "SHOP Kingsteam",
+            "width": "25%",
+            "order_first": false,
+            "open_default": false
+          }
+        },
+        "menu_LLjemy": {
+          "type": "menu",
+          "settings": {
+            "menu": "all-product",
+            "title": "DISCOVER",
+            "width": "25%",
+            "order_first": false,
+            "open_default": false
+          }
+        },
+        "menu_RWjMHF": {
+          "type": "menu",
+          "settings": {
+            "menu": "footer",
+            "title": "CUSTOMER SERVICE",
+            "width": "25%",
+            "order_first": false,
+            "open_default": false
+          }
+        },
+        "251dcd4f-1c2a-4c6f-a534-70690333e1aa": {
+          "type": "our_store",
+          "settings": {
+            "title": "SOCIAL MEDIA",
+            "description": "",
+            "show_email": false,
+            "show_phone": false,
+            "show_socials_link": true,
+            "width": "33%",
+            "order_first": false,
+            "open_default": false
+          }
+        }
+      },
+      "block_order": [
+        "2bd3b7d0-e898-4720-82ab-227b7e3815b4",
+        "7527ffa4-1a31-4e5c-b642-96aa834daf84",
+        "menu_LLjemy",
+        "menu_RWjMHF",
+        "251dcd4f-1c2a-4c6f-a534-70690333e1aa"
+      ],
+      "settings": {
+        "color_scheme": "scheme-f303282f-ccb3-4945-a81b-17a80a473ec4",
+        "design": "footer-1",
+        "container": "container-full",
+        "bordered": false,
+        "copyright": "© Kingsteam 2025",
+        "show_country_selector": false,
+        "show_currency_selector": false,
+        "show_language_selector": false,
+        "show_social_links": false,
+        "enable_follow_on_shop": true,
+        "show_payment_icons": true,
+        "payment_icons_width": 352,
+        "footer_bottom_color_scheme": "scheme-ec02f5a5-7e1a-44d8-9dd1-9ac155cc16e1",
+        "footer_bottom_menu": "",
+        "show_menu_item_divider": false
+      }
+    },
+    "mobile-sticky-bar": {
+      "type": "mobile-sticky-bar",
+      "settings": {
+        "show_mobile_sticky": true,
+        "show_home_icon": true,
+        "show_collection_icon": true,
+        "show_cart_icon": true,
+        "show_search_icon": true,
+        "show_account_icon": false,
+        "show_wishlist_icon": false
+      }
+    },
+    "age-verifier-popup": {
+      "type": "age-verifier-popup",
+      "blocks": {
+        "block-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "Confirm your age"
+          }
+        },
+        "block-2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Are you 18 years old or older?</p>"
+          }
+        },
+        "block-3": {
+          "type": "buttons",
+          "settings": {
+            "decline_button": "No, I'm not",
+            "approve_button": "Yes, I am"
+          }
+        }
+      },
+      "block_order": [
+        "block-1",
+        "block-2",
+        "block-3"
+      ],
+      "settings": {
+        "design_mode": false,
+        "enable": false,
+        "bg_blur": true,
+        "decline_heading": "Come back when you're older",
+        "decline_content": "<p>Sorry, the content of this store can't be seen by a younger audience. Come back when you're older.</p>",
+        "return_button": "Oops, I entered incorrectly"
+      }
+    }
+  },
+  "order": [
+    "blocks_pBn6yW",
+    "newsletter_AhdNBf",
+    "footer",
+    "mobile-sticky-bar",
+    "age-verifier-popup"
+  ]
+}

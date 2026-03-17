@@ -1,0 +1,228 @@
+{% doc %}
+  @prompt
+    A heading with an animated blurry effect. The text style should follow global settings.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-blur-heading-{{ ai_gen_id }} {
+    text-align: {{ block.settings.text_alignment }};
+    padding: {{ block.settings.padding_top }}px 0 {{ block.settings.padding_bottom }}px;
+  }
+
+  .ai-blur-heading__text-{{ ai_gen_id }} {
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+    display: inline-block;
+    position: relative;
+  }
+
+  .ai-blur-heading__text-{{ ai_gen_id }}::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: blur({{ block.settings.blur_amount }}px);
+    opacity: {{ block.settings.blur_opacity }};
+    z-index: -1;
+    color: {{ block.settings.blur_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-blur-heading__text-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.heading_size }}px * 0.7);
+    }
+  }
+{% endstyle %}
+
+<div class="ai-blur-heading-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.heading_tag == 'h1' %}
+    <h1 class="ai-blur-heading__text-{{ ai_gen_id }}" data-text="{{ block.settings.heading_text }}">
+      {{ block.settings.heading_text }}
+    </h1>
+  {% elsif block.settings.heading_tag == 'h2' %}
+    <h2 class="ai-blur-heading__text-{{ ai_gen_id }}" data-text="{{ block.settings.heading_text }}">
+      {{ block.settings.heading_text }}
+    </h2>
+  {% elsif block.settings.heading_tag == 'h3' %}
+    <h3 class="ai-blur-heading__text-{{ ai_gen_id }}" data-text="{{ block.settings.heading_text }}">
+      {{ block.settings.heading_text }}
+    </h3>
+  {% elsif block.settings.heading_tag == 'h4' %}
+    <h4 class="ai-blur-heading__text-{{ ai_gen_id }}" data-text="{{ block.settings.heading_text }}">
+      {{ block.settings.heading_text }}
+    </h4>
+  {% elsif block.settings.heading_tag == 'h5' %}
+    <h5 class="ai-blur-heading__text-{{ ai_gen_id }}" data-text="{{ block.settings.heading_text }}">
+      {{ block.settings.heading_text }}
+    </h5>
+  {% else %}
+    <h6 class="ai-blur-heading__text-{{ ai_gen_id }}" data-text="{{ block.settings.heading_text }}">
+      {{ block.settings.heading_text }}
+    </h6>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Blur heading",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Heading text",
+      "default": "Welcome to Our Store"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Font",
+      "default": "roboto_condensed_n7"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Font size",
+      "default": 60
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "blur_color",
+      "label": "Blur color",
+      "default": "#222222"
+    },
+    {
+      "type": "header",
+      "content": "Blur effect"
+    },
+    {
+      "type": "range",
+      "id": "blur_amount",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Blur amount",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "blur_opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "label": "Blur opacity",
+      "default": 0.5
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blur heading"
+    }
+  ]
+}
+{% endschema %}

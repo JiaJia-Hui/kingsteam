@@ -1,0 +1,286 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "d880451e-1d96-4f33-80f8-fffa1f3ffaa1": {
+      "type": "custom-code",
+      "settings": {
+        "custom_css": ".sf__index-custom-content {\n    background-image: url(\"https://cdn.shopify.com/s/files/1/0595/7291/2305/files/bg-4.jpg?v=1631937503\");\n    background-size: cover;\n    background-position: bottom center;\n    background-repeat: no-repeat;\n}\n\n.sf__index-custom-content .m-section__header {\n    margin-bottom: 100px;\n}\n.sf__index-custom-content .sf-custom__grid {\n    padding-bottom: 10%;\n}\n.sf__index-custom-content ul.sf__custom-list li {\n    display: grid;\n    grid-template-columns: 48px auto;\n    grid-gap: 40px;\n    margin-bottom: 50px;\n}\n.sf__index-custom-content ul.sf__custom-list li:last-child {\n    margin-bottom: 0;\n}\n.sf__index-custom-content ul.sf__custom-list .content_box h3 {\n    font-size: 24px;\n    line-height: 1.5;\n    margin-bottom: 10px;\n}\n.sf__index-custom-content ul.sf__custom-list .content_box p {\n    color: rgb(var(--color-foreground-secondary));\n}\n@media (min-width: 1280px) {\n  .sf__index-custom-content .m-section__heading {\n    font-size: 48px;\n  }\n}\n@media (min-width: 1921px) {\n    .sf__index-custom-content {\n        background-position: top;\n    }\n}\n\n@media (max-width: 767px) {\n    .sf__index-custom-content {\n        background-image: none;\n    }\n    .sf__index-custom-content .m-section__header {\n        margin-bottom: 30px;\n    }\n    .sf__index-custom-content ul.sf__custom-list .content_box h3 {\n        font-size: 18px;\n        margin-bottom: 5px;\n    }\n    .sf__index-custom-content .sf-custom__grid {\n        padding-bottom: 0;\n    }\n    .sf__index-custom-content ul.sf__custom-list li {\n        grid-template-columns: 30px auto;\n        grid-gap: 20px;\n        margin-bottom: 30px;\n    }\n}"
+      }
+    },
+    "1634180644dff29e33": {
+      "type": "breadcrumb",
+      "settings": {
+        "container": "container",
+        "text_alignment": "center",
+        "hide_current": false,
+        "hide_on_mb": false,
+        "animations": "inherit"
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_saving": false,
+            "sale_badge_type": "percentage"
+          }
+        },
+        "a7c33681-2e92-4afe-af6c-09be8f611b30": {
+          "type": "short_description",
+          "settings": {}
+        },
+        "1bfc8830-45fe-4840-b192-262d4a0ed107": {
+          "type": "visitors",
+          "settings": {
+            "color_scheme": "",
+            "live_views_text": "{count_number} people are viewing this right now",
+            "live_views_range": "20-30",
+            "live_view_duration": "10",
+            "live_view_icon_blinks": true
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "size_title": "Size"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "show_atc_button": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "addons": {
+          "type": "addons",
+          "settings": {
+            "show_atcp": false,
+            "show_ask_a_question": true,
+            "show_social": true
+          }
+        },
+        "98eecea7-1e9e-46dd-8fc4-b00c7702dbda": {
+          "type": "shipping",
+          "settings": {
+            "show_delivery_times": true,
+            "deliver_text": "Estimated Delivery:",
+            "deliver_days": "7",
+            "date_format": "%b %d",
+            "show_shipping_text": true,
+            "shipping_text": "<p><strong>Free Shipping & Returns: </strong>On all orders over $75</p>"
+          }
+        },
+        "95858a21-0a8c-42d1-be95-cd4f1797f5fc": {
+          "type": "trust_badge",
+          "settings": {
+            "trust_badges_text": "<p>Guarantee safe & secure checkout</p>",
+            "trust_badges_image_width": "320px",
+            "position": "below"
+          }
+        },
+        "collapsible_tab_yd3gVE": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Features",
+            "content": "<ul><li>Stronger steam: Provide professional facial and hair spa</li><li>Multi angle: Adjustable nozzle, you can sit, lie down and enjoy your spa from multiple angles</li><li>High-capacity: A large enough tank to support your face sauna</li><li>Convenient: Removable nozzle and suitable size for your carrying and storage</li></ul>",
+            "liquid": "",
+            "default_open": false
+          }
+        },
+        "collapsible_tab_RCy38g": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "What's Included",
+            "content": "<ul><li>Main Body*1</li><li>Hood*1</li><li>Extendable Pipe*1</li><li>Connector*1</li><li>Warranty Card*1</li><li>User Manuel*1</li></ul>",
+            "liquid": "",
+            "default_open": false
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "a7c33681-2e92-4afe-af6c-09be8f611b30",
+        "1bfc8830-45fe-4840-b192-262d4a0ed107",
+        "variant_picker",
+        "buy_buttons",
+        "addons",
+        "98eecea7-1e9e-46dd-8fc4-b00c7702dbda",
+        "95858a21-0a8c-42d1-be95-cd4f1797f5fc",
+        "collapsible_tab_yd3gVE",
+        "collapsible_tab_RCy38g"
+      ],
+      "settings": {
+        "container": "container",
+        "layout": "layout-4",
+        "show_atwl": true,
+        "enable_history_state": true,
+        "enable_variant_group_images": false,
+        "disable_selected_variant_default": false,
+        "show_featured_media": true,
+        "show_zoom_button": true,
+        "enable_video_autoplay": false,
+        "show_nav_media_mobile": false,
+        "show_pagination_mobile": true,
+        "use_sticky_atc": true,
+        "use_sticky_atc_on_mobile": true,
+        "enable_dynamic_checkout": false,
+        "sticky_atc_wishtlist": false,
+        "sticky_atc_compare": false
+      }
+    },
+    "custom_content_nLaLwh": {
+      "type": "custom-content",
+      "blocks": {
+        "text_nDejb4": {
+          "type": "text",
+          "settings": {
+            "title": "Why Choose The 2-in-1 Hair and Facial Steamer?",
+            "subheading": "",
+            "text": "",
+            "width": "100%",
+            "alignment": "center",
+            "align_text": "center",
+            "text_size": "small",
+            "text_color": "inherit",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "m-button--primary",
+            "button_size": "",
+            "block_custom_class": "",
+            "animations": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "text_nDejb4"
+      ],
+      "name": "Custom content",
+      "settings": {
+        "heading": "",
+        "heading_size": "h3",
+        "subheading": "",
+        "description": "",
+        "header_alignment": "center",
+        "container": "container-fluid",
+        "color_scheme": "",
+        "content_color_scheme": "",
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "gap": 30,
+        "gap_mobile": 16,
+        "use_scroll_mobile": false,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "enable_preload_image": false,
+        "custom_class": ""
+      }
+    },
+    "blocks_jcpQxR": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_1049ae1_FcriVG": {
+          "type": "ai_gen_block_1049ae1",
+          "name": "Full width image",
+          "settings": {
+            "image": "shopify://shop_images/3000x1800_01_e1cce664-aad7-40bd-bc6c-ad0aadc033f2.jpg",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "border_radius": 0
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_1049ae1_8LgGK6": {
+          "type": "ai_gen_block_1049ae1",
+          "name": "Full width image",
+          "settings": {
+            "image": "shopify://shop_images/3000x1800_02_241b7ddf-7f6a-4082-878f-197339faf104.jpg",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "border_radius": 0
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_1049ae1_FmGn8B": {
+          "type": "ai_gen_block_1049ae1",
+          "name": "Full width image",
+          "settings": {
+            "image": "shopify://shop_images/3000x1800_03_0d3c4034-1e96-4468-991b-15db359447b5.jpg",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "border_radius": 0
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_1049ae1_YqeNbp": {
+          "type": "ai_gen_block_1049ae1",
+          "settings": {
+            "image": "shopify://shop_images/3000x1800_04_6.jpg",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "border_radius": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_1049ae1_FcriVG",
+        "ai_gen_block_1049ae1_8LgGK6",
+        "ai_gen_block_1049ae1_FmGn8B",
+        "ai_gen_block_1049ae1_YqeNbp"
+      ],
+      "name": "Full width image",
+      "settings": {}
+    },
+    "product-details-tabs": {
+      "type": "product-details-tabs",
+      "blocks": {
+        "tab": {
+          "type": "tab",
+          "settings": {
+            "header": "Shipping & Return",
+            "content": "<p>Shipping cost is based on weight. Just add products to your cart and use the Shipping Calculator to see the shipping price.</p><p>We want you to be 100% satisfied with your purchase. Items can be returned or exchanged within 30 days of delivery.</p>",
+            "content_page": ""
+          }
+        }
+      },
+      "block_order": [
+        "tab"
+      ],
+      "settings": {
+        "container": "container",
+        "color_scheme": "scheme-6b1359fd-0c64-48f5-bf30-9cc3d526d779",
+        "default_open": true,
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    }
+  },
+  "order": [
+    "d880451e-1d96-4f33-80f8-fffa1f3ffaa1",
+    "1634180644dff29e33",
+    "main",
+    "custom_content_nLaLwh",
+    "blocks_jcpQxR",
+    "product-details-tabs"
+  ]
+}
