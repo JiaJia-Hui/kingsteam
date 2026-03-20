@@ -89,6 +89,30 @@
   data-transparent="{{ transparent_on_top }}"
   data-sticky="{{ section.settings.sticky_header }}"
 >
+  {% if request.page_type == 'index' %}
+    <div class="m-header__quickbar m-gradient m-color-{{ section.settings.color_scheme }}">
+      <div class="m-header__quickbar-inner {{ container }}">
+        <form action="{{ routes.search_url }}" method="get" role="search" class="m-header__quick-search">
+          <input
+            type="search"
+            name="q"
+            value="{{ search.terms | escape }}"
+            placeholder="{{ 'general.search.placeholder' | t }}"
+            aria-label="{{ 'general.search.placeholder' | t }}"
+            class="m-header__quick-search-input"
+          >
+          <button type="submit" class="m-header__quick-search-button">
+            {{ 'general.search.placeholder_short' | t }}
+          </button>
+        </form>
+        <a href="{{ routes.cart_url }}" class="m-header__quick-cart" aria-label="{{ 'layout.cart.title' | t }}">
+          <span>{{ 'layout.cart.title' | t }}</span>
+          <span class="m-header__quick-cart-count">{{ cart.item_count }}</span>
+        </a>
+      </div>
+    </div>
+  {% endif %}
+
   {% render 'header__topbar', header: section %}
   <div class="m-header__wrapper">
     {% comment %}Header Mobile{% endcomment %}
