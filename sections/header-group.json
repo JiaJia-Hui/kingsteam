@@ -51,7 +51,7 @@
       ],
       "settings": {
         "container": "container",
-        "color_scheme": "scheme-09e5b5b4-774c-4b6c-8025-416ced49cc74",
+        "color_scheme": "scheme-e815acb4-c412-4bbc-abce-1a24722db4ee",
         "show_announcement": true,
         "homepage_only": true,
         "show_close": false,
@@ -91,9 +91,8 @@
         "product_list_HHDpnR",
         "product_list_LXTfME"
       ],
-      "disabled": false,
       "settings": {
-        "color_scheme": "default",
+        "color_scheme": "scheme-f303282f-ccb3-4945-a81b-17a80a473ec4",
         "color_scheme_menu": "default",
         "header_design": "logo-left-menu-center",
         "container": "container-fluid",
@@ -107,9 +106,9 @@
         "logo_svg": "",
         "logo_mobile_svg": "",
         "logo_transparent_svg": "",
-        "logo_max_width": 160,
-        "sticky_logo_max_width": 120,
-        "mobile_logo_max_width": 125,
+        "logo_max_width": 120,
+        "sticky_logo_max_width": 90,
+        "mobile_logo_max_width": 95,
         "main_menu": "main-menu",
         "secondary_menu": "main-menu",
         "mobile_menu": "",
