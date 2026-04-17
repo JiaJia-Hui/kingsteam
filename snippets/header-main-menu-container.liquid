@@ -15,6 +15,31 @@
 
         assign title_handle = link.title | handleize
         assign has_mega_item = false
+        assign block_type = ''
+        assign dropdown_container = section.settings.container
+        assign has_custom_discover_links = false
+        assign custom_discover_links_count = 0
+        assign discover_curl_quiz_label = section.settings.discover_curl_quiz_label | default: 'Hair Curl Quiz'
+        assign discover_curl_quiz_url = section.settings.discover_curl_quiz_url | default: '/pages/hair-curl-quiz'
+        assign discover_blog_label = section.settings.discover_blog_label | default: 'Blog Sharing'
+        assign discover_blog_url = section.settings.discover_blog_url | default: '/blogs/news'
+        assign discover_experience_label = section.settings.discover_experience_label | default: 'User Experience Sharing'
+        assign discover_experience_url = section.settings.discover_experience_url | default: '/pages/user-experience-sharing'
+
+        if title_handle == 'discover'
+          if discover_curl_quiz_url != blank
+            assign has_custom_discover_links = true
+            assign custom_discover_links_count = custom_discover_links_count | plus: 1
+          endif
+          if discover_blog_url != blank
+            assign has_custom_discover_links = true
+            assign custom_discover_links_count = custom_discover_links_count | plus: 1
+          endif
+          if discover_experience_url != blank
+            assign has_custom_discover_links = true
+            assign custom_discover_links_count = custom_discover_links_count | plus: 1
+          endif
+        endif
       %}
       {% for block in section.blocks %}
         {% liquid
@@ -253,12 +278,12 @@
           assign is_mega = false
         endif
 
-        if link.links != blank or block_type != blank
+        if link.links != blank or block_type != blank or has_custom_discover_links
           assign has_child = true
           assign li_class = li_class | append: ' m-menu__item--parent'
         endif
 
-        if link.links != blank
+        if link.links != blank or has_custom_discover_links
           assign li_class = li_class | append: ' m-menu__item--has-submenu'
 
           unless is_mega
@@ -271,7 +296,10 @@
         endif
       %}
 
-      {% if link.links != blank %}
+      {% if link.links != blank or has_custom_discover_links %}
+        {% liquid
+          assign submenu_size = link.links.size | plus: custom_discover_links_count
+        %}
         <li class="{{ li_class }}" data-index="{{ forloop.index0 }}">
           <a
             href="{{ link.url }}"
@@ -287,7 +315,7 @@
 
           <div
             class="m-mega-menu{% if is_mega and show_menu_column_divider %} m-show-menu-column-divider{% endif %} m-gradient m-color-{{ section.settings.color_scheme }}"
-            style="--total-columns: {{ link.links.size }}"
+            style="--total-columns: {{ submenu_size }}"
           >
             <div class="m-mega-menu__container{% if is_mega %} {{ dropdown_container | default: 'container' }}{% endif %}">
               <div class="m-mega-menu__inner{% if stretch_width == true %} m-mega-menu__inner--stretch-width{% endif %}">
@@ -319,6 +347,29 @@
                       {% endif %}
                     </li>
                   {% endfor %}
+                  {% if has_custom_discover_links %}
+                    {% if discover_curl_quiz_url != blank %}
+                      <li class="m-sub-menu__item m-sub-menu__item--level-1">
+                        <a href="{{ discover_curl_quiz_url }}" class="m-menu__link">
+                          {{ discover_curl_quiz_label }}
+                        </a>
+                      </li>
+                    {% endif %}
+                    {% if discover_blog_url != blank %}
+                      <li class="m-sub-menu__item m-sub-menu__item--level-1">
+                        <a href="{{ discover_blog_url }}" class="m-menu__link">
+                          {{ discover_blog_label }}
+                        </a>
+                      </li>
+                    {% endif %}
+                    {% if discover_experience_url != blank %}
+                      <li class="m-sub-menu__item m-sub-menu__item--level-1">
+                        <a href="{{ discover_experience_url }}" class="m-menu__link">
+                          {{ discover_experience_label }}
+                        </a>
+                      </li>
+                    {% endif %}
+                  {% endif %}
                 </ul>
                 {% if is_mega and block_type != blank %}
                   <div class="m-mega-menu__content">

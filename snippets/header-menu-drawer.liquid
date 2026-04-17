@@ -17,6 +17,20 @@
           {% liquid
             assign title_handle = link.title | handleize
             assign has_mega_item = false
+            assign block_type = ''
+            assign has_custom_discover_links = false
+            assign discover_curl_quiz_label = section.settings.discover_curl_quiz_label | default: 'Hair Curl Quiz'
+            assign discover_curl_quiz_url = section.settings.discover_curl_quiz_url | default: '/pages/hair-curl-quiz'
+            assign discover_blog_label = section.settings.discover_blog_label | default: 'Blog Sharing'
+            assign discover_blog_url = section.settings.discover_blog_url | default: '/blogs/news'
+            assign discover_experience_label = section.settings.discover_experience_label | default: 'User Experience Sharing'
+            assign discover_experience_url = section.settings.discover_experience_url | default: '/pages/user-experience-sharing'
+
+            if title_handle == 'discover'
+              if discover_curl_quiz_url != blank or discover_blog_url != blank or discover_experience_url != blank
+                assign has_custom_discover_links = true
+              endif
+            endif
           %}
           {% for block in section.blocks %}
             {% liquid
@@ -208,7 +222,7 @@
               {% endcase %}
             {% endif %}
           {% endfor %}
-          {% if link.links != blank %}
+          {% if link.links != blank or has_custom_discover_links %}
             <li class="m-menu-mobile__item" data-url="{{ link.url }}" data-index="{{ forloop.index0 }}">
               <a
                 href="{{ link.url }}"
@@ -271,6 +285,29 @@
                         {% endif %}
                       </li>
                     {% endfor %}
+                    {% if has_custom_discover_links %}
+                      {% if discover_curl_quiz_url != blank %}
+                        <li class="m-menu-mobile__item" data-url="{{ discover_curl_quiz_url }}">
+                          <a href="{{ discover_curl_quiz_url }}" class="m-menu-mobile__link">
+                            <span>{{ discover_curl_quiz_label }}</span>
+                          </a>
+                        </li>
+                      {% endif %}
+                      {% if discover_blog_url != blank %}
+                        <li class="m-menu-mobile__item" data-url="{{ discover_blog_url }}">
+                          <a href="{{ discover_blog_url }}" class="m-menu-mobile__link">
+                            <span>{{ discover_blog_label }}</span>
+                          </a>
+                        </li>
+                      {% endif %}
+                      {% if discover_experience_url != blank %}
+                        <li class="m-menu-mobile__item" data-url="{{ discover_experience_url }}">
+                          <a href="{{ discover_experience_url }}" class="m-menu-mobile__link">
+                            <span>{{ discover_experience_label }}</span>
+                          </a>
+                        </li>
+                      {% endif %}
+                    {% endif %}
                   </ul>
                   {% if has_mega_item == true and block_type != blank %}
                     <div class="m-megamenu-mobile__block">
