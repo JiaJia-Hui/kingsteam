@@ -42,6 +42,19 @@
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     touch-action: pan-y;
     user-select: none;
+    will-change: transform;
+  }
+
+  .ai-holo-slider__viewport-{{ ai_gen_id }} {
+    overflow: hidden;
+    cursor: grab;
+    touch-action: pan-y;
+    user-select: none;
+    padding: 6px 0;
+  }
+
+  .ai-holo-slider__viewport-{{ ai_gen_id }}.is-dragging {
+    cursor: grabbing;
   }
 
   .ai-holo-card-{{ ai_gen_id }} {
@@ -52,6 +65,8 @@
     background: {{ block.settings.card_background }};
     cursor: pointer;
     transition: transform 0.3s ease;
+    border: 1.5px solid rgba(89, 74, 56, 0.28);
+    box-shadow: 0 14px 28px rgba(67, 53, 38, 0.08);
   }
 
   .ai-holo-card-{{ ai_gen_id }}::before {
@@ -79,6 +94,11 @@
   .ai-holo-card-{{ ai_gen_id }}:hover::before {
     opacity: 1;
     animation: ai-holo-shift-{{ ai_gen_id }} {{ block.settings.holo_animation_speed }}s ease infinite;
+  }
+
+  .ai-holo-card-{{ ai_gen_id }}:hover {
+    border-color: rgba(89, 74, 56, 0.42);
+    transform: translateY(-4px);
   }
 
   @keyframes ai-holo-shift-{{ ai_gen_id }} {
@@ -313,9 +333,10 @@
       </div>
     {% endif %}
 
-    <div class="ai-holo-slider__track-{{ ai_gen_id }}" data-track>
-      {% if block.settings.products != blank %}
-        {% for product in block.settings.products %}
+    <div class="ai-holo-slider__viewport-{{ ai_gen_id }}" data-viewport>
+      <div class="ai-holo-slider__track-{{ ai_gen_id }}" data-track>
+        {% if block.settings.products != blank %}
+          {% for product in block.settings.products %}
           {% liquid
             assign hover_image = blank
 
@@ -390,26 +411,27 @@
                 </a>
               {% endif %}
             </div>
-          </div>
-        {% endfor %}
-      {% else %}
-        {% for i in (1..6) %}
-          <div class="ai-holo-card-{{ ai_gen_id }}">
-            <div class="ai-holo-card__image-wrapper-{{ ai_gen_id }}">
-              <div class="ai-holo-card__placeholder-{{ ai_gen_id }}">
-                {{ 'product-1' | placeholder_svg_tag }}
+            </div>
+          {% endfor %}
+        {% else %}
+          {% for i in (1..6) %}
+            <div class="ai-holo-card-{{ ai_gen_id }}">
+              <div class="ai-holo-card__image-wrapper-{{ ai_gen_id }}">
+                <div class="ai-holo-card__placeholder-{{ ai_gen_id }}">
+                  {{ 'product-1' | placeholder_svg_tag }}
+                </div>
+              </div>
+              <div class="ai-holo-card__content-{{ ai_gen_id }}">
+                <h3 class="ai-holo-card__title-{{ ai_gen_id }}">Product {{ i }}</h3>
+                <div class="ai-holo-card__price-{{ ai_gen_id }}">
+                  <span class="ai-holo-card__price-current-{{ ai_gen_id }}">$99.00</span>
+                </div>
+                <a href="#" class="ai-holo-card__button-{{ ai_gen_id }}">{{ block.settings.button_text }}</a>
               </div>
             </div>
-            <div class="ai-holo-card__content-{{ ai_gen_id }}">
-              <h3 class="ai-holo-card__title-{{ ai_gen_id }}">Product {{ i }}</h3>
-              <div class="ai-holo-card__price-{{ ai_gen_id }}">
-                <span class="ai-holo-card__price-current-{{ ai_gen_id }}">$99.00</span>
-              </div>
-              <a href="#" class="ai-holo-card__button-{{ ai_gen_id }}">{{ block.settings.button_text }}</a>
-            </div>
-          </div>
-        {% endfor %}
-      {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div>
     </div>
 
     {% if block.settings.show_navigation %}
@@ -441,25 +463,33 @@
         super();
         this.currentIndex = 0;
         this.isDragging = false;
-        this.startPos = 0;
-        this.currentTranslate = 0;
+        this.dragMoved = false;
+        this.startX = 0;
+        this.dragTranslate = 0;
         this.prevTranslate = 0;
-        this.animationID = 0;
+        this.cardsPerView = 1;
+        this.cloneCount = 0;
+        this.boundResize = this.handleResize.bind(this);
+        this.boundTransitionEnd = this.handleTransitionEnd.bind(this);
+        this.boundPointerDown = this.handlePointerDown.bind(this);
+        this.boundPointerMove = this.handlePointerMove.bind(this);
+        this.boundPointerUp = this.handlePointerUp.bind(this);
+        this.boundTrackClick = this.handleTrackClick.bind(this);
       }
 
       connectedCallback() {
+        this.viewport = this.querySelector('[data-viewport]');
         this.track = this.querySelector('[data-track]');
-        this.cards = Array.from(this.track.children);
         this.prevBtn = this.querySelector('[data-prev]');
         this.nextBtn = this.querySelector('[data-next]');
         this.dotsContainer = this.querySelector('[data-dots]');
 
-        this.cardsPerView = this.getCardsPerView();
-        this.totalSlides = Math.ceil(this.cards.length / this.cardsPerView);
+        if (!this.track) return;
+        this.originalCards = Array.from(this.track.children).map((card) => card.cloneNode(true));
+        if (this.originalCards.length === 0) return;
 
+        this.setupSlider();
         this.setupEventListeners();
-        this.createDots();
-        this.updateSlider();
       }
 
       getCardsPerView() {
@@ -477,28 +507,70 @@
           this.nextBtn.addEventListener('click', () => this.next());
         }
 
-        this.track.addEventListener('touchstart', this.touchStart.bind(this), { passive: true });
-        this.track.addEventListener('touchend', this.touchEnd.bind(this));
-        this.track.addEventListener('touchmove', this.touchMove.bind(this), { passive: true });
+        if (this.viewport) {
+          this.viewport.addEventListener('pointerdown', this.boundPointerDown);
+          this.viewport.addEventListener('pointermove', this.boundPointerMove);
+          this.viewport.addEventListener('pointerup', this.boundPointerUp);
+          this.viewport.addEventListener('pointerleave', this.boundPointerUp);
+          this.viewport.addEventListener('pointercancel', this.boundPointerUp);
+          this.viewport.addEventListener('dragstart', (event) => event.preventDefault());
+        }
 
-        this.track.addEventListener('mousedown', this.touchStart.bind(this));
-        this.track.addEventListener('mouseup', this.touchEnd.bind(this));
-        this.track.addEventListener('mouseleave', this.touchEnd.bind(this));
-        this.track.addEventListener('mousemove', this.touchMove.bind(this));
+        this.track.addEventListener('transitionend', this.boundTransitionEnd);
+        this.track.addEventListener('click', this.boundTrackClick, true);
+        window.addEventListener('resize', this.boundResize);
+      }
 
-        window.addEventListener('resize', () => {
-          this.cardsPerView = this.getCardsPerView();
-          this.totalSlides = Math.ceil(this.cards.length / this.cardsPerView);
-          this.currentIndex = Math.min(this.currentIndex, this.totalSlides - 1);
-          this.createDots();
-          this.updateSlider();
-        });
+      setupSlider(preserveIndex = 0) {
+        this.cardsPerView = this.getCardsPerView();
+        this.cloneCount = Math.min(Math.max(this.cardsPerView, 1), this.originalCards.length);
+        this.track.innerHTML = '';
+
+        const leadingCards = this.originalCards.slice(-this.cloneCount).map((card) => this.createCardClone(card));
+        const mainCards = this.originalCards.map((card) => card.cloneNode(true));
+        const trailingCards = this.originalCards.slice(0, this.cloneCount).map((card) => this.createCardClone(card));
+
+        [...leadingCards, ...mainCards, ...trailingCards].forEach((card) => this.track.appendChild(card));
+
+        this.cards = Array.from(this.track.children);
+        this.currentIndex = this.cloneCount + Math.min(preserveIndex, this.originalCards.length - 1);
+        this.createDots();
+        this.updatePosition(false);
+        this.updateDots();
+      }
+
+      createCardClone(card) {
+        const clone = card.cloneNode(true);
+        clone.dataset.clone = 'true';
+        return clone;
+      }
+
+      getCardGap() {
+        const trackStyles = window.getComputedStyle(this.track);
+        return parseFloat(trackStyles.columnGap || trackStyles.gap || 0);
+      }
+
+      getStepSize() {
+        const referenceCard = this.cards[this.cloneCount];
+        if (!referenceCard) return 0;
+        return referenceCard.getBoundingClientRect().width + this.getCardGap();
+      }
+
+      getTranslateForIndex(index) {
+        return -(this.getStepSize() * index);
+      }
+
+      getRealIndex() {
+        if (this.originalCards.length === 0) return 0;
+        let realIndex = (this.currentIndex - this.cloneCount) % this.originalCards.length;
+        if (realIndex < 0) realIndex += this.originalCards.length;
+        return realIndex;
       }
 
       createDots() {
         if (!this.dotsContainer) return;
         this.dotsContainer.innerHTML = '';
-        for (let i = 0; i < this.totalSlides; i++) {
+        for (let i = 0; i < this.originalCards.length; i++) {
           const dot = document.createElement('button');
           dot.className = 'ai-holo-slider__dot-{{ ai_gen_id }}';
           dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
@@ -507,90 +579,145 @@
         }
       }
 
-      touchStart(event) {
+      updateDots() {
+        if (!this.dotsContainer) return;
+        const activeIndex = this.getRealIndex();
+        const dots = this.dotsContainer.querySelectorAll('.ai-holo-slider__dot-{{ ai_gen_id }}');
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('active', index === activeIndex);
+        });
+      }
+
+      updatePosition(animate = true) {
+        const targetTranslate = this.getTranslateForIndex(this.currentIndex);
+        this.prevTranslate = targetTranslate;
+        this.dragTranslate = targetTranslate;
+        this.track.style.transition = animate ? 'transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
+        this.track.style.transform = `translate3d(${targetTranslate}px, 0, 0)`;
+      }
+
+      handleTransitionEnd() {
+        if (
+          this.currentIndex >= this.originalCards.length + this.cloneCount ||
+          this.currentIndex < this.cloneCount
+        ) {
+          this.currentIndex = this.cloneCount + this.getRealIndex();
+          this.updatePosition(false);
+        }
+        this.updateDots();
+      }
+
+      handlePointerDown(event) {
+        if (event.pointerType === 'mouse' && event.button !== 0) return;
         this.isDragging = true;
-        this.startPos = this.getPositionX(event);
-        this.animationID = requestAnimationFrame(this.animation.bind(this));
-        this.track.style.cursor = 'grabbing';
-      }
-
-      touchMove(event) {
-        if (this.isDragging) {
-          const currentPosition = this.getPositionX(event);
-          this.currentTranslate = this.prevTranslate + currentPosition - this.startPos;
+        this.dragMoved = false;
+        this.startX = event.clientX;
+        this.dragTranslate = this.getTranslateForIndex(this.currentIndex);
+        this.prevTranslate = this.dragTranslate;
+        this.track.style.transition = 'none';
+        if (this.viewport) {
+          this.viewport.classList.add('is-dragging');
+          if (this.viewport.setPointerCapture) {
+            this.viewport.setPointerCapture(event.pointerId);
+          }
         }
       }
 
-      touchEnd() {
+      handlePointerMove(event) {
+        if (!this.isDragging) return;
+        const delta = event.clientX - this.startX;
+        if (Math.abs(delta) > 6) {
+          this.dragMoved = true;
+        }
+        this.dragTranslate = this.prevTranslate + delta;
+        this.track.style.transform = `translate3d(${this.dragTranslate}px, 0, 0)`;
+      }
+
+      handlePointerUp(event) {
+        if (!this.isDragging) return;
+
         this.isDragging = false;
-        cancelAnimationFrame(this.animationID);
-        this.track.style.cursor = 'grab';
-
-        const movedBy = this.currentTranslate - this.prevTranslate;
-
-        if (movedBy < -100 && this.currentIndex < this.totalSlides - 1) {
-          this.currentIndex += 1;
+        if (this.viewport) {
+          this.viewport.classList.remove('is-dragging');
+          if (this.viewport.releasePointerCapture) {
+            try {
+              this.viewport.releasePointerCapture(event.pointerId);
+            } catch (error) {
+            }
+          }
         }
 
-        if (movedBy > 100 && this.currentIndex > 0) {
-          this.currentIndex -= 1;
+        const movedBy = this.dragTranslate - this.prevTranslate;
+        const stepSize = this.getStepSize();
+        if (!stepSize) {
+          this.updatePosition(true);
+          return;
+        }
+        const movedCards = Math.round(Math.abs(movedBy) / stepSize);
+
+        if (movedBy < -stepSize / 5) {
+          this.currentIndex += Math.max(1, movedCards);
+        } else if (movedBy > stepSize / 5) {
+          this.currentIndex -= Math.max(1, movedCards);
         }
 
-        this.updateSlider();
+        this.updatePosition(true);
+        this.updateDots();
+
+        window.setTimeout(() => {
+          this.dragMoved = false;
+        }, 0);
       }
 
-      getPositionX(event) {
-        return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+      handleTrackClick(event) {
+        if (this.dragMoved) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
       }
 
-      animation() {
-        if (this.isDragging) {
-          this.track.style.transform = `translateX(${this.currentTranslate}px)`;
-          requestAnimationFrame(this.animation.bind(this));
-        }
+      handleResize() {
+        const realIndex = this.getRealIndex();
+        this.setupSlider(realIndex);
       }
 
       prev() {
-        if (this.currentIndex > 0) {
-          this.currentIndex--;
-          this.updateSlider();
-        }
+        this.currentIndex -= 1;
+        this.updatePosition(true);
+        this.updateDots();
       }
 
       next() {
-        if (this.currentIndex < this.totalSlides - 1) {
-          this.currentIndex++;
-          this.updateSlider();
-        }
+        this.currentIndex += 1;
+        this.updatePosition(true);
+        this.updateDots();
       }
 
       goToSlide(index) {
-        this.currentIndex = index;
-        this.updateSlider();
+        let delta = index - this.getRealIndex();
+        const loopDelta =
+          delta > 0 ? delta - this.originalCards.length : delta + this.originalCards.length;
+        if (Math.abs(loopDelta) < Math.abs(delta)) {
+          delta = loopDelta;
+        }
+        this.currentIndex += delta;
+        this.updatePosition(true);
+        this.updateDots();
       }
 
-      updateSlider() {
-        const cardWidth = this.cards[0].offsetWidth;
-        const gap = {{ block.settings.card_gap }};
-        const offset = -(this.currentIndex * this.cardsPerView * (cardWidth + gap));
-
-        this.currentTranslate = offset;
-        this.prevTranslate = offset;
-        this.track.style.transform = `translateX(${offset}px)`;
-
-        if (this.prevBtn) {
-          this.prevBtn.disabled = this.currentIndex === 0;
+      disconnectedCallback() {
+        if (this.viewport) {
+          this.viewport.removeEventListener('pointerdown', this.boundPointerDown);
+          this.viewport.removeEventListener('pointermove', this.boundPointerMove);
+          this.viewport.removeEventListener('pointerup', this.boundPointerUp);
+          this.viewport.removeEventListener('pointerleave', this.boundPointerUp);
+          this.viewport.removeEventListener('pointercancel', this.boundPointerUp);
         }
-        if (this.nextBtn) {
-          this.nextBtn.disabled = this.currentIndex === this.totalSlides - 1;
+        if (this.track) {
+          this.track.removeEventListener('transitionend', this.boundTransitionEnd);
+          this.track.removeEventListener('click', this.boundTrackClick, true);
         }
-
-        if (this.dotsContainer) {
-          const dots = this.dotsContainer.querySelectorAll('.ai-holo-slider__dot-{{ ai_gen_id }}');
-          dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === this.currentIndex);
-          });
-        }
+        window.removeEventListener('resize', this.boundResize);
       }
     }
 
