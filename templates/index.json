@@ -55,7 +55,7 @@
             "overlay_opacity": 30,
             "heading_size": 44,
             "subheading_size": 20,
-            "hide_arrows": true,
+            "hide_arrows": false,
             "hide_dots": true,
             "dot_size_mobile": 16,
             "controls_color": "#ffffff",
