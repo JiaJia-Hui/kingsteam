@@ -57,7 +57,7 @@
             "subheading_size": 20,
             "hide_arrows": false,
             "hide_dots": true,
-            "dot_size_mobile": 16,
+            "dot_size_mobile": 8,
             "controls_color": "#ab9783",
             "controls_icon_color": "#f9f0e3",
             "controls_hover_color": "#f0f0f0",
