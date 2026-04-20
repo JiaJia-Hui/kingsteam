@@ -369,6 +369,7 @@
         "image_Fdk7Kx",
         "image_6rWXdx"
       ],
+      "disabled": true,
       "name": "Scrolling promotion",
       "settings": {
         "container": "w-full",
