@@ -193,6 +193,47 @@
         "custom_class": ""
       }
     },
+    "image_comparison_7zamyF": {
+      "type": "image-comparison",
+      "blocks": {
+        "image_eMN4df": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/2242bfc8-7d8c-42bf-ae59-f229857c6092.jpg",
+            "image_mobile": "shopify://shop_images/2242bfc8-7d8c-42bf-ae59-f229857c6092_d40043c1-4830-4a28-85ef-905577147c73.jpg",
+            "heading": "Before"
+          }
+        },
+        "image_zqkNH4": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/482ba98b-edd3-4791-ad5d-f4662407fa05_a5308953-eb83-496a-b868-14845432dbe9.jpg",
+            "image_mobile": "shopify://shop_images/482ba98b-edd3-4791-ad5d-f4662407fa05_4cdcfc7c-43e7-47e2-94a2-add67c7d7d8b.jpg",
+            "heading": "After"
+          }
+        }
+      },
+      "block_order": [
+        "image_eMN4df",
+        "image_zqkNH4"
+      ],
+      "name": "Before/after image slider",
+      "settings": {
+        "container": "container-fluid",
+        "color_scheme": "scheme-6b1359fd-0c64-48f5-bf30-9cc3d526d779",
+        "heading": "",
+        "heading_size": "h3",
+        "subheading": "",
+        "description": "",
+        "header_alignment": "center",
+        "layout": "horizontal",
+        "image_height": "adapt",
+        "padding_top": 46,
+        "padding_bottom": 50,
+        "custom_class": "",
+        "enable_preload_image": false
+      }
+    },
     "blocks_jcpQxR": {
       "type": "_blocks",
       "blocks": {
@@ -280,6 +321,7 @@
     "1634180644dff29e33",
     "main",
     "custom_content_nLaLwh",
+    "image_comparison_7zamyF",
     "blocks_jcpQxR",
     "product-details-tabs"
   ]
