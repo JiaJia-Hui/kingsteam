@@ -119,7 +119,7 @@
         "design": "footer-1",
         "container": "container-full",
         "bordered": false,
-        "copyright": "© Kingsteam 2025",
+        "copyright": "© Kingsteam 2026",
         "show_country_selector": false,
         "show_currency_selector": false,
         "show_language_selector": false,
@@ -142,28 +142,6 @@
         "show_search_icon": true,
         "show_account_icon": false,
         "show_wishlist_icon": false
-      }
-    },
-    "email-discount-popup": {
-      "type": "email-discount-popup",
-      "settings": {
-        "design_mode": false,
-        "enable": true,
-        "delay_seconds": 2,
-        "dismiss_days": 7,
-        "eyebrow": "Welcome offer",
-        "heading": "Get 10% off your first order",
-        "text": "<p>Join our email list to unlock a welcome discount for your next Kingsteam order.</p>",
-        "discount_label": "Unlock code:",
-        "discount_code": "WELCOME10",
-        "email_placeholder": "Enter your email",
-        "submit_label": "Get my code",
-        "fine_print": "<p>By signing up, you agree to receive marketing emails. You can unsubscribe anytime.</p>",
-        "dismiss_label": "No thanks",
-        "success_heading": "You're in",
-        "success_text": "<p>Thanks for joining. Use the code below at checkout to claim your welcome discount.</p>",
-        "success_code_label": "Your code",
-        "success_button_label": "Continue shopping"
       }
     },
     "age-verifier-popup": {
@@ -209,7 +187,6 @@
     "newsletter_AhdNBf",
     "footer",
     "mobile-sticky-bar",
-    "email-discount-popup",
     "age-verifier-popup"
   ]
 }
