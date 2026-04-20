@@ -464,6 +464,7 @@
         this.currentIndex = 0;
         this.isDragging = false;
         this.dragMoved = false;
+        this.interactiveSelector = 'a, button, input, select, textarea, label';
         this.startX = 0;
         this.dragTranslate = 0;
         this.prevTranslate = 0;
@@ -609,6 +610,7 @@
 
       handlePointerDown(event) {
         if (event.pointerType === 'mouse' && event.button !== 0) return;
+        if (event.target.closest(this.interactiveSelector)) return;
         this.isDragging = true;
         this.dragMoved = false;
         this.startX = event.clientX;
