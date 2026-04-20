@@ -224,7 +224,7 @@
         "ai_gen_block_1049ae1_dLThmi": {
           "type": "ai_gen_block_1049ae1",
           "settings": {
-            "image": "shopify://shop_images/653c8d2337ea4922bb8f5efae694d182_tplv-fhlh96nyum-origin-jpeg.jpg",
+            "image": "shopify://shop_images/3000x1800_01_f993114b-66d5-442b-887b-3b7cbdb82fc6.jpg",
             "padding_top": 0,
             "padding_bottom": 0,
             "border_radius": 0
@@ -235,7 +235,7 @@
           "type": "ai_gen_block_1049ae1",
           "name": "Full width image",
           "settings": {
-            "image": "shopify://shop_images/6b270de28f5640e6aa4eb327c54225ea_tplv-fhlh96nyum-origin-jpeg.jpg",
+            "image": "shopify://shop_images/3000x1800_02_fdb87755-aa33-4742-ab65-39802bcdf774.jpg",
             "padding_top": 0,
             "padding_bottom": 0,
             "border_radius": 0
@@ -246,7 +246,7 @@
           "type": "ai_gen_block_1049ae1",
           "name": "Full width image",
           "settings": {
-            "image": "shopify://shop_images/b68951be3d6b4f219204aebc1de4acff_tplv-fhlh96nyum-origin-jpeg.jpg",
+            "image": "shopify://shop_images/3000x1800_03_fd5bbb63-ea96-43b1-b3f7-e913d617ec0f.jpg",
             "padding_top": 0,
             "padding_bottom": 0,
             "border_radius": 0
@@ -257,7 +257,29 @@
           "type": "ai_gen_block_1049ae1",
           "name": "Full width image",
           "settings": {
-            "image": "shopify://shop_images/0d73191c0ffc4121b3f2978cdb425dc4_tplv-fhlh96nyum-origin-jpeg.jpg",
+            "image": "shopify://shop_images/3000x1800_04_a456b4ad-6ecd-430a-bbe9-5ed2078d0888.jpg",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "border_radius": 0
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_1049ae1_eqUkp7": {
+          "type": "ai_gen_block_1049ae1",
+          "name": "Full width image",
+          "settings": {
+            "image": "shopify://shop_images/3000x1800_05.jpg",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "border_radius": 0
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_1049ae1_nrG9pi": {
+          "type": "ai_gen_block_1049ae1",
+          "name": "Full width image",
+          "settings": {
+            "image": "shopify://shop_images/3000x1800_06.jpg",
             "padding_top": 0,
             "padding_bottom": 0,
             "border_radius": 0
@@ -269,7 +291,9 @@
         "ai_gen_block_1049ae1_dLThmi",
         "ai_gen_block_1049ae1_MkiniP",
         "ai_gen_block_1049ae1_7BbHc3",
-        "ai_gen_block_1049ae1_8cPez3"
+        "ai_gen_block_1049ae1_8cPez3",
+        "ai_gen_block_1049ae1_eqUkp7",
+        "ai_gen_block_1049ae1_nrG9pi"
       ],
       "name": "Full width image",
       "settings": {}
