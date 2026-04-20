@@ -170,9 +170,14 @@
 
   @media screen and (max-width: 749px) {
     .ai-slider-controls-{{ ai_gen_id }} {
-      flex-direction: column;
-      gap: 16px;
-      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      top: 50%;
+      bottom: auto;
+      width: calc(100% - 32px);
+      transform: translateY(-50%);
+      justify-content: space-between;
+      gap: 12px;
     }
 
     .ai-slider-arrow-{{ ai_gen_id }} {
