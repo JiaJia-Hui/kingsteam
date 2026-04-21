@@ -112,6 +112,11 @@
         "type": "shopify://apps/trustwill-loyalty-trustoo/blocks/boom-cend/930ac91f-2bf2-4655-9ba0-574771f782d6",
         "disabled": false,
         "settings": {}
+      },
+      "16357531335331704164": {
+        "type": "shopify://apps/wheelify-spin-wheel/blocks/wheelify/505ff42c-abce-4466-9558-7e1d3b2cfcd7",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
