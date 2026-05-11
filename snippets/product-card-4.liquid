@@ -181,7 +181,11 @@
               if asp_rat == 'original'
                 assign asp_rat = preview_image.aspect_ratio
               endif
-              assign alt = alt | default: preview_image.alt | escape
+              assign alt = preview_image.alt | strip
+              if alt == blank
+                assign alt = product.title
+              endif
+              assign alt = alt | escape
             -%}
             {%- capture sizes -%}(min-width: {{ settings.container_width }}px) {{ settings.container_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2){%- endcapture -%}
             <responsive-image class="m-image" style="--aspect-ratio: {{ asp_rat }}">
@@ -206,7 +210,7 @@
                 if asp_rat == 'original'
                   assign asp_rat = second_image.aspect_ratio
                 endif
-                assign alt = alt | default: second_image.alt | escape
+                assign alt = ''
               -%}
               {%- capture sizes -%}(min-width: {{ settings.container_width }}px) {{ settings.container_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2){%- endcapture -%}
               <responsive-image class="m-image" style="--aspect-ratio: {{ asp_rat }}">
