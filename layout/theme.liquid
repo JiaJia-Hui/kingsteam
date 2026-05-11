@@ -64,8 +64,9 @@
       {%- endif -%}
     </title>
 
-    {%- if page_description -%}
-      <meta name="description" content="{{ page_description | escape }}">
+    {%- assign meta_description = page_description | default: shop.description -%}
+    {%- if meta_description != blank -%}
+      <meta name="description" content="{{ meta_description | escape }}">
     {%- endif -%}
 
     {%- liquid
