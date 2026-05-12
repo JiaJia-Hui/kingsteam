@@ -159,11 +159,14 @@
                           assign image_height = block.settings.background.width | divided_by: block.settings.background.aspect_ratio | round
                           assign loading = 'lazy'
                           assign fetchpriority = 'low'
-                          if forloop.index == 1 and section.index < 2 or enable_preload_image
+                          if forloop.index == 1 or enable_preload_image
                             assign loading = 'eager'
                             assign fetchpriority = 'high'
                           endif
-                          assign image_alt = bg_image.alt | default: 'slider image ' | append: block.id
+                          assign image_alt = bg_image.alt | strip
+                          if image_alt == blank
+                            assign image_alt = block.settings.title | default: shop.name
+                          endif
                         -%}
                         <picture>
                           {%- if block.settings.mb_background -%}
