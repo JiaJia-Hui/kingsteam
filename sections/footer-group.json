@@ -172,6 +172,7 @@
         "block-2",
         "block-3"
       ],
+      "disabled": true,
       "settings": {
         "design_mode": false,
         "enable": false,
