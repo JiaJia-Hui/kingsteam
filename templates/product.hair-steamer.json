@@ -112,6 +112,10 @@
             "liquid": "",
             "default_open": false
           }
+        },
+        "description_hBNKU4": {
+          "type": "description",
+          "settings": {}
         }
       },
       "block_order": [
@@ -125,7 +129,8 @@
         "98eecea7-1e9e-46dd-8fc4-b00c7702dbda",
         "95858a21-0a8c-42d1-be95-cd4f1797f5fc",
         "collapsible_tab_yd3gVE",
-        "collapsible_tab_RCy38g"
+        "collapsible_tab_RCy38g",
+        "description_hBNKU4"
       ],
       "settings": {
         "container": "container",
