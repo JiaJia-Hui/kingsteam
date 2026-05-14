@@ -120,9 +120,61 @@
           <div class="m-product-description">{{ product.metafields.descriptor.short_description }}</div>
         {% endif %}
       {%- when 'description' -%}
-        <div class="m-product-description rte">
-          {{ product.description }}
+        <div class="m-product-description-wrap">
+          <div class="m-product-description rte m-product-description--collapsed" id="product-full-desc">
+            {{ product.description }}
+          </div>
+          <button class="m-product-description__toggle" id="product-desc-toggle" aria-expanded="false">
+            Show More
+          </button>
         </div>
+        <style>
+          .m-product-description--collapsed {
+            max-height: 300px;
+            overflow: hidden;
+            position: relative;
+          }
+          .m-product-description--collapsed::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(transparent, #fff);
+            pointer-events: none;
+          }
+          .m-product-description--expanded {
+            max-height: none;
+            overflow: visible;
+          }
+          .m-product-description--expanded::after {
+            display: none;
+          }
+          .m-product-description__toggle {
+            display: block;
+            margin-top: 8px;
+            background: none;
+            border: 1px solid currentColor;
+            padding: 6px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 4px;
+          }
+        </style>
+        <script>
+          (function() {
+            var btn = document.getElementById('product-desc-toggle');
+            var desc = document.getElementById('product-full-desc');
+            if (!btn || !desc) return;
+            btn.addEventListener('click', function() {
+              var expanded = desc.classList.toggle('m-product-description--expanded');
+              desc.classList.toggle('m-product-description--collapsed', !expanded);
+              btn.textContent = expanded ? 'Show Less' : 'Show More';
+              btn.setAttribute('aria-expanded', expanded);
+            });
+          })();
+        </script>
       {%- when 'rating' -%}
         {% render 'product-reviews-app__badge', product: product %}
       {%- when 'meta' -%}
