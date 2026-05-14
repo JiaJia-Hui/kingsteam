@@ -86,15 +86,6 @@
             "shipping_text": "<p><strong>Free Shipping & Returns: </strong>On all orders over $60</p>"
           }
         },
-        "collapsible_tab_4qmhTL": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Description",
-            "content": "<p>Oil-Infused Straightening Brush<br/><br/>Care First. Style Second.<br/><br/>This straightening brush is designed for people who want smooth results without over-exposing hair to heat.<br/><br/>Unlike traditional straightening tools that rely on direct, repeated heat, this brush features an oil-infused roller system that allows hair to receive lightweight nourishment before it reaches the heating zone. The result is smoother glide, fewer passes, and a more comfortable everyday styling experience.<br/><br/></p>",
-            "liquid": "",
-            "default_open": false
-          }
-        },
         "collapsible_tab_NBcE6z": {
           "type": "collapsible_tab",
           "settings": {
@@ -112,6 +103,10 @@
             "liquid": "",
             "default_open": false
           }
+        },
+        "description_c686hB": {
+          "type": "description",
+          "settings": {}
         }
       },
       "block_order": [
@@ -124,9 +119,9 @@
         "buy_buttons",
         "rating_UwM4Yg",
         "shipping_T6i4ny",
-        "collapsible_tab_4qmhTL",
         "collapsible_tab_NBcE6z",
-        "collapsible_tab_mM3yhE"
+        "collapsible_tab_mM3yhE",
+        "description_c686hB"
       ],
       "settings": {
         "container": "container",
