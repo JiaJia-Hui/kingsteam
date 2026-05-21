@@ -1,168 +1,255 @@
-<div class="m-section container" style="max-width: 860px; margin: 0 auto; padding: 40px 20px;">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <h2>Hair Steamers for Deep Conditioning &amp; Moisture-Rich Hair Care</h2>
+<style>
+:root{
+  --ks-paper:#f3ede3;
+  --ks-paper-2:#ece3d6;
+  --ks-clay:#e2d5c3;
+  --ks-wood:#8a7159;
+  --ks-wood-deep:#5e4c3a;
+  --ks-ink:#332c24;
+  --ks-ink-soft:#6b6052;
+  --ks-stone:#b8a994;
+  --ks-mist:rgba(255,253,248,.85);
+  --ks-line:rgba(94,76,58,.18);
+}
+.ks-grain{position:fixed;inset:0;pointer-events:none;z-index:1;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");}
+.ks-mist-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.ks-mist-bg span{position:absolute;border-radius:50%;background:radial-gradient(circle,var(--ks-mist),transparent 68%);filter:blur(30px);opacity:.5;animation:ksfloat 26s ease-in-out infinite;will-change:transform}
+.ks-mist-bg span:nth-child(1){width:520px;height:520px;top:-8%;left:-6%;animation-delay:0s}
+.ks-mist-bg span:nth-child(2){width:600px;height:600px;bottom:-12%;right:-8%;animation-delay:-9s}
+.ks-mist-bg span:nth-child(3){width:400px;height:400px;top:42%;left:55%;animation-delay:-16s;opacity:.35}
+@keyframes ksfloat{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.12)}}
+.ks-cursor{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:radial-gradient(circle at 38% 35%,rgba(255,253,248,.95),rgba(255,253,248,.4) 45%,transparent 72%);filter:blur(3px);mix-blend-mode:screen;transition:width .25s,height .25s,margin .25s}
+.ks-cursor.big{width:74px;height:74px;margin:-37px 0 0 -37px}
+.ks-cursor-trail{position:fixed;z-index:3;pointer-events:none;border-radius:50%;background:radial-gradient(circle,rgba(255,253,248,.7),transparent 70%);filter:blur(14px);opacity:0;mix-blend-mode:screen}
+@keyframes kstrailfade{0%{opacity:.55;transform:translate(-50%,-50%) scale(.6)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.8)}}
+.ks-page{position:relative;z-index:2;background:var(--ks-paper);font-family:'Jost',sans-serif;font-weight:300;color:var(--ks-ink);line-height:1.75;overflow-x:hidden}
+.ks-page *{box-sizing:border-box}
+.ks-page h2,.ks-page h3{font-family:'Cormorant Garamond',serif;font-weight:400}
+.ks-page em{font-style:italic;color:var(--ks-wood-deep)}
+.ks-stage{padding:80px 7vw 100px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:70px;align-items:center}
+.ks-stage-photo{position:relative;border-radius:4px;overflow:hidden;box-shadow:0 50px 90px -50px rgba(94,76,58,.55);aspect-ratio:3/2;background:var(--ks-clay)}
+.ks-stage-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.96)}
+.ks-photo-cap{position:absolute;bottom:18px;left:18px;background:var(--ks-mist);backdrop-filter:blur(6px);padding:9px 16px;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ks-wood-deep);border-radius:2px}
+.ks-kicker{font-size:.74rem;letter-spacing:.32em;text-transform:uppercase;color:var(--ks-wood);margin-bottom:22px;display:block}
+.ks-stage-copy h2{font-size:clamp(2rem,4vw,3.2rem);line-height:1.08;margin-bottom:24px}
+.ks-stage-copy p{color:var(--ks-ink-soft);margin-bottom:20px;max-width:46ch}
+.ks-specrow{display:flex;gap:38px;margin-top:34px;padding-top:30px;border-top:1px solid var(--ks-line)}
+.ks-specstat b{display:block;font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--ks-ink);line-height:1}
+.ks-specstat span{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ks-ink-soft)}
+@media(max-width:880px){.ks-stage{grid-template-columns:1fr;gap:44px}}
+.ks-section{padding:100px 7vw;position:relative}
+.ks-center-head{text-align:center;max-width:760px;margin:0 auto 70px}
+.ks-center-head h2{font-size:clamp(2.2rem,5vw,4rem);line-height:1.04;font-weight:300}
+.ks-center-head p{color:var(--ks-ink-soft);margin-top:24px;font-size:1.05rem}
+.ks-ritual{max-width:1000px;margin:0 auto}
+.ks-row{display:grid;grid-template-columns:80px 1fr;gap:40px;padding:48px 0;border-top:1px solid var(--ks-line);align-items:start;opacity:0;transform:translateY(30px);transition:.9s cubic-bezier(.2,.7,.2,1)}
+.ks-row.ks-in{opacity:1;transform:translateY(0)}
+.ks-row:last-child{border-bottom:1px solid var(--ks-line)}
+.ks-num{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-style:italic;color:var(--ks-stone);line-height:1}
+.ks-row h3{font-size:1.7rem;margin-bottom:12px;font-weight:400;font-family:'Cormorant Garamond',serif}
+.ks-row p{color:var(--ks-ink-soft);max-width:54ch}
+.ks-tag{display:inline-block;margin-top:14px;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ks-wood);border:1px solid var(--ks-line);padding:5px 12px;border-radius:20px}
+@media(max-width:600px){.ks-row{grid-template-columns:1fr;gap:12px}}
+.ks-pillars-bg{background:var(--ks-paper-2)}
+.ks-pillar-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ks-line);border:1px solid var(--ks-line)}
+.ks-pillar{background:var(--ks-paper-2);padding:48px 38px;transition:.5s;opacity:0;transform:translateY(30px)}
+.ks-pillar.ks-in{opacity:1;transform:translateY(0)}
+.ks-pillar:hover{background:var(--ks-paper)}
+.ks-mark{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:var(--ks-wood);margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--ks-line)}
+.ks-pillar h3{font-size:1.5rem;margin-bottom:14px;font-weight:400;font-family:'Cormorant Garamond',serif}
+.ks-pillar p{color:var(--ks-ink-soft);font-size:.95rem}
+@media(max-width:760px){.ks-pillar-grid{grid-template-columns:1fr}}
+.ks-quote{text-align:center;max-width:880px;margin:0 auto}
+.ks-quote blockquote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,3rem);font-style:italic;line-height:1.3;font-weight:300;color:var(--ks-ink)}
+.ks-quote .ks-by{margin-top:30px;font-size:.76rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ks-wood)}
+.ks-specsheet{max-width:820px;margin:0 auto}
+.ks-spec-line{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:baseline;padding:22px 0;border-bottom:1px solid var(--ks-line);opacity:0;transform:translateX(-20px);transition:.7s}
+.ks-spec-line.ks-in{opacity:1;transform:translateX(0)}
+.ks-spec-line dt{font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ks-ink-soft)}
+.ks-spec-line dd{font-family:'Cormorant Garamond',serif;font-size:1.4rem;text-align:right}
+.ks-faq{max-width:820px;margin:0 auto}
+.ks-faq-item{border-top:1px solid var(--ks-line);opacity:0;transform:translateY(20px);transition:.7s}
+.ks-faq-item.ks-in{opacity:1;transform:translateY(0)}
+.ks-faq-item:last-child{border-bottom:1px solid var(--ks-line)}
+.ks-faq-q{width:100%;background:none;border:none;padding:26px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;text-align:left;cursor:pointer;font-family:'Jost',sans-serif;font-weight:400;font-size:1rem;letter-spacing:.04em;color:var(--ks-ink)}
+.ks-faq-q:hover{color:var(--ks-wood-deep)}
+.ks-faq-icon{flex-shrink:0;width:28px;height:28px;border-radius:50%;border:1px solid var(--ks-line);display:flex;align-items:center;justify-content:center;transition:.4s}
+.ks-faq-item.open .ks-faq-icon{background:var(--ks-wood-deep);border-color:var(--ks-wood-deep);transform:rotate(45deg)}
+.ks-faq-icon svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}
+.ks-faq-item.open .ks-faq-icon svg{stroke:#fff}
+.ks-faq-a{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.2,.7,.2,1)}
+.ks-faq-item.open .ks-faq-a{max-height:400px}
+.ks-faq-a p{padding-bottom:26px;color:var(--ks-ink-soft);line-height:1.8;max-width:64ch}
+.ks-cta{text-align:center;background:linear-gradient(180deg,var(--ks-paper),var(--ks-clay));position:relative;overflow:hidden}
+.ks-cta-steam{position:absolute;bottom:0;left:50%;width:240px;height:140px;pointer-events:none;transform:translateX(-50%)}
+.ks-price-block{font-family:'Cormorant Garamond',serif;margin-bottom:36px}
+.ks-price-now{font-size:3.4rem;line-height:1;color:var(--ks-ink)}
+.ks-price-was{font-size:1.3rem;color:var(--ks-ink-soft);text-decoration:line-through;margin-left:12px}
+.ks-cta-note{margin-top:28px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ks-ink-soft)}
+.ks-btn{display:inline-block;font-family:'Jost',sans-serif;font-weight:400;cursor:pointer;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;padding:18px 46px;border-radius:2px;transition:.5s cubic-bezier(.2,.8,.2,1);border:1px solid var(--ks-wood-deep);position:relative;overflow:hidden;background:none;text-decoration:none}
+.ks-btn-fill{background:var(--ks-wood-deep);color:var(--ks-paper)}
+.ks-btn-fill::before{content:'';position:absolute;inset:0;background:var(--ks-ink);transform:scaleX(0);transform-origin:left;transition:.5s cubic-bezier(.2,.8,.2,1);z-index:0}
+.ks-btn-fill:hover::before{transform:scaleX(1)}
+.ks-btn-fill span{position:relative;z-index:1}
+.ks-btn-group{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.ks-stm{position:absolute;bottom:0;border-radius:50%;background:radial-gradient(circle,var(--ks-mist),transparent 70%);filter:blur(5px);opacity:0;pointer-events:none}
+@keyframes ks-srise{0%{transform:translateY(0) scale(.5);opacity:0}20%{opacity:.6}100%{transform:translateY(-130px) translateX(var(--dx,0)) scale(2.2);opacity:0}}
+.ks-divider{height:1px;background:var(--ks-line);max-width:1100px;margin:0 auto}
+</style>
 
-  <p>If you have curly, coily, natural, or low porosity hair, you already know the drill: products sit on top of your strands instead of sinking in, deep conditioners feel like they're doing half the job, and "moisturized" is more of a goal than a state.</p>
+<div class="ks-grain"></div>
+<div class="ks-mist-bg"><span></span><span></span><span></span></div>
+<div class="ks-cursor" id="ksCursor"></div>
 
-  <p>A hair steamer changes the math. By delivering warm, hydrating steam directly to your strands, it helps open the cuticle so conditioner, oils, and treatments can actually penetrate — supporting moisture retention and deep conditioning the way your hair has been asking for.</p>
+<div class="ks-page">
+  {%- liquid assign steamer_product = collections['hair-steamer'].products | first -%}
 
-  <p>Whether you're looking for a <strong>hooded hair steamer</strong> for hands-free salon-style sessions, a <strong>handheld hair steamer</strong> for portability, or a <strong>2-in-1 hair and face steamer</strong> that doubles as your skincare tool, Kingsteam carries the right option for your routine.</p>
+  <div class="ks-stage">
+    <div class="ks-stage-photo">
+      {%- if steamer_product and steamer_product.featured_image -%}
+        <img src="{{ steamer_product.featured_image | image_url: width: 900 }}" alt="{{ steamer_product.featured_image.alt | default: steamer_product.title | escape }}" loading="lazy">
+      {%- endif -%}
+      <span class="ks-photo-cap">2 in 1 · Hair &amp; Facial Steamer</span>
+    </div>
+    <div class="ks-stage-copy">
+      <span class="ks-kicker">The Object</span>
+      <h2>Designed to <em>disappear</em><br>into your space.</h2>
+      <p>A sculpted dome hood and warm matte base — engineered for professional PTC ceramic steam, shaped to sit as easily on a vanity as in a salon.</p>
+      <p>Fill it with clean water, and within minutes a fine, ionized mist rises to wrap your hair and skin in deep, lasting moisture.</p>
+      <div class="ks-specrow">
+        <div class="ks-specstat"><b>5 min</b><span>To Full Steam</span></div>
+        <div class="ks-specstat"><b>10×</b><span>Deeper Absorption</span></div>
+        <div class="ks-specstat"><b>2-in-1</b><span>Hair &amp; Face</span></div>
+      </div>
+    </div>
+  </div>
 
-  <hr>
+  <div class="ks-divider"></div>
 
-  <h2>Why Use a Hair Steamer?</h2>
-  <p>Steam works because of one simple principle: warm moisture helps soften and lift the hair cuticle, making it easier for products to absorb. For hair types that struggle with low porosity — where the cuticle naturally lies flat and resists water and product — this can be a meaningful upgrade over standard deep conditioning.</p>
+  <section class="ks-section">
+    <div class="ks-center-head">
+      <span class="ks-kicker">The Ritual</span>
+      <h2>Four unhurried <em>steps.</em></h2>
+      <p>No rush, no fuss. A treatment that asks only that you sit and breathe.</p>
+    </div>
+    <div class="ks-ritual">
+      <div class="ks-row"><div class="ks-num">I.</div><div><h3>Fill &amp; awaken</h3><p>Pour in clean water, press to power on. The ceramic core begins to warm quietly beneath the base.</p><span class="ks-tag">Press &amp; start</span></div></div>
+      <div class="ks-row"><div class="ks-num">II.</div><div><h3>Wait for the mist</h3><p>In five to six minutes, a visibly rich, micro-fine steam begins to rise — your cue that the ritual has begun.</p><span class="ks-tag">5–6 minutes</span></div></div>
+      <div class="ks-row"><div class="ks-num">III.</div><div><h3>Settle in</h3><p>Rest comfortably eight to twelve inches from the steam. Lower the hood for hair, angle the wand for skin.</p><span class="ks-tag">8–12 inches</span></div></div>
+      <div class="ks-row"><div class="ks-num">IV.</div><div><h3>Let it work</h3><p>Ten to fifteen minutes of warm, ionized moisture. When the water runs low, it switches off on its own.</p><span class="ks-tag">Auto shut-off</span></div></div>
+    </div>
+  </section>
 
-  <p>A hair steamer can support:</p>
-  <ul>
-    <li><strong>Deeper product absorption</strong> — conditioners, masks, and oils penetrate more evenly</li>
-    <li><strong>Moisture retention</strong> — steam adds hydration without the heat damage of traditional dryers</li>
-    <li><strong>Scalp comfort</strong> — warm humidity can feel soothing during wash days</li>
-    <li><strong>Routine efficiency</strong> — many users find a 20–30 minute steam session replaces multiple repeat conditioning sessions</li>
-  </ul>
+  <section class="ks-section ks-pillars-bg">
+    <div class="ks-center-head">
+      <span class="ks-kicker">Why Steam</span>
+      <h2>Quiet technology,<br><em>visible</em> results.</h2>
+    </div>
+    <div class="ks-pillar-grid">
+      <div class="ks-pillar"><div class="ks-mark">i — Heat</div><h3>PTC ceramic core</h3><p>Advanced ceramic heating vaporizes clean water into a strong, even steam almost instantly — no waiting, no sputter.</p></div>
+      <div class="ks-pillar"><div class="ks-mark">ii — Depth</div><h3>Ozone ion mist</h3><p>Ionized water particles penetrate up to ten times deeper into hair and skin layers, carrying moisture where it matters.</p></div>
+      <div class="ks-pillar"><div class="ks-mark">iii — Calm</div><h3>Aromatherapy ready</h3><p>A few drops of essential oil turn the steam into a gentle, scented ritual. Safe, with automatic shut-off built in.</p></div>
+    </div>
+  </section>
 
-  <hr>
+  <section class="ks-section">
+    <div class="ks-quote">
+      <blockquote>"My hair feels so moisturized and my skin is clearer than ever — the right amount of steam for both."</blockquote>
+      <div class="ks-by">— Verified Owner</div>
+    </div>
+  </section>
 
-  <h2>Hair Steamer Types — Find the Right Fit</h2>
+  <div class="ks-divider"></div>
 
-  <h3>Hooded Hair Steamer</h3>
-  <p>A full-coverage dome that sits over your entire head, releasing steam evenly from all directions. Best for full deep conditioning sessions where you want hands-free, salon-style treatment. Most popular for <strong>natural hair</strong> and <strong>4C hair</strong> routines.</p>
-  <p>👉 <strong>Best for</strong>: full wash-day deep conditioning, 20–30 minute sessions, hands-free use</p>
+  <section class="ks-section">
+    <div class="ks-center-head">
+      <span class="ks-kicker">The Details</span>
+      <h2>Everything, <em>considered.</em></h2>
+    </div>
+    <dl class="ks-specsheet">
+      <div class="ks-spec-line"><dt>Function</dt><dd>2-in-1 Hair &amp; Facial</dd></div>
+      <div class="ks-spec-line"><dt>Heating</dt><dd>PTC Ceramic</dd></div>
+      <div class="ks-spec-line"><dt>Steam Output</dt><dd>Ozone Ion · Micro-fine</dd></div>
+      <div class="ks-spec-line"><dt>Nozzle</dt><dd>360° Rotating Wand</dd></div>
+      <div class="ks-spec-line"><dt>Safety</dt><dd>Low-water Auto Shut-off</dd></div>
+      <div class="ks-spec-line"><dt>Certification</dt><dd>TÜV &amp; CE · Prop 65</dd></div>
+      <div class="ks-spec-line"><dt>Use</dt><dd>Home · Salon · Travel</dd></div>
+    </dl>
+  </section>
 
-  <h3>Handheld Hair Steamer</h3>
-  <p>A wand-style steamer you point and move section by section. Lighter, more portable, and easier to store. Many customers prefer this for shorter routines, travel, or refreshing dry hair between wash days.</p>
-  <p>👉 <strong>Best for</strong>: travel, refresh routines, smaller homes, single-section treatments</p>
+  <section class="ks-section ks-pillars-bg">
+    <div class="ks-center-head">
+      <span class="ks-kicker">Questions</span>
+      <h2>We've heard <em>these before.</em></h2>
+    </div>
+    <div class="ks-faq">
+      <div class="ks-faq-item"><button class="ks-faq-q"><span>What does a hair steamer do?</span><span class="ks-faq-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="0" x2="6" y2="12"/><line x1="0" y1="6" x2="12" y2="6"/></svg></span></button><div class="ks-faq-a"><p>A hair steamer applies warm moisture to your hair to help open the cuticle, allowing conditioners and treatments to absorb more deeply. It supports moisture retention and product penetration, especially for low porosity, curly, and natural hair types.</p></div></div>
+      <div class="ks-faq-item"><button class="ks-faq-q"><span>Is a hair steamer worth it?</span><span class="ks-faq-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="0" x2="6" y2="12"/><line x1="0" y1="6" x2="12" y2="6"/></svg></span></button><div class="ks-faq-a"><p>For people with low porosity, curly, coily, or natural hair who struggle with dryness or product buildup, a hair steamer is one of the most-cited upgrades to a wash-day routine. For straight or already easily-moisturized hair, the benefit is smaller.</p></div></div>
+      <div class="ks-faq-item"><button class="ks-faq-q"><span>How often should I steam my hair?</span><span class="ks-faq-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="0" x2="6" y2="12"/><line x1="0" y1="6" x2="12" y2="6"/></svg></span></button><div class="ks-faq-a"><p>Most users steam once a week, paired with their wash day. Some natural hair routines include a mid-week refresh steam for hydration. Daily steaming is not recommended — too much moisture exposure can over-soften strands.</p></div></div>
+      <div class="ks-faq-item"><button class="ks-faq-q"><span>Should I steam before or after washing?</span><span class="ks-faq-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="0" x2="6" y2="12"/><line x1="0" y1="6" x2="12" y2="6"/></svg></span></button><div class="ks-faq-a"><p>Both work. Pre-shampoo steaming (with oil) helps protect strands during cleansing. Post-wash steaming (with deep conditioner) is more common and supports deeper conditioning.</p></div></div>
+      <div class="ks-faq-item"><button class="ks-faq-q"><span>Hooded vs. handheld — which should I buy?</span><span class="ks-faq-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="0" x2="6" y2="12"/><line x1="0" y1="6" x2="12" y2="6"/></svg></span></button><div class="ks-faq-a"><p>A hooded hair steamer is better for long, hands-free deep conditioning sessions and full-coverage steam. A handheld is better for portability, travel, refresh routines, and smaller spaces.</p></div></div>
+      <div class="ks-faq-item"><button class="ks-faq-q"><span>Can I use a hair steamer on dry hair?</span><span class="ks-faq-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="0" x2="6" y2="12"/><line x1="0" y1="6" x2="12" y2="6"/></svg></span></button><div class="ks-faq-a"><p>Yes — many wavy and curly hair users steam dry hair to refresh their style mid-week without re-washing. The steam reactivates products already in your hair and revives curl pattern.</p></div></div>
+      <div class="ks-faq-item"><button class="ks-faq-q"><span>Is steaming safe for color-treated hair?</span><span class="ks-faq-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="0" x2="6" y2="12"/><line x1="0" y1="6" x2="12" y2="6"/></svg></span></button><div class="ks-faq-a"><p>Generally yes. Many colorists recommend it because steam supports moisture retention without exposing color to high dry heat. Keep sessions to 15–20 minutes and wait 48–72 hours after a fresh color appointment.</p></div></div>
+      <div class="ks-faq-item"><button class="ks-faq-q"><span>Hair steamer vs. heat cap — what's the difference?</span><span class="ks-faq-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="0" x2="6" y2="12"/><line x1="0" y1="6" x2="12" y2="6"/></svg></span></button><div class="ks-faq-a"><p>A heat cap warms your hair using dry heat. A hair steamer adds both heat and moisture. For low porosity and very dry hair, steamers are typically the more effective choice.</p></div></div>
+    </div>
+  </section>
 
-  <h3>2-in-1 Hair and Face Steamer</h3>
-  <p>One device, two routines. Switch between hair steaming and facial steaming with attachments designed for each. A practical choice if you want a single tool that supports both your hair care and skincare routine.</p>
-  <p>👉 <strong>Best for</strong>: small bathrooms, multi-use households, value-conscious buyers</p>
-
-  <hr>
-
-  <h2>Best Hair Steamer for Your Hair Type</h2>
-
-  <h3>Natural Hair (3C–4C)</h3>
-  <p>A hooded steamer paired with a 20-minute deep conditioning session is the routine most cited by natural hair communities. Look for a model with adjustable steam levels and a chair-friendly height.</p>
-
-  <h3>Low Porosity Hair</h3>
-  <p>Low porosity hair benefits the most dramatically from steam, because warm vapor helps lift the cuticle that otherwise blocks product penetration. A 15–25 minute steam after applying conditioner can change how moisturized your hair feels for the entire wash week.</p>
-
-  <h3>Curly Hair (2C–3B)</h3>
-  <p>Steam can boost curl definition and reduce frizz by encouraging even product distribution. Lighter, finer curl types often prefer handheld steamers since hooded models can deliver more steam than needed.</p>
-
-  <h3>4C and Afro-Textured Hair</h3>
-  <p>Higher density and tighter coil patterns benefit from longer, more even steam exposure — making hooded steamers the standard recommendation.</p>
-
-  <hr>
-
-  <h2>How to Use a Hair Steamer — The Basics</h2>
-  <ol>
-    <li><strong>Timing</strong>: 15–25 minutes is the sweet spot for most hair types. Longer doesn't mean better — water-logged hair can become more fragile.</li>
-    <li><strong>Distance</strong> (for handheld models): Keep the wand 6–8 inches from your hair. Too close turns steam into water droplets and can flatten curl pattern.</li>
-    <li><strong>Product layering</strong>: Apply your deep conditioner <em>before</em> steaming, not after. Steam's job is to help the product absorb — it works best with something to push in.</li>
-  </ol>
-
-  <hr>
-
-  <h2>Frequently Asked Questions</h2>
-
-  <h3>What does a hair steamer do?</h3>
-  <p>A hair steamer applies warm moisture to your hair to help open the cuticle, allowing conditioners and treatments to absorb more deeply. It supports moisture retention and product penetration, especially for low porosity, curly, and natural hair types.</p>
-
-  <h3>Is a hair steamer worth it?</h3>
-  <p>For people with low porosity, curly, coily, or natural hair who struggle with dryness or product buildup, a hair steamer is one of the most-cited upgrades to a wash-day routine. For straight or already easily-moisturized hair, the benefit is smaller.</p>
-
-  <h3>How often should I steam my hair?</h3>
-  <p>Most users steam once a week, paired with their wash day. Some natural hair routines include a mid-week refresh steam for hydration. Daily steaming is not recommended — too much moisture exposure can over-soften strands.</p>
-
-  <h3>Should I steam my hair before or after washing?</h3>
-  <p>Both work, and serve different purposes. <strong>Pre-shampoo steaming</strong> (with oil) helps protect strands during cleansing. <strong>Post-wash steaming</strong> (with deep conditioner) is more common and supports deeper conditioning.</p>
-
-  <h3>Hooded vs. handheld — which should I buy?</h3>
-  <p>A hooded hair steamer is better for long, hands-free deep conditioning sessions and full-coverage steam. A handheld hair steamer is better for portability, travel, refresh routines, and smaller spaces.</p>
-
-  <h3>Can I use a hair steamer on dry hair?</h3>
-  <p>Yes — many wavy and curly hair users steam dry hair to refresh their style mid-week without re-washing. The steam reactivates products already in your hair and revives curl pattern.</p>
-
-  <h3>Is steaming safe for color-treated hair?</h3>
-  <p>Generally yes. Many colorists recommend it because steam supports moisture retention without exposing color to high dry heat. Keep sessions to 15–20 minutes and wait 48–72 hours after a fresh color appointment.</p>
-
-  <h3>Hair steamer vs. heat cap — what's the difference?</h3>
-  <p>A heat cap warms your hair using dry heat. A hair steamer adds both heat <em>and</em> moisture. For low porosity and very dry hair, steamers are typically the more effective choice.</p>
-
+  <section class="ks-section ks-cta">
+    <div class="ks-cta-steam" id="ksCtaSteam"></div>
+    <div class="ks-center-head" style="margin-bottom:30px">
+      <span class="ks-kicker">Bring It Home</span>
+      <h2>Your daily <em>spa</em>, waiting.</h2>
+    </div>
+    {%- if steamer_product -%}
+      <div class="ks-price-block">
+        <span class="ks-price-now">{{ steamer_product.price | money }}</span>
+        {%- if steamer_product.compare_at_price > steamer_product.price -%}<span class="ks-price-was">{{ steamer_product.compare_at_price | money }}</span>{%- endif -%}
+      </div>
+      <div class="ks-btn-group"><a href="{{ steamer_product.url }}" class="ks-btn ks-btn-fill"><span>Shop Now</span></a></div>
+    {%- else -%}
+      <div class="ks-btn-group"><a href="/collections/hair-steamer" class="ks-btn ks-btn-fill"><span>Shop Now</span></a></div>
+    {%- endif -%}
+    <p class="ks-cta-note">Free shipping · 30-day returns</p>
+  </section>
 </div>
 
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What does a hair steamer do?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A hair steamer applies warm moisture to your hair to help open the cuticle, allowing conditioners and treatments to absorb more deeply. It supports moisture retention and product penetration, especially for low porosity, curly, and natural hair types."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is a hair steamer worth it?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "For people with low porosity, curly, coily, or natural hair who struggle with dryness or product buildup, a hair steamer is one of the most-cited upgrades to a wash-day routine. For straight or already easily-moisturized hair, the benefit is smaller."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How often should I steam my hair?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Most users steam once a week, paired with their wash day. Some natural hair routines include a mid-week refresh steam for hydration. Daily steaming is not recommended — too much moisture exposure can over-soften strands."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Should I steam my hair before or after washing?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Both work and serve different purposes. Pre-shampoo steaming with oil helps protect strands during cleansing. Post-wash steaming with deep conditioner is more common and supports deeper conditioning."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the difference between a hooded and handheld hair steamer?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A hooded hair steamer is better for long, hands-free deep conditioning sessions and full-coverage steam. A handheld hair steamer is better for portability, travel, refresh routines, and smaller spaces."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I use a hair steamer on dry hair?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Many wavy and curly hair users steam dry hair to refresh their style mid-week without re-washing. The steam reactivates products already in your hair and revives curl pattern."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is steaming safe for color-treated hair?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Generally yes. Many colorists recommend it because steam supports moisture retention without exposing color to high dry heat. Keep sessions to 15-20 minutes and wait 48-72 hours after a fresh color appointment."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the difference between a hair steamer and a heat cap?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A heat cap warms your hair using dry heat. A hair steamer adds both heat and moisture. For low porosity and very dry hair, steamers are typically the more effective choice."
-      }
-    }
-  ]
-}
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What does a hair steamer do?","acceptedAnswer":{"@type":"Answer","text":"A hair steamer applies warm moisture to your hair to help open the cuticle, allowing conditioners and treatments to absorb more deeply. It supports moisture retention and product penetration, especially for low porosity, curly, and natural hair types."}},{"@type":"Question","name":"Is a hair steamer worth it?","acceptedAnswer":{"@type":"Answer","text":"For people with low porosity, curly, coily, or natural hair who struggle with dryness or product buildup, a hair steamer is one of the most-cited upgrades to a wash-day routine."}},{"@type":"Question","name":"How often should I steam my hair?","acceptedAnswer":{"@type":"Answer","text":"Most users steam once a week, paired with their wash day. Daily steaming is not recommended."}},{"@type":"Question","name":"Should I steam before or after washing?","acceptedAnswer":{"@type":"Answer","text":"Both work. Pre-shampoo steaming with oil helps protect strands. Post-wash steaming with deep conditioner supports deeper conditioning."}},{"@type":"Question","name":"Hooded vs. handheld — which should I buy?","acceptedAnswer":{"@type":"Answer","text":"A hooded hair steamer is better for hands-free deep conditioning. A handheld is better for portability and travel."}},{"@type":"Question","name":"Can I use a hair steamer on dry hair?","acceptedAnswer":{"@type":"Answer","text":"Yes. Many wavy and curly hair users steam dry hair to refresh their style mid-week without re-washing."}},{"@type":"Question","name":"Is steaming safe for color-treated hair?","acceptedAnswer":{"@type":"Answer","text":"Generally yes. Keep sessions to 15-20 minutes and wait 48-72 hours after a fresh color appointment."}},{"@type":"Question","name":"Hair steamer vs. heat cap?","acceptedAnswer":{"@type":"Answer","text":"A heat cap uses dry heat. A hair steamer adds both heat and moisture, making it more effective for low porosity hair."}}]}
+</script>
+
+<script>
+(function(){
+  var mc=document.getElementById('ksCursor');
+  if(!mc)return;
+  var mcx=innerWidth/2,mcy=innerHeight/2,px=mcx,py=mcy;
+  document.addEventListener('pointermove',function(e){px=e.clientX;py=e.clientY;});
+  (function follow(){mcx+=(px-mcx)*.18;mcy+=(py-mcy)*.18;mc.style.transform='translate('+mcx+'px,'+mcy+'px)';requestAnimationFrame(follow);})();
+  document.querySelectorAll('a,button,.ks-row,.ks-pillar').forEach(function(el){el.addEventListener('pointerenter',function(){mc.classList.add('big');});el.addEventListener('pointerleave',function(){mc.classList.remove('big');});});
+  document.addEventListener('pointerleave',function(){mc.style.opacity='0';});
+  document.addEventListener('pointerenter',function(){mc.style.opacity='1';});
+  var lastTrail=0;
+  document.addEventListener('pointermove',function(e){
+    var now=performance.now();if(now-lastTrail<60)return;lastTrail=now;
+    var m=document.createElement('div');m.className='ks-cursor-trail';
+    var sz=40+Math.random()*60;
+    m.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+e.clientX+'px;top:'+e.clientY+'px;animation:kstrailfade '+(1.2+Math.random()*.8)+'s ease-out forwards';
+    document.body.appendChild(m);setTimeout(function(){m.remove();},2200);
+  });
+  var mistBg=document.querySelector('.ks-mist-bg'),tx=0,ty=0,cx=0,cy=0;
+  document.addEventListener('pointermove',function(e){tx=(e.clientX/innerWidth-.5);ty=(e.clientY/innerHeight-.5);});
+  (function drift(){cx+=(tx-cx)*.05;cy+=(ty-cy)*.05;if(mistBg)mistBg.style.transform='translate('+cx*40+'px,'+cy*40+'px)';requestAnimationFrame(drift);})();
+  var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('ks-in');io.unobserve(e.target);}});},{threshold:.18});
+  document.querySelectorAll('.ks-row,.ks-pillar,.ks-spec-line,.ks-faq-item').forEach(function(el,i){el.style.transitionDelay=(i%4*.08)+'s';io.observe(el);});
+  document.querySelectorAll('.ks-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var item=btn.closest('.ks-faq-item');var isOpen=item.classList.contains('open');document.querySelectorAll('.ks-faq-item.open').forEach(function(o){o.classList.remove('open');});if(!isOpen)item.classList.add('open');});});
+  var box=document.getElementById('ksCtaSteam');
+  if(box){setInterval(function(){var s=document.createElement('div');s.className='ks-stm';var sz=14+Math.random()*22;s.style.width=s.style.height=sz+'px';s.style.left=(Math.random()*100)+'%';s.style.setProperty('--dx',(Math.random()*50-25)+'px');var d=3+Math.random()*2;s.style.animation='ks-srise '+d+'s ease-out forwards';box.appendChild(s);setTimeout(function(){s.remove();},d*1000);},340);}
+  window.addEventListener('scroll',function(){var p=Math.min(scrollY/innerHeight,1);if(mistBg)mistBg.style.opacity=(0.6+p*.4).toFixed(2);});
+})();
 </script>
 
 {% schema %}
