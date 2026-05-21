@@ -104,14 +104,9 @@
             "default_open": false
           }
         },
-        "collapsible_tab_FxRXdT": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Description",
-            "content": "<p>This versatile tool is designed for curly hair, ensuring a comfortable and effective drying experience. It adapts to all hairstyles, making it a must-have for any hair enthusiast. Perfect for achieving salon-quality curls at home.</p>",
-            "liquid": "",
-            "default_open": false
-          }
+        "description_B9dBBm": {
+          "type": "description",
+          "settings": {}
         }
       },
       "block_order": [
@@ -125,7 +120,7 @@
         "98eecea7-1e9e-46dd-8fc4-b00c7702dbda",
         "95858a21-0a8c-42d1-be95-cd4f1797f5fc",
         "collapsible_tab_yd3gVE",
-        "collapsible_tab_FxRXdT"
+        "description_B9dBBm"
       ],
       "settings": {
         "container": "container",

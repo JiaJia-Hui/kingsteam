@@ -120,8 +120,25 @@
           <div class="m-product-description">{{ product.metafields.descriptor.short_description }}</div>
         {% endif %}
       {%- when 'description' -%}
-        <div class="m-product-description rte">
-          {{ product.description }}
+        <div class="m-product-collapsible">
+          <collapsible-tab
+            class="m-collapsible no-js-hidden"
+            data-block-id="collapsible-description-{{ block.id }}"
+          >
+            <button class="m-collapsible--button" data-trigger>
+              <span>Description</span>
+              <span class="m-collapsible--icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13 5.5L8 10.5L3 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </button>
+            <div class="m-collapsible--content" data-content hidden>
+              <div class="m-collapsible--content__inner rte">
+                {{ product.description }}
+              </div>
+            </div>
+          </collapsible-tab>
         </div>
       {%- when 'rating' -%}
         {% render 'product-reviews-app__badge', product: product %}

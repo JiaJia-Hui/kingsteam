@@ -103,6 +103,10 @@
             "liquid": "",
             "default_open": false
           }
+        },
+        "description_GzUwhU": {
+          "type": "description",
+          "settings": {}
         }
       },
       "block_order": [
@@ -115,7 +119,8 @@
         "addons",
         "98eecea7-1e9e-46dd-8fc4-b00c7702dbda",
         "95858a21-0a8c-42d1-be95-cd4f1797f5fc",
-        "collapsible_tab_yd3gVE"
+        "collapsible_tab_yd3gVE",
+        "description_GzUwhU"
       ],
       "settings": {
         "container": "container",
