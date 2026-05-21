@@ -1,7 +1,3 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-
 <style>
 :root{
   --ks-paper:#f3ede3;
@@ -29,9 +25,9 @@
 .ks-cursor-trail{position:fixed;z-index:3;pointer-events:none;border-radius:50%;background:radial-gradient(circle,rgba(255,253,248,.7),transparent 70%);filter:blur(14px);opacity:0;mix-blend-mode:screen}
 @keyframes kstrailfade{0%{opacity:.55;transform:translate(-50%,-50%) scale(.6)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.8)}}
 
-.ks-page{position:relative;z-index:2;background:var(--ks-paper);font-family:'Jost',sans-serif;font-weight:300;color:var(--ks-ink);line-height:1.75;overflow-x:hidden}
+.ks-page{position:relative;z-index:2;background:var(--ks-paper);font-family:var(--font-stack-body,inherit);font-weight:300;color:var(--ks-ink);line-height:1.75;overflow-x:hidden}
 .ks-page *{box-sizing:border-box}
-.ks-page h2,.ks-page h3{font-family:'Cormorant Garamond',serif;font-weight:400}
+.ks-page h2,.ks-page h3{font-family:var(--font-stack-body,inherit);font-weight:500;letter-spacing:.02em}
 .ks-page em{font-style:italic;color:var(--ks-wood-deep)}
 
 /* section layout */
@@ -49,8 +45,8 @@
 .ks-benefits li{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;padding:18px 24px;border:1px solid var(--ks-line);border-radius:2px;background:var(--ks-paper);transition:.4s;opacity:0;transform:translateY(16px)}
 .ks-benefits li.ks-in{opacity:1;transform:translateY(0)}
 .ks-benefits li:hover{background:var(--ks-clay);border-color:transparent}
-.ks-benefit-mark{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.5rem;color:var(--ks-stone);line-height:1;padding-top:2px}
-.ks-benefit-text strong{display:block;font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;margin-bottom:4px;color:var(--ks-ink)}
+.ks-benefit-mark{font-family:var(--font-stack-body,inherit);font-style:italic;font-size:1.5rem;color:var(--ks-stone);line-height:1;padding-top:2px}
+.ks-benefit-text strong{display:block;font-family:var(--font-stack-body,inherit);font-size:1.15rem;font-weight:400;margin-bottom:4px;color:var(--ks-ink)}
 .ks-benefit-text span{color:var(--ks-ink-soft);font-size:.93rem}
 
 /* type cards (3 col) */
@@ -59,8 +55,8 @@
 .ks-pillar{background:var(--ks-paper-2);padding:48px 38px;transition:.5s;opacity:0;transform:translateY(30px)}
 .ks-pillar.ks-in{opacity:1;transform:translateY(0)}
 .ks-pillar:hover{background:var(--ks-paper)}
-.ks-mark{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;color:var(--ks-wood);margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--ks-line)}
-.ks-pillar h3{font-size:1.4rem;margin-bottom:12px;font-weight:400;font-family:'Cormorant Garamond',serif}
+.ks-mark{font-family:var(--font-stack-body,inherit);font-style:italic;font-size:1.05rem;color:var(--ks-wood);margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--ks-line)}
+.ks-pillar h3{font-size:1.4rem;margin-bottom:12px;font-weight:400;font-family:var(--font-stack-body,inherit)}
 .ks-pillar p{color:var(--ks-ink-soft);font-size:.93rem;margin-bottom:12px}
 .ks-pillar .ks-best{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ks-wood);display:block;margin-top:16px}
 @media(max-width:760px){.ks-pillar-grid{grid-template-columns:1fr}}
@@ -70,8 +66,8 @@
 .ks-row{display:grid;grid-template-columns:80px 1fr;gap:40px;padding:48px 0;border-top:1px solid var(--ks-line);align-items:start;opacity:0;transform:translateY(30px);transition:.9s cubic-bezier(.2,.7,.2,1)}
 .ks-row.ks-in{opacity:1;transform:translateY(0)}
 .ks-row:last-child{border-bottom:1px solid var(--ks-line)}
-.ks-num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-style:italic;color:var(--ks-stone);line-height:1}
-.ks-row h3{font-size:1.5rem;margin-bottom:10px;font-weight:400;font-family:'Cormorant Garamond',serif}
+.ks-num{font-family:var(--font-stack-body,inherit);font-size:2rem;font-style:italic;color:var(--ks-stone);line-height:1}
+.ks-row h3{font-size:1.5rem;margin-bottom:10px;font-weight:400;font-family:var(--font-stack-body,inherit)}
 .ks-row p{color:var(--ks-ink-soft);max-width:54ch}
 .ks-tag{display:inline-block;margin-top:14px;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ks-wood);border:1px solid var(--ks-line);padding:5px 12px;border-radius:20px}
 @media(max-width:600px){.ks-row{grid-template-columns:1fr;gap:12px}}
@@ -81,8 +77,8 @@
 .ks-step{display:grid;grid-template-columns:48px 1fr;gap:28px;padding:36px 0;border-top:1px solid var(--ks-line);align-items:start;opacity:0;transform:translateX(-20px);transition:.8s cubic-bezier(.2,.7,.2,1)}
 .ks-step.ks-in{opacity:1;transform:translateX(0)}
 .ks-step:last-child{border-bottom:1px solid var(--ks-line)}
-.ks-step-num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-style:italic;color:var(--ks-stone);line-height:1}
-.ks-step h3{font-size:1.15rem;font-weight:500;margin-bottom:6px;font-family:'Jost',sans-serif;letter-spacing:.04em}
+.ks-step-num{font-family:var(--font-stack-body,inherit);font-size:2rem;font-style:italic;color:var(--ks-stone);line-height:1}
+.ks-step h3{font-size:1.15rem;font-weight:500;margin-bottom:6px;font-family:var(--font-stack-body,inherit);letter-spacing:.04em}
 .ks-step p{color:var(--ks-ink-soft);font-size:.93rem}
 
 /* FAQ */
@@ -90,7 +86,7 @@
 .ks-faq-item{border-top:1px solid var(--ks-line);opacity:0;transform:translateY(20px);transition:.7s}
 .ks-faq-item.ks-in{opacity:1;transform:translateY(0)}
 .ks-faq-item:last-child{border-bottom:1px solid var(--ks-line)}
-.ks-faq-q{width:100%;background:none;border:none;padding:24px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;text-align:left;cursor:pointer;font-family:'Jost',sans-serif;font-weight:400;font-size:1rem;letter-spacing:.04em;color:var(--ks-ink)}
+.ks-faq-q{width:100%;background:none;border:none;padding:24px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;text-align:left;cursor:pointer;font-family:var(--font-stack-body,inherit);font-weight:400;font-size:1rem;letter-spacing:.04em;color:var(--ks-ink)}
 .ks-faq-q:hover{color:var(--ks-wood-deep)}
 .ks-faq-icon{flex-shrink:0;width:28px;height:28px;border-radius:50%;border:1px solid var(--ks-line);display:flex;align-items:center;justify-content:center;transition:.4s}
 .ks-faq-item.open .ks-faq-icon{background:var(--ks-wood-deep);border-color:var(--ks-wood-deep);transform:rotate(45deg)}
@@ -107,12 +103,12 @@
 /* CTA */
 .ks-cta{text-align:center;background:linear-gradient(180deg,var(--ks-paper),var(--ks-clay));position:relative;overflow:hidden}
 .ks-cta-steam{position:absolute;bottom:0;left:50%;width:240px;height:140px;pointer-events:none;transform:translateX(-50%)}
-.ks-btn{display:inline-block;font-family:'Jost',sans-serif;font-weight:400;cursor:pointer;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;padding:18px 46px;border-radius:2px;transition:.5s cubic-bezier(.2,.8,.2,1);border:1px solid var(--ks-wood-deep);position:relative;overflow:hidden;background:none;text-decoration:none}
+.ks-btn{display:inline-block;font-family:var(--font-stack-body,inherit);font-weight:400;cursor:pointer;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;padding:18px 46px;border-radius:2px;transition:.5s cubic-bezier(.2,.8,.2,1);border:1px solid var(--ks-wood-deep);position:relative;overflow:hidden;background:none;text-decoration:none}
 .ks-btn-fill{background:var(--ks-wood-deep);color:var(--ks-paper)}
 .ks-btn-fill::before{content:'';position:absolute;inset:0;background:var(--ks-ink);transform:scaleX(0);transform-origin:left;transition:.5s cubic-bezier(.2,.8,.2,1);z-index:0}
 .ks-btn-fill:hover::before{transform:scaleX(1)}
 .ks-btn-fill span{position:relative;z-index:1}
-.ks-price-block{font-family:'Cormorant Garamond',serif;margin-bottom:36px}
+.ks-price-block{font-family:var(--font-stack-body,inherit);margin-bottom:36px}
 .ks-price-now{font-size:3.4rem;line-height:1;color:var(--ks-ink)}
 .ks-price-was{font-size:1.3rem;color:var(--ks-ink-soft);text-decoration:line-through;margin-left:12px}
 .ks-cta-note{margin-top:24px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ks-ink-soft)}
