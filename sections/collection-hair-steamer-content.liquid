@@ -227,7 +227,7 @@
 </header>
 
 <!-- ══ WHY STEAM ══ -->
-<section class="ks-section">
+<section class="ks-section" style="{% if section.settings.color_why_steam != blank %}background-color:{{ section.settings.color_why_steam }};{% endif %}">
   <div class="ks-narrow">
     <div class="ks-center-head" style="text-align:left;margin-bottom:32px">
       <span class="ks-kicker">Why Steam</span>
@@ -246,7 +246,7 @@
 <div class="ks-divider"></div>
 
 <!-- ══ 3 TYPES ══ -->
-<section class="ks-section ks-pillars-bg">
+<section class="ks-section ks-pillars-bg" style="{% if section.settings.color_types != blank %}background-color:{{ section.settings.color_types }};{% endif %}">
   <div class="ks-center-head">
     <span class="ks-kicker">Find the Right Fit</span>
     <h2>Three types,<br>one <em>ritual.</em></h2>
@@ -277,7 +277,7 @@
 <div class="ks-divider"></div>
 
 <!-- ══ BEFORE / AFTER SLIDER ══ -->
-<section class="ks-section" id="ks-results">
+<section class="ks-section" id="ks-results" style="{% if section.settings.color_ba != blank %}background-color:{{ section.settings.color_ba }};{% endif %}">
   <div class="ks-center-head">
     <span class="ks-kicker">Visible Results</span>
     <h2>See the <em>difference</em> steam makes.</h2>
@@ -335,7 +335,7 @@
 <div class="ks-divider"></div>
 
 <!-- ══ HAIR TYPE GUIDE ══ -->
-<section class="ks-section ks-pillars-bg">
+<section class="ks-section ks-pillars-bg" style="{% if section.settings.color_hair_guide != blank %}background-color:{{ section.settings.color_hair_guide }};{% endif %}">
   <div class="ks-center-head">
     <span class="ks-kicker">Hair Type Guide</span>
     <h2>Steam for <em>every</em> texture.</h2>
@@ -364,7 +364,7 @@
 <div class="ks-divider"></div>
 
 <!-- ══ HOW TO USE ══ -->
-<section class="ks-section">
+<section class="ks-section" style="{% if section.settings.color_howto != blank %}background-color:{{ section.settings.color_howto }};{% endif %}">
   <div class="ks-center-head">
     <span class="ks-kicker">How to Use</span>
     <h2>The basics,<br><em>simply put.</em></h2>
@@ -379,7 +379,7 @@
 <div class="ks-divider"></div>
 
 <!-- ══ FAQ ══ -->
-<section class="ks-section ks-pillars-bg">
+<section class="ks-section ks-pillars-bg" style="{% if section.settings.color_faq != blank %}background-color:{{ section.settings.color_faq }};{% endif %}">
   <div class="ks-center-head">
     <span class="ks-kicker">Questions</span>
     <h2>We've heard <em>these before.</em></h2>
@@ -397,7 +397,7 @@
 </section>
 
 <!-- ══ CTA ══ -->
-<section class="ks-section ks-cta">
+<section class="ks-section ks-cta" style="{% if section.settings.color_cta != blank %}background:{{ section.settings.color_cta }};{% endif %}">
   <div class="ks-cta-steam" id="ksCtaSteam"></div>
   <div class="ks-center-head" style="margin-bottom:28px">
     <span class="ks-kicker">Bring It Home</span>
@@ -616,6 +616,14 @@
       "label": "Banner subheading",
       "default": "A quiet ritual of warmth and hydration — salon-grade steam for hair and skin, brought home."
     },
+    {"type":"header","content":"Section Background Colors"},
+    {"type":"color","id":"color_why_steam","label":"Why Steam — background","default":"#f3ede3"},
+    {"type":"color","id":"color_types","label":"3 Types — background","default":"#ece3d6"},
+    {"type":"color","id":"color_ba","label":"Before / After — background","default":"#f3ede3"},
+    {"type":"color","id":"color_hair_guide","label":"Hair Type Guide — background","default":"#ece3d6"},
+    {"type":"color","id":"color_howto","label":"How to Use — background","default":"#f3ede3"},
+    {"type":"color","id":"color_faq","label":"FAQ — background","default":"#ece3d6"},
+    {"type":"color","id":"color_cta","label":"CTA — background","default":"#f3ede3"},
     {"type":"header","content":"Before / After — Dry & Damaged"},
     {"type":"image_picker","id":"ba_dry_before","label":"Dry: Before image"},
     {"type":"image_picker","id":"ba_dry_after","label":"Dry: After image"},
