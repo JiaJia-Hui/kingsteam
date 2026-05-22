@@ -53,6 +53,9 @@
   animation:ksclearMist 3s 0.6s ease-out forwards}
 @keyframes ksclearMist{0%{opacity:1;backdrop-filter:blur(16px)}100%{opacity:0;backdrop-filter:blur(0px);visibility:hidden}}
 
+/* floating mist blobs on banner */
+.ks-mist-blob{position:absolute;border-radius:50%;pointer-events:none;z-index:1;transform:translate(-50%,-50%);will-change:transform,left,top;mix-blend-mode:screen;background:radial-gradient(circle,rgba(255,253,248,.55),rgba(243,237,227,.18) 55%,transparent 75%);filter:blur(22px)}
+
 .ks-banner-content{position:relative;z-index:3;color:var(--ks-paper)}
 .ks-banner-label{font-size:.72rem;letter-spacing:.42em;text-transform:uppercase;color:rgba(243,237,227,.8);margin-bottom:20px;display:block;opacity:0;animation:ksfadeUp 1s .3s forwards}
 .ks-banner-label::before,.ks-banner-label::after{content:'—';margin:0 12px;opacity:.6}
@@ -281,18 +284,38 @@
     <p>Drag the slider to reveal the change. Select your hair type below.</p>
   </div>
   <div class="ks-ba-tabs" id="ksBaTabs">
-    <button class="ks-ba-tab active" data-type="dry">Dry &amp; Damaged</button>
-    <button class="ks-ba-tab" data-type="curly">Curly &amp; Coily</button>
-    <button class="ks-ba-tab" data-type="frizz">Frizz-Prone</button>
-    <button class="ks-ba-tab" data-type="fine">Fine &amp; Flat</button>
+    <button class="ks-ba-tab active" data-type="dry"
+      data-before="{% if section.settings.ba_dry_before %}{{ section.settings.ba_dry_before | image_url: width: 900 }}{% endif %}"
+      data-after="{% if section.settings.ba_dry_after %}{{ section.settings.ba_dry_after | image_url: width: 900 }}{% endif %}">Dry &amp; Damaged</button>
+    <button class="ks-ba-tab" data-type="curly"
+      data-before="{% if section.settings.ba_curly_before %}{{ section.settings.ba_curly_before | image_url: width: 900 }}{% endif %}"
+      data-after="{% if section.settings.ba_curly_after %}{{ section.settings.ba_curly_after | image_url: width: 900 }}{% endif %}">Curly &amp; Coily</button>
+    <button class="ks-ba-tab" data-type="frizz"
+      data-before="{% if section.settings.ba_frizz_before %}{{ section.settings.ba_frizz_before | image_url: width: 900 }}{% endif %}"
+      data-after="{% if section.settings.ba_frizz_after %}{{ section.settings.ba_frizz_after | image_url: width: 900 }}{% endif %}">Frizz-Prone</button>
+    <button class="ks-ba-tab" data-type="fine"
+      data-before="{% if section.settings.ba_fine_before %}{{ section.settings.ba_fine_before | image_url: width: 900 }}{% endif %}"
+      data-after="{% if section.settings.ba_fine_after %}{{ section.settings.ba_fine_after | image_url: width: 900 }}{% endif %}">Fine &amp; Flat</button>
   </div>
   <div class="ks-ba-stage">
     <div class="ks-ba-slider" id="ksBaSlider">
       <span class="ks-ba-pill l">Before</span>
       <span class="ks-ba-pill r">After 15 min</span>
-      <div class="ks-ba-ph before" id="ksBaBefore">Before — Dry &amp; Brittle</div>
+      {%- if section.settings.ba_dry_before -%}
+        <img src="{{ section.settings.ba_dry_before | image_url: width: 900 }}" alt="Before" id="ksBaBeforeImg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+        <div class="ks-ba-ph before" id="ksBaBefore" style="display:none">Before — Dry &amp; Brittle</div>
+      {%- else -%}
+        <img id="ksBaBeforeImg" src="" alt="Before" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+        <div class="ks-ba-ph before" id="ksBaBefore">Before — Dry &amp; Brittle</div>
+      {%- endif -%}
       <div class="ks-ba-after-wrap" id="ksBaAfterWrap">
-        <div class="ks-ba-ph after" id="ksBaAfter">After — Soft &amp; Hydrated</div>
+        {%- if section.settings.ba_dry_after -%}
+          <img src="{{ section.settings.ba_dry_after | image_url: width: 900 }}" alt="After" id="ksBaAfterImg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+          <div class="ks-ba-ph after" id="ksBaAfter" style="display:none">After — Soft &amp; Hydrated</div>
+        {%- else -%}
+          <img id="ksBaAfterImg" src="" alt="After" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+          <div class="ks-ba-ph after" id="ksBaAfter">After — Soft &amp; Hydrated</div>
+        {%- endif -%}
       </div>
       <div class="ks-ba-divider" id="ksBaDivider"><div class="ks-ba-handle">⇄</div></div>
     </div>
@@ -444,6 +467,35 @@
     bHero.addEventListener('pointerleave',function(){bMist.style.setProperty('--cr','0px');});
   }
 
+  /* FLOATING MIST BLOBS — drift & scatter from cursor */
+  if(bHero){
+    var blobs=[];var bmx=-9999,bmy=-9999;
+    var blobCount=10;
+    for(var bi=0;bi<blobCount;bi++){
+      var bl=document.createElement('div');bl.className='ks-mist-blob';
+      var bsz=60+Math.random()*100;
+      bl.style.width=bsz+'px';bl.style.height=bsz+'px';bl.style.opacity=(0.3+Math.random()*0.45).toFixed(2);
+      bHero.appendChild(bl);
+      blobs.push({el:bl,x:10+Math.random()*80,y:10+Math.random()*80,vx:(Math.random()-.5)*.06,vy:(Math.random()-.5)*.04,sz:bsz});
+    }
+    bHero.addEventListener('pointermove',function(e){var r=bHero.getBoundingClientRect();bmx=(e.clientX-r.left)/r.width*100;bmy=(e.clientY-r.top)/r.height*100;});
+    bHero.addEventListener('pointerleave',function(){bmx=-9999;bmy=-9999;});
+    (function tickBlobs(){
+      blobs.forEach(function(b){
+        var dx=b.x-bmx,dy=b.y-bmy;
+        var dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<22&&dist>.1){var f=(22-dist)/22*.35;b.vx+=(dx/dist)*f;b.vy+=(dy/dist)*f;}
+        var spd=Math.sqrt(b.vx*b.vx+b.vy*b.vy);if(spd>.18){b.vx=b.vx/spd*.18;b.vy=b.vy/spd*.18;}
+        b.vx*=.97;b.vy*=.97;
+        b.x+=b.vx;b.y+=b.vy;
+        if(b.x<-5){b.vx=Math.abs(b.vx);}if(b.x>105){b.vx=-Math.abs(b.vx);}
+        if(b.y<-5){b.vy=Math.abs(b.vy);}if(b.y>105){b.vy=-Math.abs(b.vy);}
+        b.el.style.left=b.x+'%';b.el.style.top=b.y+'%';
+      });
+      requestAnimationFrame(tickBlobs);
+    })();
+  }
+
   /* SCROLL REVEAL */
   var io=new IntersectionObserver(function(entries){
     entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('ks-in');io.unobserve(e.target);}});
@@ -493,6 +545,10 @@
     fine:{k:'Fine &amp; Flat',t:'From flat to <em>full &amp; alive.</em>',d:'Gentle ionized steam adds weightless moisture and lift to fine hair, boosting body and movement without weighing it down.',m:[['+45%','Volume'],['+38%','Softness'],['15 min','Per treatment']],b:'Before — Flat',a:'After — Full &amp; Lifted'}
   };
   var tabsEl=document.getElementById('ksBaTabs');
+  var ksBaBeforeImg=document.getElementById('ksBaBeforeImg');
+  var ksBaAfterImg=document.getElementById('ksBaAfterImg');
+  var ksBaBeforePh=document.getElementById('ksBaBefore');
+  var ksBaAfterPh=document.getElementById('ksBaAfter');
   if(tabsEl){
     tabsEl.addEventListener('click',function(e){
       var btn=e.target.closest('.ks-ba-tab');if(!btn)return;
@@ -502,11 +558,15 @@
       document.getElementById('ksBaKicker').innerHTML=d.k;
       document.getElementById('ksBaTitle').innerHTML=d.t;
       document.getElementById('ksBaDesc').textContent=d.d;
-      document.getElementById('ksBaBefore').innerHTML=d.b;
-      document.getElementById('ksBaAfter').innerHTML=d.a;
       document.getElementById('ksBaMetrics').innerHTML=d.m.map(function(x,i){
         return '<div style="animation-delay:'+i*.08+'s"><b>'+x[0]+'</b><span>'+x[1]+'</span></div>';
       }).join('');
+      /* swap images */
+      var bUrl=btn.dataset.before;var aUrl=btn.dataset.after;
+      if(ksBaBeforeImg&&bUrl){ksBaBeforeImg.src=bUrl;ksBaBeforeImg.style.display='';if(ksBaBeforePh)ksBaBeforePh.style.display='none';}
+      else if(ksBaBeforeImg){ksBaBeforeImg.style.display='none';if(ksBaBeforePh){ksBaBeforePh.style.display='';ksBaBeforePh.innerHTML=d.b;}}
+      if(ksBaAfterImg&&aUrl){ksBaAfterImg.src=aUrl;ksBaAfterImg.style.display='';if(ksBaAfterPh)ksBaAfterPh.style.display='none';}
+      else if(ksBaAfterImg){ksBaAfterImg.style.display='none';if(ksBaAfterPh){ksBaAfterPh.style.display='';ksBaAfterPh.innerHTML=d.a;}}
       setSplit(50);
     });
   }
@@ -555,7 +615,19 @@
       "id": "banner_subheading",
       "label": "Banner subheading",
       "default": "A quiet ritual of warmth and hydration — salon-grade steam for hair and skin, brought home."
-    }
+    },
+    {"type":"header","content":"Before / After — Dry & Damaged"},
+    {"type":"image_picker","id":"ba_dry_before","label":"Dry: Before image"},
+    {"type":"image_picker","id":"ba_dry_after","label":"Dry: After image"},
+    {"type":"header","content":"Before / After — Curly & Coily"},
+    {"type":"image_picker","id":"ba_curly_before","label":"Curly: Before image"},
+    {"type":"image_picker","id":"ba_curly_after","label":"Curly: After image"},
+    {"type":"header","content":"Before / After — Frizz-Prone"},
+    {"type":"image_picker","id":"ba_frizz_before","label":"Frizz: Before image"},
+    {"type":"image_picker","id":"ba_frizz_after","label":"Frizz: After image"},
+    {"type":"header","content":"Before / After — Fine & Flat"},
+    {"type":"image_picker","id":"ba_fine_before","label":"Fine: Before image"},
+    {"type":"image_picker","id":"ba_fine_after","label":"Fine: After image"}
   ],
   "presets": [{"name": "Hair Steamer Content"}]
 }
