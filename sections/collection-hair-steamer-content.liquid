@@ -68,9 +68,6 @@
 @keyframes ksdrop{0%,100%{transform:scaleY(.4);transform-origin:top}50%{transform:scaleY(1)}}
 @keyframes ksfadeUp{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
 
-/* steam canvas */
-.ks-steam-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;display:block}
-
 /* ── SECTIONS ── */
 .ks-section{padding:90px 7vw;position:relative}
 .ks-narrow{max-width:860px;margin:0 auto}
@@ -215,10 +212,6 @@
     {%- endif -%}
   </div>
   <div class="ks-banner-mist" id="ksBannerMist"></div>
-  <canvas class="ks-steam-canvas" id="ksSteamCanvas"
-    data-nx="{{ section.settings.nozzle_x | default: 53 }}"
-    data-ny="{{ section.settings.nozzle_y | default: 28 }}"
-    data-angle="{{ section.settings.nozzle_angle | default: 160 }}"></canvas>
   <div class="ks-banner-content">
     <span class="ks-banner-label">{{ section.settings.banner_label | default: 'The Hair Steamer' }}</span>
     <h2>{{ section.settings.banner_heading | default: 'Deep moisture,<br><em>drifting in.</em>' }}</h2>
@@ -474,87 +467,54 @@
     bHero.addEventListener('pointerleave',function(){bMist.style.setProperty('--cr','0px');});
   }
 
-  /* FLOATING MIST BLOBS — drift & scatter from cursor */
+  /* FLOATING MIST BLOBS — drift, breathe & scatter from cursor */
   if(bHero){
     var blobs=[];var bmx=-9999,bmy=-9999;
-    var blobCount=10;
-    for(var bi=0;bi<blobCount;bi++){
-      var bl=document.createElement('div');bl.className='ks-mist-blob';
-      var bsz=60+Math.random()*100;
-      bl.style.width=bsz+'px';bl.style.height=bsz+'px';bl.style.opacity=(0.3+Math.random()*0.45).toFixed(2);
-      bHero.appendChild(bl);
-      blobs.push({el:bl,x:10+Math.random()*80,y:10+Math.random()*80,vx:(Math.random()-.5)*.06,vy:(Math.random()-.5)*.04,sz:bsz});
-    }
+    /* 3 layers: large slow bg blobs, medium mid blobs, small fast wisps */
+    var blobDefs=[
+      {count:4,minSz:180,maxSz:320,minOp:.18,maxOp:.32,spd:.035},
+      {count:6,minSz:90,maxSz:160,minOp:.28,maxOp:.48,spd:.06},
+      {count:6,minSz:40,maxSz:80,minOp:.35,maxOp:.55,spd:.09}
+    ];
+    blobDefs.forEach(function(def){
+      for(var bi=0;bi<def.count;bi++){
+        var bl=document.createElement('div');bl.className='ks-mist-blob';
+        var bsz=def.minSz+Math.random()*(def.maxSz-def.minSz);
+        var bop=(def.minOp+Math.random()*(def.maxOp-def.minOp)).toFixed(2);
+        bl.style.width=bsz+'px';bl.style.height=bsz+'px';bl.style.opacity=bop;
+        bHero.appendChild(bl);
+        blobs.push({
+          el:bl,
+          x:Math.random()*100,y:20+Math.random()*70,
+          vx:(Math.random()-.5)*def.spd,vy:(Math.random()-.5)*def.spd*.6,
+          baseOp:parseFloat(bop),phase:Math.random()*Math.PI*2,
+          repel:def.spd>0.07?28:18
+        });
+      }
+    });
     bHero.addEventListener('pointermove',function(e){var r=bHero.getBoundingClientRect();bmx=(e.clientX-r.left)/r.width*100;bmy=(e.clientY-r.top)/r.height*100;});
     bHero.addEventListener('pointerleave',function(){bmx=-9999;bmy=-9999;});
+    var blobTick=0;
     (function tickBlobs(){
+      blobTick+=0.012;
       blobs.forEach(function(b){
+        /* gentle breathing pulse */
+        var pulse=1+0.12*Math.sin(blobTick+b.phase);
+        b.el.style.opacity=(b.baseOp*pulse).toFixed(3);
+        /* cursor repulsion */
         var dx=b.x-bmx,dy=b.y-bmy;
         var dist=Math.sqrt(dx*dx+dy*dy);
-        if(dist<22&&dist>.1){var f=(22-dist)/22*.35;b.vx+=(dx/dist)*f;b.vy+=(dy/dist)*f;}
-        var spd=Math.sqrt(b.vx*b.vx+b.vy*b.vy);if(spd>.18){b.vx=b.vx/spd*.18;b.vy=b.vy/spd*.18;}
-        b.vx*=.97;b.vy*=.97;
+        if(dist<b.repel&&dist>.1){var f=(b.repel-dist)/b.repel*.4;b.vx+=(dx/dist)*f;b.vy+=(dy/dist)*f;}
+        /* velocity damping */
+        var spd=Math.sqrt(b.vx*b.vx+b.vy*b.vy);if(spd>.22){b.vx=b.vx/spd*.22;b.vy=b.vy/spd*.22;}
+        b.vx*=.975;b.vy*=.975;
         b.x+=b.vx;b.y+=b.vy;
-        if(b.x<-5){b.vx=Math.abs(b.vx);}if(b.x>105){b.vx=-Math.abs(b.vx);}
-        if(b.y<-5){b.vy=Math.abs(b.vy);}if(b.y>105){b.vy=-Math.abs(b.vy);}
+        /* wrap edges smoothly */
+        if(b.x<-8){b.x=108;}if(b.x>108){b.x=-8;}
+        if(b.y<10){b.vy=Math.abs(b.vy)*.5;}if(b.y>90){b.vy=-Math.abs(b.vy)*.5;}
         b.el.style.left=b.x+'%';b.el.style.top=b.y+'%';
       });
       requestAnimationFrame(tickBlobs);
-    })();
-  }
-
-  /* STEAM PARTICLES FROM NOZZLE */
-  var steamCanvas=document.getElementById('ksSteamCanvas');
-  if(steamCanvas&&bHero){
-    var sCtx=steamCanvas.getContext('2d');
-    var sP=[];
-    var sNX=parseFloat(steamCanvas.dataset.nx||53)/100;
-    var sNY=parseFloat(steamCanvas.dataset.ny||28)/100;
-    var sBaseAngle=parseFloat(steamCanvas.dataset.angle||160)*Math.PI/180;
-    var sConeSpread=0.55;
-    function resizeSC(){steamCanvas.width=bHero.offsetWidth;steamCanvas.height=bHero.offsetHeight;}
-    resizeSC();window.addEventListener('resize',resizeSC);
-    function spawnS(){
-      var w=steamCanvas.width,h=steamCanvas.height;
-      var ang=sBaseAngle+(Math.random()-.5)*sConeSpread;
-      var spd=(0.35+Math.random()*0.55)*(w/1400);
-      sP.push({
-        x:w*sNX+(Math.random()-.5)*6,
-        y:h*sNY+(Math.random()-.5)*6,
-        vx:Math.cos(ang)*spd,vy:Math.sin(ang)*spd,
-        r:5+Math.random()*7,
-        gr:0.22+Math.random()*0.18,
-        op:0.5+Math.random()*0.38,
-        life:0,maxLife:140+Math.random()*90
-      });
-    }
-    (function tickS(){
-      var w=steamCanvas.width,h=steamCanvas.height;
-      sCtx.clearRect(0,0,w,h);
-      /* spawn 3 per frame for dense steam */
-      for(var i=0;i<3;i++)spawnS();
-      for(var i=sP.length-1;i>=0;i--){
-        var p=sP[i];p.life++;
-        if(p.life>p.maxLife){sP.splice(i,1);continue;}
-        var prog=p.life/p.maxLife;
-        var fade=prog<0.1?prog/0.1:1-((prog-0.1)/0.9);
-        var alpha=p.op*fade;
-        var curR=p.r+p.gr*p.life;
-        /* natural turbulence + buoyancy */
-        p.vx+=(Math.random()-.5)*0.012;
-        p.vy-=0.007;
-        p.vx*=0.994;p.vy*=0.994;
-        p.x+=p.vx;p.y+=p.vy;
-        /* draw soft radial blob */
-        var g=sCtx.createRadialGradient(p.x,p.y,0,p.x,p.y,curR);
-        g.addColorStop(0,'rgba(255,253,248,'+alpha.toFixed(3)+')');
-        g.addColorStop(0.38,'rgba(243,237,227,'+(alpha*.6).toFixed(3)+')');
-        g.addColorStop(1,'rgba(243,237,227,0)');
-        sCtx.beginPath();sCtx.arc(p.x,p.y,curR,0,Math.PI*2);
-        sCtx.fillStyle=g;sCtx.fill();
-      }
-      if(sP.length>160)sP.splice(0,sP.length-160);
-      requestAnimationFrame(tickS);
     })();
   }
 
@@ -678,10 +638,6 @@
       "label": "Banner subheading",
       "default": "A quiet ritual of warmth and hydration — salon-grade steam for hair and skin, brought home."
     },
-    {"type":"header","content":"Steam Effect — Nozzle Position"},
-    {"type":"range","id":"nozzle_x","label":"Nozzle X position","min":0,"max":100,"step":1,"default":53,"unit":"%"},
-    {"type":"range","id":"nozzle_y","label":"Nozzle Y position","min":0,"max":100,"step":1,"default":28,"unit":"%"},
-    {"type":"range","id":"nozzle_angle","label":"Steam direction (0°=right 90°=down 180°=left)","min":0,"max":360,"step":5,"default":160,"unit":"°"},
     {"type":"header","content":"Section Background Colors"},
     {"type":"color","id":"color_why_steam","label":"Why Steam — background","default":"#f3ede3"},
     {"type":"color","id":"color_types","label":"3 Types — background","default":"#ece3d6"},
