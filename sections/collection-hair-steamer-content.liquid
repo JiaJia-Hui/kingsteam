@@ -68,6 +68,9 @@
 @keyframes ksdrop{0%,100%{transform:scaleY(.4);transform-origin:top}50%{transform:scaleY(1)}}
 @keyframes ksfadeUp{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
 
+/* steam canvas */
+.ks-steam-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;display:block}
+
 /* ── SECTIONS ── */
 .ks-section{padding:90px 7vw;position:relative}
 .ks-narrow{max-width:860px;margin:0 auto}
@@ -212,6 +215,10 @@
     {%- endif -%}
   </div>
   <div class="ks-banner-mist" id="ksBannerMist"></div>
+  <canvas class="ks-steam-canvas" id="ksSteamCanvas"
+    data-nx="{{ section.settings.nozzle_x | default: 53 }}"
+    data-ny="{{ section.settings.nozzle_y | default: 28 }}"
+    data-angle="{{ section.settings.nozzle_angle | default: 160 }}"></canvas>
   <div class="ks-banner-content">
     <span class="ks-banner-label">{{ section.settings.banner_label | default: 'The Hair Steamer' }}</span>
     <h2>{{ section.settings.banner_heading | default: 'Deep moisture,<br><em>drifting in.</em>' }}</h2>
@@ -496,6 +503,61 @@
     })();
   }
 
+  /* STEAM PARTICLES FROM NOZZLE */
+  var steamCanvas=document.getElementById('ksSteamCanvas');
+  if(steamCanvas&&bHero){
+    var sCtx=steamCanvas.getContext('2d');
+    var sP=[];
+    var sNX=parseFloat(steamCanvas.dataset.nx||53)/100;
+    var sNY=parseFloat(steamCanvas.dataset.ny||28)/100;
+    var sBaseAngle=parseFloat(steamCanvas.dataset.angle||160)*Math.PI/180;
+    var sConeSpread=0.55;
+    function resizeSC(){steamCanvas.width=bHero.offsetWidth;steamCanvas.height=bHero.offsetHeight;}
+    resizeSC();window.addEventListener('resize',resizeSC);
+    function spawnS(){
+      var w=steamCanvas.width,h=steamCanvas.height;
+      var ang=sBaseAngle+(Math.random()-.5)*sConeSpread;
+      var spd=(0.35+Math.random()*0.55)*(w/1400);
+      sP.push({
+        x:w*sNX+(Math.random()-.5)*6,
+        y:h*sNY+(Math.random()-.5)*6,
+        vx:Math.cos(ang)*spd,vy:Math.sin(ang)*spd,
+        r:5+Math.random()*7,
+        gr:0.22+Math.random()*0.18,
+        op:0.5+Math.random()*0.38,
+        life:0,maxLife:140+Math.random()*90
+      });
+    }
+    (function tickS(){
+      var w=steamCanvas.width,h=steamCanvas.height;
+      sCtx.clearRect(0,0,w,h);
+      /* spawn 3 per frame for dense steam */
+      for(var i=0;i<3;i++)spawnS();
+      for(var i=sP.length-1;i>=0;i--){
+        var p=sP[i];p.life++;
+        if(p.life>p.maxLife){sP.splice(i,1);continue;}
+        var prog=p.life/p.maxLife;
+        var fade=prog<0.1?prog/0.1:1-((prog-0.1)/0.9);
+        var alpha=p.op*fade;
+        var curR=p.r+p.gr*p.life;
+        /* natural turbulence + buoyancy */
+        p.vx+=(Math.random()-.5)*0.012;
+        p.vy-=0.007;
+        p.vx*=0.994;p.vy*=0.994;
+        p.x+=p.vx;p.y+=p.vy;
+        /* draw soft radial blob */
+        var g=sCtx.createRadialGradient(p.x,p.y,0,p.x,p.y,curR);
+        g.addColorStop(0,'rgba(255,253,248,'+alpha.toFixed(3)+')');
+        g.addColorStop(0.38,'rgba(243,237,227,'+(alpha*.6).toFixed(3)+')');
+        g.addColorStop(1,'rgba(243,237,227,0)');
+        sCtx.beginPath();sCtx.arc(p.x,p.y,curR,0,Math.PI*2);
+        sCtx.fillStyle=g;sCtx.fill();
+      }
+      if(sP.length>160)sP.splice(0,sP.length-160);
+      requestAnimationFrame(tickS);
+    })();
+  }
+
   /* SCROLL REVEAL */
   var io=new IntersectionObserver(function(entries){
     entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('ks-in');io.unobserve(e.target);}});
@@ -616,6 +678,10 @@
       "label": "Banner subheading",
       "default": "A quiet ritual of warmth and hydration — salon-grade steam for hair and skin, brought home."
     },
+    {"type":"header","content":"Steam Effect — Nozzle Position"},
+    {"type":"range","id":"nozzle_x","label":"Nozzle X position","min":0,"max":100,"step":1,"default":53,"unit":"%"},
+    {"type":"range","id":"nozzle_y","label":"Nozzle Y position","min":0,"max":100,"step":1,"default":28,"unit":"%"},
+    {"type":"range","id":"nozzle_angle","label":"Steam direction (0°=right 90°=down 180°=left)","min":0,"max":360,"step":5,"default":160,"unit":"°"},
     {"type":"header","content":"Section Background Colors"},
     {"type":"color","id":"color_why_steam","label":"Why Steam — background","default":"#f3ede3"},
     {"type":"color","id":"color_types","label":"3 Types — background","default":"#ece3d6"},
