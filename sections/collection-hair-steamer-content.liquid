@@ -56,10 +56,20 @@
 /* floating mist blobs on banner */
 .ks-mist-blob{position:absolute;border-radius:50%;pointer-events:none;z-index:1;transform:translate(-50%,-50%);will-change:transform,left,top;mix-blend-mode:screen;background:radial-gradient(circle,rgba(255,253,248,.55),rgba(243,237,227,.18) 55%,transparent 75%);filter:blur(22px)}
 
-.ks-banner-content{position:relative;z-index:3;color:var(--ks-paper)}
+.ks-banner-content{position:relative;z-index:3;color:var(--ks-paper);transform-style:preserve-3d;will-change:transform}
 .ks-banner-label{font-size:.72rem;letter-spacing:.42em;text-transform:uppercase;color:rgba(243,237,227,.8);margin-bottom:20px;display:block;opacity:0;animation:ksfadeUp 1s .3s forwards}
 .ks-banner-label::before,.ks-banner-label::after{content:'—';margin:0 12px;opacity:.6}
-.ks-banner-content h2{font-size:clamp(2.4rem,7vw,5.5rem);line-height:.96;font-weight:500;letter-spacing:-.5px;text-shadow:0 2px 30px rgba(243,237,227,.4);opacity:0;animation:ksfadeUp 1s .5s forwards}
+.ks-banner-content h2{font-size:clamp(2.4rem,7vw,5.5rem);line-height:.96;font-weight:500;letter-spacing:-.5px;
+  text-shadow:
+    1px 1px 0 rgba(140,110,72,0.55),
+    2px 2px 0 rgba(120,93,58,0.47),
+    3px 3px 0 rgba(100,76,46,0.38),
+    4px 4px 0 rgba(80,62,36,0.30),
+    5px 5px 0 rgba(62,48,28,0.22),
+    6px 6px 0 rgba(46,36,20,0.15),
+    0 18px 45px rgba(15,10,5,0.60);
+  will-change:transform;transform-style:preserve-3d;
+  opacity:0;animation:ksfadeUp 1s .5s forwards}
 .ks-banner-content h2 em{font-style:italic;font-weight:300;color:var(--ks-clay)}
 .ks-banner-sub{font-size:1rem;color:rgba(243,237,227,.8);max-width:440px;margin:24px auto 32px;font-weight:300;opacity:0;animation:ksfadeUp 1s .7s forwards}
 .ks-banner-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;animation:ksfadeUp 1s .9s forwards}
@@ -465,6 +475,24 @@
       bMist.style.setProperty('--cr','220px');
     });
     bHero.addEventListener('pointerleave',function(){bMist.style.setProperty('--cr','0px');});
+  }
+
+  /* 3D TILT ON BANNER HEADING */
+  var tiltEl=document.querySelector('#ksBanner .ks-banner-content');
+  if(tiltEl&&bHero){
+    var ttX=0,ttY=0,tcX=0,tcY=0;
+    bHero.addEventListener('pointermove',function(e){
+      var r=bHero.getBoundingClientRect();
+      var mx=(e.clientX-r.left)/r.width-.5;
+      var my=(e.clientY-r.top)/r.height-.5;
+      ttX=my*-11;ttY=mx*16;
+    });
+    bHero.addEventListener('pointerleave',function(){ttX=0;ttY=0;});
+    (function lerpTilt(){
+      tcX+=(ttX-tcX)*.07;tcY+=(ttY-tcY)*.07;
+      tiltEl.style.transform='perspective(700px) rotateX('+tcX.toFixed(3)+'deg) rotateY('+tcY.toFixed(3)+'deg)';
+      requestAnimationFrame(lerpTilt);
+    })();
   }
 
   /* FLOATING MIST BLOBS — drift, breathe & scatter from cursor */
