@@ -132,7 +132,16 @@
           "banner_image": "shopify://shop_images/1779419017989.png",
           "banner_label": "The Hair Steamer",
           "banner_heading": "Deep moisture, drifting in.",
-          "banner_subheading": "A quiet ritual of warmth and hydration — salon-grade steam for hair and skin, brought home."
+          "banner_subheading": "A quiet ritual of warmth and hydration — salon-grade steam for hair and skin, brought home.",
+          "color_why_steam": "#f3ede3",
+          "color_types": "#ece3d6",
+          "color_ba": "#f3ede3",
+          "color_hair_guide": "#ece3d6",
+          "color_howto": "#f3ede3",
+          "color_faq": "#ece3d6",
+          "color_cta": "#f3ede3",
+          "ba_dry_before": "shopify://shop_images/Dry_Damaged_Hair_4x5_e1fed333-839b-4b81-9383-9ba179f190be.png",
+          "ba_dry_after": "shopify://shop_images/Healthy_Hair_After_Treatment.png"
         }
       },
       "recent-viewed-products": {
