@@ -83,6 +83,86 @@
     "show_variant_swatch_image": true,
     "use_theme_currencies": true,
     "theme_currencies": "USD | EUR | GBP | VND",
+    "sections": {
+      "collection-page-header": {
+        "type": "collection-page-header",
+        "settings": {
+          "color_scheme": "scheme-6d0193b1-0587-4688-a47f-c211611d1afd",
+          "container": "container",
+          "layout": "outside",
+          "image_position": "top",
+          "enable_parallax": false,
+          "parallax_direction": "vertical",
+          "text_alignment": "left",
+          "text_color": "inherit",
+          "upper_title": false,
+          "show_desc": false,
+          "collection_all_desc": "",
+          "padding_top": 50,
+          "padding_bottom": 50,
+          "enable_bg_zoom_effect": true
+        }
+      },
+      "main-collection-product-grid": {
+        "type": "main-collection-product-grid",
+        "settings": {
+          "container": "container",
+          "grid_layout": "grid",
+          "grid_columns": "3",
+          "show_columns_switcher": true,
+          "pagination_limit": 12,
+          "paginate_type": "paginate",
+          "show_sorting": true,
+          "show_filter": false,
+          "filters_type": "storefront_filters",
+          "sidebar": "leftColumn",
+          "sidebar_title": "Filters",
+          "limit_height_widget": false,
+          "limit_height": 300,
+          "change_product_variant_on_fitlering": true,
+          "show_product_count": true,
+          "collapsed_groups": "Brand, Vendor, Size",
+          "color_swatches": "color,colour,couleur,farbe",
+          "color_swatches_design": "inline"
+        }
+      },
+      "collection-hair-steamer-content": {
+        "type": "collection-hair-steamer-content",
+        "settings": {
+          "banner_image": "shopify://shop_images/1779419017989.png",
+          "banner_label": "The Hair Steamer",
+          "banner_heading": "Deep moisture, drifting in.",
+          "banner_subheading": "A quiet ritual of warmth and hydration — salon-grade steam for hair and skin, brought home."
+        }
+      },
+      "recent-viewed-products": {
+        "type": "recent-viewed-products",
+        "settings": {
+          "container": "container",
+          "color_scheme": "",
+          "heading": "Recently Viewed Products",
+          "heading_size": "h3",
+          "text_align": "left",
+          "limit": 8,
+          "columns": 4,
+          "column_gap": 30,
+          "pcard_layout": "",
+          "pcard_image_ratio": "",
+          "show_vendor": false,
+          "hide_title": false,
+          "enable_slider": true,
+          "show_pagination": false,
+          "show_navigation": false,
+          "mobile_disable_slider": false,
+          "use_scroll_mobile": true,
+          "item_gap_mobile": 16,
+          "padding_top": 50,
+          "padding_bottom": 50,
+          "custom_class": "",
+          "animations": "inherit"
+        }
+      }
+    },
     "content_for_index": [],
     "blocks": {
       "4935202709820522637": {
