@@ -247,7 +247,7 @@ class MCartItems extends HTMLElement {
         window.MinimogEvents.emit(MinimogTheme.pubSubEvents.cartUpdate, { cart: response });
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       }).finally(() => {
         this.loading.finish();
       });
