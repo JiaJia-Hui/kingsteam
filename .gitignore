@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Environment variables
+.env
+.env.local
+
+# Shopify CLI
+.shopify/
