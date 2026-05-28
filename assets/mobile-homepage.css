@@ -28,10 +28,37 @@
 
   /* ── Hero ── */
   .ks-m-hero {
+    position: relative;
     background: #EBDFCE;
     padding: 40px 24px 36px;
     text-align: center;
+    overflow: hidden;
   }
+
+  /* Background image (when uploaded) */
+  .ks-m-hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Dark overlay when image is present */
+  .ks-m-hero--img .ks-m-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(58, 46, 38, 0.45);
+  }
+
+  /* Content sits above image/overlay */
+  .ks-m-hero-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Text colors adapt when hero has image */
   .ks-m-eyebrow {
     font-size: 11px;
     letter-spacing: 2.5px;
@@ -39,6 +66,10 @@
     margin-bottom: 14px;
     display: block;
   }
+  .ks-m-hero--img .ks-m-eyebrow {
+    color: rgba(239, 230, 218, 0.85);
+  }
+
   .ks-m-hero h1 {
     font-size: 28px;
     font-weight: 600;
@@ -46,12 +77,20 @@
     margin-bottom: 10px;
     color: #3A2E26;
   }
+  .ks-m-hero--img h1 {
+    color: #FBF8F3;
+  }
+
   .ks-m-hero-desc {
     font-size: 14px;
     color: #6E5C49;
     line-height: 1.6;
     margin-bottom: 22px;
   }
+  .ks-m-hero--img .ks-m-hero-desc {
+    color: #EFE6DA;
+  }
+
   .ks-m-btn-dark {
     display: inline-block;
     background: #3A2E26;
@@ -60,6 +99,10 @@
     padding: 13px 34px;
     border-radius: 30px;
     text-decoration: none;
+  }
+  .ks-m-hero--img .ks-m-btn-dark {
+    background: #EFE6DA;
+    color: #3A2E26;
   }
 
   /* ── Trust bar ── */
@@ -99,7 +142,6 @@
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    margin-bottom: 0;
   }
   .ks-m-section-head h2 {
     font-size: 19px;
@@ -129,9 +171,8 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
-  .ks-m-scroller::-webkit-scrollbar {
-    display: none;
-  }
+  .ks-m-scroller::-webkit-scrollbar { display: none; }
+
   .ks-m-card {
     flex: 0 0 160px;
     text-decoration: none;
@@ -172,13 +213,8 @@
     color: #3A2E26;
     margin: 0;
   }
-  .ks-m-price b {
-    font-weight: 600;
-  }
-  .ks-m-price s {
-    color: #A89478;
-    font-size: 11px;
-  }
+  .ks-m-price b { font-weight: 600; }
+  .ks-m-price s { color: #A89478; font-size: 11px; }
 
   /* ── Category grid ── */
   .ks-m-cats {
@@ -311,8 +347,6 @@
     background: #C9B89C;
     display: inline-block;
   }
-  .ks-m-dot.active {
-    background: #3A2E26;
-  }
+  .ks-m-dot.active { background: #3A2E26; }
 
 } /* end @media (max-width: 767px) */
