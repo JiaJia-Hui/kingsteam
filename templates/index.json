@@ -11,6 +11,74 @@
   "sections": {
     "mobile_homepage_ks": {
       "type": "mobile-homepage",
+      "blocks": {
+        "hero_block": {
+          "type": "hero",
+          "settings": {
+            "eyebrow": "CARE BEGINS WITH STEAM",
+            "heading": "Steam. Hydrate. Transcend.",
+            "description": "Professional facial & hair steamers for the at-home spa.",
+            "button_label": "Shop best sellers",
+            "button_link": "/collections/all"
+          }
+        },
+        "trust_block": {
+          "type": "trust_bar",
+          "settings": {
+            "item_1": "Free $60+",
+            "item_2": "Prop 65 safe",
+            "item_3": "Ozone steam"
+          }
+        },
+        "products_block": {
+          "type": "product_scroller",
+          "settings": {
+            "heading": "Best sellers",
+            "link_label": "Shop all",
+            "link_url": "/collections/all",
+            "product_1": "hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1",
+            "product_2": "facial-steamer-with-extendable-arm-ozone-table-top-mini-spa-face-steamer-design-for-personal-care-use-at-home-or-salon-white",
+            "product_3": "stand-ionic-hair-dryer",
+            "product_4": "dryer-diffuser-for-curly-hair"
+          }
+        },
+        "cats_block": {
+          "type": "category_grid",
+          "settings": {
+            "heading": "Shop by category",
+            "cat_1_title": "Hair Tools",
+            "cat_1_link": "/collections/hair-tools",
+            "cat_2_title": "Beauty Tools",
+            "cat_2_link": "/collections/hair-care"
+          }
+        },
+        "banner_block": {
+          "type": "banner",
+          "settings": {
+            "heading": "2 in 1 Hair & Facial Steamer",
+            "description": "Deep nourishment and a radiant glow — one device.",
+            "button_label": "Shop now",
+            "button_link": "/products/hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1"
+          }
+        },
+        "review_block": {
+          "type": "review",
+          "settings": {
+            "eyebrow": "THE FEELING IS MUTUAL",
+            "heading": "Hear it from our customers",
+            "quote": "My hair feels so moisturized and my face is clearer than ever. The right amount of steam for both. Definitely recommend!",
+            "author": "Alesha S."
+          }
+        }
+      },
+      "block_order": [
+        "hero_block",
+        "trust_block",
+        "products_block",
+        "cats_block",
+        "banner_block",
+        "review_block"
+      ],
       "settings": {}
     },
     "16233155804447b3cd": {
