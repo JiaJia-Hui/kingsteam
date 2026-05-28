@@ -75,12 +75,18 @@
 
     {%- comment -%}══════════ PRODUCT SCROLLER ══════════{%- endcomment -%}
     {%- when 'product_scroller' -%}
+      {%- assign show_n = block.settings.products_to_show | default: 50 -%}
+      {%- comment -%} Collect products: try selected collection → 'all' → all collections {%- endcomment -%}
+      {%- assign ps_products = '' -%}
+      {%- assign ps_count = 0 -%}
+
       {%- if block.settings.collection != blank -%}
         {%- assign src_col = collections[block.settings.collection] -%}
-      {%- else -%}
+      {%- endif -%}
+      {%- if src_col == blank or src_col == nil -%}
         {%- assign src_col = collections['all'] -%}
       {%- endif -%}
-      {%- assign show_n = block.settings.products_to_show | default: 50 -%}
+
       <div
         class="ks-m-ps-wrap"
         style="
@@ -100,17 +106,20 @@
           {%- endif -%}
         </div>
         <div class="ks-m-scroller">
+
+          {%- comment -%} Primary: render from selected/all collection {%- endcomment -%}
           {%- if src_col != blank -%}
             {%- for prod in src_col.products limit: show_n -%}
+              {%- assign ps_count = ps_count | plus: 1 -%}
               <a class="ks-m-card" href="{{ prod.url }}">
                 <div class="ks-m-thumb">
                   {%- if prod.compare_at_price > prod.price -%}
                     <span class="ks-m-badge">Sale</span>
                   {%- endif -%}
                   {%- if prod.featured_image -%}
-                    <img src="{{ prod.featured_image | image_url: width: 320 }}"
+                    <img src="{{ prod.featured_image | image_url: width: 400 }}"
                          alt="{{ prod.featured_image.alt | default: prod.title | escape }}"
-                         width="160" height="160" loading="lazy">
+                         width="190" height="190" loading="lazy">
                   {%- endif -%}
                 </div>
                 <p class="ks-m-name">{{ prod.title }}</p>
@@ -123,6 +132,38 @@
               </a>
             {%- endfor -%}
           {%- endif -%}
+
+          {%- comment -%} Fallback: if zero products, pull from every collection {%- endcomment -%}
+          {%- if ps_count == 0 -%}
+            {%- assign seen_handles = '' -%}
+            {%- for col in collections -%}
+              {%- for prod in col.products limit: 10 -%}
+                {%- unless seen_handles contains prod.handle -%}
+                  {%- assign seen_handles = seen_handles | append: prod.handle | append: ',' -%}
+                  <a class="ks-m-card" href="{{ prod.url }}">
+                    <div class="ks-m-thumb">
+                      {%- if prod.compare_at_price > prod.price -%}
+                        <span class="ks-m-badge">Sale</span>
+                      {%- endif -%}
+                      {%- if prod.featured_image -%}
+                        <img src="{{ prod.featured_image | image_url: width: 400 }}"
+                             alt="{{ prod.featured_image.alt | default: prod.title | escape }}"
+                             width="190" height="190" loading="lazy">
+                      {%- endif -%}
+                    </div>
+                    <p class="ks-m-name">{{ prod.title }}</p>
+                    <p class="ks-m-price">
+                      <b>{{ prod.price | money }}</b>
+                      {%- if prod.compare_at_price > prod.price -%}
+                        <s>{{ prod.compare_at_price | money }}</s>
+                      {%- endif -%}
+                    </p>
+                  </a>
+                {%- endunless -%}
+              {%- endfor -%}
+            {%- endfor -%}
+          {%- endif -%}
+
         </div>
       </div>
 
