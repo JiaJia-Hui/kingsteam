@@ -75,8 +75,12 @@
 
     {%- comment -%}══════════ PRODUCT SCROLLER ══════════{%- endcomment -%}
     {%- when 'product_scroller' -%}
-      {%- assign src_col = collections[block.settings.collection] -%}
-      {%- assign show_n  = block.settings.products_to_show | default: 4 -%}
+      {%- if block.settings.collection != blank -%}
+        {%- assign src_col = collections[block.settings.collection] -%}
+      {%- else -%}
+        {%- assign src_col = collections['all'] -%}
+      {%- endif -%}
+      {%- assign show_n = block.settings.products_to_show | default: 50 -%}
       <div
         class="ks-m-ps-wrap"
         style="
@@ -302,7 +306,7 @@
       "settings": [
         { "type": "header",     "content": "产品来源" },
         { "type": "collection", "id": "collection",       "label": "选择合集（产品从这里来）" },
-        { "type": "range",      "id": "products_to_show", "label": "显示产品数量", "min": 2, "max": 8, "step": 1, "default": 4 },
+        { "type": "range",      "id": "products_to_show", "label": "显示产品数量", "min": 4, "max": 50, "step": 1, "default": 50 },
         { "type": "header",     "content": "标题与链接" },
         { "type": "text",       "id": "heading",    "label": "标题",        "default": "Best sellers" },
         { "type": "text",       "id": "link_label", "label": "右侧链接文字","default": "Shop all" },
