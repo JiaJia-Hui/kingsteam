@@ -9,6 +9,10 @@
  */
 {
   "sections": {
+    "mobile_homepage_ks": {
+      "type": "mobile-homepage",
+      "settings": {}
+    },
     "16233155804447b3cd": {
       "type": "image-with-text-2",
       "disabled": true,
@@ -501,6 +505,7 @@
     }
   },
   "order": [
+    "mobile_homepage_ks",
     "16233155804447b3cd",
     "17652464915a4d6add",
     "collection_image_showcase_pgLThU",

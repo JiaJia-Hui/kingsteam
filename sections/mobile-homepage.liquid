@@ -1,0 +1,179 @@
+{{ 'mobile-homepage.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign p_handles = 'hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1,facial-steamer-with-extendable-arm-ozone-table-top-mini-spa-face-steamer-design-for-personal-care-use-at-home-or-salon-white,stand-ionic-hair-dryer,dryer-diffuser-for-curly-hair' | split: ','
+
+  assign p_banner = all_products['hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1']
+
+  assign col_hair   = collections['hair-tools']
+  assign col_beauty = collections['hair-care']
+
+  if col_hair.image
+    assign hair_img = col_hair.image
+  elsif col_hair.products.first.featured_image
+    assign hair_img = col_hair.products.first.featured_image
+  endif
+
+  if col_beauty.image
+    assign beauty_img = col_beauty.image
+  elsif col_beauty.products.first.featured_image
+    assign beauty_img = col_beauty.products.first.featured_image
+  endif
+-%}
+
+<div class="ks-mobile-home" id="shopify-section-{{ section.id }}">
+
+  {%- comment -%} ── Hero ── {%- endcomment -%}
+  <section class="ks-m-hero">
+    <span class="ks-m-eyebrow">CARE BEGINS WITH STEAM</span>
+    <h1>Steam. Hydrate.<br>Transcend.</h1>
+    <p class="ks-m-hero-desc">Professional facial &amp; hair steamers for the at-home spa.</p>
+    <a class="ks-m-btn-dark" href="/collections/all">Shop best sellers</a>
+  </section>
+
+  {%- comment -%} ── Trust bar ── {%- endcomment -%}
+  <div class="ks-m-trust">
+    <div>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="2" y="6" width="13" height="11" rx="1"/>
+        <path d="M15 9h4l3 3v5h-7"/>
+        <circle cx="6" cy="18" r="2"/>
+        <circle cx="18" cy="18" r="2"/>
+      </svg>
+      <p>Free $60+</p>
+    </div>
+    <div>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 3l8 3v6c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V6l8-3z"/>
+        <path d="M9 12l2 2 4-4"/>
+      </svg>
+      <p>Prop 65 safe</p>
+    </div>
+    <div>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 3c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11z"/>
+      </svg>
+      <p>Ozone steam</p>
+    </div>
+  </div>
+
+  {%- comment -%} ── Best sellers ── {%- endcomment -%}
+  <div class="ks-m-section">
+    <div class="ks-m-section-head">
+      <h2>Best sellers</h2>
+      <a href="/collections/all">Shop all &rarr;</a>
+    </div>
+  </div>
+  <div class="ks-m-scroller">
+    {%- for handle in p_handles -%}
+      {%- assign prod = all_products[handle] -%}
+      {%- if prod != blank -%}
+        <a class="ks-m-card" href="{{ prod.url }}">
+          <div class="ks-m-thumb">
+            {%- if prod.compare_at_price > prod.price -%}
+              <span class="ks-m-badge">Sale</span>
+            {%- endif -%}
+            {%- if prod.featured_image -%}
+              <img
+                src="{{ prod.featured_image | image_url: width: 320 }}"
+                alt="{{ prod.featured_image.alt | default: prod.title | escape }}"
+                width="160"
+                height="160"
+                loading="lazy"
+              >
+            {%- endif -%}
+          </div>
+          <p class="ks-m-name">{{ prod.title }}</p>
+          <p class="ks-m-price">
+            <b>{{ prod.price | money }}</b>
+            {%- if prod.compare_at_price > prod.price -%}
+              <s>{{ prod.compare_at_price | money }}</s>
+            {%- endif -%}
+          </p>
+        </a>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  {%- comment -%} ── Shop by category ── {%- endcomment -%}
+  <div class="ks-m-cats">
+    <h2 class="ks-m-section-title">Shop by category</h2>
+    <div class="ks-m-cat-grid">
+      <a class="ks-m-cat" href="{{ col_hair.url }}">
+        {%- if hair_img -%}
+          <img
+            src="{{ hair_img | image_url: width: 400 }}"
+            alt="{{ col_hair.title | escape }}"
+            width="200"
+            height="130"
+            loading="lazy"
+          >
+        {%- endif -%}
+        <span>{{ col_hair.title }}</span>
+      </a>
+      <a class="ks-m-cat" href="{{ col_beauty.url }}">
+        {%- if beauty_img -%}
+          <img
+            src="{{ beauty_img | image_url: width: 400 }}"
+            alt="{{ col_beauty.title | escape }}"
+            width="200"
+            height="130"
+            loading="lazy"
+          >
+        {%- endif -%}
+        <span>{{ col_beauty.title }}</span>
+      </a>
+    </div>
+  </div>
+
+  {%- comment -%} ── Feature banner ── {%- endcomment -%}
+  {%- if p_banner != blank and p_banner.featured_image -%}
+    <div class="ks-m-banner">
+      <img
+        src="{{ p_banner.featured_image | image_url: width: 800 }}"
+        alt="{{ p_banner.featured_image.alt | default: p_banner.title | escape }}"
+        width="800"
+        height="250"
+        loading="lazy"
+      >
+      <div class="ks-m-overlay">
+        <h2>2 in 1 Hair &amp; Facial Steamer</h2>
+        <p>Deep nourishment and a radiant glow &mdash; one device.</p>
+        <a class="ks-m-btn-light" href="{{ p_banner.url }}">Shop now</a>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ── Review spotlight ── {%- endcomment -%}
+  <div class="ks-m-reviews">
+    <span class="ks-m-eyebrow">THE FEELING IS MUTUAL</span>
+    <h2>Hear it from our customers</h2>
+    <div class="ks-m-quote">
+      <div class="ks-m-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="ks-m-quote-text">&ldquo;My hair feels so moisturized and my face is clearer than ever. The right amount of steam for both. Definitely recommend!&rdquo;</p>
+      <p class="ks-m-quote-who">&mdash; Alesha S.</p>
+    </div>
+    <div class="ks-m-dots">
+      <span class="ks-m-dot active"></span>
+      <span class="ks-m-dot"></span>
+      <span class="ks-m-dot"></span>
+    </div>
+  </div>
+
+</div><!-- /.ks-mobile-home -->
+
+{% schema %}
+{
+  "name": "Mobile Homepage",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [],
+  "presets": [
+    {
+      "name": "Mobile Homepage"
+    }
+  ]
+}
+{% endschema %}
