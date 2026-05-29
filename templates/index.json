@@ -146,6 +146,7 @@
       "blocks": {
         "ai_gen_block_028343f_7Kpztf": {
           "type": "ai_gen_block_028343f",
+          "disabled": true,
           "settings": {
             "image_aspect_ratio": "21 / 9",
             "text_alignment": "center",
@@ -188,6 +189,7 @@
         "ai_gen_block_077be23_9Kitw8": {
           "type": "ai_gen_block_077be23",
           "name": "Blur heading",
+          "disabled": true,
           "settings": {
             "heading_text": "",
             "heading_tag": "h2",
@@ -254,6 +256,7 @@
       "blocks": {
         "ai_gen_block_c35b47b_jT7JaY": {
           "type": "ai_gen_block_c35b47b",
+          "disabled": true,
           "settings": {
             "heading": "Featured Products",
             "subheading": "Discover our latest collection",
@@ -336,6 +339,7 @@
         "ai_gen_block_077be23_f8gVjz": {
           "type": "ai_gen_block_077be23",
           "name": "Blur heading",
+          "disabled": true,
           "settings": {
             "heading_text": "",
             "heading_tag": "h2",
@@ -577,6 +581,7 @@
         "testimonial_fWGAgg",
         "testimonial_CmtKNj"
       ],
+      "disabled": true,
       "name": "Testimonials",
       "settings": {
         "heading": "Hear It From Our Customers",
