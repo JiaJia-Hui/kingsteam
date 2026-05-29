@@ -98,6 +98,7 @@
         },
         "banner_1": {
           "type": "banner",
+          "disabled": true,
           "settings": {
             "heading": "2 in 1 Hair & Facial Steamer",
             "description": "Deep nourishment and a radiant glow — one device.",
