@@ -106,7 +106,7 @@
           }
         }
       },
-      "block_order": ["hero_1","trust_1","ps_1","cats_1","banner_1","review_1"],
+      "block_order": ["hero_1","trust_1","ps_1","cats_1","review_1","banner_1"],
       "settings": {}
     },
     "16233155804447b3cd": {
