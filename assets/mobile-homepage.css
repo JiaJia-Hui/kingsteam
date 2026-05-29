@@ -27,7 +27,11 @@
   .ks-m-hero {
     position: relative;
     background: var(--h-bg, #EBDFCE);
-    padding: 44px 24px 40px;
+    padding: 60px 24px 56px;
+    min-height: 62vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
     overflow: hidden;
   }
@@ -139,7 +143,7 @@
   }
   .ks-m-scroller::-webkit-scrollbar { display: none; }
   .ks-m-card {
-    flex: 0 0 190px;
+    flex: 0 0 155px;
     text-decoration: none;
     color: inherit;
     display: block;
@@ -148,11 +152,11 @@
   .ks-m-thumb {
     position: relative;
     background: var(--ps-card, #F1E9DD);
-    border-radius: 14px;
+    border-radius: 12px;
     overflow: hidden;
   }
   .ks-m-thumb img {
-    width: 100%; height: 190px;
+    width: 100%; height: 155px;
     object-fit: cover; display: block;
   }
   .ks-m-badge {
