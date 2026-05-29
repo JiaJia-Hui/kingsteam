@@ -15,30 +15,32 @@
         "hero_1": {
           "type": "hero",
           "settings": {
+            "image": "shopify://shop_images/beauty-natural-6_86ddd3af-2e82-46e5-bc92-4b19e67dda18.jpg",
+            "overlay_opacity": 45,
             "eyebrow": "CARE BEGINS WITH STEAM",
             "heading": "Steam. Hydrate. Transcend.",
             "description": "Professional facial & hair steamers for the at-home spa.",
             "btn_label": "Shop best sellers",
             "btn_link": "/collections/all",
-            "overlay_opacity": 45,
-            "bg_color": "#EBDFCE",
-            "eyebrow_color": "#8A7256",
-            "heading_color": "#3A2E26",
-            "desc_color": "#6E5C49",
-            "btn_bg": "#3A2E26",
-            "btn_text": "#EFE6DA"
+            "bg_color": "#ebdfce",
+            "eyebrow_color": "#8a7256",
+            "heading_color": "#3a2e26",
+            "desc_color": "#6e5c49",
+            "btn_bg": "#3a2e26",
+            "btn_text": "#efe6da"
           }
         },
         "trust_1": {
           "type": "trust_bar",
+          "disabled": true,
           "settings": {
-            "item_1": "Free $60+",
+            "item_1": "",
             "item_2": "Prop 65 safe",
             "item_3": "Ozone steam",
-            "bg_color": "#FBF8F3",
-            "border_color": "#E6DCCD",
-            "icon_color": "#8A7256",
-            "text_color": "#6E5C49"
+            "bg_color": "#fbf8f3",
+            "border_color": "#e6dccd",
+            "icon_color": "#8a7256",
+            "text_color": "#6e5c49"
           }
         },
         "ps_1": {
@@ -49,64 +51,74 @@
             "heading": "Best sellers",
             "link_label": "Shop all",
             "link_url": "/collections/all",
-            "heading_color": "#3A2E26",
-            "link_color": "#8A7256",
-            "card_bg": "#F1E9DD",
-            "badge_bg": "#8A5A3B",
-            "name_color": "#3A2E26",
-            "price_color": "#3A2E26"
+            "heading_color": "#3a2e26",
+            "link_color": "#8a7256",
+            "card_bg": "#f1e9dd",
+            "badge_bg": "#8a5a3b",
+            "name_color": "#3a2e26",
+            "price_color": "#3a2e26"
           }
         },
         "cats_1": {
           "type": "category_grid",
+          "disabled": true,
           "settings": {
             "heading": "Shop by category",
             "cat_1_title": "Hair Tools",
             "cat_1_link": "/collections/hair-tools",
             "cat_2_title": "Beauty Tools",
             "cat_2_link": "/collections/hair-care",
-            "heading_color": "#3A2E26",
-            "overlay_color": "#3A2E26",
+            "heading_color": "#3a2e26",
+            "overlay_color": "#3a2e26",
             "overlay_opacity": 50,
             "label_color": "#ffffff"
           }
         },
-        "banner_1": {
-          "type": "banner",
-          "settings": {
-            "heading": "2 in 1 Hair & Facial Steamer",
-            "description": "Deep nourishment and a radiant glow — one device.",
-            "btn_label": "Shop now",
-            "btn_link": "/products/hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1",
-            "overlay_color": "#3A2E26",
-            "overlay_opacity": 40,
-            "heading_color": "#ffffff",
-            "desc_color": "#EFE6DA",
-            "btn_bg": "#FBF8F3",
-            "btn_text": "#3A2E26"
-          }
-        },
         "review_1": {
           "type": "review",
+          "disabled": true,
           "settings": {
             "eyebrow": "THE FEELING IS MUTUAL",
             "heading": "Hear it from our customers",
             "quote": "My hair feels so moisturized and my face is clearer than ever. The right amount of steam for both. Definitely recommend!",
             "author": "Alesha S.",
-            "bg_color": "#EBDFCE",
-            "card_bg": "#FBF8F3",
-            "card_border": "#E0D3BF",
-            "eyebrow_color": "#8A7256",
-            "heading_color": "#3A2E26",
-            "star_color": "#C2924E",
-            "text_color": "#3A2E26",
-            "author_color": "#6E5C49",
-            "dot_color": "#C9B89C",
-            "dot_active": "#3A2E26"
+            "bg_color": "#ebdfce",
+            "card_bg": "#fbf8f3",
+            "card_border": "#e0d3bf",
+            "eyebrow_color": "#8a7256",
+            "heading_color": "#3a2e26",
+            "star_color": "#c2924e",
+            "text_color": "#3a2e26",
+            "author_color": "#6e5c49",
+            "dot_color": "#c9b89c",
+            "dot_active": "#3a2e26"
+          }
+        },
+        "banner_1": {
+          "type": "banner",
+          "disabled": true,
+          "settings": {
+            "heading": "2 in 1 Hair & Facial Steamer",
+            "description": "Deep nourishment and a radiant glow — one device.",
+            "btn_label": "Shop now",
+            "btn_link": "/products/hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1",
+            "overlay_color": "#3a2e26",
+            "overlay_opacity": 40,
+            "heading_color": "#ffffff",
+            "desc_color": "#efe6da",
+            "btn_bg": "#fbf8f3",
+            "btn_text": "#3a2e26"
           }
         }
       },
-      "block_order": ["hero_1","trust_1","ps_1","cats_1","review_1","banner_1"],
+      "block_order": [
+        "hero_1",
+        "trust_1",
+        "ps_1",
+        "cats_1",
+        "review_1",
+        "banner_1"
+      ],
       "settings": {}
     },
     "16233155804447b3cd": {
@@ -144,52 +156,9 @@
     "17652464915a4d6add": {
       "type": "_blocks",
       "blocks": {
-        "ai_gen_block_028343f_7Kpztf": {
-          "type": "ai_gen_block_028343f",
-          "disabled": true,
-          "settings": {
-            "image_aspect_ratio": "21 / 9",
-            "text_alignment": "center",
-            "background_color": "#2d2a25",
-            "text_color": "#f7f6f4",
-            "show_overlay": true,
-            "overlay_opacity": 30,
-            "heading_size": 44,
-            "subheading_size": 20,
-            "hide_arrows": false,
-            "hide_dots": true,
-            "dot_size_mobile": 6,
-            "controls_color": "#ab9783",
-            "controls_icon_color": "#f9f0e3",
-            "controls_hover_color": "#f0f0f0",
-            "autoplay": true,
-            "autoplay_speed": 4,
-            "slide_1_image": "shopify://shop_images/beauty-natural-6_86ddd3af-2e82-46e5-bc92-4b19e67dda18.jpg",
-            "slide_1_heading": "Steam. Hydrate. Transcend.",
-            "slide_1_subheading": "Discover The MAGIC of Our Innovative Design.",
-            "slide_1_link": "",
-            "slide_2_image": "shopify://shop_images/3645x2048_04.jpg",
-            "slide_2_heading": "Hair Tools",
-            "slide_2_subheading": "Rejuvenating Remedies For All Kinds Of Hair",
-            "slide_2_link": "",
-            "slide_3_image": "shopify://shop_images/beauty-natural-7.jpg",
-            "slide_3_heading": "Beauty Tools",
-            "slide_3_subheading": "Build Your Beauty.",
-            "slide_3_link": "",
-            "slide_4_image": "shopify://shop_images/3645x2048_07.jpg",
-            "slide_4_heading": "Care Begins with Steam.",
-            "slide_4_subheading": "KINGSTEAM -- Your Care Tech Experts.",
-            "slide_4_link": "",
-            "slide_5_heading": "",
-            "slide_5_subheading": "",
-            "slide_5_link": ""
-          },
-          "blocks": {}
-        },
         "ai_gen_block_077be23_9Kitw8": {
           "type": "ai_gen_block_077be23",
           "name": "Blur heading",
-          "disabled": true,
           "settings": {
             "heading_text": "",
             "heading_tag": "h2",
@@ -207,7 +176,6 @@
         }
       },
       "block_order": [
-        "ai_gen_block_028343f_7Kpztf",
         "ai_gen_block_077be23_9Kitw8"
       ],
       "settings": {}
@@ -581,7 +549,6 @@
         "testimonial_fWGAgg",
         "testimonial_CmtKNj"
       ],
-      "disabled": true,
       "name": "Testimonials",
       "settings": {
         "heading": "Hear It From Our Customers",
@@ -598,8 +565,8 @@
         "show_pagination": true,
         "star_color": "#2c2c24",
         "item_color_scheme": "scheme-ec02f5a5-7e1a-44d8-9dd1-9ac155cc16e1",
-        "padding_top": 50,
-        "padding_bottom": 50,
+        "padding_top": 24,
+        "padding_bottom": 30,
         "custom_class": "",
         "animations": "inherit"
       }
