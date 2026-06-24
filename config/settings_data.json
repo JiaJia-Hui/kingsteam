@@ -212,6 +212,11 @@
         "type": "shopify://apps/wheelify-spin-wheel/blocks/wheelify/505ff42c-abce-4466-9558-7e1d3b2cfcd7",
         "disabled": true,
         "settings": {}
+      },
+      "2539598332178966696": {
+        "type": "shopify://apps/xcotton-post-purchase-guard/blocks/insurance/6531bb8b-340c-42d4-b5da-1734c7a2c524",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
