@@ -24,6 +24,14 @@ A custom Shopify theme for the KingSteam store.
    ```
 3. Edit templates in `templates/`, sections in `sections/`, and styles in `assets/`
 
+## Validation
+
+Before pushing theme changes, run [Theme Check](https://shopify.dev/docs/api/shopify-cli/theme/theme-check) from the repository root to check for theme and Liquid errors:
+
+```bash
+shopify theme check
+```
+
 ## Deployment
 
 ```bash
