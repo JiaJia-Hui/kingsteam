@@ -1,0 +1,169 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "ks_title": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<p class=\"ks-product-eyebrow\">Small space, warm ritual</p><h1 class=\"m-product-title ks-product-title\">Mini Hot Towel Steamer</h1>"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_saving": false,
+            "sale_badge_type": "percentage"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "size_title": "Size"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "show_atc_button": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "ks_details": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Product details",
+            "liquid": "{{ product.description }}",
+            "content": "",
+            "default_open": false
+          }
+        }
+      },
+      "block_order": [
+        "ks_title",
+        "price",
+        "variant_picker",
+        "buy_buttons",
+        "ks_details"
+      ],
+      "settings": {
+        "container": "container",
+        "layout": "layout-4",
+        "show_atwl": true,
+        "enable_history_state": true,
+        "enable_variant_group_images": true,
+        "disable_selected_variant_default": false,
+        "show_featured_media": true,
+        "show_zoom_button": true,
+        "enable_video_autoplay": false,
+        "show_nav_media_mobile": true,
+        "show_pagination_mobile": true,
+        "use_sticky_atc": true,
+        "use_sticky_atc_on_mobile": true,
+        "enable_dynamic_checkout": true,
+        "sticky_atc_wishtlist": false,
+        "sticky_atc_compare": false
+      }
+    },
+    "story": {
+      "type": "ks-product-story",
+      "settings": {
+        "eyebrow": "Small space, warm ritual",
+        "heading": "Make room for a moment of warmth.",
+        "intro": "A compact, portable towel steamer for facials, grooming and spa-inspired routines at home or in the salon.",
+        "accent": "#5a7d7d",
+        "background": "#edf4f2",
+        "hero_image_id": "75346752078170",
+        "hero_image_position": 4
+      },
+      "blocks": {
+        "fact1": {
+          "type": "fact",
+          "settings": {
+            "value": "10–15 min",
+            "label": "Listed heat-up time"
+          }
+        },
+        "fact2": {
+          "type": "fact",
+          "settings": {
+            "value": "12",
+            "label": "Mini facecloths"
+          }
+        },
+        "fact3": {
+          "type": "fact",
+          "settings": {
+            "value": "6",
+            "label": "Regular towels"
+          }
+        },
+        "fact4": {
+          "type": "fact",
+          "settings": {
+            "value": "Portable",
+            "label": "Compact format"
+          }
+        },
+        "feature1": {
+          "type": "feature",
+          "settings": {
+            "heading": "A clever fit for your towels.",
+            "text": "The square chamber holds up to 12 mini facecloths or 6 regular towels, depending on their size. The product image recommends damp or partially wet towels.",
+            "image_id": "75346752209242",
+            "image_position": 8
+          }
+        },
+        "feature2": {
+          "type": "feature",
+          "settings": {
+            "heading": "Compact parts. Simple placement.",
+            "text": "The removable chamber sits above the heating base, with a front dial and easy-to-lift lid. Allow the unit to cool before moving it or handling removable parts.",
+            "image_id": "75346752110938",
+            "image_position": 5
+          }
+        },
+        "feature3": {
+          "type": "feature",
+          "settings": {
+            "heading": "A warm addition to your routine.",
+            "text": "Use the steamer for compatible towel-care and spa routines as directed in the product manual. An insulated handle and overheat protection are included in the listed features.",
+            "image_id": "75346752176474",
+            "image_position": 7
+          }
+        },
+        "faq1": {
+          "type": "faq",
+          "settings": {
+            "question": "How long does warming take?",
+            "answer": "The product description lists approximately 10–15 minutes. Towel quantity, size and starting conditions can affect the result."
+          }
+        },
+        "faq2": {
+          "type": "faq",
+          "settings": {
+            "question": "How should towels be prepared?",
+            "answer": "The uploaded capacity image recommends damp or partially wet towels. Follow the manual for water level, loading and safe handling; hot steam and surfaces require care."
+          }
+        }
+      },
+      "block_order": [
+        "fact1",
+        "fact2",
+        "fact3",
+        "fact4",
+        "feature1",
+        "feature2",
+        "feature3",
+        "faq1",
+        "faq2"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "story"
+  ]
+}

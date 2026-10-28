@@ -1,0 +1,169 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "ks_title": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<p class=\"ks-product-eyebrow\">Everyday towel care</p><h1 class=\"m-product-title ks-product-title\">8L Classic Towel Warmer Cabinet</h1>"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_saving": false,
+            "sale_badge_type": "percentage"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "size_title": "Size"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "show_atc_button": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "ks_details": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Product details",
+            "liquid": "{{ product.description }}",
+            "content": "",
+            "default_open": false
+          }
+        }
+      },
+      "block_order": [
+        "ks_title",
+        "price",
+        "variant_picker",
+        "buy_buttons",
+        "ks_details"
+      ],
+      "settings": {
+        "container": "container",
+        "layout": "layout-4",
+        "show_atwl": true,
+        "enable_history_state": true,
+        "enable_variant_group_images": true,
+        "disable_selected_variant_default": false,
+        "show_featured_media": true,
+        "show_zoom_button": true,
+        "enable_video_autoplay": false,
+        "show_nav_media_mobile": true,
+        "show_pagination_mobile": true,
+        "use_sticky_atc": true,
+        "use_sticky_atc_on_mobile": true,
+        "enable_dynamic_checkout": true,
+        "sticky_atc_wishtlist": false,
+        "sticky_atc_compare": false
+      }
+    },
+    "story": {
+      "type": "ks-product-story",
+      "settings": {
+        "eyebrow": "Everyday towel care",
+        "heading": "Bring the warm-towel ritual home.",
+        "intro": "A clean countertop silhouette, a compact chamber and practical details for your bathroom, beauty room or salon.",
+        "accent": "#586461",
+        "background": "#f1f3ef",
+        "hero_image_id": "75346661441882",
+        "hero_image_position": 9
+      },
+      "blocks": {
+        "fact1": {
+          "type": "fact",
+          "settings": {
+            "value": "8L",
+            "label": "Cabinet capacity"
+          }
+        },
+        "fact2": {
+          "type": "fact",
+          "settings": {
+            "value": "6–8",
+            "label": "Regular-size towels"
+          }
+        },
+        "fact3": {
+          "type": "fact",
+          "settings": {
+            "value": "176°F",
+            "label": "Listed temperature"
+          }
+        },
+        "fact4": {
+          "type": "fact",
+          "settings": {
+            "value": "70 in",
+            "label": "Power cord"
+          }
+        },
+        "feature1": {
+          "type": "feature",
+          "settings": {
+            "heading": "Consistent warmth for your routine.",
+            "text": "The product is listed to maintain 176°F for towel warming. Prepare and load towels according to the manual, and handle heated towels with care.",
+            "image_id": "75346661474650",
+            "image_position": 10
+          }
+        },
+        "feature2": {
+          "type": "feature",
+          "settings": {
+            "heading": "Easy access to the essentials.",
+            "text": "A front-opening door, wire basket and water drip tray keep the everyday routine straightforward. Choose your available finish in the product options above.",
+            "image_id": "75346661540186",
+            "image_position": 12
+          }
+        },
+        "feature3": {
+          "type": "feature",
+          "settings": {
+            "heading": "Compact by design.",
+            "text": "The uploaded white-cabinet image shows an approximately 11.8 × 11.8 × 10.3-inch exterior. Check the selected variant and product instructions before installation.",
+            "image_id": "75346661572954",
+            "image_position": 13
+          }
+        },
+        "faq1": {
+          "type": "faq",
+          "settings": {
+            "question": "Which finish will I receive?",
+            "answer": "Use the finish or color options above to choose an available variant. The gallery contains both black and white versions; your selected variant determines your order."
+          }
+        },
+        "faq2": {
+          "type": "faq",
+          "settings": {
+            "question": "How much does it hold?",
+            "answer": "The product description lists 6–8 regular-size towels in the 8L cabinet. Capacity varies with towel dimensions and folding."
+          }
+        }
+      },
+      "block_order": [
+        "fact1",
+        "fact2",
+        "fact3",
+        "fact4",
+        "feature1",
+        "feature2",
+        "feature3",
+        "faq1",
+        "faq2"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "story"
+  ]
+}

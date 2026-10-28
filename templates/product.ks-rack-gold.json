@@ -1,0 +1,169 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "ks_title": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<p class=\"ks-product-eyebrow\">A warmer touch of gold</p><h1 class=\"m-product-title ks-product-title\">Golden Heated Towel Rack</h1>"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_saving": false,
+            "sale_badge_type": "percentage"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "size_title": "Size"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "show_atc_button": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "ks_details": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Product details",
+            "liquid": "{{ product.description }}",
+            "content": "",
+            "default_open": false
+          }
+        }
+      },
+      "block_order": [
+        "ks_title",
+        "price",
+        "variant_picker",
+        "buy_buttons",
+        "ks_details"
+      ],
+      "settings": {
+        "container": "container",
+        "layout": "layout-4",
+        "show_atwl": true,
+        "enable_history_state": true,
+        "enable_variant_group_images": true,
+        "disable_selected_variant_default": false,
+        "show_featured_media": true,
+        "show_zoom_button": true,
+        "enable_video_autoplay": false,
+        "show_nav_media_mobile": true,
+        "show_pagination_mobile": true,
+        "use_sticky_atc": true,
+        "use_sticky_atc_on_mobile": true,
+        "enable_dynamic_checkout": true,
+        "sticky_atc_wishtlist": false,
+        "sticky_atc_compare": false
+      }
+    },
+    "story": {
+      "type": "ks-product-story",
+      "settings": {
+        "eyebrow": "A warmer touch of gold",
+        "heading": "Turn a practical detail into a finishing touch.",
+        "intro": "A golden stainless-steel rack adds warmth and a sculptural vertical accent to your bathroom.",
+        "accent": "#8b7136",
+        "background": "#f6f1e5",
+        "hero_image_id": "75347146834266",
+        "hero_image_position": 5
+      },
+      "blocks": {
+        "fact1": {
+          "type": "fact",
+          "settings": {
+            "value": "115–155°F",
+            "label": "Temperature range"
+          }
+        },
+        "fact2": {
+          "type": "fact",
+          "settings": {
+            "value": "1–9 h",
+            "label": "Timer"
+          }
+        },
+        "fact3": {
+          "type": "fact",
+          "settings": {
+            "value": "24/7",
+            "label": "Additional operating mode"
+          }
+        },
+        "fact4": {
+          "type": "fact",
+          "settings": {
+            "value": "Golden",
+            "label": "Stainless-steel finish"
+          }
+        },
+        "feature1": {
+          "type": "feature",
+          "settings": {
+            "heading": "A setting for your daily rhythm.",
+            "text": "Use the built-in display to adjust warmth between 115°F and 155°F. Select a 1–9 hour timer or the listed 24/7 mode, following the operating instructions.",
+            "image_id": "75347146735962",
+            "image_position": 2
+          }
+        },
+        "feature2": {
+          "type": "feature",
+          "settings": {
+            "heading": "An integrated look, your way.",
+            "text": "Choose a plug-in connection to a suitable 110V outlet or a hardwired installation by a qualified electrician. The image lists approximately 37.5 × 11.9 × 4.3 inches.",
+            "image_id": "75347146801498",
+            "image_position": 4
+          }
+        },
+        "feature3": {
+          "type": "feature",
+          "settings": {
+            "heading": "A warm welcome after every shower.",
+            "text": "The wall-mounted design keeps floor space clear and towels within reach. Its golden finish complements warm stone, natural textures and a considered bathroom palette.",
+            "image_id": "75347146899802",
+            "image_position": 7
+          }
+        },
+        "faq1": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the rack made from?",
+            "answer": "The product listing identifies a stainless-steel towel rack with a golden finish. See the product images for its vertical-bar design."
+          }
+        },
+        "faq2": {
+          "type": "faq",
+          "settings": {
+            "question": "Can it be hardwired?",
+            "answer": "Yes. The listing supports both plug-in and hardwired connections. A qualified electrician must complete hardwired installation, following the manual and local requirements."
+          }
+        }
+      },
+      "block_order": [
+        "fact1",
+        "fact2",
+        "fact3",
+        "fact4",
+        "feature1",
+        "feature2",
+        "feature3",
+        "faq1",
+        "faq2"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "story"
+  ]
+}

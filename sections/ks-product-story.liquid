@@ -1,0 +1,128 @@
+{{ 'ks-product-story.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign hero = blank
+  for item in product.images
+    assign item_id = item.id | append: ''
+    if item_id == section.settings.hero_image_id
+      assign hero = item
+      break
+    endif
+  endfor
+  if hero == blank
+    assign hero_index = section.settings.hero_image_position | minus: 1
+    assign hero = product.images[hero_index]
+  endif
+-%}
+<section class="ks-story" id="ks-story-{{ section.id }}" data-ks-product="{{ product.id }}" data-ks-template="{{ template.suffix | escape }}" style="--ks-accent:{{ section.settings.accent }};--ks-paper:{{ section.settings.background }}" aria-labelledby="ks-heading-{{ section.id }}">
+  <div class="ks-story__intro ks-story__width">
+    <div class="ks-story__intro-copy">
+      <p class="ks-story__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      <h2 id="ks-heading-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+      <p class="ks-story__lead">{{ section.settings.intro | escape }}</p>
+      <a class="ks-story__link" href="#ks-details-{{ section.id }}">Explore the details <span aria-hidden="true">↓</span></a>
+    </div>
+    {% if hero != blank %}
+      <div class="ks-story__hero-media">
+        {{ hero | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '360, 540, 720, 960, 1200', sizes: '(min-width: 768px) 50vw, 100vw', alt: section.settings.heading }}
+      </div>
+    {% endif %}
+  </div>
+  <dl class="ks-story__facts ks-story__width">
+    {% for block in section.blocks %}
+      {% if block.type == 'fact' %}
+        <div class="ks-story__fact" {{ block.shopify_attributes }}>
+          <dt>{{ block.settings.label | escape }}</dt>
+          <dd>{{ block.settings.value | escape }}</dd>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </dl>
+  <div class="ks-story__features ks-story__width" id="ks-details-{{ section.id }}">
+    {% assign feature_number = 0 %}
+    {% for block in section.blocks %}
+      {% if block.type == 'feature' %}
+        {%- liquid
+          assign feature_number = feature_number | plus: 1
+          assign story_image = block.settings.image
+          if story_image == blank
+            for item in product.images
+              assign item_id = item.id | append: ''
+              if item_id == block.settings.image_id
+                assign story_image = item
+                break
+              endif
+            endfor
+          endif
+          if story_image == blank
+            assign image_index = block.settings.image_position | minus: 1
+            assign story_image = product.images[image_index]
+          endif
+          assign parity = feature_number | modulo: 2
+        -%}
+        <article class="ks-story__feature{% if parity == 0 %} ks-story__feature--reverse{% endif %}" {{ block.shopify_attributes }}>
+          {% if story_image != blank %}
+            <div class="ks-story__feature-media">
+              {{ story_image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '360, 540, 720, 960, 1200', sizes: '(min-width: 768px) 50vw, 100vw', alt: block.settings.heading }}
+            </div>
+          {% endif %}
+          <div class="ks-story__feature-copy">
+            <span class="ks-story__number" aria-hidden="true">0{{ feature_number }}</span>
+            <h3>{{ block.settings.heading | escape }}</h3>
+            <p>{{ block.settings.text | escape | newline_to_br }}</p>
+          </div>
+        </article>
+      {% endif %}
+    {% endfor %}
+  </div>
+  <div class="ks-story__faq ks-story__width">
+    <div>
+      <p class="ks-story__eyebrow">A few useful details</p>
+      <h2>Before you bring it home.</h2>
+    </div>
+    <div class="ks-story__questions">
+      {% for block in section.blocks %}
+        {% if block.type == 'faq' %}
+          <details class="ks-story__question" {{ block.shopify_attributes }}>
+            <summary>{{ block.settings.question | escape }}<span aria-hidden="true">+</span></summary>
+            <p>{{ block.settings.answer | escape | newline_to_br }}</p>
+          </details>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Kingsteam product story",
+  "tag": "section",
+  "class": "ks-story-section",
+  "enabled_on": {"templates": ["product"]},
+  "settings": [
+    {"type":"text","id":"eyebrow","label":"Category line","default":"Everyday comfort"},
+    {"type":"text","id":"heading","label":"Story heading","default":"A more thoughtful daily routine."},
+    {"type":"textarea","id":"intro","label":"Introduction"},
+    {"type":"color","id":"accent","label":"Accent color","default":"#8b6143"},
+    {"type":"color","id":"background","label":"Background color","default":"#f6f0e8"},
+    {"type":"text","id":"hero_image_id","label":"Hero product image ID","info":"References an existing product image even if the gallery is reordered."},
+    {"type":"range","id":"hero_image_position","label":"Fallback hero image position","min":1,"max":50,"step":1,"default":1}
+  ],
+  "blocks": [
+    {"type":"fact","name":"Key detail","limit":4,"settings":[
+      {"type":"text","id":"value","label":"Value","default":"A useful detail"},
+      {"type":"text","id":"label","label":"Label","default":"Product feature"}
+    ]},
+    {"type":"feature","name":"Image and story","limit":6,"settings":[
+      {"type":"text","id":"heading","label":"Heading","default":"Made for your routine."},
+      {"type":"textarea","id":"text","label":"Description"},
+      {"type":"image_picker","id":"image","label":"Custom image (optional)"},
+      {"type":"text","id":"image_id","label":"Product image ID","info":"Used unless a custom image is selected."},
+      {"type":"range","id":"image_position","label":"Fallback product image position","min":1,"max":50,"step":1,"default":1}
+    ]},
+    {"type":"faq","name":"Question and answer","limit":6,"settings":[
+      {"type":"text","id":"question","label":"Question","default":"What should I know?"},
+      {"type":"textarea","id":"answer","label":"Answer"}
+    ]}
+  ],
+  "presets": [{"name":"Kingsteam product story"}]
+}
+{% endschema %}

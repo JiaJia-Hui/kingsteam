@@ -1,0 +1,169 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "ks_title": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<p class=\"ks-product-eyebrow\">Outdoor comfort</p><h1 class=\"m-product-title ks-product-title\">1500W Infrared Patio Heater</h1>"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_saving": false,
+            "sale_badge_type": "percentage"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "size_title": "Size"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "show_atc_button": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "ks_details": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Product details",
+            "liquid": "{{ product.description }}",
+            "content": "",
+            "default_open": false
+          }
+        }
+      },
+      "block_order": [
+        "ks_title",
+        "price",
+        "variant_picker",
+        "buy_buttons",
+        "ks_details"
+      ],
+      "settings": {
+        "container": "container",
+        "layout": "layout-4",
+        "show_atwl": true,
+        "enable_history_state": true,
+        "enable_variant_group_images": true,
+        "disable_selected_variant_default": false,
+        "show_featured_media": true,
+        "show_zoom_button": true,
+        "enable_video_autoplay": false,
+        "show_nav_media_mobile": true,
+        "show_pagination_mobile": true,
+        "use_sticky_atc": true,
+        "use_sticky_atc_on_mobile": true,
+        "enable_dynamic_checkout": true,
+        "sticky_atc_wishtlist": false,
+        "sticky_atc_compare": false
+      }
+    },
+    "story": {
+      "type": "ks-product-story",
+      "settings": {
+        "eyebrow": "Outdoor comfort",
+        "heading": "Make more room for outdoor evenings.",
+        "intro": "Direct infrared warmth, an adjustable stand, and flexible mounting options for the spaces where you unwind.",
+        "accent": "#a04d29",
+        "background": "#f7efe7",
+        "hero_image_id": "75346208489818",
+        "hero_image_position": 4
+      },
+      "blocks": {
+        "fact1": {
+          "type": "fact",
+          "settings": {
+            "value": "1500W",
+            "label": "Heating power"
+          }
+        },
+        "fact2": {
+          "type": "fact",
+          "settings": {
+            "value": "43–75 in",
+            "label": "Adjustable stand"
+          }
+        },
+        "fact3": {
+          "type": "fact",
+          "settings": {
+            "value": "IP65",
+            "label": "Weather rating"
+          }
+        },
+        "fact4": {
+          "type": "fact",
+          "settings": {
+            "value": "3 ways",
+            "label": "Stand, wall or ceiling"
+          }
+        },
+        "feature1": {
+          "type": "feature",
+          "settings": {
+            "heading": "Find your angle. Set your height.",
+            "text": "Adjust the tripod from 43 to 75 inches and direct the heating head toward your seating area. The adjustable format makes it easier to arrange your space.",
+            "image_id": "75346208424282",
+            "image_position": 2
+          }
+        },
+        "feature2": {
+          "type": "feature",
+          "settings": {
+            "heading": "Warmth directed where you sit.",
+            "text": "Carbon infrared heating delivers warmth directly to people and nearby objects. Choose a suitable heating setting and follow the installation clearances in the manual.",
+            "image_id": "75346208457050",
+            "image_position": 3
+          }
+        },
+        "feature3": {
+          "type": "feature",
+          "settings": {
+            "heading": "Thoughtful protection, built in.",
+            "text": "A protective metal grille, grounded plug and tip-over shutoff support everyday operation. Before first use, remove the foam protective pad from the heating tube.",
+            "image_id": "75346208522586",
+            "image_position": 5
+          }
+        },
+        "faq1": {
+          "type": "faq",
+          "settings": {
+            "question": "Before switching on",
+            "answer": "Remove the foam protective pad from the heating tube before turning on the heater. Leaving it in place can cause overheating, melting, smoke or fire."
+          }
+        },
+        "faq2": {
+          "type": "faq",
+          "settings": {
+            "question": "How can I install it?",
+            "answer": "Use the included adjustable tripod, or follow the manual for wall or ceiling mounting. Always follow the stated clearances and electrical instructions."
+          }
+        }
+      },
+      "block_order": [
+        "fact1",
+        "fact2",
+        "fact3",
+        "fact4",
+        "feature1",
+        "feature2",
+        "feature3",
+        "faq1",
+        "faq2"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "story"
+  ]
+}

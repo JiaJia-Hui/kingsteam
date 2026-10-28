@@ -1,0 +1,169 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "ks_title": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<p class=\"ks-product-eyebrow\">Your daily spa ritual</p><h1 class=\"m-product-title ks-product-title\">8L Wood-Look Towel Warmer</h1>"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_saving": false,
+            "sale_badge_type": "percentage"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "size_title": "Size"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "show_atc_button": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "ks_details": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Product details",
+            "liquid": "{{ product.description }}",
+            "content": "",
+            "default_open": false
+          }
+        }
+      },
+      "block_order": [
+        "ks_title",
+        "price",
+        "variant_picker",
+        "buy_buttons",
+        "ks_details"
+      ],
+      "settings": {
+        "container": "container",
+        "layout": "layout-4",
+        "show_atwl": true,
+        "enable_history_state": true,
+        "enable_variant_group_images": true,
+        "disable_selected_variant_default": false,
+        "show_featured_media": true,
+        "show_zoom_button": true,
+        "enable_video_autoplay": false,
+        "show_nav_media_mobile": true,
+        "show_pagination_mobile": true,
+        "use_sticky_atc": true,
+        "use_sticky_atc_on_mobile": true,
+        "enable_dynamic_checkout": true,
+        "sticky_atc_wishtlist": false,
+        "sticky_atc_compare": false
+      }
+    },
+    "story": {
+      "type": "ks-product-story",
+      "settings": {
+        "eyebrow": "Your daily spa ritual",
+        "heading": "Warm towels. A softer start.",
+        "intro": "A compact wood-look cabinet brings a welcoming touch to facials, shaves and everyday moments of care.",
+        "accent": "#8b6143",
+        "background": "#f6f0e8",
+        "hero_image_id": "75346475352410",
+        "hero_image_position": 2
+      },
+      "blocks": {
+        "fact1": {
+          "type": "fact",
+          "settings": {
+            "value": "8L",
+            "label": "Cabinet capacity"
+          }
+        },
+        "fact2": {
+          "type": "fact",
+          "settings": {
+            "value": "6–8",
+            "label": "Regular-size towels"
+          }
+        },
+        "fact3": {
+          "type": "fact",
+          "settings": {
+            "value": "176°F",
+            "label": "Listed temperature"
+          }
+        },
+        "fact4": {
+          "type": "fact",
+          "settings": {
+            "value": "No assembly",
+            "label": "Ready to set up"
+          }
+        },
+        "feature1": {
+          "type": "feature",
+          "settings": {
+            "heading": "Prepare a warmer welcome.",
+            "text": "The cabinet is designed to keep towels at a listed temperature of 176°F. Follow the instructions for loading, heating and safely handling hot towels.",
+            "image_id": "75346475385178",
+            "image_position": 3
+          }
+        },
+        "feature2": {
+          "type": "feature",
+          "settings": {
+            "heading": "Small details, made practical.",
+            "text": "A removable wire basket and water drip tray support your towel-care routine. The cabinet has an oxidized aluminum interior and a simple on/off control.",
+            "image_id": "75346475450714",
+            "image_position": 5
+          }
+        },
+        "feature3": {
+          "type": "feature",
+          "settings": {
+            "heading": "A considered fit for your counter.",
+            "text": "The uploaded dimension image shows an approximately 11.8 × 11.8 × 10.8-inch cabinet. Check your available space and the manual’s ventilation guidance before positioning it.",
+            "image_id": "75346475483482",
+            "image_position": 6
+          }
+        },
+        "faq1": {
+          "type": "faq",
+          "settings": {
+            "question": "How many towels fit?",
+            "answer": "The product description lists space for 6–8 regular-size towels. Actual capacity depends on towel size and how they are folded."
+          }
+        },
+        "faq2": {
+          "type": "faq",
+          "settings": {
+            "question": "What should I check before use?",
+            "answer": "Read the product instructions for towel preparation, heating times, water collection and handling. Towels and cabinet surfaces can become hot."
+          }
+        }
+      },
+      "block_order": [
+        "fact1",
+        "fact2",
+        "fact3",
+        "fact4",
+        "feature1",
+        "feature2",
+        "feature3",
+        "faq1",
+        "faq2"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "story"
+  ]
+}

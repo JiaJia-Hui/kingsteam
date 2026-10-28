@@ -1,0 +1,169 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "ks_title": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<p class=\"ks-product-eyebrow\">Care for the tools of your craft</p><h1 class=\"m-product-title ks-product-title\">12L UVC Nail Tool Care Cabinet</h1>"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_saving": false,
+            "sale_badge_type": "percentage"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "size_title": "Size"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "show_atc_button": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "ks_details": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Product details",
+            "liquid": "{{ product.description }}",
+            "content": "",
+            "default_open": false
+          }
+        }
+      },
+      "block_order": [
+        "ks_title",
+        "price",
+        "variant_picker",
+        "buy_buttons",
+        "ks_details"
+      ],
+      "settings": {
+        "container": "container",
+        "layout": "layout-4",
+        "show_atwl": true,
+        "enable_history_state": true,
+        "enable_variant_group_images": true,
+        "disable_selected_variant_default": false,
+        "show_featured_media": true,
+        "show_zoom_button": true,
+        "enable_video_autoplay": false,
+        "show_nav_media_mobile": true,
+        "show_pagination_mobile": true,
+        "use_sticky_atc": true,
+        "use_sticky_atc_on_mobile": true,
+        "enable_dynamic_checkout": true,
+        "sticky_atc_wishtlist": false,
+        "sticky_atc_compare": false
+      }
+    },
+    "story": {
+      "type": "ks-product-story",
+      "settings": {
+        "eyebrow": "Care for the tools of your craft",
+        "heading": "An orderly station starts with a thoughtful routine.",
+        "intro": "A 12L cabinet with two removable trays, simple timer controls and easy access for compatible nail and beauty tools.",
+        "accent": "#4e6080",
+        "background": "#f0f2f6",
+        "hero_image_id": "75347314803034",
+        "hero_image_position": 2
+      },
+      "blocks": {
+        "fact1": {
+          "type": "fact",
+          "settings": {
+            "value": "12L",
+            "label": "Chamber capacity"
+          }
+        },
+        "fact2": {
+          "type": "fact",
+          "settings": {
+            "value": "2 trays",
+            "label": "Removable stainless steel"
+          }
+        },
+        "fact3": {
+          "type": "fact",
+          "settings": {
+            "value": "5–60 min",
+            "label": "Adjustable timer"
+          }
+        },
+        "fact4": {
+          "type": "fact",
+          "settings": {
+            "value": "Door interlock",
+            "label": "Stops when opened"
+          }
+        },
+        "feature1": {
+          "type": "feature",
+          "settings": {
+            "heading": "Simple timing. Considered access.",
+            "text": "Choose a cycle from 5 to 60 minutes as directed in the manual. A side-opening door opens beyond 90°, and the built-in safety interlock stops operation when the door is opened.",
+            "image_id": "75347314868570",
+            "image_position": 4
+          }
+        },
+        "feature2": {
+          "type": "feature",
+          "settings": {
+            "heading": "A dedicated UVC and ozone routine.",
+            "text": "The cabinet combines UVC light and ozone support within a reflective stainless-steel interior. Check item compatibility and follow the manufacturer’s operating and ventilation instructions.",
+            "image_id": "75347314835802",
+            "image_position": 3
+          }
+        },
+        "feature3": {
+          "type": "feature",
+          "settings": {
+            "heading": "A practical addition to your workstation.",
+            "text": "Two removable trays help separate compatible tools and accessories. Clean and dry tools before loading, leave space between items and avoid overcrowding.",
+            "image_id": "75347314770266",
+            "image_position": 1
+          }
+        },
+        "faq1": {
+          "type": "faq",
+          "settings": {
+            "question": "How should I prepare tools?",
+            "answer": "Clean and dry compatible tools before loading. Arrange them with space between items, and follow the product instructions for cycle selection and maintenance."
+          }
+        },
+        "faq2": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I care for the cabinet?",
+            "answer": "Follow the manual for cleaning the stainless-steel interior and trays, replacing the UVC lamp and using the unit safely. Avoid direct UV exposure and observe all ozone ventilation instructions."
+          }
+        }
+      },
+      "block_order": [
+        "fact1",
+        "fact2",
+        "fact3",
+        "fact4",
+        "feature1",
+        "feature2",
+        "feature3",
+        "faq1",
+        "faq2"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "story"
+  ]
+}

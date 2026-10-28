@@ -1,0 +1,169 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "ks_title": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<p class=\"ks-product-eyebrow\">A warmer bathroom rhythm</p><h1 class=\"m-product-title ks-product-title\">Slim Black Heated Towel Rack</h1>"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_saving": false,
+            "sale_badge_type": "percentage"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "size_title": "Size"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "show_atc_button": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "ks_details": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Product details",
+            "liquid": "{{ product.description }}",
+            "content": "",
+            "default_open": false
+          }
+        }
+      },
+      "block_order": [
+        "ks_title",
+        "price",
+        "variant_picker",
+        "buy_buttons",
+        "ks_details"
+      ],
+      "settings": {
+        "container": "container",
+        "layout": "layout-4",
+        "show_atwl": true,
+        "enable_history_state": true,
+        "enable_variant_group_images": true,
+        "disable_selected_variant_default": false,
+        "show_featured_media": true,
+        "show_zoom_button": true,
+        "enable_video_autoplay": false,
+        "show_nav_media_mobile": true,
+        "show_pagination_mobile": true,
+        "use_sticky_atc": true,
+        "use_sticky_atc_on_mobile": true,
+        "enable_dynamic_checkout": true,
+        "sticky_atc_wishtlist": false,
+        "sticky_atc_compare": false
+      }
+    },
+    "story": {
+      "type": "ks-product-story",
+      "settings": {
+        "eyebrow": "A warmer bathroom rhythm",
+        "heading": "Vertical lines. Everyday comfort.",
+        "intro": "A slender wall-mounted rack pairs a black finish with adjustable warmth, making thoughtful use of your bathroom wall.",
+        "accent": "#615b51",
+        "background": "#f1eee8",
+        "hero_image_id": "75346978373978",
+        "hero_image_position": 3
+      },
+      "blocks": {
+        "fact1": {
+          "type": "fact",
+          "settings": {
+            "value": "115–155°F",
+            "label": "Temperature range"
+          }
+        },
+        "fact2": {
+          "type": "fact",
+          "settings": {
+            "value": "1–9 h",
+            "label": "Timer"
+          }
+        },
+        "fact3": {
+          "type": "fact",
+          "settings": {
+            "value": "Wall mounted",
+            "label": "Space-saving format"
+          }
+        },
+        "fact4": {
+          "type": "fact",
+          "settings": {
+            "value": "2 options",
+            "label": "Plug in or hardwire"
+          }
+        },
+        "feature1": {
+          "type": "feature",
+          "settings": {
+            "heading": "Warmth with a clear display.",
+            "text": "Set your preferred temperature from 115°F to 155°F and choose a 1–9 hour timer using the built-in display. The product description lists a warm-up time of around 10–15 minutes.",
+            "image_id": "75346978341210",
+            "image_position": 2
+          }
+        },
+        "feature2": {
+          "type": "feature",
+          "settings": {
+            "heading": "Choose your installation.",
+            "text": "Use a suitable standard 110V outlet for plug-in installation, or choose a hardwired connection installed by a qualified electrician. Follow the supplied mounting instructions.",
+            "image_id": "75346978439514",
+            "image_position": 5
+          }
+        },
+        "feature3": {
+          "type": "feature",
+          "settings": {
+            "heading": "A finishing touch for your routine.",
+            "text": "The vertical design keeps floor space clear and gives towels a dedicated place between uses. Its narrow profile suits considered bathroom, spa and salon layouts.",
+            "image_id": "75346978505050",
+            "image_position": 7
+          }
+        },
+        "faq1": {
+          "type": "faq",
+          "settings": {
+            "question": "How large is the rack?",
+            "answer": "The uploaded mounting image shows approximately 37.5 inches tall, 11.9 inches wide and 4.3 inches deep. Confirm mounting clearances in the manual."
+          }
+        },
+        "faq2": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I hardwire it?",
+            "answer": "The listing supports plug-in and hardwired installation. Hardwiring must be carried out by a qualified electrician in accordance with the product instructions and local requirements."
+          }
+        }
+      },
+      "block_order": [
+        "fact1",
+        "fact2",
+        "fact3",
+        "fact4",
+        "feature1",
+        "feature2",
+        "feature3",
+        "faq1",
+        "faq2"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "story"
+  ]
+}

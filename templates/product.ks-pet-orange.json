@@ -1,0 +1,169 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "ks_title": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<p class=\"ks-product-eyebrow\">A cozy corner for colder days</p><h1 class=\"m-product-title ks-product-title\">600W Pet Shelter Heater — Orange</h1>"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_saving": false,
+            "sale_badge_type": "percentage"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "size_title": "Size"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "show_atc_button": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "ks_details": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Product details",
+            "liquid": "{{ product.description }}",
+            "content": "",
+            "default_open": false
+          }
+        }
+      },
+      "block_order": [
+        "ks_title",
+        "price",
+        "variant_picker",
+        "buy_buttons",
+        "ks_details"
+      ],
+      "settings": {
+        "container": "container",
+        "layout": "layout-4",
+        "show_atwl": true,
+        "enable_history_state": true,
+        "enable_variant_group_images": true,
+        "disable_selected_variant_default": false,
+        "show_featured_media": true,
+        "show_zoom_button": true,
+        "enable_video_autoplay": false,
+        "show_nav_media_mobile": true,
+        "show_pagination_mobile": true,
+        "use_sticky_atc": true,
+        "use_sticky_atc_on_mobile": true,
+        "enable_dynamic_checkout": true,
+        "sticky_atc_wishtlist": false,
+        "sticky_atc_compare": false
+      }
+    },
+    "story": {
+      "type": "ks-product-story",
+      "settings": {
+        "eyebrow": "A cozy corner for colder days",
+        "heading": "A bright touch. A warmer shelter.",
+        "intro": "A distinctive orange body pairs ceramic PTC heating with a separate controller for everyday dog-house and coop care.",
+        "accent": "#b85d24",
+        "background": "#fcf0e5",
+        "hero_image_id": "75347667714394",
+        "hero_image_position": 2
+      },
+      "blocks": {
+        "fact1": {
+          "type": "fact",
+          "settings": {
+            "value": "600W",
+            "label": "Ceramic PTC heating"
+          }
+        },
+        "fact2": {
+          "type": "fact",
+          "settings": {
+            "value": "40–115°F",
+            "label": "Controller range"
+          }
+        },
+        "fact3": {
+          "type": "fact",
+          "settings": {
+            "value": "Up to 24 h",
+            "label": "Timer"
+          }
+        },
+        "fact4": {
+          "type": "fact",
+          "settings": {
+            "value": "Orange",
+            "label": "Housing finish"
+          }
+        },
+        "feature1": {
+          "type": "feature",
+          "settings": {
+            "heading": "Warmth for their everyday space.",
+            "text": "The compact heater is listed for dog houses and chicken coops, with low-noise ceramic PTC heating. Follow the manual for approved shelter conditions and placement.",
+            "image_id": "75347667747162",
+            "image_position": 3
+          }
+        },
+        "feature2": {
+          "type": "feature",
+          "settings": {
+            "heading": "Keep the settings within reach.",
+            "text": "A separate controller lets you adjust temperature from 40°F to 115°F and set a timer up to 24 hours. ECO mode cycles heating according to temperature needs.",
+            "image_id": "75347667779930",
+            "image_position": 4
+          }
+        },
+        "feature3": {
+          "type": "feature",
+          "settings": {
+            "heading": "Plan a careful installation.",
+            "text": "The uploaded images show overheat protection and a 9.84-foot anti-chew cable. Secure all wiring, maintain the required clearances and follow every electrical and mounting instruction.",
+            "image_id": "75347667812698",
+            "image_position": 5
+          }
+        },
+        "faq1": {
+          "type": "faq",
+          "settings": {
+            "question": "Is this the orange version?",
+            "answer": "Yes. This template uses the orange product’s uploaded images. Confirm the selected product and any available options above before adding it to your cart."
+          }
+        },
+        "faq2": {
+          "type": "faq",
+          "settings": {
+            "question": "How should I choose a temperature?",
+            "answer": "Use a setting suitable for your animal, shelter and ambient conditions. The controller range is 40–115°F; follow the manual and monitor the shelter rather than treating the maximum setting as a recommendation."
+          }
+        }
+      },
+      "block_order": [
+        "fact1",
+        "fact2",
+        "fact3",
+        "fact4",
+        "feature1",
+        "feature2",
+        "feature3",
+        "faq1",
+        "faq2"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "story"
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "ks_title": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<p class=\"ks-product-eyebrow\">Comfort for their little corner</p><h1 class=\"m-product-title ks-product-title\">600W Pet Shelter Heater — Black</h1>"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_saving": false,
+            "sale_badge_type": "percentage"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "size_title": "Size"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "show_atc_button": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "ks_details": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Product details",
+            "liquid": "{{ product.description }}",
+            "content": "",
+            "default_open": false
+          }
+        }
+      },
+      "block_order": [
+        "ks_title",
+        "price",
+        "variant_picker",
+        "buy_buttons",
+        "ks_details"
+      ],
+      "settings": {
+        "container": "container",
+        "layout": "layout-4",
+        "show_atwl": true,
+        "enable_history_state": true,
+        "enable_variant_group_images": true,
+        "disable_selected_variant_default": false,
+        "show_featured_media": true,
+        "show_zoom_button": true,
+        "enable_video_autoplay": false,
+        "show_nav_media_mobile": true,
+        "show_pagination_mobile": true,
+        "use_sticky_atc": true,
+        "use_sticky_atc_on_mobile": true,
+        "enable_dynamic_checkout": true,
+        "sticky_atc_wishtlist": false,
+        "sticky_atc_compare": false
+      }
+    },
+    "story": {
+      "type": "ks-product-story",
+      "settings": {
+        "eyebrow": "Comfort for their little corner",
+        "heading": "A warmer place to settle in.",
+        "intro": "A compact black shelter heater with an external controller, adjustable thermostat and timer for your pet-care setup.",
+        "accent": "#965b31",
+        "background": "#f7efe6",
+        "hero_image_id": "75347594576218",
+        "hero_image_position": 3
+      },
+      "blocks": {
+        "fact1": {
+          "type": "fact",
+          "settings": {
+            "value": "600W",
+            "label": "Ceramic PTC heating"
+          }
+        },
+        "fact2": {
+          "type": "fact",
+          "settings": {
+            "value": "40–115°F",
+            "label": "Controller range"
+          }
+        },
+        "fact3": {
+          "type": "fact",
+          "settings": {
+            "value": "Up to 24 h",
+            "label": "Timer"
+          }
+        },
+        "fact4": {
+          "type": "fact",
+          "settings": {
+            "value": "ECO mode",
+            "label": "Temperature-based cycling"
+          }
+        },
+        "feature1": {
+          "type": "feature",
+          "settings": {
+            "heading": "Adjust warmth from the controller.",
+            "text": "Set a temperature between 40°F and 115°F and choose a timer up to 24 hours. Select a setting appropriate for your animal and shelter conditions, following the manual.",
+            "image_id": "75347594608986",
+            "image_position": 4
+          }
+        },
+        "feature2": {
+          "type": "feature",
+          "settings": {
+            "heading": "Designed with protective details.",
+            "text": "The product lists overheat protection and a 9.84-foot anti-chew cord. Route and secure the cable according to the instructions; protective features do not replace proper installation.",
+            "image_id": "75347594641754",
+            "image_position": 5
+          }
+        },
+        "feature3": {
+          "type": "feature",
+          "settings": {
+            "heading": "A compact, wall-mounted format.",
+            "text": "The uploaded image shows an approximately 8.5 × 7.4-inch body. Follow the manual for mounting clearances, bedding separation and electrical connection. ECO mode cycles heating as needed.",
+            "image_id": "75347594674522",
+            "image_position": 6
+          }
+        },
+        "faq1": {
+          "type": "faq",
+          "settings": {
+            "question": "Which spaces is it listed for?",
+            "answer": "The listing describes use in dog houses, kennels and chicken coops. Check the manual for approved shelter conditions and choose temperature settings suitable for the animal."
+          }
+        },
+        "faq2": {
+          "type": "faq",
+          "settings": {
+            "question": "What should I check during setup?",
+            "answer": "Follow all mounting, ventilation and electrical instructions. Keep bedding and combustible materials at the required distance, secure the cable and monitor the shelter temperature."
+          }
+        }
+      },
+      "block_order": [
+        "fact1",
+        "fact2",
+        "fact3",
+        "fact4",
+        "feature1",
+        "feature2",
+        "feature3",
+        "faq1",
+        "faq2"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "story"
+  ]
+}

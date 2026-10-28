@@ -1,0 +1,169 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "ks_title": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<p class=\"ks-product-eyebrow\">Comfort, wherever you settle</p><h1 class=\"m-product-title ks-product-title\">Portable Infrared Tower Heater</h1>"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_saving": false,
+            "sale_badge_type": "percentage"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "size_title": "Size"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "show_atc_button": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "ks_details": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Product details",
+            "liquid": "{{ product.description }}",
+            "content": "",
+            "default_open": false
+          }
+        }
+      },
+      "block_order": [
+        "ks_title",
+        "price",
+        "variant_picker",
+        "buy_buttons",
+        "ks_details"
+      ],
+      "settings": {
+        "container": "container",
+        "layout": "layout-4",
+        "show_atwl": true,
+        "enable_history_state": true,
+        "enable_variant_group_images": true,
+        "disable_selected_variant_default": false,
+        "show_featured_media": true,
+        "show_zoom_button": true,
+        "enable_video_autoplay": false,
+        "show_nav_media_mobile": true,
+        "show_pagination_mobile": true,
+        "use_sticky_atc": true,
+        "use_sticky_atc_on_mobile": true,
+        "enable_dynamic_checkout": true,
+        "sticky_atc_wishtlist": false,
+        "sticky_atc_compare": false
+      }
+    },
+    "story": {
+      "type": "ks-product-story",
+      "settings": {
+        "eyebrow": "Comfort, wherever you settle",
+        "heading": "A little more warmth for your favorite corner.",
+        "intro": "A slim black tower brings direct infrared warmth to your patio or indoor retreat, with simple controls close at hand.",
+        "accent": "#a65c26",
+        "background": "#f6efe7",
+        "hero_image_id": "75346423284058",
+        "hero_image_position": 2
+      },
+      "blocks": {
+        "fact1": {
+          "type": "fact",
+          "settings": {
+            "value": "1500W",
+            "label": "Heating power"
+          }
+        },
+        "fact2": {
+          "type": "fact",
+          "settings": {
+            "value": "3 levels",
+            "label": "Adjustable heat"
+          }
+        },
+        "fact3": {
+          "type": "fact",
+          "settings": {
+            "value": "1–24 h",
+            "label": "Timer"
+          }
+        },
+        "fact4": {
+          "type": "fact",
+          "settings": {
+            "value": "IP65",
+            "label": "Weather rating"
+          }
+        },
+        "feature1": {
+          "type": "feature",
+          "settings": {
+            "heading": "A slim footprint. A warmer corner.",
+            "text": "The freestanding tower measures approximately 38.5 inches tall with a 6.4-inch base, as shown in the product images. Position it on a suitable stable surface with the clearances required in the manual.",
+            "image_id": "75346423349594",
+            "image_position": 4
+          }
+        },
+        "feature2": {
+          "type": "feature",
+          "settings": {
+            "heading": "Direct warmth, at your pace.",
+            "text": "Carbon infrared heating brings warmth directly to your seating area. Choose from three heat settings and use the remote to adjust your routine.",
+            "image_id": "75346423316826",
+            "image_position": 3
+          }
+        },
+        "feature3": {
+          "type": "feature",
+          "settings": {
+            "heading": "Protection for everyday use.",
+            "text": "Tip-over auto shutoff, a protective metal grille and a grounded plug are built into the design. Follow the product instructions for placement and operation.",
+            "image_id": "75346423415130",
+            "image_position": 6
+          }
+        },
+        "faq1": {
+          "type": "faq",
+          "settings": {
+            "question": "Which controls are included?",
+            "answer": "The uploaded product images show a remote control, three heating levels and a timer adjustable from 1 to 24 hours."
+          }
+        },
+        "faq2": {
+          "type": "faq",
+          "settings": {
+            "question": "Where can I place it?",
+            "answer": "This model is listed for indoor and outdoor use with an IP65 rating. Follow the manual for permitted locations, clearances and electrical connection."
+          }
+        }
+      },
+      "block_order": [
+        "fact1",
+        "fact2",
+        "fact3",
+        "fact4",
+        "feature1",
+        "feature2",
+        "feature3",
+        "faq1",
+        "faq2"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "story"
+  ]
+}

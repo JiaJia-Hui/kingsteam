@@ -1,0 +1,169 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "ks_title": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<p class=\"ks-product-eyebrow\">Bathroom comfort, refined</p><h1 class=\"m-product-title ks-product-title\">Matte Black Heated Towel Rack</h1>"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_saving": false,
+            "sale_badge_type": "percentage"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "size_title": "Size"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "show_atc_button": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "ks_details": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Product details",
+            "liquid": "{{ product.description }}",
+            "content": "",
+            "default_open": false
+          }
+        }
+      },
+      "block_order": [
+        "ks_title",
+        "price",
+        "variant_picker",
+        "buy_buttons",
+        "ks_details"
+      ],
+      "settings": {
+        "container": "container",
+        "layout": "layout-4",
+        "show_atwl": true,
+        "enable_history_state": true,
+        "enable_variant_group_images": true,
+        "disable_selected_variant_default": false,
+        "show_featured_media": true,
+        "show_zoom_button": true,
+        "enable_video_autoplay": false,
+        "show_nav_media_mobile": true,
+        "show_pagination_mobile": true,
+        "use_sticky_atc": true,
+        "use_sticky_atc_on_mobile": true,
+        "enable_dynamic_checkout": true,
+        "sticky_atc_wishtlist": false,
+        "sticky_atc_compare": false
+      }
+    },
+    "story": {
+      "type": "ks-product-story",
+      "settings": {
+        "eyebrow": "Bathroom comfort, refined",
+        "heading": "A familiar shape. A warmer finish.",
+        "intro": "A matte black ladder profile offers room for your towels and a quietly practical upgrade to your daily routine.",
+        "accent": "#444c4a",
+        "background": "#eff2ef",
+        "hero_image_id": "75347066978650",
+        "hero_image_position": 7
+      },
+      "blocks": {
+        "fact1": {
+          "type": "fact",
+          "settings": {
+            "value": "115–155°F",
+            "label": "Temperature range"
+          }
+        },
+        "fact2": {
+          "type": "fact",
+          "settings": {
+            "value": "1–9 h",
+            "label": "Timer"
+          }
+        },
+        "fact3": {
+          "type": "fact",
+          "settings": {
+            "value": "Matte black",
+            "label": "Finish"
+          }
+        },
+        "fact4": {
+          "type": "fact",
+          "settings": {
+            "value": "110V",
+            "label": "Plug-in option"
+          }
+        },
+        "feature1": {
+          "type": "feature",
+          "settings": {
+            "heading": "Your warmth, on your schedule.",
+            "text": "The integrated LED control shows your settings clearly. Adjust the temperature from 115°F to 155°F and set the built-in timer from 1 to 9 hours.",
+            "image_id": "75347066847578",
+            "image_position": 3
+          }
+        },
+        "feature2": {
+          "type": "feature",
+          "settings": {
+            "heading": "Two ways to fit your space.",
+            "text": "Choose plug-in convenience or a professionally installed hardwired connection. The uploaded dimension image shows approximately 31.5 × 19.5 × 4.3 inches.",
+            "image_id": "75347066913114",
+            "image_position": 5
+          }
+        },
+        "feature3": {
+          "type": "feature",
+          "settings": {
+            "heading": "Designed for everyday spaces.",
+            "text": "The wall-mounted ladder format works in bathrooms, spas and salon settings. Follow the manual’s mounting, electrical and placement instructions for your space.",
+            "image_id": "75347066945882",
+            "image_position": 6
+          }
+        },
+        "faq1": {
+          "type": "faq",
+          "settings": {
+            "question": "How quickly does it warm up?",
+            "answer": "The product description lists around 10–15 minutes. The warmth of a towel depends on towel thickness, coverage, room conditions and your selected setting."
+          }
+        },
+        "faq2": {
+          "type": "faq",
+          "settings": {
+            "question": "What installation is required?",
+            "answer": "Mount the rack according to the supplied instructions. Plug into a suitable 110V outlet, or have a qualified electrician complete the hardwired installation."
+          }
+        }
+      },
+      "block_order": [
+        "fact1",
+        "fact2",
+        "fact3",
+        "fact4",
+        "feature1",
+        "feature2",
+        "feature3",
+        "faq1",
+        "faq2"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "story"
+  ]
+}
