@@ -1,0 +1,41 @@
+.curla-inbox-art[hidden],
+.curla-inbox-art :is(img, canvas)[hidden] {
+  display: none !important;
+}
+
+button[data-curla-inbox][part~="activator"] {
+  position: relative;
+  width: clamp(100px, 17vw, 132px);
+  height: clamp(100px, 17vw, 132px);
+  padding: 0;
+  place-items: center;
+  background: transparent !important;
+  box-shadow: none;
+  outline-color: transparent;
+}
+
+button[data-curla-inbox][part~="activator"]:has(> .activator__label[hidden]) {
+  width: clamp(100px, 17vw, 132px);
+}
+
+button[data-curla-inbox][part~="activator"]:focus-visible {
+  outline: 2px solid #8e654b;
+  outline-offset: 3px;
+}
+
+button[data-curla-inbox] > :is(.activator__icon, .activator__label) {
+  display: none;
+}
+
+.curla-inbox-art {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+
+.curla-inbox-art :is(img, canvas) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
