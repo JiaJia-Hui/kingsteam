@@ -8,12 +8,13 @@
   const {stage, cartCount, poster, idle, wave, point, beg, pat} = config.dataset;
   const activatorSelector = 'button[part~="activator"]';
   const floatingSelector = '.floating-input-launcher__field';
-  let host, runtime, button, scope;
+  let host, runtime, button, art, hint, motion, hostScope, scope;
   const shadowChanges = new MutationObserver(bindLauncher);
   const runtimeChanges = new MutationObserver(bindLauncher);
 
   function bindLauncher() {
     const shell = host?.shadowRoot;
+    const standIn = shell?.querySelector('.curla-inbox-stand-in');
     // Inbox replaces the lightweight initial button with a nested runtime on first open.
     const nextRuntime = shell?.querySelector('.agent-shell__runtime');
     if (nextRuntime !== runtime) {
@@ -32,38 +33,44 @@
 
     scope = new AbortController();
     const {signal} = scope;
-    const art = document.createElement('span');
-    art.className = 'curla-inbox-art';
-    art.setAttribute('aria-hidden', 'true');
-    const hint = document.createElement('span');
-    hint.className = 'curla-inbox-hint';
-    hint.textContent = 'Ask';
-    hint.setAttribute('aria-hidden', 'true');
-    hint.hidden = true;
     const root = launcher.getRootNode();
     const stylesheet = document.createElement('link');
     stylesheet.rel = 'stylesheet';
     stylesheet.href = config.dataset.styles;
-    art.hidden = true;
-    launcher.prepend(art, hint);
-    player.mount(art, button, signal, {}, {
-      stage: stage === 'cart' && Number(cartCount) === 0 ? 'idle' : stage,
-      assets: {poster, idle, wave, point, beg, pat}
-    });
+    if (!art) {
+      art = document.createElement('span');
+      art.className = 'curla-inbox-art';
+      art.setAttribute('aria-hidden', 'true');
+      art.hidden = true;
+      hint = document.createElement('span');
+      hint.className = 'curla-inbox-hint';
+      hint.textContent = 'Ask';
+      hint.setAttribute('aria-hidden', 'true');
+      motion = player.mount(art, art, hostScope.signal, {}, {
+        stage: stage === 'cart' && Number(cartCount) === 0 ? 'idle' : stage,
+        assets: {poster, idle, wave, point, beg, pat}
+      });
+    }
+    launcher.addEventListener('pointerenter', event => {
+      if (event.pointerType === 'mouse' && art.dataset.motion === 'idle') motion.play('wave');
+    }, {signal});
+    launcher.addEventListener('click', () => {
+      if (launcher.hasAttribute('data-curla-inbox')) motion.play('pat', {immediate: true});
+    }, {capture: true, signal});
 
     // The original icon remains the fallback until both resources are ready.
     const image = art.querySelector('img');
     let stylesReady = false;
-    let shellStylesheet;
     function decorate() {
       if (signal.aborted || !stylesReady || !image.naturalWidth) return;
       art.hidden = false;
-      hint.hidden = false;
+      launcher.prepend(art, hint);
       launcher.setAttribute('data-curla-inbox', '');
+      root.host.setAttribute('data-curla-docked', '');
+      host.setAttribute('data-curla-docked', '');
+      standIn.hidden = false;
       if (root === runtime?.shadowRoot) {
         // A message-bar launcher may briefly remain in the shell during the swap.
-        shellStylesheet ||= stylesheet.cloneNode();
-        if (!shellStylesheet.isConnected) shell.append(shellStylesheet);
         host.setAttribute('data-curla-runtime-ready', '');
       }
     }
@@ -75,20 +82,38 @@
     root.append(stylesheet);
     signal.addEventListener('abort', () => {
       shell?.host.removeAttribute('data-curla-runtime-ready');
+      if (root !== shell) root.host.removeAttribute('data-curla-docked');
       launcher.removeAttribute('data-curla-inbox');
-      art.remove();
-      hint.remove();
+      // Move the same canvas during startup so the tap reaction keeps playing.
+      if (!art.hidden) standIn.append(art, hint);
       stylesheet.remove();
-      shellStylesheet?.remove();
     }, {once: true});
   }
 
   function bindHost() {
     const next = document.querySelector('shopify-chat');
     if (next === host) return;
+    scope?.abort();
+    hostScope?.abort();
+    host?.removeAttribute('data-curla-docked');
+    button = art = hint = motion = undefined;
     shadowChanges.disconnect();
     host = next;
-    if (host?.shadowRoot) shadowChanges.observe(host.shadowRoot, {childList: true, subtree: true});
+    if (host?.shadowRoot) {
+      hostScope = new AbortController();
+      const standIn = document.createElement('span');
+      standIn.className = 'curla-inbox-stand-in';
+      standIn.hidden = true;
+      const stylesheet = document.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.href = config.dataset.styles;
+      host.shadowRoot.append(stylesheet, standIn);
+      hostScope.signal.addEventListener('abort', () => {
+        stylesheet.remove();
+        standIn.remove();
+      }, {once: true});
+      shadowChanges.observe(host.shadowRoot, {childList: true, subtree: true});
+    }
     bindLauncher();
   }
 

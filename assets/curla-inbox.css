@@ -1,6 +1,51 @@
+.curla-inbox-stand-in[hidden],
 .curla-inbox-art[hidden],
 .curla-inbox-art :is(img, canvas)[hidden] {
   display: none !important;
+}
+
+/* The native launcher normally folds away when the dialog opens. */
+:host([data-curla-docked][open]) button[data-curla-inbox] {
+  display: grid !important;
+  opacity: 1;
+  scale: 1;
+}
+
+/* Keep the animation visible if Inbox swaps its launcher out during startup. */
+.curla-inbox-stand-in {
+  position: absolute;
+  z-index: 2;
+  right: 16px;
+  bottom: calc(var(--shopify-chat-activator-offset, 20px) + var(--private-preview-bar-offset, 0px));
+  width: clamp(100px, 17vw, 132px);
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  pointer-events: none;
+}
+
+.curla-inbox-stand-in:empty {
+  display: none;
+}
+
+/* Keep the native dialog above the mascot, within the current visual viewport. */
+:host([data-curla-docked]) .panel[part~="dialog"] {
+  --curla-dialog-bottom: calc(
+    var(--shopify-chat-activator-offset, 20px) + clamp(100px, 17vw, 132px) + 36px
+    + var(--private-preview-bar-offset, 0px)
+  );
+  bottom: max(var(--curla-dialog-bottom), var(--private-keyboard-offset, 0px)) !important;
+  min-height: 0 !important;
+  max-height: max(0px, calc(
+    var(--private-visual-viewport-height, 100dvh) + var(--private-keyboard-offset, 0px)
+    - max(var(--curla-dialog-bottom), var(--private-keyboard-offset, 0px)) - 8px
+  )) !important;
+}
+
+@media (min-width: 768px) {
+  :host([data-curla-docked]) .desktop-layout .panel--right[part~="dialog"] {
+    right: 72px !important;
+  }
 }
 
 button[data-curla-inbox] {
@@ -46,7 +91,7 @@ button[data-curla-inbox] > :not(.curla-inbox-art, .curla-inbox-hint, .activator_
   pointer-events: none;
 }
 
-button[data-curla-inbox] > .curla-inbox-hint:not([hidden]) {
+:is(button[data-curla-inbox], .curla-inbox-stand-in) > .curla-inbox-hint {
   display: block;
   padding: 2px 10px;
   border-radius: 12px;
