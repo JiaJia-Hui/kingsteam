@@ -1,0 +1,15 @@
+<div
+  id="kingsteam-curla"
+  hidden
+  data-stage="{{ request.page_type | escape }}"
+  data-cart-count="{{ cart.item_count }}"
+  data-styles="{{ 'curla-inbox.css' | asset_url | escape }}"
+  data-poster="{{ 'curla-poster.webp' | asset_url | escape }}"
+  data-idle="{{ 'curla-idle.webp' | asset_url | escape }}"
+  data-wave="{{ 'curla-wave.webp' | asset_url | escape }}"
+  data-point="{{ 'curla-point.webp' | asset_url | escape }}"
+  data-beg="{{ 'curla-beg.webp' | asset_url | escape }}"
+  data-pat="{{ 'curla-pat.webp' | asset_url | escape }}"
+></div>
+<script src="{{ 'curla-player.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'curla-inbox.js' | asset_url }}" defer="defer"></script>
