@@ -3,28 +3,56 @@
   display: none !important;
 }
 
-button[data-curla-inbox][part~="activator"] {
+button[data-curla-inbox] {
   position: relative;
-  width: clamp(100px, 17vw, 132px);
-  height: clamp(100px, 17vw, 132px);
-  padding: 0;
-  place-items: center;
+  width: clamp(100px, 17vw, 132px) !important;
+  height: auto !important;
+  padding: 0 !important;
+  display: grid;
+  grid-auto-flow: row;
+  justify-items: center;
+  gap: 2px;
   background: transparent !important;
-  box-shadow: none;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
   outline-color: transparent;
 }
 
-button[data-curla-inbox][part~="activator"]:has(> .activator__label[hidden]) {
-  width: clamp(100px, 17vw, 132px);
+/* Hide only the shell's superseded controls, never the native dialog. */
+:host([data-curla-runtime-ready]) :is(.floating-input-launcher, .activator-nudge),
+.floating-input-launcher:has(button[data-curla-inbox]) .floating-input-row {
+  display: none !important;
 }
 
-button[data-curla-inbox][part~="activator"]:focus-visible {
+.floating-input-launcher:has(button[data-curla-inbox]) {
+  background: transparent !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+button[data-curla-inbox]:focus-visible {
   outline: 2px solid #8e654b;
   outline-offset: 3px;
 }
 
-button[data-curla-inbox] > :is(.activator__icon, .activator__label) {
+button[data-curla-inbox] > :not(.curla-inbox-art, .curla-inbox-hint, .activator__indicator) {
+  display: none !important;
+}
+
+.curla-inbox-hint {
   display: none;
+  pointer-events: none;
+}
+
+button[data-curla-inbox] > .curla-inbox-hint:not([hidden]) {
+  display: block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  background: #fff8ef;
+  color: #51352a;
+  font: 600 12px/1.4 system-ui, sans-serif;
 }
 
 .curla-inbox-art {
