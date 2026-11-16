@@ -117,8 +117,24 @@
     bindLauncher();
   }
 
-  customElements.whenDefined('shopify-chat').then(() => {
+  function bindPromo() {
+    const forms = document.querySelector('shopify-forms-embed#app-embed-container-961213')?.shadowRoot;
+    if (!forms || forms.querySelector('link[data-curla-promo-styles]')) return;
+    const stylesheet = document.createElement('link');
+    stylesheet.rel = 'stylesheet';
+    stylesheet.href = config.dataset.styles;
+    stylesheet.setAttribute('data-curla-promo-styles', '');
+    forms.append(stylesheet);
+  }
+
+  function bindWidgets() {
     bindHost();
-    new MutationObserver(bindHost).observe(document.body, {childList: true, subtree: true});
+    bindPromo();
+  }
+
+  customElements.whenDefined('shopify-chat').then(() => {
+    bindWidgets();
+    new MutationObserver(bindWidgets).observe(document.body, {childList: true, subtree: true});
+    customElements.whenDefined('shopify-forms-embed').then(bindPromo);
   });
 }());
