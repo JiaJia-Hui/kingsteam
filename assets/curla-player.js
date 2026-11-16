@@ -36,6 +36,7 @@
     const pageLoop = autoplay !== false && (stage === 'product' || stage === 'cart') ? scenes[stage] : 'idle';
     let restingClip = pageLoop;
     let active, loading, requested;
+    let retryTimer;
     let interrupt = false;
     let raf = 0, last = 0, elapsed = 0, lastFrame = -1, visible = true;
     let pending = autoplay === false || !Object.hasOwn(scenes, stage) ? 'idle' : scenes[stage];
@@ -65,14 +66,22 @@
       }
     }
 
-    function request(name) {
+    function request(name, retry = true) {
       if (reduced.matches || loading === name || active?.name === name) return;
+      clearTimeout(retryTimer);
       loading = name;
       fetchSheet(name).then(sheet => {
         if (signal.aborted || loading !== name) return;
         loading = undefined;
         if (!sheet) {
-          if (pending !== name || name === 'idle') return;
+          if (pending !== name) return;
+          if (retry) {
+            retryTimer = setTimeout(() => {
+              if (!signal.aborted && pending === name) request(name, false);
+            }, 600);
+            return;
+          }
+          if (name === 'idle') return;
           if (restingClip === name) restingClip = 'idle';
           selectClip(restingClip);
           return;
@@ -187,6 +196,7 @@
     signal.addEventListener('abort', () => {
       observer.disconnect();
       cancelAnimationFrame(raf);
+      clearTimeout(retryTimer);
     }, {once: true});
     launcher.addEventListener('pointerenter', event => {
       if (event.pointerType === 'mouse' && active?.name === 'idle') play('wave');
