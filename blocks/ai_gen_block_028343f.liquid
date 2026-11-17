@@ -6,6 +6,7 @@
 
 {% style %}
   .ai-slider-{{ ai_gen_id }} {
+    display: block;
     position: relative;
     width: 100%;
     overflow: hidden;
@@ -23,8 +24,13 @@
     transition: transform 0.5s ease-in-out;
   }
 
+  .ai-slider-track-{{ ai_gen_id }}[data-snap] {
+    transition: none;
+  }
+
   .ai-slider-slide-{{ ai_gen_id }} {
-    min-width: 100%;
+    flex: 0 0 100%;
+    min-width: 0;
     position: relative;
     display: block;
     text-decoration: none;
@@ -42,6 +48,14 @@
     height: 100%;
     object-fit: cover;
     display: block;
+  }
+
+  [data-artwork] .ai-slider-image-wrapper-{{ ai_gen_id }} {
+    background-color: #f3e2d1;
+  }
+
+  [data-artwork] .ai-slider-image-{{ ai_gen_id }} {
+    object-fit: contain;
   }
 
   .ai-slider-placeholder-{{ ai_gen_id }} {
@@ -168,7 +182,29 @@
     transform: scale(1.3);
   }
 
+  .ai-slider-wrapper-{{ ai_gen_id }}:has([data-artwork]) .ai-slider-controls-{{ ai_gen_id }} {
+    inset: 50% 8px auto;
+    width: auto;
+    transform: translateY(-50%);
+    justify-content: space-between;
+    pointer-events: none;
+  }
+
+  .ai-slider-controls-{{ ai_gen_id }} button {
+    pointer-events: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-slider-track-{{ ai_gen_id }} {
+      transition: none;
+    }
+  }
+
   @media screen and (max-width: 749px) {
+    .ai-slider-{{ ai_gen_id }}:has([data-artwork]) .ai-slider-image-wrapper-{{ ai_gen_id }} {
+      aspect-ratio: 16 / 9;
+    }
+
     .ai-slider-controls-{{ ai_gen_id }} {
       left: 16px;
       right: 16px;
@@ -204,7 +240,11 @@
   }
 {% endstyle %}
 
-<image-slider-{{ ai_gen_id }} class="ai-slider-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+<image-slider-{{ ai_gen_id }}
+  class="ai-slider-{{ ai_gen_id }}"
+  {% if block.settings.autoplay %}data-autoplay-delay="{{ block.settings.autoplay_speed | times: 1000 }}"{% endif %}
+  {{ block.shopify_attributes }}
+>
   <div class="ai-slider-wrapper-{{ ai_gen_id }}">
     <div class="ai-slider-track-{{ ai_gen_id }}">
       {% for i in (1..5) %}
@@ -218,16 +258,29 @@
           assign slide_heading = block.settings[slide_heading_key]
           assign slide_subheading = block.settings[slide_subheading_key]
           assign slide_link = block.settings[slide_link_key]
+          assign slide_asset = blank
+          if i == 1 and slide_image == blank
+            assign slide_asset = block.settings.slide_1_asset
+          endif
         %}
 
-        {% if slide_image != blank or slide_heading != blank or slide_subheading != blank %}
+        {% if slide_asset != blank or slide_image != blank or slide_heading != blank or slide_subheading != blank %}
           <a
             href="{% if slide_link != blank %}{{ slide_link }}{% else %}#{% endif %}"
             class="ai-slider-slide-{{ ai_gen_id }}"
+            {% if slide_asset != blank %}data-artwork{% endif %}
             {% if slide_link == blank %}onclick="return false;"{% endif %}
           >
             <div class="ai-slider-image-wrapper-{{ ai_gen_id }}">
-              {% if slide_image %}
+              {% if slide_asset != blank %}
+                <img
+                  src="{{ slide_asset | asset_url }}"
+                  alt="{{ block.settings.slide_1_asset_alt | escape }}"
+                  loading="eager"
+                  fetchpriority="high"
+                  class="ai-slider-image-{{ ai_gen_id }}"
+                >
+              {% elsif slide_image %}
                 <img
                   src="{{ slide_image | image_url: width: 2000 }}"
                   alt="{{ slide_image.alt | escape }}"
@@ -242,7 +295,7 @@
                 </div>
               {% endif %}
 
-              {% if block.settings.show_overlay %}
+              {% if block.settings.show_overlay and slide_asset == blank %}
                 <div class="ai-slider-overlay-{{ ai_gen_id }}"></div>
               {% endif %}
 
@@ -264,6 +317,7 @@
 
     <div class="ai-slider-controls-{{ ai_gen_id }}">
       <button
+        type="button"
         class="ai-slider-arrow-{{ ai_gen_id }} ai-slider-prev-{{ ai_gen_id }} {% if block.settings.hide_arrows %}hidden{% endif %}"
         aria-label="Previous slide"
       >
@@ -275,6 +329,7 @@
       <div class="ai-slider-dots-{{ ai_gen_id }} {% if block.settings.hide_dots %}hidden{% endif %}"></div>
 
       <button
+        type="button"
         class="ai-slider-arrow-{{ ai_gen_id }} ai-slider-next-{{ ai_gen_id }} {% if block.settings.hide_arrows %}hidden{% endif %}"
         aria-label="Next slide"
       >
@@ -288,135 +343,145 @@
 
 <script>
   (function() {
-    class ImageSlider{{ ai_gen_id }} extends HTMLElement {
-      constructor() {
-        super();
-        this.currentSlide = 0;
-        this.autoplayInterval = null;
-      }
+    const tagName = 'image-slider-{{ ai_gen_id }}';
+    if (customElements.get(tagName)) return;
 
+    class ImageSlider extends HTMLElement {
       connectedCallback() {
         this.track = this.querySelector('.ai-slider-track-{{ ai_gen_id }}');
-        this.slides = this.querySelectorAll('.ai-slider-slide-{{ ai_gen_id }}');
-        this.prevButton = this.querySelector('.ai-slider-prev-{{ ai_gen_id }}');
-        this.nextButton = this.querySelector('.ai-slider-next-{{ ai_gen_id }}');
-        this.dotsContainer = this.querySelector('.ai-slider-dots-{{ ai_gen_id }}');
+        this.slides = Array.from(this.track.children);
+        if (this.slides.length < 2) return;
 
-        if (this.slides.length === 0) return;
+        this.events = new AbortController();
+        const options = { signal: this.events.signal };
+        this.currentSlide = 0;
+        this.hovered = this.matches(':hover');
+        this.motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+        this.autoplayDelay = Number(this.dataset.autoplayDelay);
 
-        this.createDots();
-        this.setupEventListeners();
-        this.updateSlider();
+        const cloneSlide = (slide) => {
+          const clone = slide.cloneNode(true);
+          clone.inert = true;
+          clone.setAttribute('aria-hidden', 'true');
+          return clone;
+        };
+        this.lastClone = cloneSlide(this.slides[this.slides.length - 1]);
+        this.firstClone = cloneSlide(this.slides[0]);
+        this.track.prepend(this.lastClone);
+        this.track.append(this.firstClone);
+        this.snapToSlide();
 
-        {% if block.settings.autoplay %}
-          this.startAutoplay();
-        {% endif %}
-      }
-
-      createDots() {
-        this.dotsContainer.innerHTML = '';
-        this.slides.forEach((_, index) => {
+        const dotsContainer = this.querySelector('.ai-slider-dots-{{ ai_gen_id }}');
+        dotsContainer.replaceChildren();
+        this.dots = this.slides.map((_, index) => {
           const dot = document.createElement('button');
+          dot.type = 'button';
           dot.classList.add('ai-slider-dot-{{ ai_gen_id }}');
           dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
-          if (index === 0) dot.classList.add('active');
-          dot.addEventListener('click', () => this.goToSlide(index));
-          this.dotsContainer.appendChild(dot);
+          dot.addEventListener('click', () => this.goToSlide(index), options);
+          dotsContainer.appendChild(dot);
+          return dot;
         });
-        this.dots = this.querySelectorAll('.ai-slider-dot-{{ ai_gen_id }}');
-      }
+        this.updateControls();
 
-      setupEventListeners() {
-        this.prevButton.addEventListener('click', () => this.prevSlide());
-        this.nextButton.addEventListener('click', () => this.nextSlide());
+        this.querySelector('.ai-slider-prev-{{ ai_gen_id }}')
+          .addEventListener('click', () => this.goToSlide(this.currentSlide - 1), options);
+        this.querySelector('.ai-slider-next-{{ ai_gen_id }}')
+          .addEventListener('click', () => this.goToSlide(this.currentSlide + 1), options);
 
-        this.addEventListener('mouseenter', () => this.stopAutoplay());
+        this.addEventListener('mouseenter', () => {
+          this.hovered = true;
+          this.scheduleAutoplay();
+        }, options);
         this.addEventListener('mouseleave', () => {
-          {% if block.settings.autoplay %}
-            this.startAutoplay();
-          {% endif %}
-        });
+          this.hovered = false;
+          this.scheduleAutoplay();
+        }, options);
+        this.addEventListener('focusin', () => this.scheduleAutoplay(), options);
+        this.addEventListener('focusout', () => queueMicrotask(() => this.scheduleAutoplay()), options);
+        document.addEventListener('visibilitychange', () => this.scheduleAutoplay(), options);
+        this.motionPreference.addEventListener('change', () => this.scheduleAutoplay(), options);
+        this.track.addEventListener('transitionend', (event) => {
+          if (event.target === this.track && event.propertyName === 'transform' && this.wrapTimer) {
+            this.snapToSlide();
+          }
+        }, options);
 
-        let touchStartX = 0;
-        let touchEndX = 0;
+        let touchStart;
+        this.addEventListener('touchstart', (event) => {
+          touchStart = event.touches.length === 1 ? event.touches[0] : null;
+        }, { ...options, passive: true });
+        this.addEventListener('touchend', (event) => {
+          if (!touchStart) return;
+          const touchEnd = event.changedTouches[0];
+          const dx = touchEnd.clientX - touchStart.clientX;
+          const dy = touchEnd.clientY - touchStart.clientY;
+          touchStart = null;
+          if (Math.abs(dx) > Math.max(50, Math.abs(dy))) {
+            this.goToSlide(this.currentSlide - Math.sign(dx));
+          }
+        }, { ...options, passive: true });
+        this.addEventListener('touchcancel', () => { touchStart = null; }, options);
 
-        this.addEventListener('touchstart', (e) => {
-          touchStartX = e.changedTouches[0].screenX;
-        });
-
-        this.addEventListener('touchend', (e) => {
-          touchEndX = e.changedTouches[0].screenX;
-          this.handleSwipe(touchStartX, touchEndX);
-        });
-      }
-
-      handleSwipe(startX, endX) {
-        const swipeThreshold = 50;
-        if (startX - endX > swipeThreshold) {
-          this.nextSlide();
-        } else if (endX - startX > swipeThreshold) {
-          this.prevSlide();
-        }
-      }
-
-      prevSlide() {
-        this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
-        this.updateSlider();
-        this.resetAutoplay();
-      }
-
-      nextSlide() {
-        this.currentSlide = (this.currentSlide + 1) % this.slides.length;
-        this.updateSlider();
-        this.resetAutoplay();
+        this.scheduleAutoplay();
       }
 
       goToSlide(index) {
-        this.currentSlide = index;
-        this.updateSlider();
-        this.resetAutoplay();
+        if (this.wrapTimer) this.snapToSlide();
+
+        const count = this.slides.length;
+        this.currentSlide = (index + count) % count;
+        this.updateControls();
+
+        if (this.motionPreference.matches) {
+          this.snapToSlide();
+        } else {
+          this.track.style.transform = `translateX(${-100 * (index + 1)}%)`;
+          // On either boundary, move by one slide using the adjacent clone.
+          if (index < 0 || index >= count) {
+            this.wrapTimer = setTimeout(() => this.snapToSlide(), 550);
+          }
+        }
+        this.scheduleAutoplay();
       }
 
-      updateSlider() {
-        this.track.style.transform = `translateX(-${this.currentSlide * 100}%)`;
+      snapToSlide() {
+        clearTimeout(this.wrapTimer);
+        this.wrapTimer = null;
+        this.track.setAttribute('data-snap', '');
+        this.track.style.transform = `translateX(${-100 * (this.currentSlide + 1)}%)`;
+        void this.track.offsetWidth;
+        this.track.removeAttribute('data-snap');
+      }
 
-        this.dots.forEach((dot, index) => {
-          if (index === this.currentSlide) {
-            dot.classList.add('active');
-          } else {
-            dot.classList.remove('active');
-          }
+      updateControls() {
+        this.slides.forEach((slide, index) => {
+          const active = index === this.currentSlide;
+          slide.inert = !active;
+          this.dots[index].classList.toggle('active', active);
+          this.dots[index].setAttribute('aria-current', active ? 'true' : 'false');
         });
       }
 
-      startAutoplay() {
-        {% if block.settings.autoplay %}
-          this.autoplayInterval = setInterval(() => {
-            this.nextSlide();
-          }, {{ block.settings.autoplay_speed }} * 1000);
-        {% endif %}
-      }
+      scheduleAutoplay() {
+        clearTimeout(this.autoplayTimer);
+        if (!this.isConnected || !this.autoplayDelay || this.hovered || document.hidden ||
+            this.motionPreference.matches || this.querySelector(':focus-visible')) return;
 
-      stopAutoplay() {
-        if (this.autoplayInterval) {
-          clearInterval(this.autoplayInterval);
-          this.autoplayInterval = null;
-        }
-      }
-
-      resetAutoplay() {
-        this.stopAutoplay();
-        {% if block.settings.autoplay %}
-          this.startAutoplay();
-        {% endif %}
+        this.autoplayTimer = setTimeout(() => this.goToSlide(this.currentSlide + 1), this.autoplayDelay);
       }
 
       disconnectedCallback() {
-        this.stopAutoplay();
+        this.events?.abort();
+        clearTimeout(this.autoplayTimer);
+        clearTimeout(this.wrapTimer);
+        this.wrapTimer = null;
+        this.lastClone?.remove();
+        this.firstClone?.remove();
       }
     }
 
-    customElements.define('image-slider-{{ ai_gen_id }}', ImageSlider{{ ai_gen_id }});
+    customElements.define(tagName, ImageSlider);
   })();
 </script>
 
@@ -609,6 +674,17 @@
       "type": "image_picker",
       "id": "slide_1_image",
       "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_1_asset",
+      "label": "Artwork asset filename",
+      "info": "Used when the image picker is empty. Shows the entire artwork without an overlay."
+    },
+    {
+      "type": "text",
+      "id": "slide_1_asset_alt",
+      "label": "Artwork alternative text"
     },
     {
       "type": "text",
