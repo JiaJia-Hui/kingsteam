@@ -1,0 +1,6 @@
+{%- assign scheme = logo | slice: 0, 6 -%}
+{%- if scheme == 'asset:' -%}
+  {{- logo | remove_first: 'asset:' | asset_url -}}
+{%- else -%}
+  {{- logo -}}
+{%- endif -%}

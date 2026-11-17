@@ -5,10 +5,9 @@
   assign transparent_on_top = header_settings.transparent_on_top
 
   assign default_logo = header_settings.logo
-  assign logo_svg = header_settings.logo_svg
-  if logo_svg == blank and header_settings.logo_theme_asset != blank
-    assign logo_svg = header_settings.logo_theme_asset | asset_url
-  endif
+  capture logo_svg
+    render 'header-logo-svg-url', logo: header_settings.logo_svg
+  endcapture
   assign logo_transparent_svg = header_settings.logo_transparent_svg
   assign logo_transparent = header_settings.logo_transparent
 
