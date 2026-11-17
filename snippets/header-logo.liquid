@@ -1,20 +1,22 @@
 {% liquid
   assign class = 'm-header__logo m-logo'
 
-  if header_settings.logo
-    assign class = class | append: ' m-logo--has-image'
-  endif
-
   assign logo_alt = section.settings.logo.alt | default: shop.name
   assign transparent_on_top = header_settings.transparent_on_top
 
   assign default_logo = header_settings.logo
   assign logo_svg = header_settings.logo_svg
+  if logo_svg == blank and header_settings.logo_theme_asset != blank
+    assign logo_svg = header_settings.logo_theme_asset | asset_url
+  endif
   assign logo_transparent_svg = header_settings.logo_transparent_svg
   assign logo_transparent = header_settings.logo_transparent
 
   if logo_svg != blank
     assign default_logo = logo_svg
+  endif
+  if default_logo != blank
+    assign class = class | append: ' m-logo--has-image'
   endif
 %}
 <div class="{{ class | strip_newlines }}">
@@ -23,7 +25,7 @@
         {% if logo_svg != blank %}
           <div class="m-logo__image-default m-image">
             {% comment %} theme-check-disable RemoteAsset {% endcomment %}
-            <img src="{{ logo_svg }}" alt="{{ logo_alt }}" width="auto" height="auto" loading="lazy">
+            <img src="{{ logo_svg | escape }}" alt="{{ logo_alt | escape }}" loading="eager">
             {% comment %} theme-check-enable RemoteAsset {% endcomment %}
           </div>
         {% else %}
