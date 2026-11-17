@@ -1,10 +1,11 @@
 {{ 'header.css' | asset_url | stylesheet_tag }}
 
 {% liquid
-  assign theme_logo_url = ''
-  if section.settings.logo_theme_asset != blank
-    assign theme_logo_url = section.settings.logo_theme_asset | asset_url
-  endif
+  assign logo_reference = section.settings.logo_svg
+  assign logo_reference_prefix = logo_reference | slice: 0, 6
+  capture desktop_logo_svg
+    render 'header-logo-svg-url', logo: logo_reference
+  endcapture
 %}
 
 <script src="{{ 'mega-menu.js' | asset_url }}" defer="defer"></script>
@@ -15,12 +16,12 @@
     "@context": "http://schema.org",
     "@type": "Organization",
     "name": {{ shop.name | json }},
-    {% if section.settings.logo_svg == blank and theme_logo_url != blank %}
-      {% assign logo_url_prefix = theme_logo_url | slice: 0, 2 %}
+    {% if logo_reference_prefix == 'asset:' and desktop_logo_svg != blank %}
+      {% assign logo_url_prefix = desktop_logo_svg | slice: 0, 2 %}
       {% if logo_url_prefix == '//' %}
-        "logo": {{ theme_logo_url | prepend: 'https:' | json }},
+        "logo": {{ desktop_logo_svg | prepend: 'https:' | json }},
       {% else %}
-        "logo": {{ theme_logo_url | json }},
+        "logo": {{ desktop_logo_svg | json }},
       {% endif %}
     {% elsif section.settings.logo %}
       {% assign image_size = section.settings.logo.width %}
@@ -129,7 +130,7 @@
         assign logo_text = section.settings.logo_text
         assign logo_desktop = section.settings.logo
         assign logo_mobile = section.settings.logo_mobile
-        assign logo_svg_desktop = section.settings.logo_svg | default: theme_logo_url
+        assign logo_svg_desktop = desktop_logo_svg
         assign logo_svg_mobile = section.settings.logo_mobile_svg
 
         assign logo_transparent = section.settings.logo_transparent
@@ -715,15 +716,9 @@
     },
     {
       "type": "text",
-      "id": "logo_theme_asset",
-      "label": "Theme logo asset",
-      "info": "Enter the filename of an SVG in the theme assets. A Default Logo - SVG URL takes priority."
-    },
-    {
-      "type": "text",
       "id": "logo_svg",
       "label": "Default Logo - SVG",
-      "info": "Upload your SVG logo to [Files](/admin/settings/files) to get the URL."
+      "info": "Enter an SVG URL from Files, or use asset:filename.svg for an SVG in this theme."
     },
     {
       "type": "text",
