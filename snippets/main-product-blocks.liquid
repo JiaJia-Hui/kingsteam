@@ -103,6 +103,9 @@
             sale_badge_type: block.settings.sale_badge_type
           %}
         </div>
+        {%- if request.page_type == 'product' and is_featured != true -%}
+          {%- render 'black-friday-offer' -%}
+        {%- endif -%}
         {%- if shop.taxes_included -%}
           <div class="m-product-tax">
             {{ 'products.product.include_taxes' | t }}
