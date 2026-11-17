@@ -230,6 +230,20 @@
     cursor: not-allowed;
   }
 
+  .ai-holo-slider__playback-{{ ai_gen_id }} {
+    padding: 8px 14px;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    background: transparent;
+    color: {{ block.settings.heading_color }};
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .ai-holo-slider__nav-{{ ai_gen_id }}[hidden] {
+    display: none;
+  }
+
   .ai-holo-slider__dots-{{ ai_gen_id }} {
     display: flex;
     gap: 8px;
@@ -406,9 +420,12 @@
       </div>
     </div>
 
-    {% if block.settings.show_navigation %}
-      <div class="ai-holo-slider__nav-{{ ai_gen_id }}">
-        <button class="ai-holo-slider__arrow-{{ ai_gen_id }}" data-prev aria-label="Previous">
+    <div class="ai-holo-slider__nav-{{ ai_gen_id }}" data-nav{% unless block.settings.show_navigation %} hidden{% endunless %}>
+      <button type="button" class="ai-holo-slider__playback-{{ ai_gen_id }}" data-playback hidden>
+        Pause scrolling
+      </button>
+      {% if block.settings.show_navigation %}
+        <button type="button" class="ai-holo-slider__arrow-{{ ai_gen_id }}" data-prev aria-label="Previous">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="15 18 9 12 15 6"></polyline>
           </svg>
@@ -418,13 +435,13 @@
           <div class="ai-holo-slider__dots-{{ ai_gen_id }}" data-dots></div>
         {% endif %}
 
-        <button class="ai-holo-slider__arrow-{{ ai_gen_id }}" data-next aria-label="Next">
+        <button type="button" class="ai-holo-slider__arrow-{{ ai_gen_id }}" data-next aria-label="Next">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="9 18 15 12 9 6"></polyline>
           </svg>
         </button>
-      </div>
-    {% endif %}
+      {% endif %}
+    </div>
   </div>
 </holographic-slider-{{ ai_gen_id }}>
 
@@ -446,15 +463,11 @@
         this.prevTranslate = 0;
         this.cardsPerView = 1;
         this.cloneCount = 0;
-        this.boundResize = this.handleResize.bind(this);
-        this.boundTransitionEnd = this.handleTransitionEnd.bind(this);
-        this.boundPointerDown = this.handlePointerDown.bind(this);
-        this.boundPointerMove = this.handlePointerMove.bind(this);
-        this.boundPointerUp = this.handlePointerUp.bind(this);
-        this.boundPointerCancel = this.handlePointerCancel.bind(this);
-        this.boundWheel = this.handleWheel.bind(this);
-        this.boundDragStart = (event) => event.preventDefault();
-        this.boundTrackClick = this.handleTrackClick.bind(this);
+        this.playbackFrame = null;
+        this.resumeTimer = null;
+        this.isInView = false;
+        this.isHovered = false;
+        this.advancePlayback = this.advancePlayback.bind(this);
       }
 
       connectedCallback() {
@@ -463,11 +476,17 @@
         this.prevBtn = this.querySelector('[data-prev]');
         this.nextBtn = this.querySelector('[data-next]');
         this.dotsContainer = this.querySelector('[data-dots]');
+        this.nav = this.querySelector('[data-nav]');
+        this.playbackButton = this.querySelector('[data-playback]');
 
         if (!this.track) return;
-        this.originalCards = Array.from(this.track.children).map((card) => card.cloneNode(true));
+        this.originalCards = Array.from(this.track.children)
+          .filter((card) => !card.hasAttribute('data-clone'))
+          .map((card) => card.cloneNode(true));
         if (this.originalCards.length === 0) return;
 
+        this.motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+        this.playbackPaused = this.motionPreference.matches;
         this.setupSlider();
         this.setupEventListeners();
       }
@@ -480,26 +499,54 @@
       }
 
       setupEventListeners() {
-        if (this.prevBtn) {
-          this.prevBtn.addEventListener('click', () => this.prev());
-        }
-        if (this.nextBtn) {
-          this.nextBtn.addEventListener('click', () => this.next());
-        }
+        this.eventController = new AbortController();
+        const options = { signal: this.eventController.signal };
+        this.prevBtn?.addEventListener('click', () => this.moveBy(-1), options);
+        this.nextBtn?.addEventListener('click', () => this.moveBy(1), options);
 
-        if (this.viewport) {
-          this.viewport.addEventListener('pointerdown', this.boundPointerDown);
-          this.viewport.addEventListener('pointermove', this.boundPointerMove);
-          this.viewport.addEventListener('pointerup', this.boundPointerUp);
-          this.viewport.addEventListener('pointerleave', this.boundPointerCancel);
-          this.viewport.addEventListener('pointercancel', this.boundPointerCancel);
-          this.viewport.addEventListener('wheel', this.boundWheel, { passive: false });
-          this.viewport.addEventListener('dragstart', this.boundDragStart);
-        }
+        this.viewport.addEventListener('pointerdown', (event) => this.handlePointerDown(event), options);
+        this.viewport.addEventListener('pointermove', (event) => this.handlePointerMove(event), options);
+        this.viewport.addEventListener('pointerup', (event) => this.handlePointerUp(event), options);
+        this.viewport.addEventListener('pointercancel', (event) => this.handlePointerCancel(event), options);
+        this.viewport.addEventListener('lostpointercapture', (event) => this.handlePointerCancel(event), options);
+        this.viewport.addEventListener('pointerenter', (event) => {
+          if (event.pointerType === 'mouse') {
+            this.isHovered = true;
+            this.syncPlayback();
+          }
+        }, options);
+        this.viewport.addEventListener('pointerleave', (event) => {
+          this.handlePointerCancel(event);
+          if (event.pointerType === 'mouse') {
+            this.isHovered = false;
+            this.syncPlayback();
+          }
+        }, options);
+        this.viewport.addEventListener('wheel', (event) => this.handleWheel(event), { ...options, passive: false });
+        this.viewport.addEventListener('dragstart', (event) => event.preventDefault(), options);
 
-        this.track.addEventListener('transitionend', this.boundTransitionEnd);
-        this.track.addEventListener('click', this.boundTrackClick, true);
-        window.addEventListener('resize', this.boundResize);
+        this.playbackButton.addEventListener('click', () => {
+          this.playbackPaused = !this.playbackPaused;
+          this.updatePlaybackButton();
+          this.syncPlayback();
+        }, options);
+        this.motionPreference.addEventListener('change', (event) => {
+          this.playbackPaused = event.matches;
+          this.updatePlaybackButton();
+          this.syncPlayback();
+        }, options);
+        this.addEventListener('focusin', () => this.syncPlayback(), options);
+        this.addEventListener('focusout', () => queueMicrotask(() => this.syncPlayback()), options);
+        this.track.addEventListener('transitionend', (event) => this.handleTransitionEnd(event), options);
+        this.track.addEventListener('click', (event) => this.handleTrackClick(event), { ...options, capture: true });
+        window.addEventListener('resize', () => this.handleResize(), options);
+        document.addEventListener('visibilitychange', () => this.syncPlayback(), options);
+
+        this.visibilityObserver = new IntersectionObserver(([entry]) => {
+          this.isInView = entry.isIntersecting;
+          this.syncPlayback();
+        });
+        this.visibilityObserver.observe(this.viewport);
       }
 
       setupSlider(preserveIndex = 0) {
@@ -518,6 +565,62 @@
         this.createDots();
         this.updatePosition(false);
         this.updateDots();
+        this.updatePlaybackButton();
+      }
+
+      updatePlaybackButton() {
+        this.playbackButton.hidden = this.originalCards.length <= this.cardsPerView;
+        this.playbackButton.textContent = this.playbackPaused ? 'Play scrolling' : 'Pause scrolling';
+        this.nav.hidden = this.playbackButton.hidden && !this.prevBtn;
+      }
+
+      syncPlayback() {
+        const focused = document.activeElement;
+        const keyboardFocus = focused !== this.playbackButton && this.contains(focused) && focused.matches(':focus-visible');
+        if (!this.isConnected || !this.isInView || document.hidden || this.playbackButton.hidden ||
+            this.playbackPaused || this.isHovered || keyboardFocus || this.activePointerId !== null ||
+            this.resumeTimer !== null) {
+          this.stopPlayback();
+          return;
+        }
+        if (this.playbackFrame !== null) return;
+
+        this.playbackStep = this.getStepSize();
+        if (!this.playbackStep) return;
+        this.lastFrameTime = null;
+        this.track.style.transition = 'none';
+        this.playbackFrame = window.requestAnimationFrame(this.advancePlayback);
+      }
+
+      advancePlayback(timestamp) {
+        if (this.lastFrameTime !== null) {
+          const elapsed = Math.min(timestamp - this.lastFrameTime, 50);
+          const distanceInCards = elapsed * 0.035 / this.playbackStep;
+          const positionInLoop = this.playbackIndex - this.cloneCount + distanceInCards;
+          this.playbackIndex = this.cloneCount + (positionInLoop % this.originalCards.length);
+          this.track.style.transform = `translate3d(${-this.playbackIndex * this.playbackStep}px, 0, 0)`;
+          const index = Math.floor(this.playbackIndex);
+          if (this.currentIndex !== index) {
+            this.currentIndex = index;
+            this.updateDots();
+          }
+        }
+        this.lastFrameTime = timestamp;
+        this.playbackFrame = window.requestAnimationFrame(this.advancePlayback);
+      }
+
+      stopPlayback() {
+        window.cancelAnimationFrame(this.playbackFrame);
+        this.playbackFrame = null;
+      }
+
+      deferPlayback() {
+        this.stopPlayback();
+        window.clearTimeout(this.resumeTimer);
+        this.resumeTimer = window.setTimeout(() => {
+          this.resumeTimer = null;
+          this.syncPlayback();
+        }, 700);
       }
 
       createCardClone(card) {
@@ -571,6 +674,7 @@
 
       updatePosition(animate = true) {
         const targetTranslate = this.getTranslateForIndex(this.currentIndex);
+        this.playbackIndex = this.cloneCount + this.getRealIndex();
         this.prevTranslate = targetTranslate;
         this.dragTranslate = targetTranslate;
         this.track.style.transition = animate ? 'transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
@@ -596,6 +700,7 @@
         this.suppressClick = false;
         this.startX = event.clientX;
         this.startY = event.clientY;
+        this.stopPlayback();
       }
 
       handlePointerMove(event) {
@@ -605,24 +710,29 @@
           const verticalDelta = Math.abs(event.clientY - this.startY);
           if (verticalDelta > 6 && verticalDelta >= Math.abs(delta)) {
             this.activePointerId = null;
+            this.deferPlayback();
             return;
           }
           if (Math.abs(delta) <= 6) return;
           this.isDragging = true;
-          this.prevTranslate = this.getTranslateForIndex(this.currentIndex);
+          this.prevTranslate = new DOMMatrixReadOnly(window.getComputedStyle(this.track).transform).m41;
           this.track.style.transition = 'none';
           this.viewport.classList.add('is-dragging');
           if (event.pointerType !== 'touch') this.viewport.setPointerCapture(event.pointerId);
         }
         // Leave room for the snap transition to finish when dragging a full card width.
         const dragLimit = this.getStepSize() * 0.95;
-        this.dragTranslate = this.prevTranslate + Math.max(-dragLimit, Math.min(dragLimit, delta));
+        const drag = this.prevTranslate + Math.max(-dragLimit, Math.min(dragLimit, delta));
+        const first = this.getTranslateForIndex(this.cloneCount - 1);
+        const last = this.getTranslateForIndex(this.cloneCount + this.originalCards.length);
+        this.dragTranslate = Math.max(last + 1, Math.min(first - 1, drag));
         this.track.style.transform = `translate3d(${this.dragTranslate}px, 0, 0)`;
       }
 
       handlePointerUp(event) {
         if (event.pointerId !== this.activePointerId) return;
         this.activePointerId = null;
+        this.deferPlayback();
         if (!this.isDragging) return;
         const movedBy = this.dragTranslate - this.prevTranslate;
         const delta = Math.abs(movedBy) > this.getStepSize() / 5 ? -Math.sign(movedBy) : 0;
@@ -636,6 +746,7 @@
       handlePointerCancel(event) {
         if (event.pointerId !== this.activePointerId) return;
         this.activePointerId = null;
+        this.deferPlayback();
         if (!this.isDragging) return;
         this.isDragging = false;
         this.viewport.classList.remove('is-dragging');
@@ -671,19 +782,14 @@
       }
 
       handleResize() {
+        this.stopPlayback();
         const realIndex = this.getRealIndex();
         this.setupSlider(realIndex);
-      }
-
-      prev() {
-        this.moveBy(-1);
-      }
-
-      next() {
-        this.moveBy(1);
+        this.syncPlayback();
       }
 
       moveBy(delta) {
+        this.deferPlayback();
         const first = this.cloneCount - 1;
         const last = this.cloneCount + this.originalCards.length;
         this.currentIndex = Math.max(first, Math.min(last, this.currentIndex + delta));
@@ -692,33 +798,22 @@
       }
 
       goToSlide(index) {
-        let delta = index - this.getRealIndex();
-        const loopDelta =
-          delta > 0 ? delta - this.originalCards.length : delta + this.originalCards.length;
-        if (Math.abs(loopDelta) < Math.abs(delta)) {
-          delta = loopDelta;
-        }
-        this.currentIndex += delta;
-        this.updatePosition(true);
-        this.updateDots();
+        this.moveBy(this.cloneCount + index - this.currentIndex);
       }
 
       disconnectedCallback() {
-        if (this.viewport) {
-          this.viewport.removeEventListener('pointerdown', this.boundPointerDown);
-          this.viewport.removeEventListener('pointermove', this.boundPointerMove);
-          this.viewport.removeEventListener('pointerup', this.boundPointerUp);
-          this.viewport.removeEventListener('pointerleave', this.boundPointerCancel);
-          this.viewport.removeEventListener('pointercancel', this.boundPointerCancel);
-          this.viewport.removeEventListener('wheel', this.boundWheel);
-          this.viewport.removeEventListener('dragstart', this.boundDragStart);
-        }
+        this.eventController?.abort();
+        this.visibilityObserver?.disconnect();
+        this.stopPlayback();
+        window.clearTimeout(this.resumeTimer);
         window.clearTimeout(this.wheelTimer);
-        if (this.track) {
-          this.track.removeEventListener('transitionend', this.boundTransitionEnd);
-          this.track.removeEventListener('click', this.boundTrackClick, true);
-        }
-        window.removeEventListener('resize', this.boundResize);
+        this.resumeTimer = null;
+        this.wheelDelta = 0;
+        this.wheelNavigated = false;
+        this.activePointerId = null;
+        this.isDragging = false;
+        this.isHovered = false;
+        this.isInView = false;
       }
     }
 

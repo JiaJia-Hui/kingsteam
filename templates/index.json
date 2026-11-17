@@ -293,7 +293,7 @@
               "dog-house-heater-with-thermostat-chicken-coop-heater"
             ],
             "container_width": 1300,
-            "cards_per_row_desktop": "4",
+            "cards_per_row_desktop": "5",
             "cards_per_row_tablet": "3",
             "cards_per_row_mobile": "2",
             "card_gap": 25,
