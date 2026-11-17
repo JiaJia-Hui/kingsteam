@@ -94,6 +94,13 @@
     --logo-height-sticky: {{ section.settings.sticky_logo_max_width | divided_by: logo_aspect_ratio }}px;
     --header-transparent-text-color: {{ section.settings.transparent_text_color.red }}, {{ section.settings.transparent_text_color.green }}, {{ section.settings.transparent_text_color.blue }};
   }
+  {% if logo_reference_prefix == 'asset:' %}
+    @media (max-width: 374px) {
+      .m-header__mobile .m-logo--mobile {
+        padding-inline: 4px;
+      }
+    }
+  {% endif %}
 {% endstyle %}
 <m-header
   data-section-id="{{ section.id }}"
