@@ -28,13 +28,6 @@
             "message_link": ""
           }
         },
-        "item_7WwPez": {
-          "type": "item",
-          "settings": {
-            "message": "Free shipping for all orders from $60+",
-            "message_link": ""
-          }
-        },
         "item_R3FJEK": {
           "type": "item",
           "settings": {
@@ -46,7 +39,6 @@
       "block_order": [
         "item_C7KCnA",
         "item_Kp4CKp",
-        "item_7WwPez",
         "item_R3FJEK"
       ],
       "settings": {
