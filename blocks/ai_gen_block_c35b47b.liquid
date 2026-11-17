@@ -40,7 +40,6 @@
     display: flex;
     gap: {{ block.settings.card_gap }}px;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    touch-action: pan-y;
     user-select: none;
     will-change: transform;
   }
@@ -48,7 +47,7 @@
   .ai-holo-slider__viewport-{{ ai_gen_id }} {
     overflow: hidden;
     cursor: grab;
-    touch-action: pan-y;
+    touch-action: pan-y pinch-zoom;
     user-select: none;
     padding: 6px 0;
   }
@@ -435,10 +434,14 @@
       constructor() {
         super();
         this.currentIndex = 0;
+        this.activePointerId = null;
         this.isDragging = false;
-        this.dragMoved = false;
-        this.interactiveSelector = 'a, button, input, select, textarea, label';
+        this.suppressClick = false;
+        this.wheelDelta = 0;
+        this.wheelNavigated = false;
+        this.wheelTimer = null;
         this.startX = 0;
+        this.startY = 0;
         this.dragTranslate = 0;
         this.prevTranslate = 0;
         this.cardsPerView = 1;
@@ -448,6 +451,9 @@
         this.boundPointerDown = this.handlePointerDown.bind(this);
         this.boundPointerMove = this.handlePointerMove.bind(this);
         this.boundPointerUp = this.handlePointerUp.bind(this);
+        this.boundPointerCancel = this.handlePointerCancel.bind(this);
+        this.boundWheel = this.handleWheel.bind(this);
+        this.boundDragStart = (event) => event.preventDefault();
         this.boundTrackClick = this.handleTrackClick.bind(this);
       }
 
@@ -485,9 +491,10 @@
           this.viewport.addEventListener('pointerdown', this.boundPointerDown);
           this.viewport.addEventListener('pointermove', this.boundPointerMove);
           this.viewport.addEventListener('pointerup', this.boundPointerUp);
-          this.viewport.addEventListener('pointerleave', this.boundPointerUp);
-          this.viewport.addEventListener('pointercancel', this.boundPointerUp);
-          this.viewport.addEventListener('dragstart', (event) => event.preventDefault());
+          this.viewport.addEventListener('pointerleave', this.boundPointerCancel);
+          this.viewport.addEventListener('pointercancel', this.boundPointerCancel);
+          this.viewport.addEventListener('wheel', this.boundWheel, { passive: false });
+          this.viewport.addEventListener('dragstart', this.boundDragStart);
         }
 
         this.track.addEventListener('transitionend', this.boundTransitionEnd);
@@ -570,7 +577,8 @@
         this.track.style.transform = `translate3d(${targetTranslate}px, 0, 0)`;
       }
 
-      handleTransitionEnd() {
+      handleTransitionEnd(event) {
+        if (event.target !== this.track || event.propertyName !== 'transform') return;
         if (
           this.currentIndex >= this.originalCards.length + this.cloneCount ||
           this.currentIndex < this.cloneCount
@@ -582,73 +590,84 @@
       }
 
       handlePointerDown(event) {
-        if (event.pointerType === 'mouse' && event.button !== 0) return;
-        if (event.target.closest(this.interactiveSelector)) return;
-        this.isDragging = true;
-        this.dragMoved = false;
+        if (!event.isPrimary || event.button !== 0 || this.activePointerId !== null) return;
+        if (event.target.closest('button, input, select, textarea, label')) return;
+        this.activePointerId = event.pointerId;
+        this.suppressClick = false;
         this.startX = event.clientX;
-        this.dragTranslate = this.getTranslateForIndex(this.currentIndex);
-        this.prevTranslate = this.dragTranslate;
-        this.track.style.transition = 'none';
-        if (this.viewport) {
-          this.viewport.classList.add('is-dragging');
-          if (this.viewport.setPointerCapture) {
-            this.viewport.setPointerCapture(event.pointerId);
-          }
-        }
+        this.startY = event.clientY;
       }
 
       handlePointerMove(event) {
-        if (!this.isDragging) return;
+        if (event.pointerId !== this.activePointerId) return;
         const delta = event.clientX - this.startX;
-        if (Math.abs(delta) > 6) {
-          this.dragMoved = true;
+        if (!this.isDragging) {
+          const verticalDelta = Math.abs(event.clientY - this.startY);
+          if (verticalDelta > 6 && verticalDelta >= Math.abs(delta)) {
+            this.activePointerId = null;
+            return;
+          }
+          if (Math.abs(delta) <= 6) return;
+          this.isDragging = true;
+          this.prevTranslate = this.getTranslateForIndex(this.currentIndex);
+          this.track.style.transition = 'none';
+          this.viewport.classList.add('is-dragging');
+          if (event.pointerType !== 'touch') this.viewport.setPointerCapture(event.pointerId);
         }
-        this.dragTranslate = this.prevTranslate + delta;
+        // Leave room for the snap transition to finish when dragging a full card width.
+        const dragLimit = this.getStepSize() * 0.95;
+        this.dragTranslate = this.prevTranslate + Math.max(-dragLimit, Math.min(dragLimit, delta));
         this.track.style.transform = `translate3d(${this.dragTranslate}px, 0, 0)`;
       }
 
       handlePointerUp(event) {
+        if (event.pointerId !== this.activePointerId) return;
+        this.activePointerId = null;
         if (!this.isDragging) return;
-
-        this.isDragging = false;
-        if (this.viewport) {
-          this.viewport.classList.remove('is-dragging');
-          if (this.viewport.releasePointerCapture) {
-            try {
-              this.viewport.releasePointerCapture(event.pointerId);
-            } catch (error) {
-            }
-          }
-        }
-
         const movedBy = this.dragTranslate - this.prevTranslate;
-        const stepSize = this.getStepSize();
-        if (!stepSize) {
-          this.updatePosition(true);
-          return;
-        }
-        const movedCards = Math.round(Math.abs(movedBy) / stepSize);
+        const delta = Math.abs(movedBy) > this.getStepSize() / 5 ? -Math.sign(movedBy) : 0;
+        this.isDragging = false;
+        this.viewport.classList.remove('is-dragging');
+        // Pointer capture is released by the browser after pointerup.
+        this.suppressClick = true;
+        this.moveBy(delta);
+      }
 
-        if (movedBy < -stepSize / 5) {
-          this.currentIndex += Math.max(1, movedCards);
-        } else if (movedBy > stepSize / 5) {
-          this.currentIndex -= Math.max(1, movedCards);
-        }
-
+      handlePointerCancel(event) {
+        if (event.pointerId !== this.activePointerId) return;
+        this.activePointerId = null;
+        if (!this.isDragging) return;
+        this.isDragging = false;
+        this.viewport.classList.remove('is-dragging');
         this.updatePosition(true);
-        this.updateDots();
-
-        window.setTimeout(() => {
-          this.dragMoved = false;
-        }, 0);
       }
 
       handleTrackClick(event) {
-        if (this.dragMoved) {
+        if (this.suppressClick && event.detail > 0) {
           event.preventDefault();
           event.stopPropagation();
         }
+      }
+
+      handleWheel(event) {
+        if (event.ctrlKey || this.isDragging || this.originalCards.length < 2) return;
+        const horizontalDelta = event.deltaX || (event.shiftKey ? event.deltaY : 0);
+        const verticalDelta = event.shiftKey && !event.deltaX ? 0 : event.deltaY;
+        if (Math.abs(horizontalDelta) <= Math.abs(verticalDelta)) return;
+        event.preventDefault();
+
+        window.clearTimeout(this.wheelTimer);
+        this.wheelTimer = window.setTimeout(() => {
+          this.wheelDelta = 0;
+          this.wheelNavigated = false;
+        }, 120);
+        if (this.wheelNavigated) return;
+
+        if (Math.sign(horizontalDelta) !== Math.sign(this.wheelDelta)) this.wheelDelta = 0;
+        this.wheelDelta += horizontalDelta;
+        if (event.deltaMode === 0 && Math.abs(this.wheelDelta) < 24) return;
+        this.wheelNavigated = true;
+        this.moveBy(Math.sign(this.wheelDelta));
       }
 
       handleResize() {
@@ -657,13 +676,17 @@
       }
 
       prev() {
-        this.currentIndex -= 1;
-        this.updatePosition(true);
-        this.updateDots();
+        this.moveBy(-1);
       }
 
       next() {
-        this.currentIndex += 1;
+        this.moveBy(1);
+      }
+
+      moveBy(delta) {
+        const first = this.cloneCount - 1;
+        const last = this.cloneCount + this.originalCards.length;
+        this.currentIndex = Math.max(first, Math.min(last, this.currentIndex + delta));
         this.updatePosition(true);
         this.updateDots();
       }
@@ -685,9 +708,12 @@
           this.viewport.removeEventListener('pointerdown', this.boundPointerDown);
           this.viewport.removeEventListener('pointermove', this.boundPointerMove);
           this.viewport.removeEventListener('pointerup', this.boundPointerUp);
-          this.viewport.removeEventListener('pointerleave', this.boundPointerUp);
-          this.viewport.removeEventListener('pointercancel', this.boundPointerUp);
+          this.viewport.removeEventListener('pointerleave', this.boundPointerCancel);
+          this.viewport.removeEventListener('pointercancel', this.boundPointerCancel);
+          this.viewport.removeEventListener('wheel', this.boundWheel);
+          this.viewport.removeEventListener('dragstart', this.boundDragStart);
         }
+        window.clearTimeout(this.wheelTimer);
         if (this.track) {
           this.track.removeEventListener('transitionend', this.boundTransitionEnd);
           this.track.removeEventListener('click', this.boundTrackClick, true);
