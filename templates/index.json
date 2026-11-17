@@ -345,7 +345,7 @@
             "button_hover_background": "#2d2a25",
             "button_hover_text_color": "#ffffff",
             "button_hover_border_color": "#222222",
-            "show_navigation": true,
+            "show_navigation": false,
             "show_dots": false,
             "nav_spacing": 20,
             "arrow_size": 40,
