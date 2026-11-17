@@ -1,5 +1,12 @@
 {{ 'header.css' | asset_url | stylesheet_tag }}
 
+{% liquid
+  assign theme_logo_url = ''
+  if section.settings.logo_theme_asset != blank
+    assign theme_logo_url = section.settings.logo_theme_asset | asset_url
+  endif
+%}
+
 <script src="{{ 'mega-menu.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'header.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'localization-form.js' | asset_url }}" defer="defer"></script>
@@ -8,7 +15,14 @@
     "@context": "http://schema.org",
     "@type": "Organization",
     "name": {{ shop.name | json }},
-    {% if section.settings.logo %}
+    {% if section.settings.logo_svg == blank and theme_logo_url != blank %}
+      {% assign logo_url_prefix = theme_logo_url | slice: 0, 2 %}
+      {% if logo_url_prefix == '//' %}
+        "logo": {{ theme_logo_url | prepend: 'https:' | json }},
+      {% else %}
+        "logo": {{ theme_logo_url | json }},
+      {% endif %}
+    {% elsif section.settings.logo %}
       {% assign image_size = section.settings.logo.width %}
       "logo": {{ section.settings.logo | image_url: width: image_size | prepend: "https:" | json }},
     {% endif %}
@@ -115,7 +129,7 @@
         assign logo_text = section.settings.logo_text
         assign logo_desktop = section.settings.logo
         assign logo_mobile = section.settings.logo_mobile
-        assign logo_svg_desktop = section.settings.logo_svg
+        assign logo_svg_desktop = section.settings.logo_svg | default: theme_logo_url
         assign logo_svg_mobile = section.settings.logo_mobile_svg
 
         assign logo_transparent = section.settings.logo_transparent
@@ -144,7 +158,7 @@
           assign is_svg = false
         endif
 
-        if section.settings.logo
+        if logo != blank
           assign class = class | append: ' m-logo--has-image'
         endif
       %}
@@ -155,7 +169,7 @@
             {% if is_svg %}
               <div class="m-logo__image-default m:display-flex m-image">
                 {% comment %}theme-check-disable RemoteAsset{% endcomment %}
-                <img src="{{ logo }}" alt="{{ logo_alt }}" width="auto" height="auto" loading="lazy">
+                <img src="{{ logo | escape }}" alt="{{ logo_alt | escape }}" loading="eager">
                 {% comment %}theme-check-enable RemoteAsset{% endcomment %}
               </div>
             {% else %}
@@ -698,6 +712,12 @@
       "type": "image_picker",
       "id": "logo_transparent",
       "label": "Logo for transparent header"
+    },
+    {
+      "type": "text",
+      "id": "logo_theme_asset",
+      "label": "Theme logo asset",
+      "info": "Enter the filename of an SVG in the theme assets. A Default Logo - SVG URL takes priority."
     },
     {
       "type": "text",
