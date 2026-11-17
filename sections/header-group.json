@@ -14,13 +14,6 @@
     "annoucement": {
       "type": "annoucement",
       "blocks": {
-        "item_C7KCnA": {
-          "type": "item",
-          "settings": {
-            "message": "Free shipping for all orders from $60+",
-            "message_link": ""
-          }
-        },
         "item_Kp4CKp": {
           "type": "item",
           "settings": {
@@ -37,7 +30,6 @@
         }
       },
       "block_order": [
-        "item_C7KCnA",
         "item_Kp4CKp",
         "item_R3FJEK"
       ],
