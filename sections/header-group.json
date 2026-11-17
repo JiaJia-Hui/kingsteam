@@ -14,6 +14,13 @@
     "annoucement": {
       "type": "annoucement",
       "blocks": {
+        "item_WTPGEz": {
+          "type": "item",
+          "settings": {
+            "message": "Black Friday 25% off on ecerything",
+            "message_link": ""
+          }
+        },
         "item_Kp4CKp": {
           "type": "item",
           "settings": {
@@ -30,6 +37,7 @@
         }
       },
       "block_order": [
+        "item_WTPGEz",
         "item_Kp4CKp",
         "item_R3FJEK"
       ],
