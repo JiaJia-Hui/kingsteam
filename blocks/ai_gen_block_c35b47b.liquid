@@ -262,6 +262,25 @@
     cursor: pointer;
   }
 
+  .ai-holo-slider__nav-{{ ai_gen_id }}[data-focus-only] {
+    position: absolute;
+    inset-block-start: 8px;
+    inset-inline-end: 12px;
+    margin: 0;
+    z-index: 1;
+  }
+
+  [data-focus-only] .ai-holo-slider__playback-{{ ai_gen_id }}:not(:focus-visible) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+
   .ai-holo-slider__nav-{{ ai_gen_id }}[hidden] {
     display: none;
   }
@@ -463,7 +482,7 @@
       </div>
     </div>
 
-    <div class="ai-holo-slider__nav-{{ ai_gen_id }}" data-nav{% unless block.settings.show_navigation %} hidden{% endunless %}>
+    <div class="ai-holo-slider__nav-{{ ai_gen_id }}" data-nav{% unless block.settings.show_navigation %} data-focus-only hidden{% endunless %}>
       <button type="button" class="ai-holo-slider__playback-{{ ai_gen_id }}" data-playback hidden>
         Pause scrolling
       </button>
