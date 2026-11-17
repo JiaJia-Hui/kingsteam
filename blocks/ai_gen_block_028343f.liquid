@@ -3,6 +3,9 @@
     A image with text overlay slider. The text style should follow global settings. The entire area should be clickable. The widget should be mobile compatible, meaning that it needs to be coded in mobile responsive style.On mobile screens (under 750px), stack the controls vertically and ensure all buttons have a minimum touch target of 44px. Use clamp() for font sizes so they scale.The control arrows and dots should be hidable., The dots are too large in mobile mode. Make them smaller, make the dot size in mobile mode adjustable.
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{%- capture black_friday_end -%}{%- render 'black-friday-end' -%}{%- endcapture -%}
+{%- assign black_friday_end = black_friday_end | plus: 0 -%}
+{%- assign slider_timestamp = 'now' | date: '%s' | plus: 0 -%}
 
 {% style %}
   .ai-slider-{{ ai_gen_id }} {
@@ -205,6 +208,10 @@
       aspect-ratio: 16 / 9;
     }
 
+    [data-artwork='black-friday'] .ai-slider-image-{{ ai_gen_id }} {
+      object-fit: cover;
+    }
+
     .ai-slider-controls-{{ ai_gen_id }} {
       left: 16px;
       right: 16px;
@@ -262,13 +269,16 @@
           if i == 1 and slide_image == blank
             assign slide_asset = block.settings.slide_1_asset
           endif
+          if slide_asset == 'kingsteam-black-friday-2026.jpg' and slider_timestamp >= black_friday_end
+            continue
+          endif
         %}
 
         {% if slide_asset != blank or slide_image != blank or slide_heading != blank or slide_subheading != blank %}
           <a
             href="{% if slide_link != blank %}{{ slide_link }}{% else %}#{% endif %}"
             class="ai-slider-slide-{{ ai_gen_id }}"
-            {% if slide_asset != blank %}data-artwork{% endif %}
+            {% if slide_asset == 'kingsteam-black-friday-2026.jpg' %}data-artwork="black-friday"{% elsif slide_asset != blank %}data-artwork{% endif %}
             {% if slide_link == blank %}onclick="return false;"{% endif %}
           >
             <div class="ai-slider-image-wrapper-{{ ai_gen_id }}">

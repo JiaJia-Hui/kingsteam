@@ -1,0 +1,175 @@
+{%- capture discount_end -%}{%- render 'black-friday-end' -%}{%- endcapture -%}
+{%- assign end_timestamp = discount_end | plus: 0 -%}
+{%- assign current_timestamp = 'now' | date: '%s' | plus: 0 -%}
+{%- if current_timestamp < end_timestamp -%}
+  <ks-black-friday-offer class="ks-black-friday" data-end="{{ end_timestamp }}" role="group" aria-label="Black Friday offer">
+    <strong class="ks-black-friday__saving">25% OFF</strong>
+    <div class="ks-black-friday__schedule">
+      <span class="ks-black-friday__label">Black Friday</span>
+      <span data-bf-countdown aria-hidden="true"></span>
+      <span class="ks-black-friday__date">Ends Nov 30</span>
+    </div>
+    <div class="ks-black-friday__coupon">
+      <code data-bf-code>BF26</code>
+      <button class="ks-black-friday__copy" type="button" data-bf-copy hidden>Copy code</button>
+      <span class="ks-black-friday__status" role="status" data-bf-status></span>
+    </div>
+  </ks-black-friday-offer>
+{%- endif -%}
+
+{% stylesheet %}
+  .ks-black-friday:not([hidden]) {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr) max-content;
+    align-items: center;
+    gap: clamp(8px, 2vw, 18px);
+    margin: 10px 0 4px;
+    padding: 9px clamp(10px, 2.4vw, 18px);
+    border: 1px solid #69422f;
+    border-radius: 12px;
+    background: linear-gradient(105deg, #281813, #552c1d 76%, #6b3926);
+    color: #fff7ed;
+    line-height: 1.2;
+  }
+
+  .ks-black-friday__saving {
+    font-size: clamp(18px, 3.8vw, 30px);
+    font-weight: 750;
+    white-space: nowrap;
+  }
+
+  .ks-black-friday__schedule,
+  .ks-black-friday__coupon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    text-align: center;
+  }
+
+  .ks-black-friday__schedule {
+    font-size: clamp(11px, 2.6vw, 14px);
+  }
+
+  .ks-black-friday__label {
+    font-weight: 700;
+  }
+
+  .ks-black-friday__date {
+    color: #f2d2bb;
+  }
+
+  .ks-black-friday [data-bf-countdown]:not(:empty) {
+    font-variant-numeric: tabular-nums;
+    font-weight: 650;
+  }
+
+  .ks-black-friday__coupon {
+    min-width: 79px;
+    padding-inline-start: clamp(8px, 2vw, 16px);
+    border-inline-start: 1px dashed #d6ae96;
+  }
+
+  .ks-black-friday__coupon code {
+    color: inherit;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 750;
+    letter-spacing: .08em;
+    user-select: all;
+  }
+
+  .ks-black-friday__copy {
+    min-width: 76px;
+    min-height: 44px;
+    border: 0;
+    border-radius: 99px;
+    padding: 0 9px;
+    background: #f5ddcb;
+    color: #362015;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .ks-black-friday__copy:hover { background: #fff3e8; }
+  .ks-black-friday__copy:focus-visible { outline: 2px solid #fff7ed; outline-offset: 2px; }
+
+  .ks-black-friday__status {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  if (!customElements.get('ks-black-friday-offer')) {
+    class BlackFridayOffer extends HTMLElement {
+      connectedCallback() {
+        this.end = Number(this.dataset.end) * 1000;
+        this.countdown = this.querySelector('[data-bf-countdown]');
+        this.button = this.querySelector('[data-bf-copy]');
+        this.status = this.querySelector('[data-bf-status]');
+        this.code = this.querySelector('[data-bf-code]');
+        this.events = new AbortController();
+        this.button.hidden = false;
+        this.button.addEventListener('click', () => this.copyCode(), { signal: this.events.signal });
+        if (this.updateCountdown()) {
+          this.timer = setInterval(() => this.updateCountdown(), 1000);
+        }
+      }
+
+      updateCountdown() {
+        const seconds = Math.ceil((this.end - Date.now()) / 1000);
+        if (seconds <= 0) {
+          clearInterval(this.timer);
+          this.hidden = true;
+          return false;
+        }
+        const days = Math.floor(seconds / 86400);
+        const hours = Math.floor(seconds / 3600) % 24;
+        const minutes = Math.floor(seconds / 60) % 60;
+        const remainder = seconds % 60;
+        this.countdown.textContent = days ? `${days}d ${hours}h ${minutes}m` : `${hours}h ${minutes}m ${remainder}s`;
+        return true;
+      }
+
+      async copyCode() {
+        const code = this.code.textContent.trim();
+        let copied = false;
+        try {
+          await navigator.clipboard.writeText(code);
+          copied = true;
+        } catch {
+          // Select the visible code so it can still be copied on browsers that block clipboard access.
+          const selection = window.getSelection();
+          const range = document.createRange();
+          range.selectNodeContents(this.code);
+          selection.removeAllRanges();
+          selection.addRange(range);
+          copied = document.execCommand('copy');
+          if (copied) selection.removeAllRanges();
+        }
+        this.button.textContent = copied ? 'Copied!' : 'Copy code';
+        this.status.textContent = copied ? `${code} copied to your clipboard.` : `${code} selected. Copy it manually.`;
+        clearTimeout(this.copyTimer);
+        this.copyTimer = setTimeout(() => {
+          this.button.textContent = 'Copy code';
+          this.status.textContent = '';
+        }, 2500);
+      }
+
+      disconnectedCallback() {
+        this.events?.abort();
+        clearInterval(this.timer);
+        clearTimeout(this.copyTimer);
+      }
+    }
+
+    customElements.define('ks-black-friday-offer', BlackFridayOffer);
+  }
+{% endjavascript %}
