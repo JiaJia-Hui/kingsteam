@@ -6,6 +6,7 @@
 
 {% style %}
   .ai-holo-slider-{{ ai_gen_id }} {
+    display: block;
     position: relative;
     width: 100%;
     overflow: hidden;
@@ -16,7 +17,7 @@
   .ai-holo-slider__container-{{ ai_gen_id }} {
     max-width: {{ block.settings.container_width }}px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 clamp(8px, 1.2vw, 20px);
   }
 
   .ai-holo-slider__header-{{ ai_gen_id }} {
@@ -39,17 +40,22 @@
   .ai-holo-slider__track-{{ ai_gen_id }} {
     display: flex;
     gap: {{ block.settings.card_gap }}px;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;
     will-change: transform;
   }
 
   .ai-holo-slider__viewport-{{ ai_gen_id }} {
+    --edge-fade: clamp(16px, 6vw, 92px);
     overflow: hidden;
+    overflow: clip;
     cursor: grab;
     touch-action: pan-y pinch-zoom;
     user-select: none;
     padding: 6px 0;
+  }
+
+  .ai-holo-slider-{{ ai_gen_id }}[data-carousel-ready] .ai-holo-slider__viewport-{{ ai_gen_id }} {
+    mask-image: linear-gradient(to right, transparent, #000 var(--edge-fade), #000 calc(100% - var(--edge-fade)), transparent);
   }
 
   .ai-holo-slider__viewport-{{ ai_gen_id }}.is-dragging {
@@ -57,6 +63,8 @@
   }
 
   .ai-holo-card-{{ ai_gen_id }} {
+    box-sizing: border-box;
+    min-width: 0;
     flex: 0 0 calc((100% - ({{ block.settings.cards_per_row_desktop | minus: 1 }} * {{ block.settings.card_gap }}px)) / {{ block.settings.cards_per_row_desktop }});
     position: relative;
     display: flex;
@@ -64,21 +72,14 @@
     border-radius: {{ block.settings.card_border_radius }}px;
     overflow: hidden;
     background: {{ block.settings.card_background }};
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    border: 2.5px solid rgba(89, 74, 56, 0.28);
-    box-shadow: 0 14px 28px rgba(67, 53, 38, 0.08);
-  }
-
-  .ai-holo-card-{{ ai_gen_id }}:hover {
-    border-color: rgba(89, 74, 56, 0.42);
-    transform: translateY(-4px);
+    scale: var(--card-scale, 1);
   }
 
   .ai-holo-card__image-wrapper-{{ ai_gen_id }} {
     position: relative;
-    width: 100%;
-    padding-bottom: {{ block.settings.image_aspect_ratio }}%;
+    width: 76%;
+    aspect-ratio: 100 / {{ block.settings.image_aspect_ratio }};
+    margin: clamp(10px, 1.6vw, {{ block.settings.card_padding }}px) auto 0;
     overflow: hidden;
     background: {{ block.settings.image_placeholder_bg }};
   }
@@ -89,7 +90,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     transition: transform 0.3s ease, opacity 0.3s ease;
   }
 
@@ -105,7 +106,7 @@
     transform: scale({{ block.settings.image_hover_scale }});
   }
 
-  .ai-holo-card-{{ ai_gen_id }}:hover .ai-holo-card__image-main-{{ ai_gen_id }} {
+  .ai-holo-card-{{ ai_gen_id }}:hover .ai-holo-card__image-main-{{ ai_gen_id }}:has(+ .ai-holo-card__image-hover-{{ ai_gen_id }}) {
     opacity: 0;
   }
 
@@ -115,21 +116,20 @@
 
   .ai-holo-card__badge-{{ ai_gen_id }} {
     position: absolute;
-    top: {{ block.settings.badge_position_top }}px;
+    bottom: {{ block.settings.badge_position_top }}px;
     left: {{ block.settings.badge_position_left }}px;
     background: {{ block.settings.badge_background }};
     color: {{ block.settings.badge_text_color }};
-    padding: 6px 12px;
+    padding: 3px 7px;
     border-radius: {{ block.settings.badge_border_radius }}px;
     font-size: {{ block.settings.badge_font_size }}px;
     font-weight: 600;
     z-index: 3;
+    pointer-events: none;
   }
 
   .ai-holo-card__content-{{ ai_gen_id }} {
-    padding: {{ block.settings.card_padding }}px;
-    position: relative;
-    z-index: 1;
+    padding: clamp(12px, 1.6vw, {{ block.settings.card_padding }}px);
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
@@ -146,8 +146,9 @@
   .ai-holo-card__title-{{ ai_gen_id }} {
     font-size: {{ block.settings.title_font_size }}px;
     color: {{ block.settings.title_color }};
-    margin: 0 0 12px;
-    font-weight: 600;
+    margin: 0 0 6px;
+    font-weight: 500;
+    line-height: 1.4;
     display: -webkit-box;
     -webkit-line-clamp: {{ block.settings.title_line_clamp }};
     -webkit-box-orient: vertical;
@@ -156,8 +157,29 @@
 
   .ai-holo-card__price-{{ ai_gen_id }} {
     display: flex;
-    align-items: center;
-    gap: 8px;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 8px;
+  }
+
+  .ai-holo-card__link-{{ ai_gen_id }} {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .ai-holo-card__link-{{ ai_gen_id }}[data-card-link]::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
+
+  .ai-holo-card-{{ ai_gen_id }}:focus-within {
+    outline: 2px solid currentColor;
+    outline-offset: -2px;
+  }
+
+  .ai-holo-card__price-{{ ai_gen_id }}:has(+ .ai-holo-card__button-{{ ai_gen_id }}) {
     margin-bottom: 12px;
   }
 
@@ -292,6 +314,10 @@
   }
 
   @media screen and (max-width: 749px) {
+    .ai-holo-slider__viewport-{{ ai_gen_id }} {
+      --edge-fade: 17px;
+    }
+
     .ai-holo-card-{{ ai_gen_id }} {
       flex: 0 0 calc((100% - ({{ block.settings.cards_per_row_mobile | minus: 1 }} * {{ block.settings.card_gap }}px)) / {{ block.settings.cards_per_row_mobile }});
     }
@@ -302,6 +328,16 @@
 
     .ai-holo-slider-{{ ai_gen_id }} {
       padding: {{ block.settings.section_padding_top | times: 0.6 }}px 0 {{ block.settings.section_padding_bottom | times: 0.6 }}px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-holo-card-{{ ai_gen_id }} {
+      scale: 1;
+    }
+
+    .ai-holo-card__image-{{ ai_gen_id }} {
+      transition: none;
     }
   }
 {% endstyle %}
@@ -338,7 +374,7 @@
               {% if product.featured_image %}
                 <img
                   src="{{ product.featured_image | image_url: width: 600 }}"
-                  alt="{{ product.featured_image.alt | escape }}"
+                  alt="{{ product.featured_image.alt | default: product.title | escape }}"
                   class="ai-holo-card__image-{{ ai_gen_id }} ai-holo-card__image-main-{{ ai_gen_id }}"
                   loading="lazy"
                   width="600"
@@ -347,7 +383,7 @@
                 {% if hover_image != blank %}
                   <img
                     src="{{ hover_image | image_url: width: 600 }}"
-                    alt="{{ hover_image.alt | default: product.title | escape }}"
+                    alt=""
                     class="ai-holo-card__image-{{ ai_gen_id }} ai-holo-card__image-hover-{{ ai_gen_id }}"
                     loading="lazy"
                     width="600"
@@ -373,7 +409,7 @@
               {% endif %}
 
               <h3 class="ai-holo-card__title-{{ ai_gen_id }}">
-                <a href="{{ product.url }}" style="color: inherit; text-decoration: none;">
+                <a href="{{ product.url }}" class="ai-holo-card__link-{{ ai_gen_id }}"{% unless block.settings.show_button %} data-card-link{% endunless %}>
                   {{ product.title }}
                 </a>
               </h3>
@@ -381,7 +417,12 @@
               {% if block.settings.show_price %}
                 <div class="ai-holo-card__price-{{ ai_gen_id }}">
                   <span class="ai-holo-card__price-current-{{ ai_gen_id }}">
-                    {{ product.price | money }}
+                    {%- assign slider_price = product.price | money -%}
+                    {%- if product.price_varies -%}
+                      {{ 'products.product.from_text_html' | t: price: slider_price }}
+                    {%- else -%}
+                      {{ slider_price }}
+                    {%- endif -%}
                   </span>
                   {% if product.compare_at_price > product.price %}
                     <span class="ai-holo-card__price-compare-{{ ai_gen_id }}">
@@ -412,7 +453,9 @@
                 <div class="ai-holo-card__price-{{ ai_gen_id }}">
                   <span class="ai-holo-card__price-current-{{ ai_gen_id }}">$99.00</span>
                 </div>
-                <a href="#" class="ai-holo-card__button-{{ ai_gen_id }}">{{ block.settings.button_text }}</a>
+                {% if block.settings.show_button %}
+                  <a href="#" class="ai-holo-card__button-{{ ai_gen_id }}">{{ block.settings.button_text }}</a>
+                {% endif %}
               </div>
             </div>
           {% endfor %}
@@ -464,6 +507,7 @@
         this.cardsPerView = 1;
         this.cloneCount = 0;
         this.playbackFrame = null;
+        this.snapFrame = null;
         this.resumeTimer = null;
         this.isInView = false;
         this.isHovered = false;
@@ -535,9 +579,15 @@
           this.updatePlaybackButton();
           this.syncPlayback();
         }, options);
-        this.addEventListener('focusin', () => this.syncPlayback(), options);
+        this.addEventListener('focusin', (event) => {
+          this.syncPlayback();
+          const card = event.target.closest('.ai-holo-card-{{ ai_gen_id }}');
+          if (!card || !event.target.matches(':focus-visible')) return;
+          this.currentIndex = this.cards.indexOf(card);
+          this.updatePosition(false);
+          this.updateDots();
+        }, options);
         this.addEventListener('focusout', () => queueMicrotask(() => this.syncPlayback()), options);
-        this.track.addEventListener('transitionend', (event) => this.handleTransitionEnd(event), options);
         this.track.addEventListener('click', (event) => this.handleTrackClick(event), { ...options, capture: true });
         window.addEventListener('resize', () => this.handleResize(), options);
         document.addEventListener('visibilitychange', () => this.syncPlayback(), options);
@@ -547,21 +597,31 @@
           this.syncPlayback();
         });
         this.visibilityObserver.observe(this.viewport);
+        this.resizeObserver = new ResizeObserver(() => this.handleResize());
+        this.resizeObserver.observe(this.viewport);
       }
 
       setupSlider(preserveIndex = 0) {
         this.cardsPerView = this.getCardsPerView();
-        this.cloneCount = Math.min(Math.max(this.cardsPerView, 1), this.originalCards.length);
+        this.cloneCount = this.originalCards.length > 1 ? Math.min(this.cardsPerView, this.originalCards.length) : 0;
         this.track.innerHTML = '';
 
-        const leadingCards = this.originalCards.slice(-this.cloneCount).map((card) => this.createCardClone(card));
+        const leadingCards = this.originalCards.slice(this.originalCards.length - this.cloneCount)
+          .map((card) => this.createCardClone(card));
         const mainCards = this.originalCards.map((card) => card.cloneNode(true));
         const trailingCards = this.originalCards.slice(0, this.cloneCount).map((card) => this.createCardClone(card));
 
         [...leadingCards, ...mainCards, ...trailingCards].forEach((card) => this.track.appendChild(card));
 
         this.cards = Array.from(this.track.children);
+        this.viewportWidth = this.viewport.clientWidth;
+        const width = parseFloat(window.getComputedStyle(this.cards[this.cloneCount]).width);
+        this.step = width + this.getCardGap();
+        this.centerOffset = (this.track.getBoundingClientRect().width - width) / 2;
         this.currentIndex = this.cloneCount + Math.min(preserveIndex, this.originalCards.length - 1);
+        this.toggleAttribute('data-carousel-ready', this.originalCards.length > 1);
+        if (this.prevBtn) this.prevBtn.disabled = this.originalCards.length < 2;
+        if (this.nextBtn) this.nextBtn.disabled = this.originalCards.length < 2;
         this.createDots();
         this.updatePosition(false);
         this.updateDots();
@@ -583,23 +643,21 @@
           this.stopPlayback();
           return;
         }
-        if (this.playbackFrame !== null) return;
+        if (this.playbackFrame !== null || this.snapFrame !== null || !this.step) return;
 
-        this.playbackStep = this.getStepSize();
-        if (!this.playbackStep) return;
         this.lastFrameTime = null;
-        this.track.style.transition = 'none';
         this.playbackFrame = window.requestAnimationFrame(this.advancePlayback);
       }
 
       advancePlayback(timestamp) {
         if (this.lastFrameTime !== null) {
           const elapsed = Math.min(timestamp - this.lastFrameTime, 50);
-          const distanceInCards = elapsed * 0.035 / this.playbackStep;
+          const distanceInCards = elapsed * 0.035 / this.step;
+          const loopLength = this.originalCards.length;
           const positionInLoop = this.playbackIndex - this.cloneCount + distanceInCards;
-          this.playbackIndex = this.cloneCount + (positionInLoop % this.originalCards.length);
-          this.track.style.transform = `translate3d(${-this.playbackIndex * this.playbackStep}px, 0, 0)`;
-          const index = Math.floor(this.playbackIndex);
+          this.playbackIndex = this.cloneCount + ((positionInLoop % loopLength + loopLength) % loopLength);
+          this.renderPosition(this.getTranslateForIndex(this.playbackIndex));
+          const index = Math.round(this.playbackIndex);
           if (this.currentIndex !== index) {
             this.currentIndex = index;
             this.updateDots();
@@ -626,6 +684,8 @@
       createCardClone(card) {
         const clone = card.cloneNode(true);
         clone.dataset.clone = 'true';
+        clone.setAttribute('aria-hidden', 'true');
+        clone.querySelectorAll('a').forEach((link) => { link.tabIndex = -1; });
         return clone;
       }
 
@@ -634,14 +694,22 @@
         return parseFloat(trackStyles.columnGap || trackStyles.gap || 0);
       }
 
-      getStepSize() {
-        const referenceCard = this.cards[this.cloneCount];
-        if (!referenceCard) return 0;
-        return referenceCard.getBoundingClientRect().width + this.getCardGap();
+      getTranslateForIndex(index) {
+        return this.centerOffset - this.step * index;
       }
 
-      getTranslateForIndex(index) {
-        return -(this.getStepSize() * index);
+      renderPosition(translate) {
+        this.trackTranslate = translate;
+        this.track.style.transform = `translate3d(${translate}px, 0, 0)`;
+        this.playbackIndex = this.step ? (this.centerOffset - translate) / this.step : this.currentIndex;
+        const falloff = (this.cardsPerView + 1) / 2;
+        this.cards.forEach((card, index) => {
+          const proximity = Math.max(0, 1 - Math.abs(index - this.playbackIndex) / falloff);
+          const scale = (0.84 + 0.16 * proximity * proximity * (3 - 2 * proximity)).toFixed(3);
+          if (card.style.getPropertyValue('--card-scale') !== scale) {
+            card.style.setProperty('--card-scale', scale);
+          }
+        });
       }
 
       getRealIndex() {
@@ -673,28 +741,41 @@
       }
 
       updatePosition(animate = true) {
+        this.stopSnap();
         const targetTranslate = this.getTranslateForIndex(this.currentIndex);
-        this.playbackIndex = this.cloneCount + this.getRealIndex();
-        this.prevTranslate = targetTranslate;
-        this.dragTranslate = targetTranslate;
-        this.track.style.transition = animate ? 'transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
-        this.track.style.transform = `translate3d(${targetTranslate}px, 0, 0)`;
+        const finish = () => {
+          this.snapFrame = null;
+          this.currentIndex = this.cloneCount + this.getRealIndex();
+          this.renderPosition(this.getTranslateForIndex(this.currentIndex));
+          this.updateDots();
+        };
+        const startTranslate = this.trackTranslate;
+        if (!animate || this.motionPreference.matches || startTranslate === undefined ||
+            Math.abs(targetTranslate - startTranslate) < 0.1) {
+          finish();
+          return;
+        }
+        const startTime = performance.now();
+        const step = (timestamp) => {
+          const progress = Math.min(1, (timestamp - startTime) / 450);
+          const eased = 1 - (1 - progress) ** 3;
+          this.renderPosition(startTranslate + (targetTranslate - startTranslate) * eased);
+          if (progress < 1) {
+            this.snapFrame = window.requestAnimationFrame(step);
+          } else {
+            finish();
+          }
+        };
+        this.snapFrame = window.requestAnimationFrame(step);
       }
 
-      handleTransitionEnd(event) {
-        if (event.target !== this.track || event.propertyName !== 'transform') return;
-        if (
-          this.currentIndex >= this.originalCards.length + this.cloneCount ||
-          this.currentIndex < this.cloneCount
-        ) {
-          this.currentIndex = this.cloneCount + this.getRealIndex();
-          this.updatePosition(false);
-        }
-        this.updateDots();
+      stopSnap() {
+        window.cancelAnimationFrame(this.snapFrame);
+        this.snapFrame = null;
       }
 
       handlePointerDown(event) {
-        if (!event.isPrimary || event.button !== 0 || this.activePointerId !== null) return;
+        if (this.originalCards.length < 2 || !event.isPrimary || event.button !== 0 || this.activePointerId !== null) return;
         if (event.target.closest('button, input, select, textarea, label')) return;
         this.activePointerId = event.pointerId;
         this.suppressClick = false;
@@ -715,18 +796,19 @@
           }
           if (Math.abs(delta) <= 6) return;
           this.isDragging = true;
-          this.prevTranslate = new DOMMatrixReadOnly(window.getComputedStyle(this.track).transform).m41;
-          this.track.style.transition = 'none';
+          this.stopSnap();
+          this.currentIndex = Math.round(this.playbackIndex);
+          this.prevTranslate = this.trackTranslate;
           this.viewport.classList.add('is-dragging');
           if (event.pointerType !== 'touch') this.viewport.setPointerCapture(event.pointerId);
         }
         // Leave room for the snap transition to finish when dragging a full card width.
-        const dragLimit = this.getStepSize() * 0.95;
+        const dragLimit = this.step * 0.95;
         const drag = this.prevTranslate + Math.max(-dragLimit, Math.min(dragLimit, delta));
         const first = this.getTranslateForIndex(this.cloneCount - 1);
         const last = this.getTranslateForIndex(this.cloneCount + this.originalCards.length);
         this.dragTranslate = Math.max(last + 1, Math.min(first - 1, drag));
-        this.track.style.transform = `translate3d(${this.dragTranslate}px, 0, 0)`;
+        this.renderPosition(this.dragTranslate);
       }
 
       handlePointerUp(event) {
@@ -735,7 +817,7 @@
         this.deferPlayback();
         if (!this.isDragging) return;
         const movedBy = this.dragTranslate - this.prevTranslate;
-        const delta = Math.abs(movedBy) > this.getStepSize() / 5 ? -Math.sign(movedBy) : 0;
+        const delta = Math.abs(movedBy) > this.step / 5 ? -Math.sign(movedBy) : 0;
         this.isDragging = false;
         this.viewport.classList.remove('is-dragging');
         // Pointer capture is released by the browser after pointerup.
@@ -782,6 +864,7 @@
       }
 
       handleResize() {
+        if (this.viewport.clientWidth === this.viewportWidth && this.getCardsPerView() === this.cardsPerView) return;
         this.stopPlayback();
         const realIndex = this.getRealIndex();
         this.setupSlider(realIndex);
@@ -789,6 +872,7 @@
       }
 
       moveBy(delta) {
+        if (this.originalCards.length < 2) return;
         this.deferPlayback();
         const first = this.cloneCount - 1;
         const last = this.cloneCount + this.originalCards.length;
@@ -804,7 +888,9 @@
       disconnectedCallback() {
         this.eventController?.abort();
         this.visibilityObserver?.disconnect();
+        this.resizeObserver?.disconnect();
         this.stopPlayback();
+        this.stopSnap();
         window.clearTimeout(this.resumeTimer);
         window.clearTimeout(this.wheelTimer);
         this.resumeTimer = null;
@@ -1126,7 +1212,7 @@
       "max": 30,
       "step": 2,
       "unit": "px",
-      "label": "Position from top",
+      "label": "Position from bottom",
       "default": 12
     },
     {
