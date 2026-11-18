@@ -490,7 +490,7 @@
 
     {% if block.settings.show_catalog_link %}
       <div class="ai-holo-slider__footer-{{ ai_gen_id }}">
-        <a class="m-button m-button--primary" href="{{ routes.all_products_collection_url }}?view=all-products">
+        <a class="m-button m-button--primary" href="{% render 'all-products-url' %}">
           View all products
         </a>
       </div>
