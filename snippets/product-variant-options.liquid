@@ -60,9 +60,11 @@
   {%- endcapture -%}
 
   {%- capture label_unavailable -%}
-    <span class="m:visually-hidden label-unavailable">
-      {%- render 'new-locale', key: 'products.product.variant_sold_out_or_unavailable' -%}
-    </span>
+    {%- if option_disabled -%}
+      <span class="m:visually-hidden label-unavailable">
+        {%- render 'new-locale', key: 'products.product.variant_sold_out_or_unavailable' -%}
+      </span>
+    {%- endif -%}
   {%- endcapture -%}
 
   {%- capture input_dataset -%}

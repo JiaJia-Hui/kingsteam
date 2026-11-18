@@ -1,40 +1,6 @@
 {% liquid
-  assign is_size = false
   assign size_title_downcase = size_title | downcase
-  assign picker_types = ''
-  assign option_labels = ''
-
-  for option in product.options_with_values
-    assign found_option = false
-    assign option_design = ''
-    assign option_label = option.name
-
-    for i in (1..5)
-      unless found_option == true
-        assign option_name_key = 'variant_option_title' | append: i
-        assign option_design_key = 'variant_option_design' | append: i
-        assign option_label_key = 'variant_option_display_name' | append: i
-
-        assign option_name = settings[option_name_key]
-        if option_name == option.name
-          assign found_option = true
-          assign option_design = settings[option_design_key]
-          assign option_label = settings[option_label_key] | default: option.name
-        endif
-      endunless
-    endfor
-
-    assign design = option_design | prepend: ','
-    assign option_label = option_label | prepend: ','
-    if found_option == false or option_design == ''
-      assign design = settings.variant_option_design_default | prepend: ','
-    endif
-
-    assign picker_types = picker_types | append: design
-    assign option_labels = option_labels | append: option_label
-  endfor
-  assign picker_types = picker_types | remove_first: ',' | split: ','
-  assign option_labels = option_labels | remove_first: ',' | split: ','
+  assign color_names = 'color,colour,couleur,farbe,colore,coloris,颜色,顏色,カラー' | split: ','
 %}
 
 <variant-picker
@@ -48,9 +14,20 @@
   {%- unless product.has_only_default_variant -%}
     {%- for option in product.options_with_values -%}
       {% liquid
-        assign picker_type = picker_types[forloop.index0]
-        assign option_label = option_labels[forloop.index0]
-        assign option_name_downcase = option.name | downcase
+        assign option_name_downcase = option.name | downcase | strip
+        assign option_label = option.name
+        assign configured_design = blank
+        for i in (1..5)
+          assign option_name_key = 'variant_option_title' | append: i
+          assign configured_name = settings[option_name_key] | downcase | strip
+          if configured_name == option_name_downcase
+            assign option_design_key = 'variant_option_design' | append: i
+            assign option_label_key = 'variant_option_display_name' | append: i
+            assign configured_design = settings[option_design_key]
+            assign option_label = settings[option_label_key] | default: option.name
+            break
+          endif
+        endfor
         if size_title_downcase contains option_name_downcase
           assign is_size = true
         else
@@ -59,12 +36,9 @@
 
         assign swatch_count = option.values | map: 'swatch' | compact | size
 
-        if swatch_count > 0
-          if picker_type == 'dropdown'
-            assign picker_type = 'swatch_dropdown'
-          elsif picker_type == 'color'
-            assign picker_type = 'swatch_color'
-          endif
+        assign picker_type = 'button'
+        if color_names contains option_name_downcase or swatch_count > 0 or configured_design == 'color'
+          assign picker_type = 'swatch_color'
         endif
       %}
       <div
@@ -72,7 +46,7 @@
         data-picker-type="{{ picker_type }}"
       >
         <div
-          data-picker-field="{% if picker_type == 'dropdown' or picker_type == 'swatch_dropdown' %}select{% else %}radio{% endif %}"
+          data-picker-field="radio"
           data-option-name="{{ option.name }}"
           data-selected-value="{{ option.selected_value }}"
           class="m-product-option__inner"
@@ -98,20 +72,7 @@
             {% endif %}
           </div>
           <div class="m-product-option--content m:inline-flex m:flex-wrap">
-            {%- case picker_type -%}
-              {% when 'dropdown', 'swatch_dropdown' %}
-                <select
-                  id="Option-{{ section.id }}-{{ forloop.index0 }}"
-                  name="options[{{ option.name | escape }}]"
-                  form="{{ product_form_id }}"
-                >
-                  {% render 'product-variant-options', product: product, option: option, picker_type: picker_type %}
-                </select>
-              {% when 'swatch_color' %}
-                {% render 'product-variant-options', product: product, option: option, picker_type: picker_type %}
-              {% else %}
-                {% render 'product-variant-options', product: product, option: option, picker_type: picker_type %}
-            {%- endcase -%}
+            {% render 'product-variant-options', product: product, option: option, picker_type: picker_type %}
           </div>
         </div>
       </div>
@@ -121,3 +82,20 @@
     {{ product.selected_or_first_available_variant | json }}
   </script>
 </variant-picker>
+
+{% stylesheet %}
+  variant-picker .m-product-option--node__unavailable [data-option-type="swatch_color"].m-product-option--node__label::before {
+    border-radius: 50%;
+  }
+
+  variant-picker .m-product-option--swatch .m-product-option__input:focus-visible + [data-option-type="swatch_color"] {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  variant-picker .m-product-option--swatch .m-swatch-fallback {
+    font-size: 12px;
+    line-height: 1;
+    color: #333;
+  }
+{% endstylesheet %}
