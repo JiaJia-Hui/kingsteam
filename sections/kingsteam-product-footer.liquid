@@ -17,12 +17,17 @@
     </li>
   {%- endfor -%}
 
-  {%- if card_count < 4 -%}
-    {%- for related_product in collections.all.products limit: 8 -%}
+  {%- assign fallback_handles = 'all,hair-tools,hair-care' | split: ',' -%}
+  {%- for collection_handle in fallback_handles -%}
+    {%- if card_count == 4 -%}
+      {%- break -%}
+    {%- endif -%}
+    {%- for related_product in collections[collection_handle].products limit: 8 -%}
       {%- assign product_key = '|' | append: related_product.id | append: '|' -%}
       {%- if related_product.id == current_product_id or shown_ids contains product_key -%}
         {%- continue -%}
       {%- endif -%}
+      {%- assign shown_ids = shown_ids | append: related_product.id | append: '|' -%}
       {%- assign card_count = card_count | plus: 1 -%}
       <li>
         {% render 'product-card-1', product: related_product, index: card_count, animated: false, show_desc: false %}
@@ -31,7 +36,7 @@
         {%- break -%}
       {%- endif -%}
     {%- endfor -%}
-  {%- endif -%}
+  {%- endfor -%}
 {%- endcapture -%}
 
 <div class="container kingsteam-product-footer">
