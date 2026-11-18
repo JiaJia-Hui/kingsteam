@@ -77,51 +77,14 @@
             data-type: 'add-to-cart-form'
           -%}
             <div class="m-product-form__wrapper m:flex" id="QuantityForm-{{ section.id }}">
-              <label for="id" class="m:visually-hidden">
-                {%- render 'new-locale', key: 'products.product.select_options' -%}
-              </label>
-              <select
-                name="id"
-                class="m-product-option--dropdown-select{% if product.has_only_default_variant %} m:hidden{% endif %}"
-              >
-                <option
-                  value=""
-                  disabled
-                  {% if product.selected_or_first_available_variant.available == false
-                    or product.selected_or_first_available_variant == null
-                  %}
-                    selected="true"
-                  {% endif %}
-                >
-                  {% render 'new-locale', key: 'products.product.select_options' %}
-                </option>
-                {% for variant in product.variants %}
-                  {% liquid
-                    assign selected = false
-                    if variant.id == product.selected_or_first_available_variant.id
-                      assign selected = true
-                    endif
-
-                    assign option_id = ''
-                    for option in variant.options
-                      for value in product.options_with_values[forloop.index0].values
-                        if option == value
-                          assign option_id = option_id | append: value.id | append: ','
-                        endif
-                      endfor
-                    endfor
-                  %}
-                  <option
-                    value="{{ variant.id }}"
-                    {% if selected %}
-                      selected="true"
-                    {% endif %}
-                    data-options="{{ option_id }}"
-                  >
-                    {{ variant.title }} - {{ variant.price | money }}
-                  </option>
-                {% endfor %}
-              </select>
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+              {% unless product.has_only_default_variant %}
+                {% render 'product-variant-picker',
+                  product: product,
+                  sticky_picker: true,
+                  product_form_id: product_form_id
+                %}
+              {% endunless %}
               {% render 'product-qty-input',
                 class: 'm-sticky-addtocart--quantity',
                 product_form_id: product_form_id,
@@ -185,9 +148,41 @@
         {% endif %}
       </div>
     </sticky-atc>
-    <script type="application/json">
-      {{ product.variants | json }}
-    </script>
   </div>
 </div>
 <script src="{{ 'sticky-atc.js' | asset_url }}" defer="defer"></script>
+
+{% stylesheet %}
+  .m-sticky-addtocart .m-product-form__wrapper {
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .m-sticky-variant-picker {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-inline-end: 16px;
+  }
+
+  .m-sticky-variant-picker .m-product-option {
+    margin: 0;
+  }
+
+  .m-sticky-variant-picker .m-product-option--content {
+    display: flex;
+    gap: 4px;
+  }
+
+  .m-sticky-variant-picker .m-product-option--node {
+    margin: 0;
+  }
+
+  @media screen and (max-width: 767px) {
+    .m-sticky-variant-picker {
+      max-width: 100%;
+      margin-inline-end: 8px;
+    }
+  }
+{% endstylesheet %}

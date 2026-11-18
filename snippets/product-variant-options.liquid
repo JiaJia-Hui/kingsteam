@@ -15,7 +15,10 @@
   %}
 {% endcomment %}
 {%- liquid
-  assign product_form_id = 'product-form-' | append: section.id
+  unless product_form_id
+    assign product_form_id = 'product-form-' | append: section.id
+  endunless
+  assign picker_id = picker_id | default: section.id
   assign image_size = 100
 -%}
 
@@ -52,7 +55,7 @@
   -%}
 
   {%- capture input_id -%}
-    {{ section.id }}-{{ option.position }}-{{ forloop.index0 -}}
+    {{ picker_id }}-{{ option.position }}-{{ forloop.index0 -}}
   {%- endcapture -%}
 
   {%- capture input_name -%}

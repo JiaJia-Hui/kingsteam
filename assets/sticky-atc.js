@@ -11,7 +11,7 @@ if (!customElements.get("sticky-atc")) {
           buyNowBtn: ".m-product-dynamic-checkout",
           variantIdSelect: '[name="id"]',
           foxkitBtn: ".foxkit-button",
-          select: "select",
+          picker: "[data-sticky-picker]",
         };
         this.hasCustomFields = !!document.querySelector(".m-main-product--info .m-product-custom-field");
       }
@@ -22,7 +22,7 @@ if (!customElements.get("sticky-atc")) {
         this.mainProductForm = document.querySelector(".m-product-form--main");
         this.mainProductInfo = document.querySelector(".m-main-product--info");
         this.mainAddToCart = this.mainProductForm ? this.mainProductForm.querySelector(".m-add-to-cart") : null;
-        this.mainDynamicCheckout = this.mainProductForm.querySelector(this.selectors.buyNowBtn);
+        this.mainDynamicCheckout = this.mainProductForm?.querySelector(this.selectors.buyNowBtn);
         this.disableSelectedVariantDefault = this.mainProduct.dataset.disableSelectedVariantDefault === "true" || false;
         this.domNodes = queryDomNodes(this.selectors, this.container);
 
@@ -34,8 +34,6 @@ if (!customElements.get("sticky-atc")) {
           this.container.style.setProperty("--m-translate-y", 0);
           return;
         }
-
-        this.variantData = this.getVariantData();
 
         const headerHeight = MinimogSettings.headerHeight || 66;
         const rootMargin = `${headerHeight}px 0px 0px 0px`;
@@ -67,44 +65,24 @@ if (!customElements.get("sticky-atc")) {
         this.handleCustomFields();
 
         this.setObserveTarget();
-        this.syncWithMainProductForm();
 
         const mql = window.matchMedia(MinimogTheme.config.mediaQueryMobile);
         mql.onchange = this.setStickyAddToCartHeight.bind(this);
         this.setStickyAddToCartHeight();
 
-        this.domNodes.select.addEventListener("change", (e) => {
-          const { target } = e;
-          const variantPicker = this.mainProduct.querySelector('variant-picker');
-          const selectedVariantId = this.querySelector(this.selectors.variantIdSelect).value;
-          this.currentVariant = this.variantData.find((variant) => variant.id === Number(selectedVariantId));
-          this.currentVariant ? this.toggleAddButton(!this.currentVariant.available, window.MinimogStrings.soldOut) : this.toggleAddButton(true, window.MinimogStrings.unavailable);
+        this.domNodes.picker?.addEventListener("change", ({ target }) => {
+          const optionId = target.dataset.optionValueId;
+          if (!optionId) return;
 
-          const selectedOption = target.options[target.selectedIndex];
-          const selectedOptionIds = selectedOption.dataset.options.split(',').filter(id => id);
+          const picker = this.mainProduct.variantPicker;
+          const input = picker?.querySelector(`input[data-option-value-id="${optionId}"]`);
+          if (!input) return;
 
-          if (variantPicker) {
-            selectedOptionIds.forEach((optionId) => {
-              const input = variantPicker.querySelector(`[data-option-value-id="${optionId}"]`);
-              const { tagName } = input;
-              switch (tagName) {
-                case "OPTION":
-                  const inputParent = input.parentNode; // select tag
-                  inputParent.value = input.value;
-                  break;
-                case "INPUT":
-                  input.checked = true;
-                  break;
-              }
-            });
-            variantPicker.dispatchEvent(new Event("change"));
-          }
+          this.querySelector(this.selectors.variantIdSelect).value = "";
+          this.toggleAddButton(true);
+          input.checked = true;
+          input.dispatchEvent(new Event("change", { bubbles: true }));
         });
-      }
-
-      getVariantData() {
-        this.variantData = this.variantData || JSON.parse(this.container.querySelector('[type="application/json"]').textContent);
-        return this.variantData;
       }
 
       setObserveTarget() {
@@ -145,9 +123,10 @@ if (!customElements.get("sticky-atc")) {
         let urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has("variant")) return;
 
-        const pickerFields = this.querySelector('.m-product-option--dropdown-select');
-
-        pickerFields.value = '';
+        this.querySelector(this.selectors.variantIdSelect).value = '';
+        this.domNodes.picker?.querySelectorAll('input:checked').forEach((input) => {
+          input.checked = false;
+        });
         this.setUnavailable();
       }
 
@@ -156,20 +135,19 @@ if (!customElements.get("sticky-atc")) {
         window.MinimogSettings.stickyAddToCartHeight = this.offsetHeight;
       }
 
-      syncWithMainProductForm() {
-        const variantInput = this.querySelector('[name="id"]');
-        MinimogEvents.subscribe(MinimogTheme.pubSubEvents.variantChange, (e) => {
-          const isMainProduct = e.data.sectionId === this.mainProduct.dataset.sectionId;
-          if (!isMainProduct) return;
-          this.currentVariant = e.data.variant;
-          if (this.currentVariant) {
-            variantInput.value = e.data.variant.id;
-            this.toggleAddButton(!this.currentVariant.available, window.MinimogStrings.soldOut)
-          } else {
-            variantInput.value = '';
-            this.toggleAddButton(true, window.MinimogStrings.unavailable)
-          }
-        });
+      updateVariant(variant, html) {
+        const variantInput = this.querySelector(this.selectors.variantIdSelect);
+        const picker = this.domNodes.picker;
+        const renderedPicker = html.querySelector(this.selectors.picker);
+        if (picker && renderedPicker) {
+          const focusedInput = document.activeElement;
+          const focusedId = picker.contains(focusedInput) ? focusedInput.id : null;
+          picker.replaceChildren(...renderedPicker.cloneNode(true).children);
+          if (focusedId) document.getElementById(focusedId)?.focus({ preventScroll: true });
+          this.setStickyAddToCartHeight();
+        }
+        variantInput.value = variant?.id ?? '';
+        this.toggleAddButton(!variant?.available, variant ? window.MinimogStrings.soldOut : window.MinimogStrings.unavailable);
       }
 
       handleCustomFields() {
