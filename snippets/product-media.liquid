@@ -21,12 +21,14 @@
 
   assign media_count = product.media.size
 
-  assign enable_variant_group_img = false
   assign has_variant_group_img = false
   assign variant_groups = product.metafields['foxecom-bs-kit']['variant-images'].value
-  if section.settings.enable_variant_group_images and product.metafields['foxecom-bs-kit']['variant-images'].value.enable
-    assign enable_variant_group_img = true
-  endif
+  unless template_product
+    assign enable_variant_group_img = false
+    if section.settings.enable_variant_group_images and variant_groups.enable
+      assign enable_variant_group_img = true
+    endif
+  endunless
 
   assign selected_variant = product.selected_or_first_available_variant
   assign gallery_media = product.media
@@ -34,23 +36,26 @@
 
   if template_product and media_count > 1 and product.has_only_default_variant == false and enable_variant_group_img == false
     assign show_selected_media_first = true
-    if product.id == 6867794788502
-      assign black_variant = product.variants | where: 'option1', 'Black' | first
-      assign blue_variant = product.variants | where: 'option1', 'Blue' | first
-      assign black_media_id = black_variant.featured_media.id
+    assign first_media = selected_variant.featured_media | default: product.media.first
+    if section.settings.disable_selected_variant_default and product.selected_variant == blank
+      assign first_media = product.media.first
     endif
-    if product.selected_variant or section.settings.show_featured_media == false
-      if selected_variant.featured_media
-        assign selected_media_id = selected_variant.featured_media.id
-        assign selected_media = product.media | where: 'id', selected_media_id
-        assign remaining_media = product.media | reject: 'id', selected_media_id
-        if black_media_id and selected_variant.id == blue_variant.id and black_media_id != selected_media_id
-          assign black_media = remaining_media | where: 'id', black_media_id
-          assign remaining_media = remaining_media | reject: 'id', black_media_id | concat: black_media
-        endif
-        assign gallery_media = selected_media | concat: remaining_media
+
+    assign first_item = product.media | where: 'id', first_media.id
+    assign shared_media = '' | split: ','
+    assign other_variant_media = '' | split: ','
+    for media in product.media
+      if media.id == first_media.id
+        continue
       endif
-    endif
+      assign item = product.media | slice: forloop.index0, 1
+      if media.media_type == 'image' and variant_image_sources contains media.src
+        assign other_variant_media = other_variant_media | concat: item
+      else
+        assign shared_media = shared_media | concat: item
+      endif
+    endfor
+    assign gallery_media = first_item | concat: shared_media | concat: other_variant_media
   endif
 
   for media in variant_groups.mapping
@@ -61,7 +66,7 @@
   endfor
 
   assign enable_loading_media = false
-  if has_variant_group_img and template_product and section.settings.enable_variant_group_images and product.has_only_default_variant == false and media_count > 1
+  if has_variant_group_img and template_product and enable_variant_group_img and media_count > 1
     assign enable_loading_media = true
   endif
 
@@ -119,10 +124,6 @@
     data-enable-video-autoplay="{{ section.settings.enable_video_autoplay }}"
     data-enable-variant-group-images="{{ enable_variant_group_img }}"
     data-show-selected-media-first="{{ show_selected_media_first }}"
-    {% if black_media_id and blue_variant %}
-      data-blue-variant-id="{{ blue_variant.id }}"
-      data-black-media-id="{{ black_media_id }}"
-    {% endif %}
     data-only-media="{{ only_media }}"
     data-layout="{{ media_layout }}"
     data-enable-desktop-slider="{{ enable_desktop_slider }}"
@@ -160,6 +161,9 @@
               class="{{ item_classes }}"
               data-index="{{ forloop.index0 }}"
               data-media-position="{{ media.position }}"
+              {% if show_selected_media_first and media.media_type == 'image' and variant_image_sources contains media.src %}
+                data-variant-media
+              {% endif %}
               data-media-type="{{ media.media_type }}"
               data-media-id="{{ media.id }}"
               data-aspect-ratio="{{ media.aspect_ratio | default: '1' }}"

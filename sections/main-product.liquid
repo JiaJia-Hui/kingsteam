@@ -28,7 +28,8 @@
   endif
 
   assign enable_variant_group_img = false
-  if section.settings.enable_variant_group_images and product.metafields['foxecom-bs-kit']['variant-images'].value.enable
+  assign variant_image_sources = product.images | where: 'attached_to_variant?', true | map: 'src'
+  if variant_image_sources == empty and section.settings.enable_variant_group_images and product.metafields['foxecom-bs-kit']['variant-images'].value.enable
     assign enable_variant_group_img = true
   endif
 
@@ -108,6 +109,8 @@
           {% render 'product-media',
             section: section,
             template_product: true,
+            variant_image_sources: variant_image_sources,
+            enable_variant_group_img: enable_variant_group_img,
             show_thumbnails_mobile: section.settings.show_nav_media_mobile,
             show_pagination_mobile: section.settings.show_pagination_mobile
           %}
