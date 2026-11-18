@@ -37,9 +37,9 @@
     assign product_colors = settings.product_colors | split: ','
     for product_color in product_colors
       assign parts = product_color | strip | split: ':'
-      assign name = parts.first | downcase | strip
+      assign configured_color_name = parts.first | downcase | strip
       assign color = parts.last | strip
-      if name == value_downcase
+      if configured_color_name == value_downcase
         assign swatch_value = color
         break
       endif
