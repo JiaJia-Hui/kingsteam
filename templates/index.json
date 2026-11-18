@@ -271,9 +271,8 @@
         "ai_gen_block_c35b47b_jT7JaY": {
           "type": "ai_gen_block_c35b47b",
           "settings": {
-            "heading": "Best Sellers",
+            "heading": "<strong>BEST SELLERS</strong>",
             "subheading": "",
-            "show_catalog_link": true,
             "products": [
               "hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1",
               "dryer-diffuser-for-curly-hair",
@@ -295,6 +294,7 @@
               "600w-outdoor-dog-house-heater-with-thermostat-24-hour-timer-9-84ft-anti-chew-cord-overheat-protection-ul-499-csa-c22-2-certified-eco-mode-safe-pet-warmer-for-chicken-coops-kennels",
               "dog-house-heater-with-thermostat-chicken-coop-heater"
             ],
+            "show_catalog_link": true,
             "container_width": 1600,
             "cards_per_row_desktop": "5",
             "cards_per_row_tablet": "3",
@@ -303,8 +303,8 @@
             "section_padding_top": 45,
             "section_padding_bottom": 30,
             "heading_alignment": "center",
-            "heading_size": 44,
-            "subheading_size": 19,
+            "heading_size": 36,
+            "subheading_size": 24,
             "heading_spacing": 30,
             "heading_color": "#2a2b25",
             "subheading_color": "#666666",
