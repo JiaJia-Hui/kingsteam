@@ -1,14 +1,16 @@
 {{ 'component-product-inventory.css' | asset_url | stylesheet_tag }}
 {%- assign categories = 'steamers:Hair & Facial Steamers|dryers:Hair Dryers & Diffusers|styling:Styling Tools|towel-warmers:Towel Warmers|sanitizers:Sanitizers|heaters:Heaters|other:Other Products' | split: '|' -%}
+{%- capture catalog_url -%}{%- render 'all-products-url' -%}{%- endcapture -%}
 
-{%- paginate collection.products by 24 -%}
+{%- paginate search.results by 24 -%}
   {%- assign category_links = '' -%}
   {%- capture groups -%}
     {%- for category in categories -%}
       {%- assign details = category | split: ':' -%}
       {%- assign category_id = details[0] -%}
       {%- capture cards -%}
-        {%- for product in collection.products -%}
+        {%- for product in search.results -%}
+          {%- unless product.object_type == 'product' -%}{%- continue -%}{%- endunless -%}
           {%- capture product_group -%}{%- render 'catalog-product-group', product: product -%}{%- endcapture -%}
           {%- if product_group == category_id -%}
             <li data-catalog-product="{{ product.handle | escape }}">
@@ -49,15 +51,7 @@
           {%- for part in paginate.parts -%}
             {%- assign page_number = part.title | plus: 0 -%}
             {%- if part.is_link -%}
-              {%- assign page_url = part.url -%}
-              {%- unless page_url contains 'view=' -%}
-                {%- if page_url contains '?' -%}
-                  {%- assign page_url = page_url | append: '&view=all-products' -%}
-                {%- else -%}
-                  {%- assign page_url = page_url | append: '?view=all-products' -%}
-                {%- endif -%}
-              {%- endunless -%}
-              <a href="{{ page_url | escape }}" aria-label="Page {{ part.title | escape }}">{{ part.title }}</a>
+              <a href="{{ catalog_url }}&amp;{{ paginate.page_param }}={{ page_number }}" aria-label="Page {{ page_number }}">{{ page_number }}</a>
             {%- elsif page_number == paginate.current_page -%}
               <span aria-current="page">{{ part.title }}</span>
             {%- else -%}
