@@ -34,11 +34,20 @@
 
   if template_product and media_count > 1 and product.has_only_default_variant == false and enable_variant_group_img == false
     assign show_selected_media_first = true
+    if product.id == 6867794788502
+      assign black_variant = product.variants | where: 'option1', 'Black' | first
+      assign blue_variant = product.variants | where: 'option1', 'Blue' | first
+      assign black_media_id = black_variant.featured_media.id
+    endif
     if product.selected_variant or section.settings.show_featured_media == false
       if selected_variant.featured_media
         assign selected_media_id = selected_variant.featured_media.id
         assign selected_media = product.media | where: 'id', selected_media_id
         assign remaining_media = product.media | reject: 'id', selected_media_id
+        if black_media_id and selected_variant.id == blue_variant.id and black_media_id != selected_media_id
+          assign black_media = remaining_media | where: 'id', black_media_id
+          assign remaining_media = remaining_media | reject: 'id', black_media_id | concat: black_media
+        endif
         assign gallery_media = selected_media | concat: remaining_media
       endif
     endif
@@ -110,6 +119,10 @@
     data-enable-video-autoplay="{{ section.settings.enable_video_autoplay }}"
     data-enable-variant-group-images="{{ enable_variant_group_img }}"
     data-show-selected-media-first="{{ show_selected_media_first }}"
+    {% if black_media_id and blue_variant %}
+      data-blue-variant-id="{{ blue_variant.id }}"
+      data-black-media-id="{{ black_media_id }}"
+    {% endif %}
     data-only-media="{{ only_media }}"
     data-layout="{{ media_layout }}"
     data-enable-desktop-slider="{{ enable_desktop_slider }}"
