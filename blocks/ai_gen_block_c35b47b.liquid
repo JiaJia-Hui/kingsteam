@@ -37,6 +37,12 @@
     margin: 0;
   }
 
+  .ai-holo-slider__footer-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    margin-top: clamp(16px, 2vw, 28px);
+  }
+
   .ai-holo-slider__track-{{ ai_gen_id }} {
     display: flex;
     gap: {{ block.settings.card_gap }}px;
@@ -481,6 +487,14 @@
         {% endif %}
       </div>
     </div>
+
+    {% if block.settings.show_catalog_link %}
+      <div class="ai-holo-slider__footer-{{ ai_gen_id }}">
+        <a class="m-button m-button--primary" href="{{ routes.all_products_collection_url }}?view=all-products">
+          View all products
+        </a>
+      </div>
+    {% endif %}
 
     <div class="ai-holo-slider__nav-{{ ai_gen_id }}" data-nav{% unless block.settings.show_navigation %} data-focus-only hidden{% endunless %}>
       <button type="button" class="ai-holo-slider__playback-{{ ai_gen_id }}" data-playback hidden>
@@ -951,6 +965,12 @@
       "id": "products",
       "label": "Products",
       "limit": 50
+    },
+    {
+      "type": "checkbox",
+      "id": "show_catalog_link",
+      "label": "Show View all products link",
+      "default": false
     },
     {
       "type": "header",

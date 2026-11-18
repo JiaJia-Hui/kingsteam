@@ -1,0 +1,18 @@
+{%- liquid
+  assign description = product.type | append: ' ' | append: product.handle | append: ' ' | append: product.title | downcase
+  if description contains 'towel-warmer' or description contains 'towel warmer'
+    echo 'towel-warmers'
+  elsif description contains 'steamer'
+    echo 'steamers'
+  elsif description contains 'dryer' or description contains 'diffuser'
+    echo 'dryers'
+  elsif description contains 'straightener' or description contains 'curler' or description contains 'styling'
+    echo 'styling'
+  elsif description contains 'sanitizer' or description contains 'sterilizer'
+    echo 'sanitizers'
+  elsif description contains 'heater'
+    echo 'heaters'
+  else
+    echo 'other'
+  endif
+-%}
