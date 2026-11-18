@@ -2,6 +2,7 @@
   {%- liquid
     assign animation_effect = settings.animations
     assign animated = false
+    assign legacy_shop_all_url = routes.collections_url | append: '/shop-all'
     if animation_effect != 'none'
       assign animated = true
     endif
@@ -82,8 +83,16 @@
                   {% if menu.links != blank %}
                     <ul class="m-footer--block-content list-unstyled m-link-lists{{ accordion_content_class }}">
                       {% for link in menu.links %}
+                        {%- liquid
+                          assign footer_link_url = link.url
+                          if footer_link_url == legacy_shop_all_url
+                            capture footer_link_url
+                              render 'all-products-url'
+                            endcapture
+                          endif
+                        -%}
                         <li class="m-link-lists--item m:block">
-                          <a href="{{ link.url }}" class="m-link">
+                          <a href="{{ footer_link_url }}" class="m-link">
                             {{ link.title }}
                           </a>
                         </li>
