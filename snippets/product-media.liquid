@@ -29,6 +29,20 @@
   endif
 
   assign selected_variant = product.selected_or_first_available_variant
+  assign gallery_media = product.media
+  assign show_selected_media_first = false
+
+  if template_product and media_count > 1 and product.has_only_default_variant == false and enable_variant_group_img == false
+    assign show_selected_media_first = true
+    if product.selected_variant or section.settings.show_featured_media == false
+      if selected_variant.featured_media
+        assign selected_media_id = selected_variant.featured_media.id
+        assign selected_media = product.media | where: 'id', selected_media_id
+        assign remaining_media = product.media | reject: 'id', selected_media_id
+        assign gallery_media = selected_media | concat: remaining_media
+      endif
+    endif
+  endif
 
   for media in variant_groups.mapping
     assign media_id = media.id | times: 1
@@ -95,6 +109,7 @@
     data-enable-image-zoom="{{ section.settings.show_zoom_button }}"
     data-enable-video-autoplay="{{ section.settings.enable_video_autoplay }}"
     data-enable-variant-group-images="{{ enable_variant_group_img }}"
+    data-show-selected-media-first="{{ show_selected_media_first }}"
     data-only-media="{{ only_media }}"
     data-layout="{{ media_layout }}"
     data-enable-desktop-slider="{{ enable_desktop_slider }}"
@@ -120,7 +135,7 @@
         {% endif %}
       >
         <div class="m-media-gallery__list swiper-wrapper {{ grid_col_class }}">
-          {%- for media in product.media -%}
+          {%- for media in gallery_media -%}
             {% liquid
               assign remainder = forloop.index0 | modulo: 3
               assign item_classes = 'm-product-media--item media-type-' | append: media.media_type | append: ' swiper-slide m:column'
@@ -131,6 +146,7 @@
             <div
               class="{{ item_classes }}"
               data-index="{{ forloop.index0 }}"
+              data-media-position="{{ media.position }}"
               data-media-type="{{ media.media_type }}"
               data-media-id="{{ media.id }}"
               data-aspect-ratio="{{ media.aspect_ratio | default: '1' }}"
@@ -173,7 +189,7 @@
       <div class="m-product-media--slider__thumbnails{% if show_thumbnails_mobile %} m:block{% else %} m:hidden{% endif %}{% if show_thumbnails %} md:m:block{% else %} md:m:hidden{% endif %}">
         <div class="nav-swiper-container">
           <div class="swiper-wrapper" style="min-width: 70px;">
-            {% for media in product.media %}
+            {% for media in gallery_media %}
               <div
                 class="swiper-slide media-type-{{ media.media_type }}"
                 data-index="{{ forloop.index0 }}"

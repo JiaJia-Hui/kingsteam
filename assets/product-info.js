@@ -365,7 +365,7 @@ if (!customElements.get("product-info")) {
       } else {
         const setActiveMedia = () => {
           if (typeof this.productMedia.setActiveMedia === 'function') {
-            this.productMedia.init();
+            if (!this.productMedia.showSelectedMediaFirst) this.productMedia.init();
             this.productMedia.setActiveMedia(variant);
             return true; // Indicate success
           }

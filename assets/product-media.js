@@ -32,6 +32,10 @@ if (!customElements.get("media-gallery")) {
         return this.dataset.layout;
       }
 
+      get showSelectedMediaFirst() {
+        return this.dataset.showSelectedMediaFirst === "true";
+      }
+
       connectedCallback() {
         this.init();
       }
@@ -192,6 +196,11 @@ if (!customElements.get("media-gallery")) {
           this.slider.destroy();
           this.slider = false;
         }
+        if (this.navSlider) {
+          this.navSlider.destroy();
+          this.navSlider = false;
+          delete this.sliderOptions.thumbs;
+        }
       }
 
       handleSlideChange() {
@@ -269,10 +278,10 @@ if (!customElements.get("media-gallery")) {
         playMedia(deferredElement);
       }
 
-      handlePhotoswipe() {
+      getLightboxSlides() {
         const medias = [...this.querySelectorAll(".m-product-media--item:not(.swiper-slide-duplicate)")];
 
-        const data = medias.map((media) => {
+        return medias.map((media) => {
           const { mediaType, index: id } = media.dataset;
 
           if (mediaType === "image") {
@@ -297,9 +306,11 @@ if (!customElements.get("media-gallery")) {
             };
           }
         });
+      }
 
+      handlePhotoswipe() {
         const options = {
-          dataSource: data,
+          dataSource: this.getLightboxSlides(),
           bgOpacity: 1,
           close: false,
           zoom: false,
@@ -389,11 +400,55 @@ if (!customElements.get("media-gallery")) {
 
       setActiveMedia(variant) {
         if (!variant) return;
-        if (this.slider) {
+        if (this.showSelectedMediaFirst) {
+          this.reorderForVariant(variant.featured_media?.id);
+        } else if (this.slider) {
           this.setActiveMediaForSlider(variant);
         } else {
           this.handleGalleryMode(variant);
         }
+      }
+
+      reorderForVariant(mediaId) {
+        const { galleryList, navSlider } = this.domNodes;
+        const slides = [...galleryList.querySelectorAll(".m-product-media--item:not(.swiper-slide-duplicate)")];
+        const selected = slides.find((slide) => slide.dataset.mediaId === String(mediaId));
+        const ordered = [...slides].sort((a, b) => Number(a.dataset.mediaPosition) - Number(b.dataset.mediaPosition));
+        if (selected) {
+          ordered.splice(ordered.indexOf(selected), 1);
+          ordered.unshift(selected);
+        }
+
+        if (ordered.some((slide, index) => slide !== slides[index])) {
+          window.pauseAllMedia(this);
+          this.destroySlider();
+
+          const indexes = new Map();
+          ordered.forEach((slide, index) => {
+            slide.dataset.index = index;
+            indexes.set(slide.dataset.mediaId, index);
+            slide.querySelector(".m-product-media")?.style.setProperty("--animation-order", index);
+            if (this.layout === "layout-2") {
+              slide.classList.toggle("m-col-span-2", ordered.length < 3 || index % 3 === 0);
+            }
+          });
+          galleryList.append(...ordered);
+
+          const thumbList = navSlider?.querySelector(".swiper-wrapper");
+          if (thumbList) {
+            const thumbs = [...thumbList.children].sort((a, b) => indexes.get(a.dataset.mediaId) - indexes.get(b.dataset.mediaId));
+            thumbs.forEach((thumb, index) => {
+              thumb.dataset.index = index;
+              thumb.classList.toggle("swiper-slide-thumb-active", index === 0);
+            });
+            thumbList.append(...thumbs);
+          }
+
+          if (this.lightbox) this.lightbox.options.dataSource = this.getLightboxSlides();
+          this.updateMediaLayout();
+        }
+
+        this.slider?.slideToLoop?.(0, 0);
       }
 
       setActiveMediaForSlider(variant) {
