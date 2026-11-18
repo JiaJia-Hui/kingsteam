@@ -401,7 +401,7 @@ if (!customElements.get("media-gallery")) {
       setActiveMedia(variant) {
         if (!variant) return;
         if (this.showSelectedMediaFirst) {
-          this.reorderForVariant(variant.featured_media?.id);
+          this.reorderForVariant(variant);
         } else if (this.slider) {
           this.setActiveMediaForSlider(variant);
         } else {
@@ -409,14 +409,19 @@ if (!customElements.get("media-gallery")) {
         }
       }
 
-      reorderForVariant(mediaId) {
+      reorderForVariant(variant) {
         const { galleryList, navSlider } = this.domNodes;
+        const mediaId = variant.featured_media?.id;
         const slides = [...galleryList.querySelectorAll(".m-product-media--item:not(.swiper-slide-duplicate)")];
         const selected = slides.find((slide) => slide.dataset.mediaId === String(mediaId));
         const ordered = [...slides].sort((a, b) => Number(a.dataset.mediaPosition) - Number(b.dataset.mediaPosition));
         if (selected) {
           ordered.splice(ordered.indexOf(selected), 1);
           ordered.unshift(selected);
+          if (String(variant.id) === this.dataset.blueVariantId) {
+            const blackIndex = ordered.findIndex((slide) => slide.dataset.mediaId === this.dataset.blackMediaId);
+            if (blackIndex > 0) ordered.push(...ordered.splice(blackIndex, 1));
+          }
         }
 
         if (ordered.some((slide, index) => slide !== slides[index])) {
