@@ -37,10 +37,34 @@
     margin: 0;
   }
 
-  .ai-holo-slider__footer-{{ ai_gen_id }} {
-    display: flex;
-    justify-content: center;
-    margin-top: clamp(16px, 2vw, 28px);
+  .ai-holo-slider__header--with-link-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, auto) minmax(max-content, 1fr);
+    align-items: center;
+    gap: 8px 12px;
+  }
+
+  .ai-holo-slider__header--with-link-{{ ai_gen_id }} .ai-holo-slider__title-{{ ai_gen_id }} {
+    grid-area: 1 / 2;
+    margin: 0;
+  }
+
+  .ai-holo-slider__header--with-link-{{ ai_gen_id }} .ai-holo-slider__subtitle-{{ ai_gen_id }} {
+    grid-column: 1 / -1;
+  }
+
+  .ai-holo-slider__catalog-link-{{ ai_gen_id }} {
+    grid-area: 1 / 3;
+    justify-self: end;
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    color: {{ block.settings.heading_color }};
+    font-size: clamp(12px, 1.3vw, 15px);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+    white-space: nowrap;
   }
 
   .ai-holo-slider__track-{{ ai_gen_id }} {
@@ -369,10 +393,15 @@
 
 <holographic-slider-{{ ai_gen_id }} class="ai-holo-slider-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
   <div class="ai-holo-slider__container-{{ ai_gen_id }}">
-    {% if block.settings.heading != blank or block.settings.subheading != blank %}
-      <div class="ai-holo-slider__header-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank or block.settings.subheading != blank or block.settings.show_catalog_link %}
+      <div class="ai-holo-slider__header-{{ ai_gen_id }}{% if block.settings.show_catalog_link %} ai-holo-slider__header--with-link-{{ ai_gen_id }}{% endif %}">
         {% if block.settings.heading != blank %}
           <h2 class="ai-holo-slider__title-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+        {% endif %}
+        {% if block.settings.show_catalog_link %}
+          <a class="ai-holo-slider__catalog-link-{{ ai_gen_id }}" href="{% render 'all-products-url' %}" aria-label="View all products">
+            VIEW ALL <span aria-hidden="true">&nbsp;→</span>
+          </a>
         {% endif %}
         {% if block.settings.subheading != blank %}
           <p class="ai-holo-slider__subtitle-{{ ai_gen_id }}">{{ block.settings.subheading }}</p>
@@ -487,14 +516,6 @@
         {% endif %}
       </div>
     </div>
-
-    {% if block.settings.show_catalog_link %}
-      <div class="ai-holo-slider__footer-{{ ai_gen_id }}">
-        <a class="m-button m-button--primary" href="{% render 'all-products-url' %}">
-          View all products
-        </a>
-      </div>
-    {% endif %}
 
     <div class="ai-holo-slider__nav-{{ ai_gen_id }}" data-nav{% unless block.settings.show_navigation %} data-focus-only hidden{% endunless %}>
       <button type="button" class="ai-holo-slider__playback-{{ ai_gen_id }}" data-playback hidden>
@@ -969,7 +990,7 @@
     {
       "type": "checkbox",
       "id": "show_catalog_link",
-      "label": "Show View all products link",
+      "label": "Show View all link",
       "default": false
     },
     {
