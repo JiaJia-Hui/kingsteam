@@ -1,8 +1,15 @@
 {% liquid
   assign size_title_downcase = size_title | downcase
   assign color_names = 'color,colour,couleur,farbe,colore,coloris,颜色,顏色,カラー' | split: ','
+  assign picker_id = section.id
+  if sticky_picker
+    assign picker_id = section.id | prepend: 'sticky-'
+  endif
 %}
 
+{%- if sticky_picker -%}
+<div class="m-sticky-variant-picker" data-sticky-picker>
+{%- else -%}
 <variant-picker
   id="variant-picker-{{ section.id }}"
   data-product-id="{{ product.id }}"
@@ -11,6 +18,7 @@
   data-product-url="{{ product.url }}"
   data-has-only-default-variant="{{ product.has_only_default_variant }}"
 >
+{%- endif -%}
   {%- unless product.has_only_default_variant -%}
     {%- for option in product.options_with_values -%}
       {% liquid
@@ -51,12 +59,12 @@
           data-selected-value="{{ option.selected_value }}"
           class="m-product-option__inner"
         >
-          <div class="m-product-option--label">
-            <label class="option-label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+          <div class="m-product-option--label{% if sticky_picker %} m:visually-hidden{% endif %}">
+            <label class="option-label" for="Option-{{ picker_id }}-{{ forloop.index0 }}">
               <span class="option-label--title">{{ option_label }}:</span>
               <span class="option-label--selected">{{ option.selected_value }}</span>
             </label>
-            {% if is_size %}
+            {% if is_size and sticky_picker != true %}
               <button data-open-sizeguide class="foxkit-sizechart-button m:inline-flex m:items-center m:hidden">
                 <svg
                   class="m-svg-icon--large"
@@ -72,28 +80,38 @@
             {% endif %}
           </div>
           <div class="m-product-option--content m:inline-flex m:flex-wrap">
-            {% render 'product-variant-options', product: product, option: option, picker_type: picker_type %}
+            {% render 'product-variant-options',
+              product: product,
+              option: option,
+              picker_type: picker_type,
+              picker_id: picker_id,
+              product_form_id: product_form_id
+            %}
           </div>
         </div>
       </div>
     {%- endfor -%}
   {%- endunless -%}
+{%- if sticky_picker -%}
+</div>
+{%- else -%}
   <script type="application/json" data-selected-variant>
     {{ product.selected_or_first_available_variant | json }}
   </script>
 </variant-picker>
+{%- endif -%}
 
 {% stylesheet %}
-  variant-picker .m-product-option--node__unavailable [data-option-type="swatch_color"].m-product-option--node__label::before {
+  .m-product-option--node__unavailable [data-option-type="swatch_color"].m-product-option--node__label::before {
     border-radius: 50%;
   }
 
-  variant-picker .m-product-option--swatch .m-product-option__input:focus-visible + [data-option-type="swatch_color"] {
+  .m-product-option--swatch .m-product-option__input:focus-visible + [data-option-type="swatch_color"] {
     outline: 2px solid currentColor;
     outline-offset: 2px;
   }
 
-  variant-picker .m-product-option--swatch .m-swatch-fallback {
+  .m-product-option--swatch .m-swatch-fallback {
     font-size: 12px;
     line-height: 1;
     color: #333;

@@ -153,7 +153,9 @@ if (!customElements.get("product-info")) {
         })
         .then(() => {
           // set focus to last clicked option value
-          document.querySelector(`#${targetId}`)?.focus();
+          if (!document.activeElement?.closest('[data-sticky-picker]')) {
+            document.querySelector(`#${targetId}`)?.focus();
+          }
         })
         .catch((error) => {
           if (error.name === 'AbortError') {
@@ -189,6 +191,7 @@ if (!customElements.get("product-info")) {
         this.updateOptionValues(html);
         this.updateURL(productUrl, variant?.id);
         this.updateVariantInputs(variant?.id);
+        this.stickyAtc?.updateVariant?.(variant, html);
 
         if (!variant) {
           this.setUnavailable();
