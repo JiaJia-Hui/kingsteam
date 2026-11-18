@@ -112,10 +112,6 @@
             "liquid": "",
             "default_open": false
           }
-        },
-        "description_ByFMeq": {
-          "type": "description",
-          "settings": {}
         }
       },
       "block_order": [
@@ -129,8 +125,7 @@
         "98eecea7-1e9e-46dd-8fc4-b00c7702dbda",
         "95858a21-0a8c-42d1-be95-cd4f1797f5fc",
         "collapsible_tab_yd3gVE",
-        "collapsible_tab_FxRXdT",
-        "description_ByFMeq"
+        "collapsible_tab_FxRXdT"
       ],
       "settings": {
         "container": "container",
@@ -151,60 +146,43 @@
         "sticky_atc_compare": false
       }
     },
-    "custom_content_ygBUbQ": {
-      "type": "custom-content",
-      "blocks": {
-        "text_Pe8FFQ": {
-          "type": "text",
-          "settings": {
-            "title": "Why Choose The Facial Steamer？",
-            "subheading": "",
-            "text": "",
-            "width": "100%",
-            "alignment": "center",
-            "align_text": "center",
-            "text_size": "small",
-            "text_color": "inherit",
-            "button_label": "",
-            "button_link": "",
-            "button_style": "m-button--primary",
-            "button_size": "",
-            "block_custom_class": "",
-            "animations": "inherit"
-          }
-        }
-      },
-      "block_order": [
-        "text_Pe8FFQ"
-      ],
-      "name": "Custom content",
-      "settings": {
-        "heading": "",
-        "heading_size": "h3",
-        "subheading": "",
-        "description": "",
-        "header_alignment": "center",
-        "container": "container-fluid",
-        "color_scheme": "",
-        "content_color_scheme": "",
-        "enable_parallax": false,
-        "parallax_direction": "vertical",
-        "gap": 30,
-        "gap_mobile": 16,
-        "use_scroll_mobile": false,
-        "padding_top": 50,
-        "padding_bottom": 50,
-        "enable_preload_image": false,
-        "custom_class": ""
-      }
-    },
-    "blocks_hTLpi4": {
+    "facial_steamer_intro": {
       "type": "_blocks",
       "blocks": {
-        "ai_gen_block_1049ae1_dLThmi": {
+        "steam_features": {
           "type": "ai_gen_block_1049ae1",
           "settings": {
-            "image": "shopify://shop_images/3fa4d205-5ef8-46c1-854e-e11854804517.__CR0_0_970_600_PT0_SX970_V1.jpg",
+            "image": "shopify://shop_images/kingsteam-xal-steam-features.jpg",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "border_radius": 0
+          },
+          "blocks": {}
+        },
+        "skincare_steps": {
+          "type": "ai_gen_block_1049ae1",
+          "settings": {
+            "image": "shopify://shop_images/kingsteam-xal-skincare-steps.jpg",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "border_radius": 0
+          },
+          "blocks": {}
+        },
+        "gentle_hydration": {
+          "type": "ai_gen_block_1049ae1",
+          "settings": {
+            "image": "shopify://shop_images/kingsteam-xal-gentle-hydration.jpg",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "border_radius": 0
+          },
+          "blocks": {}
+        },
+        "controls_and_nozzle": {
+          "type": "ai_gen_block_1049ae1",
+          "settings": {
+            "image": "shopify://shop_images/kingsteam-xal-controls-and-nozzle.jpg",
             "padding_top": 0,
             "padding_bottom": 0,
             "border_radius": 0
@@ -213,29 +191,12 @@
         }
       },
       "block_order": [
-        "ai_gen_block_1049ae1_dLThmi"
+        "steam_features",
+        "skincare_steps",
+        "gentle_hydration",
+        "controls_and_nozzle"
       ],
-      "name": "Full width image",
-      "settings": {}
-    },
-    "blocks_GTz7ib": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_1049ae1_EQVzLQ": {
-          "type": "ai_gen_block_1049ae1",
-          "settings": {
-            "image": "shopify://shop_images/7beceac5-d5e9-4ba5-a3c4-f6510e7038c8.__CR0_0_970_600_PT0_SX970_V1.jpg",
-            "padding_top": 0,
-            "padding_bottom": 0,
-            "border_radius": 0
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_1049ae1_EQVzLQ"
-      ],
-      "name": "Full width image",
+      "name": "Facial Steamer images",
       "settings": {}
     }
   },
@@ -243,8 +204,6 @@
     "d880451e-1d96-4f33-80f8-fffa1f3ffaa1",
     "1634180644dff29e33",
     "main",
-    "custom_content_ygBUbQ",
-    "blocks_hTLpi4",
-    "blocks_GTz7ib"
+    "facial_steamer_intro"
   ]
 }
