@@ -413,16 +413,21 @@ if (!customElements.get("media-gallery")) {
         const { galleryList, navSlider } = this.domNodes;
         const mediaId = variant.featured_media?.id;
         const slides = [...galleryList.querySelectorAll(".m-product-media--item:not(.swiper-slide-duplicate)")];
-        const selected = slides.find((slide) => slide.dataset.mediaId === String(mediaId));
-        const ordered = [...slides].sort((a, b) => Number(a.dataset.mediaPosition) - Number(b.dataset.mediaPosition));
-        if (selected) {
-          ordered.splice(ordered.indexOf(selected), 1);
-          ordered.unshift(selected);
-          if (String(variant.id) === this.dataset.blueVariantId) {
-            const blackIndex = ordered.findIndex((slide) => slide.dataset.mediaId === this.dataset.blackMediaId);
-            if (blackIndex > 0) ordered.push(...ordered.splice(blackIndex, 1));
+        const originalOrder = [...slides].sort((a, b) => Number(a.dataset.mediaPosition) - Number(b.dataset.mediaPosition));
+        const first = originalOrder.find((slide) => slide.dataset.mediaId === String(mediaId)) || originalOrder[0];
+        if (!first) return;
+
+        const ordered = [first];
+        const otherVariantSlides = [];
+        for (const slide of originalOrder) {
+          if (slide === first) continue;
+          if (slide.hasAttribute("data-variant-media")) {
+            otherVariantSlides.push(slide);
+          } else {
+            ordered.push(slide);
           }
         }
+        ordered.push(...otherVariantSlides);
 
         if (ordered.some((slide, index) => slide !== slides[index])) {
           window.pauseAllMedia(this);
