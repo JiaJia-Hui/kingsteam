@@ -271,8 +271,9 @@
         "ai_gen_block_c35b47b_jT7JaY": {
           "type": "ai_gen_block_c35b47b",
           "settings": {
-            "heading": "Featured Products",
-            "subheading": "Discover our latest collection",
+            "heading": "Best Sellers",
+            "subheading": "",
+            "show_catalog_link": true,
             "products": [
               "hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1",
               "dryer-diffuser-for-curly-hair",
@@ -309,7 +310,7 @@
             "subheading_color": "#666666",
             "holo_intensity": 0.3,
             "holo_animation_speed": 2,
-            "card_background": "#f6f6f5",
+            "card_background": "#f9f8f4",
             "card_border_radius": 0,
             "card_padding": 24,
             "image_aspect_ratio": 115,

@@ -1,0 +1,147 @@
+{{ 'component-product-inventory.css' | asset_url | stylesheet_tag }}
+{%- assign categories = 'steamers:Hair & Facial Steamers|dryers:Hair Dryers & Diffusers|styling:Styling Tools|towel-warmers:Towel Warmers|sanitizers:Sanitizers|heaters:Heaters|other:Other Products' | split: '|' -%}
+
+{%- paginate collection.products by 24 -%}
+  {%- assign category_links = '' -%}
+  {%- capture groups -%}
+    {%- for category in categories -%}
+      {%- assign details = category | split: ':' -%}
+      {%- assign category_id = details[0] -%}
+      {%- capture cards -%}
+        {%- for product in collection.products -%}
+          {%- capture product_group -%}{%- render 'catalog-product-group', product: product -%}{%- endcapture -%}
+          {%- if product_group == category_id -%}
+            <li data-catalog-product="{{ product.handle | escape }}">
+              {%- render 'product-card-1', product: product, section: section, index: forloop.index, section_index: section.index, animated: false -%}
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endcapture -%}
+      {%- if cards != blank -%}
+        {%- capture category_links -%}
+          {{- category_links -}}
+          <a href="#catalog-{{ category_id }}">{{ details[1] | escape }}</a>
+        {%- endcapture -%}
+        <section class="ks-catalog__group" id="catalog-{{ category_id }}" aria-labelledby="catalog-heading-{{ category_id }}">
+          <h2 id="catalog-heading-{{ category_id }}">{{ details[1] | escape }}</h2>
+          <ul class="ks-catalog__grid" role="list">{{ cards }}</ul>
+        </section>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+
+  <section class="ks-catalog" aria-labelledby="all-products-heading">
+    <header class="ks-catalog__header">
+      <h1 id="all-products-heading">All Products</h1>
+      {%- if category_links != blank -%}
+        <nav class="ks-catalog__categories" aria-label="Product categories">{{ category_links }}</nav>
+      {%- endif -%}
+    </header>
+    <div class="ks-catalog__content container">
+      {%- if groups != blank -%}
+        {{ groups }}
+      {%- else -%}
+        <p>{{ 'collections.general.no_matches' | t }}</p>
+      {%- endif -%}
+
+      {%- if paginate.pages > 1 -%}
+        <nav class="ks-catalog__categories" aria-label="Catalog pages">
+          {%- for part in paginate.parts -%}
+            {%- assign page_number = part.title | plus: 0 -%}
+            {%- if part.is_link -%}
+              {%- assign page_url = part.url -%}
+              {%- unless page_url contains 'view=' -%}
+                {%- if page_url contains '?' -%}
+                  {%- assign page_url = page_url | append: '&view=all-products' -%}
+                {%- else -%}
+                  {%- assign page_url = page_url | append: '?view=all-products' -%}
+                {%- endif -%}
+              {%- endunless -%}
+              <a href="{{ page_url | escape }}" aria-label="Page {{ part.title | escape }}">{{ part.title }}</a>
+            {%- elsif page_number == paginate.current_page -%}
+              <span aria-current="page">{{ part.title }}</span>
+            {%- else -%}
+              <span>{{ part.title }}</span>
+            {%- endif -%}
+          {%- endfor -%}
+        </nav>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endpaginate -%}
+
+{% stylesheet %}
+  .ks-catalog__header {
+    padding: clamp(28px, 5vw, 56px) 16px;
+    background: #f9f8f4;
+    text-align: center;
+  }
+
+  .ks-catalog__header h1 {
+    margin: 0;
+    font-size: clamp(32px, 5vw, 52px);
+  }
+
+  .ks-catalog__categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .ks-catalog__categories a,
+  .ks-catalog__categories span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 8px 16px;
+    border: 1px solid #b8ab9b;
+    border-radius: 24px;
+    color: #302b25;
+    font-size: 14px;
+  }
+
+  .ks-catalog__categories a:hover,
+  .ks-catalog__categories a:focus-visible {
+    background: #eae1d5;
+    text-decoration: underline;
+  }
+
+  .ks-catalog__content {
+    padding-block: clamp(24px, 4vw, 56px);
+  }
+
+  .ks-catalog__group {
+    scroll-margin-top: 96px;
+  }
+
+  .ks-catalog__group + .ks-catalog__group {
+    margin-top: clamp(26px, 4vw, 48px);
+  }
+
+  .ks-catalog__group h2 {
+    margin: 0 0 16px;
+    font-size: clamp(22px, 3vw, 32px);
+  }
+
+  .ks-catalog__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(12px, 2vw, 26px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (max-width: 749px) {
+    .ks-catalog__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "All products catalog",
+  "settings": []
+}
+{% endschema %}

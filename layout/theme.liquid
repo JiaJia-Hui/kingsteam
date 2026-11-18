@@ -51,8 +51,12 @@
       <link rel="shortcut icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
     {%- endif -%}
 
+    {%- assign storefront_title = page_title -%}
+    {%- if template.name == 'collection' and template.suffix == 'all-products' -%}
+      {%- assign storefront_title = 'All Products' -%}
+    {%- endif -%}
     <title>
-      {{- page_title -}}
+      {{- storefront_title -}}
       {%- if current_tags -%}
         {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
       {%- endif -%}
@@ -60,7 +64,7 @@
       {%- if template == 'password' -%}
         {{- shop.name -}}
       {%- else -%}
-        {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+        {%- unless storefront_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
       {%- endif -%}
     </title>
 
