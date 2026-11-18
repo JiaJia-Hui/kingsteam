@@ -1,0 +1,124 @@
+{%- liquid
+  assign current_product_id = product.id
+  assign card_count = 0
+  assign shown_ids = '|'
+-%}
+
+{%- capture product_cards -%}
+  {%- for related_product in recommendations.products limit: 4 -%}
+    {%- assign product_key = '|' | append: related_product.id | append: '|' -%}
+    {%- if related_product.id == current_product_id or shown_ids contains product_key -%}
+      {%- continue -%}
+    {%- endif -%}
+    {%- assign shown_ids = shown_ids | append: related_product.id | append: '|' -%}
+    {%- assign card_count = card_count | plus: 1 -%}
+    <li>
+      {% render 'product-card-1', product: related_product, index: card_count, animated: false, show_desc: false %}
+    </li>
+  {%- endfor -%}
+
+  {%- if card_count < 4 -%}
+    {%- for related_product in collections.all.products limit: 8 -%}
+      {%- assign product_key = '|' | append: related_product.id | append: '|' -%}
+      {%- if related_product.id == current_product_id or shown_ids contains product_key -%}
+        {%- continue -%}
+      {%- endif -%}
+      {%- assign card_count = card_count | plus: 1 -%}
+      <li>
+        {% render 'product-card-1', product: related_product, index: card_count, animated: false, show_desc: false %}
+      </li>
+      {%- if card_count == 4 -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endcapture -%}
+
+<div class="container kingsteam-product-footer">
+  <section class="kingsteam-shipping" aria-labelledby="KingsteamShipping-{{ section.id }}">
+    <h2 id="KingsteamShipping-{{ section.id }}" class="h4">{{ section.settings.shipping_heading | escape }}</h2>
+    <div class="rte">{{ section.settings.shipping_content }}</div>
+  </section>
+
+  {%- if card_count > 0 -%}
+    <section class="kingsteam-related" aria-labelledby="KingsteamRelated-{{ section.id }}">
+      <h2 id="KingsteamRelated-{{ section.id }}" class="h3">{{ section.settings.related_heading | escape }}</h2>
+      <product-recommendations
+        class="m:block"
+        data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&amp;product_id={{ current_product_id }}&amp;limit=4&amp;intent=related"
+        data-enable-slider="false"
+        data-use-scroll-mobile="false"
+        data-items-per-page="4"
+      >
+        <div class="m-product-list">
+          <ul class="kingsteam-related__grid m-mixed-layout__inner" role="list">
+            {{ product_cards }}
+          </ul>
+        </div>
+      </product-recommendations>
+    </section>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .kingsteam-product-footer {
+    padding-block: clamp(32px, 5vw, 58px);
+  }
+
+  .kingsteam-shipping h2 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .kingsteam-related {
+    margin-top: clamp(32px, 5vw, 60px);
+    padding-top: clamp(24px, 3vw, 36px);
+    border-top: 1px solid rgb(var(--color-border));
+  }
+
+  .kingsteam-related h2 {
+    margin-bottom: 20px;
+  }
+
+  .kingsteam-related__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media screen and (min-width: 768px) {
+    .kingsteam-related__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      column-gap: 24px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Shipping and related items",
+  "settings": [
+    {
+      "type": "text",
+      "id": "shipping_heading",
+      "label": "Shipping heading",
+      "default": "Shipping & Return"
+    },
+    {
+      "type": "richtext",
+      "id": "shipping_content",
+      "label": "Shipping and returns",
+      "default": "<p>Shipping cost is based on weight. Just add products to your cart and use the Shipping Calculator to see the shipping price.</p><p>We want you to be 100% satisfied with your purchase. Items can be returned or exchanged within 30 days of delivery.</p>"
+    },
+    {
+      "type": "text",
+      "id": "related_heading",
+      "label": "Recommendations heading",
+      "default": "You may also like"
+    }
+  ]
+}
+{% endschema %}

@@ -119,6 +119,9 @@
 
     <main role="main" id="MainContent">
       {{ content_for_layout }}
+      {%- if request.page_type == 'product' -%}
+        {% section 'kingsteam-product-footer' %}
+      {%- endif -%}
     </main>
 
     {%- liquid
