@@ -128,19 +128,10 @@
           "settings": {
             "header": "Product description"
           }
-        },
-        "tab": {
-          "type": "tab",
-          "settings": {
-            "header": "Shipping & Return",
-            "content": "<p>Shipping cost is based on weight. Just add products to your cart and use the Shipping Calculator to see the shipping price.</p><p>We want you to be 100% satisfied with your purchase. Items can be returned or exchanged within 30 days of delivery.</p>",
-            "content_page": ""
-          }
         }
       },
       "block_order": [
-        "description",
-        "tab"
+        "description"
       ],
       "custom_css": [
         ".m-tabs__header {justify-content: flex-start;}"
@@ -289,26 +280,6 @@
         "animations": "inherit"
       }
     },
-    "product-recommendations": {
-      "type": "product-recommendations",
-      "settings": {
-        "container": "container-fluid",
-        "color_scheme": "",
-        "remove_params": false,
-        "heading": "You Might Also Like",
-        "heading_size": "h3",
-        "text_align": "center",
-        "limit": 8,
-        "columns": 5,
-        "column_gap": 30,
-        "enable_slider": true,
-        "use_scroll_mobile": true,
-        "padding_top": 100,
-        "padding_bottom": 100,
-        "custom_class": "",
-        "animations": "inherit"
-      }
-    },
     "recent-viewed-products": {
       "type": "recent-viewed-products",
       "settings": {
@@ -419,7 +390,6 @@
     "image_with_text_q7mwUN",
     "image_with_text_GwjQnM",
     "press_BbxDFT",
-    "product-recommendations",
     "recent-viewed-products",
     "icon_box_9UtNky"
   ]

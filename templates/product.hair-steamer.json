@@ -294,31 +294,6 @@
       ],
       "name": "Full width image",
       "settings": {}
-    },
-    "product-details-tabs": {
-      "type": "product-details-tabs",
-      "blocks": {
-        "tab": {
-          "type": "tab",
-          "settings": {
-            "header": "Shipping & Return",
-            "content": "<p>Shipping cost is based on weight. Just add products to your cart and use the Shipping Calculator to see the shipping price.</p><p>We want you to be 100% satisfied with your purchase. Items can be returned or exchanged within 30 days of delivery.</p>",
-            "content_page": ""
-          }
-        }
-      },
-      "block_order": [
-        "tab"
-      ],
-      "settings": {
-        "container": "container",
-        "color_scheme": "scheme-6b1359fd-0c64-48f5-bf30-9cc3d526d779",
-        "default_open": true,
-        "padding_top": 50,
-        "padding_bottom": 50,
-        "custom_class": "",
-        "animations": "inherit"
-      }
     }
   },
   "order": [
@@ -327,7 +302,6 @@
     "main",
     "custom_content_nLaLwh",
     "image_comparison_7zamyF",
-    "blocks_jcpQxR",
-    "product-details-tabs"
+    "blocks_jcpQxR"
   ]
 }
