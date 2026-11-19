@@ -1,0 +1,100 @@
+{{ 'ks-hs2102-intro.css' | asset_url | stylesheet_tag }}
+
+<div class="ks-hs2102" aria-labelledby="hs2102-title-{{ section.id }}">
+  <nav class="ks-hs2102__nav" aria-label="Beard straightener details">
+    <a href="#hs2102-title-{{ section.id }}">Overview</a>
+    <a href="#hs2102-modes-{{ section.id }}">Modes &amp; heat</a>
+    <a href="#hs2102-how-{{ section.id }}">How to use</a>
+    <a href="#hs2102-faq-{{ section.id }}">FAQs</a>
+  </nav>
+
+  <div class="ks-hs2102__hero">
+    <div class="ks-hs2102__hero-copy">
+      <p class="ks-hs2102__eyebrow">CORDLESS BEARD STRAIGHTENER</p>
+      <h2 id="hs2102-title-{{ section.id }}">Shape your beard your way</h2>
+      <p>Smooth flyaways, lift from the roots, or do both. Three styling modes and three heat settings let you choose the finish you want.</p>
+      <a class="ks-hs2102__button" href="#hs2102-modes-{{ section.id }}">Explore the three modes</a>
+    </div>
+    <div class="ks-hs2102__hero-image">
+      <img src="{{ 'ks-hs2102-dock.jpg' | asset_url }}" srcset="{{ 'ks-hs2102-dock.jpg' | asset_img_url: '700x' }} 700w, {{ 'ks-hs2102-dock.jpg' | asset_url }} 2000w" sizes="(max-width: 700px) 100vw, 580px" width="2000" height="2000" loading="lazy" alt="Silver KINGSTEAM cordless beard straightener standing in its charging base">
+    </div>
+  </div>
+
+  <div class="ks-hs2102__stats">
+    <div><strong>36 W</strong><span>Heating power</span></div>
+    <div><strong>5000 mAh</strong><span>Rechargeable battery</span></div>
+    <div><strong>30+ min</strong><span>Per full charge</span></div>
+  </div>
+
+  <div class="ks-hs2102__body">
+    <div class="ks-hs2102__duo">
+      <figure class="ks-hs2102__photo">
+        <div class="ks-hs2102__photo-crop">
+          <img src="{{ 'ks-hs2102-before-after.jpg' | asset_url }}" srcset="{{ 'ks-hs2102-before-after.jpg' | asset_img_url: '850x' }} 850w, {{ 'ks-hs2102-before-after.jpg' | asset_url }} 2000w" sizes="(max-width: 700px) 100vw, 600px" width="2000" height="2000" loading="lazy" alt="Illustrative before-and-after comparison of a beard with flyaways and a smoother styled beard">
+        </div>
+        <figcaption>Illustrative styling example. Results vary.</figcaption>
+      </figure>
+      <div>
+        <h2 id="hs2102-modes-{{ section.id }}">Three ways to style</h2>
+        <dl class="ks-hs2102__rows">
+          <div><dt>Volumize</dt><dd>Use the heated comb teeth to lift the beard for a fuller look.</dd></div>
+          <div><dt>Straighten</dt><dd>Use the heated brush to smooth curls and flyaways.</dd></div>
+          <div><dt>Straighten + Volumize</dt><dd>Heat both styling zones to smooth the beard while keeping fullness.</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="ks-hs2102__panel">
+      <h2>Choose your heat</h2>
+      <p>Start low and increase as needed. The LED flashes while heating and stays solid when the brush is ready.</p>
+      <dl class="ks-hs2102__cards">
+        <div><dt>Low</dt><dd><strong>320°F</strong><span>160°C · Short or fine beards</span></dd></div>
+        <div><dt>Medium</dt><dd><strong>356°F</strong><span>180°C · Everyday styling</span></dd></div>
+        <div><dt>High</dt><dd><strong>392°F</strong><span>200°C · Thick or coarse beards</span></dd></div>
+      </dl>
+    </div>
+
+    <div class="ks-hs2102__duo ks-hs2102__charging">
+      <div>
+        <h2>Dock, fast-charge, or style plugged in</h2>
+        <p>The 5000 mAh lithium-ion battery is removable. Slide the safety lock before storing the cooled brush to help prevent accidental activation.</p>
+      </div>
+      <dl class="ks-hs2102__rows">
+        <div><dt>Charging base</dt><dd>Allow about 2.5–3 hours for a full charge.</dd></div>
+        <div><dt>USB-C fast charging</dt><dd>Allow about one hour with a compatible USB-C PD adapter that outputs 12 V / 36 W and the included 3 A cable.</dd></div>
+        <div><dt>Use while plugged in</dt><dd>Keep the battery installed and use the same compatible adapter and cable, even when the battery is depleted.</dd></div>
+      </dl>
+    </div>
+
+    <div class="ks-hs2102__panel ks-hs2102__steps">
+      <h2 id="hs2102-how-{{ section.id }}">How to use</h2>
+      <ol>
+        <li><strong>Power on</strong><span>Unlock the brush and hold the power button for three seconds.</span></li>
+        <li><strong>Choose mode and heat</strong><span>Slide the mode switch and tap the power button to select a temperature.</span></li>
+        <li><strong>Wait for a solid LED</strong><span>Start styling once the selected light stops flashing.</span></li>
+        <li><strong>Brush root to tip</strong><span>Use slow, even strokes on a clean, dry beard.</span></li>
+      </ol>
+      <p class="ks-hs2102__safety">Avoid contact with skin and eyes. Keep away from water and children. Let the brush cool before packing it away.</p>
+    </div>
+
+    <div class="ks-hs2102__faq">
+      <h2 id="hs2102-faq-{{ section.id }}">Frequently asked questions</h2>
+      <details>
+        <summary>What comes in the box?</summary>
+        <p>Both versions include the HS2102 beard straightener, charging base, 3 A USB-C cable, storage pouch, and user manual. Choose With 45W Adapter if you want a power adapter in the box.</p>
+      </details>
+      <details>
+        <summary>How long does the battery last?</summary>
+        <p>You can style for over 30 minutes per full charge. You can also use the brush while plugged in with compatible power and the battery installed.</p>
+      </details>
+      <details>
+        <summary>What does the warranty cover?</summary>
+        <p>The HS2102 comes with a 12-month limited warranty. See the included documentation for terms.</p>
+      </details>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{"name":"Beard straightener intro","tag":"section","settings":[]}
+{% endschema %}
