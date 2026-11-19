@@ -1,0 +1,94 @@
+{{ 'ks-jy162-intro.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'ks-jy162-intro.js' | asset_url }}" defer></script>
+
+<kingsteam-jy162-intro role="region" aria-label="Hooded Hair Dryer overview">
+<nav class="ks-jy162-jump" aria-label="Product introduction">
+  <div class="ks-jy162-shell ks-jy162-jump-inner">
+    <a href="#overview-{{ section.id }}" aria-current="location">Overview</a>
+    <a href="#features-{{ section.id }}">Key features</a>
+    <a href="#faqs-{{ section.id }}">FAQs</a>
+  </div>
+</nav>
+<div class="ks-jy162-shell">
+  <section id="overview-{{ section.id }}" class="ks-jy162-hero" aria-labelledby="hero-title-{{ section.id }}">
+    <div class="ks-jy162-hero-copy">
+      <p class="ks-jy162-kicker">Tabletop Hooded Hair Dryer</p>
+      <h2 class="ks-jy162-intro-title" id="hero-title-{{ section.id }}">Dry your hair,<br>hands-free.</h2>
+      <p>Settle in with a book or your favorite show. The wide hood delivers continuous ionic airflow while you sit back and let your hair dry.</p>
+      <a class="ks-jy162-primary" href="#features-{{ section.id }}">Explore the features <span aria-hidden="true">↓</span></a>
+    </div>
+    <div class="ks-jy162-photo ks-jy162-photo-hero">
+      <img src="{{ 'ks-jy162-hands-free.jpg' | asset_url }}" srcset="{{ 'ks-jy162-hands-free.jpg' | asset_img_url: '750x' }} 750w, {{ 'ks-jy162-hands-free.jpg' | asset_url }} 1500w" sizes="(max-width: 760px) 148vw, 1200px" alt="A woman reads while using the black tabletop hooded dryer." loading="lazy" width="1500" height="900">
+    </div>
+  </section>
+
+  <dl class="ks-jy162-summary" aria-label="At a glance">
+    <div><dt>1875W</dt><dd>Ionic airflow</dd></div>
+    <div><dt>Extra-large</dt><dd>Room for large rollers</dd></div>
+    <div><dt>Foldable</dt><dd>Easy to carry and store</dd></div>
+  </dl>
+
+  <section id="features-{{ section.id }}" class="ks-jy162-features" aria-labelledby="features-title-{{ section.id }}">
+    <h2 id="features-title-{{ section.id }}">Made for wash day</h2>
+    <div class="ks-jy162-feature-grid">
+      <article class="ks-jy162-card">
+        <div class="ks-jy162-photo ks-jy162-photo-air">
+          <img src="{{ 'ks-jy162-ionic-airflow.jpg' | asset_url }}" srcset="{{ 'ks-jy162-ionic-airflow.jpg' | asset_img_url: '750x' }} 750w, {{ 'ks-jy162-ionic-airflow.jpg' | asset_url }} 1500w" sizes="(max-width: 760px) 95vw, 800px" alt="Black hooded dryer on a counter with illustrated airflow beneath the hood." width="1500" height="900" loading="lazy">
+        </div>
+        <div class="ks-jy162-card-copy">
+          <h3>Fast, even drying</h3>
+          <p>A powerful 1875W motor and continuous ionic airflow dry hair quickly and evenly, especially long, thick hair.</p>
+        </div>
+      </article>
+      <article class="ks-jy162-card">
+        <div class="ks-jy162-photo ks-jy162-photo-hood">
+          <img src="{{ 'ks-jy162-extra-large-hood.jpg' | asset_url }}" srcset="{{ 'ks-jy162-extra-large-hood.jpg' | asset_img_url: '750x' }} 750w, {{ 'ks-jy162-extra-large-hood.jpg' | asset_url }} 1500w" sizes="(max-width: 760px) 95vw, 800px" alt="Large salon rollers fit under the wide black dryer hood." width="1500" height="900" loading="lazy">
+        </div>
+        <div class="ks-jy162-card-copy">
+          <h3>Room for large rollers</h3>
+          <p>The wide, deep hood leaves space for large rollers while you set your style at home or in the salon.</p>
+        </div>
+      </article>
+      <article class="ks-jy162-card">
+        <div class="ks-jy162-photo ks-jy162-photo-product">
+          <img src="{{ 'ks-jy162-jy162-black.jpg' | asset_url }}" srcset="{{ 'ks-jy162-jy162-black.jpg' | asset_img_url: '750x' }} 750w, {{ 'ks-jy162-jy162-black.jpg' | asset_url }} 900w" sizes="(max-width: 760px) 95vw, 800px" alt="Original black dryer photo showing the hinged support and recessed compartments in the tabletop base." width="900" height="900" loading="lazy">
+        </div>
+        <div class="ks-jy162-card-copy">
+          <h3>Folds away when you’re done</h3>
+          <p>A built-in handle makes it easy to carry. Two compartments in the base keep styling accessories within reach.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="faqs-{{ section.id }}" class="ks-jy162-faqs" aria-labelledby="faqs-title-{{ section.id }}">
+    <div class="ks-jy162-questions">
+      <h2 id="faqs-title-{{ section.id }}">Good to know</h2>
+      <details>
+        <summary>Can I use it with large rollers?</summary>
+        <p>Yes. The hood is wide and deep enough to accommodate large styling rollers.</p>
+      </details>
+      <details>
+        <summary>What if I have long, thick hair?</summary>
+        <p>The 1875W motor and continuous ionic airflow are designed for quick, even drying, especially on long, thick hair.</p>
+      </details>
+      <details>
+        <summary>How does it store?</summary>
+        <p>The dryer folds down for storage. The base has two accessory compartments, and the built-in handle makes it easier to carry.</p>
+      </details>
+    </div>
+    <aside aria-labelledby="replacement-title-{{ section.id }}" class="ks-jy162-replacement">
+      <h3 id="replacement-title-{{ section.id }}">1-year replacement</h3>
+      <p>If you’re unsatisfied or your dryer stops working within one year, we’ll send you a replacement.</p>
+    </aside>
+  </section>
+</div>
+</kingsteam-jy162-intro>
+
+{% schema %}
+{
+  "name": "Hooded dryer overview",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}
