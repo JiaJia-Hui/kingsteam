@@ -9,7 +9,6 @@
   const activatorSelector = 'button[part~="activator"]';
   const floatingSelector = '.floating-input-launcher__field';
   const promoSelector = 'shopify-forms-embed#app-embed-container-961213';
-  const isHome = document.body.classList.contains('template-index');
   let host, runtime, button, art, hint, motion, hostScope, scope;
   const shadowChanges = new MutationObserver(bindLauncher);
   const runtimeChanges = new MutationObserver(bindLauncher);
@@ -52,12 +51,10 @@
         stage: stage === 'cart' && Number(cartCount) === 0 ? 'idle' : stage,
         assets: {poster, idle, wave, point, beg, pat}
       });
-      if (isHome) {
-        const sizeChanges = new ResizeObserver(updatePromoPosition);
-        sizeChanges.observe(art);
-        window.addEventListener('resize', updatePromoPosition, {signal: hostScope.signal});
-        hostScope.signal.addEventListener('abort', () => sizeChanges.disconnect(), {once: true});
-      }
+      const sizeChanges = new ResizeObserver(updatePromoPosition);
+      sizeChanges.observe(art);
+      window.addEventListener('resize', updatePromoPosition, {signal: hostScope.signal});
+      hostScope.signal.addEventListener('abort', () => sizeChanges.disconnect(), {once: true});
     }
     launcher.addEventListener('pointerenter', event => {
       if (event.pointerType === 'mouse' && art.dataset.motion === 'idle') motion.play('wave');
@@ -77,7 +74,7 @@
       root.host.setAttribute('data-curla-docked', '');
       host.setAttribute('data-curla-docked', '');
       standIn.hidden = false;
-      if (isHome) updatePromoPosition();
+      updatePromoPosition();
       if (root === runtime?.shadowRoot) {
         // A message-bar launcher may briefly remain in the shell during the swap.
         host.setAttribute('data-curla-runtime-ready', '');
@@ -130,17 +127,15 @@
     const promo = document.querySelector(promoSelector);
     const launcher = art?.getBoundingClientRect();
     if (!promo || !launcher?.height) return;
-    promo.style.setProperty('--curla-home-offer-bottom', `${Math.ceil(window.innerHeight - launcher.top + 12)}px`);
+    promo.style.setProperty('--curla-offer-bottom', `${Math.ceil(window.innerHeight - launcher.top + 12)}px`);
   }
 
   function bindPromo() {
     const promo = document.querySelector(promoSelector);
     const forms = promo?.shadowRoot;
     if (!forms || forms.querySelector('link[data-curla-promo-styles]')) return;
-    if (isHome) {
-      promo.setAttribute('data-curla-home-offer', '');
-      updatePromoPosition();
-    }
+    promo.setAttribute('data-curla-offer-docked', '');
+    updatePromoPosition();
     const stylesheet = document.createElement('link');
     stylesheet.rel = 'stylesheet';
     stylesheet.href = config.dataset.styles;
@@ -156,6 +151,11 @@
   customElements.whenDefined('shopify-chat').then(() => {
     bindWidgets();
     new MutationObserver(bindWidgets).observe(document.body, {childList: true, subtree: true});
+    // A fixed purchase bar can move the launcher without resizing the artwork.
+    new MutationObserver(updatePromoPosition).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class', 'style']
+    });
     customElements.whenDefined('shopify-forms-embed').then(bindPromo);
   });
 }());

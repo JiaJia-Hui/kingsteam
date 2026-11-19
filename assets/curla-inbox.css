@@ -113,26 +113,19 @@ button[data-curla-inbox] > :not(.curla-inbox-art, .curla-inbox-hint, .activator_
   height: 100%;
 }
 
-/* Move the collapsed Shopify Forms teaser without moving its open form. */
-#app-embed[data-current-step="tease"][data-position^="right-"]:has(
+/* Fold the existing offer into a tab above Curla. */
+:host([data-curla-offer-docked]) #app-embed[data-current-step="tease"][data-position^="right-"]:has(
   button[data-testid="form-teaser"][aria-label="20% off"]
 ) {
   top: auto !important;
-  bottom: max(12px, calc(env(safe-area-inset-bottom, 0px) - 20px)) !important;
-  transform: none !important;
-}
-
-/* The homepage offer folds into a tab above Curla. The form keeps its own layout. */
-:host([data-curla-home-offer]) #app-embed[data-current-step="tease"][data-position^="right-"]:has(
-  button[data-testid="form-teaser"][aria-label="20% off"]
-) {
   right: 0 !important;
+  transform: none !important;
   z-index: 2400 !important;
-  bottom: min(var(--curla-home-offer-bottom, 276px), calc(100dvh - 106px)) !important;
+  bottom: min(var(--curla-offer-bottom, 276px), calc(100dvh - 106px)) !important;
   padding: 0 !important;
 }
 
-:host([data-curla-home-offer]) #app-embed[data-current-step="tease"] button[data-testid="form-teaser"][aria-label="20% off"] {
+:host([data-curla-offer-docked]) #app-embed[data-current-step="tease"] button[data-testid="form-teaser"][aria-label="20% off"] {
   position: relative;
   box-sizing: border-box;
   width: 44px;
@@ -143,7 +136,7 @@ button[data-curla-inbox] > :not(.curla-inbox-art, .curla-inbox-hint, .activator_
   box-shadow: 0 3px 16px rgb(67 45 32 / 18%);
 }
 
-:host([data-curla-home-offer]) #app-embed[data-current-step="tease"] button[data-testid="form-teaser"][aria-label="20% off"] > h3 {
+:host([data-curla-offer-docked]) #app-embed[data-current-step="tease"] button[data-testid="form-teaser"][aria-label="20% off"] > h3 {
   position: absolute;
   inset: 50% auto auto 50%;
   width: max-content;
@@ -157,11 +150,11 @@ button[data-curla-inbox] > :not(.curla-inbox-art, .curla-inbox-hint, .activator_
   transform: translate(-50%, -50%) rotate(90deg);
 }
 
-:host([data-curla-home-offer]) #app-embed[data-current-step="tease"] button[data-testid="form-teaser"][aria-label="20% off"] > [role="button"] {
+:host([data-curla-offer-docked]) #app-embed[data-current-step="tease"] button[data-testid="form-teaser"][aria-label="20% off"] > [role="button"] {
   display: none;
 }
 
-:host([data-curla-home-offer]) #app-embed[data-current-step="tease"] button[data-testid="form-teaser"][aria-label="20% off"]:focus-visible {
+:host([data-curla-offer-docked]) #app-embed[data-current-step="tease"] button[data-testid="form-teaser"][aria-label="20% off"]:focus-visible {
   outline: 2px solid #443126;
   outline-offset: -4px;
 }
