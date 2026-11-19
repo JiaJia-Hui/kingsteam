@@ -1,0 +1,21 @@
+kingsteam-shop-nav { display: block; }
+.ks-shop-nav__items, .ks-shop-nav__links { margin: 0; padding: 0; list-style: none; }
+.ks-shop-nav__items { display: flex; flex-wrap: nowrap; align-items: stretch; }
+.ks-shop-nav__trigger { display: block; padding: 22px clamp(8px, 1.05vw, 17px); font: inherit; font-size: clamp(11px, 1vw, 14px); font-weight: 600; line-height: 1.4; color: inherit; background: none; border: 0; white-space: nowrap; }
+button.ks-shop-nav__trigger, summary.ks-shop-nav__trigger { cursor: pointer; }
+.ks-shop-nav__trigger[aria-expanded='true'], .ks-shop-nav__trigger:hover, .ks-shop-nav__links a:hover { text-decoration: underline; text-underline-offset: .36em; }
+.ks-shop-nav__panel { position: absolute; inset: 100% 0 auto; z-index: 4; max-height: calc(100vh - 120px); overflow: auto; background: #f9f6f0; color: #2a2924; border-top: 1px solid #e4ddd1; box-shadow: 0 11px 24px rgb(42 35 25 / 10%); }
+.ks-shop-nav__panel[hidden] { display: none; }
+.ks-shop-nav__panel-inner { width: min(calc(100% - 96px), 1270px); margin-inline: auto; padding-block: 32px; }
+.ks-shop-nav__panel-inner--featured { display: grid; grid-template-columns: minmax(0, 1fr) minmax(210px, 31%); gap: clamp(30px, 7vw, 112px); align-items: start; }
+.ks-shop-nav__links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(18px, 3vw, 44px); }
+.ks-shop-nav__panel-inner--featured .ks-shop-nav__links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ks-shop-nav__links a { display: block; padding: 11px 0; color: inherit; font-size: 14px; line-height: 1.45; }
+.ks-shop-nav__feature { display: block; max-width: 340px; margin-left: auto; width: 100%; }
+.ks-shop-nav__feature img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: contain; background: #f3f0ea; }
+.ks-shop-nav__coming { margin: 0; padding: 8px 0; letter-spacing: .08em; font-size: 14px; }
+.ks-shop-nav-mobile .ks-shop-nav__items, .ks-shop-nav-mobile .ks-shop-nav__links { display: block; }
+.ks-shop-nav-mobile .ks-shop-nav__item { border-bottom: 1px solid rgb(42 41 36 / 13%); }
+.ks-shop-nav-mobile .ks-shop-nav__trigger { padding: 15px 16px; font-size: 14px; }
+.ks-shop-nav-mobile summary.ks-shop-nav__trigger { display: list-item; list-style-position: inside; }
+.ks-shop-nav-mobile .ks-shop-nav__links, .ks-shop-nav-mobile .ks-shop-nav__coming { padding: 0 25px 12px; }
