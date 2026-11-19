@@ -250,3 +250,9 @@ button.ks-shop-nav__trigger[aria-expanded='true']::after {
   padding-inline: 0 2px;
   margin-inline: 0;
 }
+
+@media (max-width: 1023px) {
+  html:has(#m-menu-drawer.open) :is(shopify-chat, .loloyal-launcher-wrapper) {
+    display: none;
+  }
+}
