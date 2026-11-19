@@ -14,3 +14,27 @@
     bottom: max(28px, env(safe-area-inset-bottom, 0px)) !important;
   }
 }
+
+/* Align the homepage Rewards pill with Curla and clear the mobile navigation. */
+body.template-index {
+  --curla-home-rewards-bottom: max(
+    37px,
+    calc(var(--mobile-sticky-bar-height, 0px) + 2px),
+    calc(env(safe-area-inset-bottom, 0px) + 8px)
+  );
+}
+
+body.template-index shopify-chat[data-curla-docked] {
+  --shopify-chat-activator-offset: calc(var(--curla-home-rewards-bottom) + 56px) !important;
+}
+
+body.template-index .boom-launcher.loloyal-launcher-wrapper:has(> #loloyal-launcher-box) {
+  left: auto !important;
+  right: calc(20px + clamp(50px, 8.5vw, 66px)) !important;
+  bottom: var(--curla-home-rewards-bottom) !important;
+}
+
+body.template-index .boom-launcher.loloyal-launcher-wrapper > #loloyal-launcher-box {
+  translate: 50% 0;
+  transform-origin: center bottom !important;
+}
