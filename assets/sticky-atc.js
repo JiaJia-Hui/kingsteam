@@ -66,8 +66,8 @@ if (!customElements.get("sticky-atc")) {
 
         this.setObserveTarget();
 
-        const mql = window.matchMedia(MinimogTheme.config.mediaQueryMobile);
-        mql.onchange = this.setStickyAddToCartHeight.bind(this);
+        this.heightObserver = new ResizeObserver(() => this.setStickyAddToCartHeight());
+        this.heightObserver.observe(this.container);
         this.setStickyAddToCartHeight();
 
         this.domNodes.picker?.addEventListener("change", ({ target }) => {
@@ -83,6 +83,11 @@ if (!customElements.get("sticky-atc")) {
           input.checked = true;
           input.dispatchEvent(new Event("change", { bubbles: true }));
         });
+      }
+
+      disconnectedCallback() {
+        this.heightObserver?.disconnect();
+        this.observer?.disconnect();
       }
 
       setObserveTarget() {
@@ -131,8 +136,9 @@ if (!customElements.get("sticky-atc")) {
       }
 
       setStickyAddToCartHeight() {
-        document.documentElement.style.setProperty("--f-sticky-atc-bar-height", this.offsetHeight + "px");
-        window.MinimogSettings.stickyAddToCartHeight = this.offsetHeight;
+        const height = this.container.offsetHeight;
+        document.documentElement.style.setProperty("--f-sticky-atc-bar-height", height + "px");
+        window.MinimogSettings.stickyAddToCartHeight = height;
       }
 
       updateVariant(variant, html) {
