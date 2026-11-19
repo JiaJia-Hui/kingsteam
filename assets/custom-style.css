@@ -38,3 +38,8 @@ body.template-index .boom-launcher.loloyal-launcher-wrapper > #loloyal-launcher-
   translate: 50% 0;
   transform-origin: center bottom !important;
 }
+
+/* Let the open Rewards panel receive clicks across its full area. */
+body.template-index:has(.loloyal-iframe-page-open) shopify-chat[data-curla-docked] {
+  display: none !important;
+}
