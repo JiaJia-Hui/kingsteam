@@ -43,3 +43,14 @@ body.template-index .boom-launcher.loloyal-launcher-wrapper > #loloyal-launcher-
 body.template-index:has(.loloyal-iframe-page-open) shopify-chat[data-curla-docked] {
   display: none !important;
 }
+
+/* Open Rewards just above its homepage launcher, including on narrow screens. */
+body.template-index .boom-launcher.loloyal-launcher-wrapper > .loloyal-iframe-page:has(> #boomMainIframe) {
+  --rewards-panel-right: max(clamp(12px, 2vw, 20px), env(safe-area-inset-right, 0px));
+  --rewards-panel-bottom: calc(var(--curla-home-rewards-bottom) + 60px);
+  inset: auto var(--rewards-panel-right) var(--rewards-panel-bottom) auto !important;
+  width: min(368px, calc(100% - var(--rewards-panel-right) - max(12px, env(safe-area-inset-left, 0px)))) !important;
+  height: min(640px, calc(100dvh - var(--rewards-panel-bottom) - max(12px, env(safe-area-inset-top, 0px)))) !important;
+  border-radius: 8px;
+  overflow: hidden;
+}
