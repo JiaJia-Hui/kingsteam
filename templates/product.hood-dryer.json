@@ -140,11 +140,16 @@
         "sticky_atc_wishtlist": false,
         "sticky_atc_compare": false
       }
+    },
+    "ks_jy162_intro": {
+      "type": "ks-jy162-intro",
+      "settings": {}
     }
   },
   "order": [
     "d880451e-1d96-4f33-80f8-fffa1f3ffaa1",
     "1634180644dff29e33",
-    "main"
+    "main",
+    "ks_jy162_intro"
   ]
 }
