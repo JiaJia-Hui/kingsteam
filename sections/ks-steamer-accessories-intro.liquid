@@ -1,0 +1,61 @@
+{{ 'ks-steamer-accessories-intro.css' | asset_url | stylesheet_tag }}
+
+<div class="ks-sa" aria-labelledby="ks-sa-overview-{{ section.id }}">
+  <nav class="ks-sa__nav" aria-label="Accessory details">
+    <a href="#ks-sa-overview-{{ section.id }}">Overview</a>
+    <a href="#ks-sa-options-{{ section.id }}">Compare options</a>
+    <a href="#ks-sa-fit-{{ section.id }}">Compatibility</a>
+  </nav>
+
+  <div class="ks-sa__hero">
+    <div class="ks-sa__hero-copy">
+      <p class="ks-sa__label">2-IN-1 HAIR AND FACIAL STEAMER</p>
+      <h2 id="ks-sa-overview-{{ section.id }}">Find the right part for your steamer</h2>
+      <p>Shop individual accessories for the KingSteam 2-in-1 Hair and Facial Steamer. Compare the shape and connection of your original part with the photos below.</p>
+      <a class="ks-sa__button" href="#ks-sa-options-{{ section.id }}">Compare the accessories</a>
+    </div>
+    <div class="ks-sa__hero-media">
+      <img src="{{ 'ks-steamer-accessory-sky-blue.jpg' | asset_url }}" srcset="{{ 'ks-steamer-accessory-sky-blue.jpg' | asset_img_url: '900x' }} 900w, {{ 'ks-steamer-accessory-sky-blue.jpg' | asset_url }} 2000w" sizes="(max-width: 720px) 100vw, 630px" width="2000" height="2000" alt="Sky blue domed accessory for the KingSteam 2-in-1 Hair and Facial Steamer" loading="lazy">
+    </div>
+  </div>
+
+  <div class="ks-sa__body">
+    <div>
+      <h2 id="ks-sa-options-{{ section.id }}">Compare the four options</h2>
+      <p>The options differ in part shape as well as color. Match the attachment style first, then choose your color in the product selector above.</p>
+      <div class="ks-sa__options">
+        {% assign names = 'Black|Charcoal|Pearl white|Sky blue' | split: '|' %}
+        {% assign asset_keys = 'black|charcoal|pearl-white|sky-blue' | split: '|' %}
+        {% assign shapes = 'Domed attachment|Long attachment|Long attachment|Domed attachment' | split: '|' %}
+        {% for name in names %}
+          {% assign image_name = 'ks-steamer-accessory-' | append: asset_keys[forloop.index0] | append: '.jpg' %}
+          <figure class="ks-sa__option">
+            <img src="{{ image_name | asset_img_url: '650x' }}" width="2000" height="2000" loading="lazy" alt="{{ name | escape }} {{ shapes[forloop.index0] | downcase }}">
+            <figcaption><strong>{{ name }}</strong><span>{{ shapes[forloop.index0] }}</span></figcaption>
+          </figure>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="ks-sa__fit">
+      <div>
+        <h2 id="ks-sa-fit-{{ section.id }}">Check compatibility</h2>
+        <p><strong>Compatible only with Kingsteam brand products.</strong> Confirm that your unit is the KingSteam 2-in-1 Hair and Facial Steamer and that the part matches your existing connection.</p>
+      </div>
+      <div class="ks-sa__faq">
+        <details>
+          <summary>What is included?</summary>
+          <p>The selected accessory. The steamer unit is sold separately.</p>
+        </details>
+        <details>
+          <summary>How do I pick an option?</summary>
+          <p>Compare your existing accessory to the photos above. Black and Sky blue show the domed attachment. Charcoal and Pearl white show the long attachment.</p>
+        </details>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{"name":"Steamer accessories intro","tag":"section","settings":[]}
+{% endschema %}
