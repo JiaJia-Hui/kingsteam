@@ -7,9 +7,10 @@ if (giftDialog) {
   const submit = giftDialog.querySelector('[data-gift-checkout]');
   const linkField = giftDialog.querySelector('#ks-gift-share-link');
   const resume = giftDialog.querySelector('[data-gift-resume]');
+  const preview = giftDialog.dataset.preview === 'true';
   const storageKey = 'kingsteam.gift.purchase';
-  const recovered = /^#ks-gift-([a-f0-9]{64})$/.exec(location.hash)?.[1];
-  let purchase = recovered || sessionStorage.getItem(storageKey);
+  const recovered = preview ? null : /^#ks-gift-([a-f0-9]{64})$/.exec(location.hash)?.[1];
+  let purchase = preview ? null : recovered || sessionStorage.getItem(storageKey);
   let busy = false;
 
   function view(name, title) {
@@ -21,6 +22,7 @@ if (giftDialog) {
   }
 
   async function request(action, data) {
+    if (preview) throw new Error('Shopify checkout is disabled in the theme editor preview.');
     const response = await fetch(`${giftDialog.dataset.proxy}/${action}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -95,17 +97,22 @@ if (giftDialog) {
   form.addEventListener('change', () => {
     const amount = new FormData(form).get('gift-amount');
     giftDialog.querySelector('[data-gift-value]').textContent = `$${amount}`;
-    submit.textContent = `Continue to checkout · $${amount}`;
+    submit.textContent = `${submit.dataset.checkoutLabel} · $${amount}`;
   });
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
+    const amount = Number(new FormData(form).get('gift-amount'));
+    if (preview) {
+      giftDialog.querySelector('[data-preview-amount]').textContent = `$${amount} USD`;
+      view('preview', 'Checkout preview');
+      return;
+    }
     if (busy) return;
     busy = true;
     submit.disabled = true;
     status.textContent = 'Opening Shopify checkout…';
     try {
-      const amount = Number(new FormData(form).get('gift-amount'));
       const attemptKey = `kingsteam.gift.attempt.${amount}`;
       const attempt = sessionStorage.getItem(attemptKey) || crypto.randomUUID();
       sessionStorage.setItem(attemptKey, attempt);
@@ -127,6 +134,7 @@ if (giftDialog) {
   giftDialog.addEventListener('click', async event => {
     const action = event.target.closest('[data-gift-action]')?.dataset.giftAction;
     if (action === 'close') giftDialog.close();
+    if (action === 'back' && preview) view('buy', 'Send a gift card');
     if (action === 'check') checkPayment();
     if (action === 'another') {
       purchase = null;

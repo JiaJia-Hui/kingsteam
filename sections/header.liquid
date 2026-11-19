@@ -529,7 +529,7 @@
   {% render 'search-popup', header_settings: section.settings %}
 </m-header>
 
-{% if settings.ks_gift_cards_enabled %}
+{% if settings.ks_gift_cards_enabled or request.design_mode %}
   {% render 'kingsteam-gift-card-dialog' %}
 {% endif %}
 

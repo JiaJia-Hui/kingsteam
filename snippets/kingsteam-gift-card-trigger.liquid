@@ -1,4 +1,4 @@
-{%- if settings.ks_gift_cards_enabled -%}
+{%- if settings.ks_gift_cards_enabled or request.design_mode -%}
   <button type="button" class="ks-gift-trigger" data-ks-gift-open aria-label="Gift Cards" aria-haspopup="dialog" aria-controls="ks-gift-dialog" title="Gift Cards">
     <span class="ks-gift-icon" aria-hidden="true"><i></i></span>
   </button>

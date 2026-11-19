@@ -1,6 +1,6 @@
 {{ 'kingsteam-gift-card.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'kingsteam-gift-card.js' | asset_url }}" defer></script>
-<dialog class="ks-gift" id="ks-gift-dialog" aria-labelledby="ks-gift-title" data-proxy="{{ routes.root_url | append: '/' | replace: '//', '/' }}apps/kingsteam-gifts">
+<dialog class="ks-gift" id="ks-gift-dialog" aria-labelledby="ks-gift-title" data-proxy="{{ routes.root_url | append: '/' | replace: '//', '/' }}apps/kingsteam-gifts"{% if request.design_mode %} data-preview="true"{% endif %}>
   <button type="button" class="ks-gift-close" data-gift-action="close" aria-label="Close">×</button>
   <h2 id="ks-gift-title" tabindex="-1">Send a gift card</h2>
   <div class="ks-gift-view" data-gift-view="buy">
@@ -19,11 +19,21 @@
             {%- endfor -%}
           </div>
         </fieldset>
-        <button type="submit" class="ks-gift-primary" data-gift-checkout>Continue to checkout · $50</button>
+        <button type="submit" class="ks-gift-primary" data-gift-checkout data-checkout-label="{% if request.design_mode %}Preview checkout{% else %}Continue to checkout{% endif %}">{% if request.design_mode %}Preview checkout{% else %}Continue to checkout{% endif %} · $50</button>
         <p class="ks-gift-note">Recipients sign in to claim. Redeem on orders without other discounts.</p>
+        {% if request.design_mode %}<p class="ks-gift-note">Theme editor preview. No payment is collected.</p>{% endif %}
       </form>
     </div>
   </div>
+  {% if request.design_mode %}
+    <div class="ks-gift-view" data-gift-view="preview" hidden>
+      <p>KingSteam digital gift card · <strong data-preview-amount>$50 USD</strong></p>
+      <p class="ks-gift-note">This preview does not create an order or a redeemable code.</p>
+      <div class="ks-gift-actions">
+        <button type="button" class="ks-gift-secondary" data-gift-action="back">Change amount</button>
+      </div>
+    </div>
+  {% endif %}
   <div class="ks-gift-view" data-gift-view="pending" hidden>
     <p>When Shopify confirms payment, your gift link will appear here.</p>
     <div class="ks-gift-actions">
