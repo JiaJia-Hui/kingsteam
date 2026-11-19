@@ -25,17 +25,28 @@
       {% endif %}
       {% liquid
         assign handles = ''
-        assign feature_handle = ''
+        assign feature_handles = ''
+        assign feature_labels = ''
+        assign group_label = group
         case group
           when 'BEST SELLERS'
             assign handles = best_sellers
-            assign feature_handle = '2-in-1-hair-and-facial-steamer-care-ritual-kit'
+            assign group_label = 'Best Sellers'
+            assign feature_handles = best_sellers | split: '|' | slice: 0, 3
+            assign feature_labels = 'Care Ritual Kit|2-in-1 Hair & Facial Steamer|Facial Steamer' | split: '|'
           when 'HAIR TOOLS'
             assign handles = hair_tools
-            assign feature_handle = 'hooded-hair-dryer'
+            assign group_label = 'Hair Tools'
+            assign feature_handles = 'hooded-hair-dryer|stand-ionic-hair-dryer|oil-care-straightener' | split: '|'
+          when 'HAIR CARE'
+            assign group_label = 'Hair Care'
           when 'HOME&ACCESSORY'
             assign handles = home_accessory
-            assign feature_handle = 'kingsteam-cordless-beard-straightener-for-men'
+            assign group_label = 'Home & Accessories'
+            assign feature_handles = home_accessory | split: '|' | slice: 0, 3
+            assign feature_labels = 'Cordless Beard Straightener|Automatic Hairbrush Cleaner|Portable Steam Cleaner' | split: '|'
+          when 'DISCOVER'
+            assign group_label = 'Discover'
         endcase
         assign handles = handles | split: '|'
         assign panel_id = section.id | append: '-shop-nav-' | append: forloop.index
@@ -46,9 +57,9 @@
         {% else %}
           <ul class="ks-shop-nav__links">
             {% if group == 'DISCOVER' %}
-              <li><a href="{{ curl_quiz_url }}">{{ curl_quiz_label | escape }}</a></li>
-              <li><a href="{{ blog_url }}">{{ blog_label | escape }}</a></li>
-              <li><a href="{{ experience_url }}">{{ experience_label | escape }}</a></li>
+              <li><a href="{{ curl_quiz_url }}"><span>{{ curl_quiz_label | escape }}</span>{% unless mobile %}<small>Find your curl type.</small>{% endunless %}</a></li>
+              <li><a href="{{ blog_url }}"><span>{{ blog_label | escape }}</span>{% unless mobile %}<small>Browse the KingSteam blog.</small>{% endunless %}</a></li>
+              <li><a href="{{ experience_url }}"><span>{{ experience_label | escape }}</span>{% unless mobile %}<small>Hear from KingSteam customers.</small>{% endunless %}</a></li>
             {% else %}
               {% for handle in handles %}
                 {% assign item = all_products[handle] %}
@@ -69,15 +80,30 @@
         {% else %}
           <button type="button" class="ks-shop-nav__trigger" aria-expanded="false" aria-controls="{{ panel_id }}">{{ group | escape }}</button>
           <div id="{{ panel_id }}" class="ks-shop-nav__panel" hidden>
-            <div class="ks-shop-nav__panel-inner{% if feature_handle != blank %} ks-shop-nav__panel-inner--featured{% endif %}">
-              {{ links }}
-              {% if feature_handle != blank %}
-                {% assign featured = all_products[feature_handle] %}
-                {% if featured.featured_image != blank %}
-                  <a class="ks-shop-nav__feature" href="{{ featured.url }}" aria-label="View {{ featured.title | escape }}">
-                    {{ featured.featured_image | image_url: width: 640 | image_tag: widths: '320, 480, 640', sizes: '340px', loading: 'lazy', alt: '' }}
-                  </a>
-                {% endif %}
+            <div class="ks-shop-nav__panel-inner{% if feature_handles != blank %} ks-shop-nav__panel-inner--featured{% elsif group == 'DISCOVER' %} ks-shop-nav__panel-inner--discover{% endif %}">
+              <div class="ks-shop-nav__directory">
+                <p class="ks-shop-nav__heading">{{ group_label | escape }}</p>
+                {% unless group == 'DISCOVER' %}{{ links }}{% endunless %}
+              </div>
+              {% if feature_handles != blank %}
+                <ul class="ks-shop-nav__cards" aria-label="Featured products">
+                  {% for feature_handle in feature_handles %}
+                    {% assign featured = all_products[feature_handle] %}
+                    {% if featured.featured_image != blank %}
+                      {% assign label = feature_labels[forloop.index0] | default: featured.title %}
+                      <li>
+                        <a class="ks-shop-nav__feature" href="{{ featured.url }}">
+                          <span class="ks-shop-nav__feature-image">
+                            {{ featured.featured_image | image_url: width: 640 | image_tag: widths: '240, 360, 520, 640', sizes: '(min-width: 1450px) 292px, 20vw', loading: 'lazy', alt: '' }}
+                          </span>
+                          <span class="ks-shop-nav__feature-label">{{ label | escape }}</span>
+                        </a>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              {% elsif group == 'DISCOVER' %}
+                {{ links }}
               {% endif %}
             </div>
           </div>
