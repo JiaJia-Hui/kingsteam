@@ -121,3 +121,41 @@ button[data-curla-inbox] > :not(.curla-inbox-art, .curla-inbox-hint, .activator_
   bottom: max(12px, calc(env(safe-area-inset-bottom, 0px) - 20px)) !important;
   transform: none !important;
 }
+
+/* The homepage offer folds into a tab above Curla. The form keeps its own layout. */
+:host([data-curla-home-offer]) #app-embed[data-current-step="tease"][data-position^="right-"]:has(
+  button[data-testid="form-teaser"][aria-label="20% off"]
+) {
+  right: 0 !important;
+  bottom: min(var(--curla-home-offer-bottom, 276px), calc(100dvh - 106px)) !important;
+  padding: 0 !important;
+}
+
+:host([data-curla-home-offer]) #app-embed[data-current-step="tease"] button[data-testid="form-teaser"][aria-label="20% off"] {
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  min-width: 44px;
+  height: 94px;
+  padding: 0;
+  border-radius: 10px 0 0 10px;
+  box-shadow: 0 3px 16px rgb(67 45 32 / 18%);
+}
+
+:host([data-curla-home-offer]) #app-embed[data-current-step="tease"] button[data-testid="form-teaser"][aria-label="20% off"] > h3 {
+  margin: 0;
+  color: #443126;
+  font: 700 15px/1 system-ui, sans-serif;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+}
+
+:host([data-curla-home-offer]) #app-embed[data-current-step="tease"] button[data-testid="form-teaser"][aria-label="20% off"] > [role="button"] {
+  display: none;
+}
+
+:host([data-curla-home-offer]) #app-embed[data-current-step="tease"] button[data-testid="form-teaser"][aria-label="20% off"]:focus-visible {
+  outline: 2px solid #443126;
+  outline-offset: -4px;
+}
