@@ -6,6 +6,9 @@
 {% comment %}theme-check-enable UnusedAssign{% endcomment %}
 
 <div class="m-header__menu{% if custom_classes != blank %} {{ custom_classes }}{% endif %}">
+  {% if menu_id == 'main_menu' %}
+    {% render 'kingsteam-shop-nav', section: section %}
+  {% else %}
   <ul class="m-menu">
     {% for link in linklists[section.settings[menu_id]].links %}
       {% liquid
@@ -408,4 +411,5 @@
       {% endif %}
     {% endfor %}
   </ul>
+  {% endif %}
 </div>

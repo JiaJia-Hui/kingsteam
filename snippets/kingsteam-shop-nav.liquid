@@ -1,0 +1,89 @@
+{%- liquid
+  assign best_sellers = '2-in-1-hair-and-facial-steamer-care-ritual-kit|hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1|facial-steamer-with-extendable-arm-ozone-table-top-mini-spa-face-steamer-design-for-personal-care-use-at-home-or-salon-white|hooded-hair-dryer|stand-ionic-hair-dryer|dryer-diffuser-for-curly-hair'
+  assign hair_tools = best_sellers | append: '|oil-care-straightener'
+  assign home_accessory = 'kingsteam-cordless-beard-straightener-for-men|kingsteam-automatic-hairbrush-cleaner-and-disinfector-machine|kingsteam-portable-steam-cleaner-for-home|kingsteam-2-in-1-hair-and-facial-steamer-accessories'
+  assign groups = 'ALL PRODUCTS|BEST SELLERS|HAIR TOOLS|HAIR CARE|HOME&ACCESSORY|DISCOVER' | split: '|'
+  assign curl_quiz_label = section.settings.discover_curl_quiz_label | default: 'Hair Curl Quiz'
+  assign curl_quiz_url = section.settings.discover_curl_quiz_url | default: '/pages/hair-curl-quiz'
+  assign blog_label = section.settings.discover_blog_label | default: 'Blog Sharing'
+  assign blog_url = section.settings.discover_blog_url | default: '/blogs/news'
+  assign experience_label = section.settings.discover_experience_label | default: 'User Experience Sharing'
+  assign experience_url = section.settings.discover_experience_url | default: '/pages/user-experience-sharing'
+-%}
+
+{% if mobile %}
+  <nav class="ks-shop-nav-mobile" aria-label="Main navigation">
+{% else %}
+  <kingsteam-shop-nav>
+    <nav class="ks-shop-nav" aria-label="Main navigation">
+{% endif %}
+  <ul class="ks-shop-nav__items">
+    {% for group in groups %}
+      {% if forloop.first %}
+        <li class="ks-shop-nav__item"><a class="ks-shop-nav__trigger" href="{% render 'all-products-url' %}">{{ group }}</a></li>
+        {% continue %}
+      {% endif %}
+      {% liquid
+        assign handles = ''
+        assign feature_handle = ''
+        case group
+          when 'BEST SELLERS'
+            assign handles = best_sellers
+            assign feature_handle = '2-in-1-hair-and-facial-steamer-care-ritual-kit'
+          when 'HAIR TOOLS'
+            assign handles = hair_tools
+            assign feature_handle = 'hooded-hair-dryer'
+          when 'HOME&ACCESSORY'
+            assign handles = home_accessory
+            assign feature_handle = 'kingsteam-cordless-beard-straightener-for-men'
+        endcase
+        assign handles = handles | split: '|'
+        assign panel_id = section.id | append: '-shop-nav-' | append: forloop.index
+      %}
+      {% capture links %}
+        {% if group == 'HAIR CARE' %}
+          <p class="ks-shop-nav__coming">COMING SOON</p>
+        {% else %}
+          <ul class="ks-shop-nav__links">
+            {% if group == 'DISCOVER' %}
+              <li><a href="{{ curl_quiz_url }}">{{ curl_quiz_label | escape }}</a></li>
+              <li><a href="{{ blog_url }}">{{ blog_label | escape }}</a></li>
+              <li><a href="{{ experience_url }}">{{ experience_label | escape }}</a></li>
+            {% else %}
+              {% for handle in handles %}
+                {% assign item = all_products[handle] %}
+                {% if item != blank %}
+                  <li><a href="{{ item.url }}">{{ item.title | escape }}</a></li>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          </ul>
+        {% endif %}
+      {% endcapture %}
+      <li class="ks-shop-nav__item">
+        {% if mobile %}
+          <details>
+            <summary class="ks-shop-nav__trigger">{{ group | escape }}</summary>
+            {{ links }}
+          </details>
+        {% else %}
+          <button type="button" class="ks-shop-nav__trigger" aria-expanded="false" aria-controls="{{ panel_id }}">{{ group | escape }}</button>
+          <div id="{{ panel_id }}" class="ks-shop-nav__panel" hidden>
+            <div class="ks-shop-nav__panel-inner{% if feature_handle != blank %} ks-shop-nav__panel-inner--featured{% endif %}">
+              {{ links }}
+              {% if feature_handle != blank %}
+                {% assign featured = all_products[feature_handle] %}
+                {% if featured.featured_image != blank %}
+                  <a class="ks-shop-nav__feature" href="{{ featured.url }}" aria-label="View {{ featured.title | escape }}">
+                    {{ featured.featured_image | image_url: width: 640 | image_tag: widths: '320, 480, 640', sizes: '340px', loading: 'lazy', alt: '' }}
+                  </a>
+                {% endif %}
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+  </nav>
+{% unless mobile %}</kingsteam-shop-nav>{% endunless %}
