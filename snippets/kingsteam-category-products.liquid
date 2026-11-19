@@ -1,0 +1,11 @@
+{%- liquid
+  assign best_sellers = '2-in-1-hair-and-facial-steamer-care-ritual-kit|hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1|facial-steamer-with-extendable-arm-ozone-table-top-mini-spa-face-steamer-design-for-personal-care-use-at-home-or-salon-white|hooded-hair-dryer|stand-ionic-hair-dryer|dryer-diffuser-for-curly-hair'
+  case category
+    when 'best-sellers'
+      echo best_sellers
+    when 'hair-tools'
+      echo best_sellers | append: '|oil-care-straightener'
+    when 'home-accessory'
+      echo 'kingsteam-cordless-beard-straightener-for-men|kingsteam-automatic-hairbrush-cleaner-and-disinfector-machine|kingsteam-portable-steam-cleaner-for-home|kingsteam-2-in-1-hair-and-facial-steamer-accessories'
+  endcase
+-%}

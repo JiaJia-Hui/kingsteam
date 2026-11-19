@@ -2,6 +2,35 @@
 {%- assign categories = 'steamers:Hair & Facial Steamers|dryers:Hair Dryers & Diffusers|styling:Styling Tools|towel-warmers:Towel Warmers|sanitizers:Sanitizers|heaters:Heaters|other:Other Products' | split: '|' -%}
 {%- capture catalog_url -%}{%- render 'all-products-url' -%}{%- endcapture -%}
 
+{%- if request.page_type == 'page' -%}
+  {%- capture product_handles -%}{%- render 'kingsteam-category-products', category: page.handle -%}{%- endcapture -%}
+  {%- assign product_handles = product_handles | split: '|' -%}
+  {%- capture category_cards -%}
+    {%- for handle in product_handles -%}
+      {%- assign item = all_products[handle] -%}
+      {%- if item != blank -%}
+        <li data-catalog-product="{{ item.handle | escape }}">
+          {%- render 'product-card-1', product: item, section: section, index: forloop.index, section_index: section.index, animated: false -%}
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  <section class="ks-catalog" aria-labelledby="shop-category-heading">
+    <header class="ks-catalog__header">
+      <h1 id="shop-category-heading">{{ page.title | escape }}</h1>
+      <nav class="ks-catalog__categories" aria-label="Product categories"><a href="{{ catalog_url }}">All Products</a></nav>
+    </header>
+    <div class="ks-catalog__content container">
+      {%- if category_cards != blank -%}
+        <ul class="ks-catalog__grid" role="list">{{ category_cards }}</ul>
+      {%- elsif page.handle == 'hair-care' -%}
+        <p class="ks-catalog__coming">Coming Soon</p>
+      {%- else -%}
+        <p>{{ 'collections.general.no_matches' | t }}</p>
+      {%- endif -%}
+    </div>
+  </section>
+{%- else -%}
 {%- paginate search.results by 24 -%}
   {%- assign category_links = '' -%}
   {%- capture groups -%}
@@ -63,6 +92,7 @@
     </div>
   </section>
 {%- endpaginate -%}
+{%- endif -%}
 
 {% stylesheet %}
   .ks-catalog__header {
@@ -104,6 +134,12 @@
 
   .ks-catalog__content {
     padding-block: clamp(24px, 4vw, 56px);
+  }
+
+  .ks-catalog__coming {
+    margin: 0;
+    text-align: center;
+    font-size: clamp(20px, 3vw, 28px);
   }
 
   .ks-catalog__group {

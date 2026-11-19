@@ -1,7 +1,4 @@
 {%- liquid
-  assign best_sellers = '2-in-1-hair-and-facial-steamer-care-ritual-kit|hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1|facial-steamer-with-extendable-arm-ozone-table-top-mini-spa-face-steamer-design-for-personal-care-use-at-home-or-salon-white|hooded-hair-dryer|stand-ionic-hair-dryer|dryer-diffuser-for-curly-hair'
-  assign hair_tools = best_sellers | append: '|oil-care-straightener'
-  assign home_accessory = 'kingsteam-cordless-beard-straightener-for-men|kingsteam-automatic-hairbrush-cleaner-and-disinfector-machine|kingsteam-portable-steam-cleaner-for-home|kingsteam-2-in-1-hair-and-facial-steamer-accessories'
   assign groups = 'ALL PRODUCTS|BEST SELLERS|HAIR TOOLS|HAIR CARE|HOME&ACCESSORY|DISCOVER' | split: '|'
   assign curl_quiz_label = section.settings.discover_curl_quiz_label | default: 'Hair Curl Quiz'
   assign curl_quiz_url = section.settings.discover_curl_quiz_url | default: '/pages/hair-curl-quiz'
@@ -24,31 +21,37 @@
         {% continue %}
       {% endif %}
       {% liquid
-        assign handles = ''
+        assign category_handle = group | handleize
         assign feature_handles = ''
         assign feature_labels = ''
         assign group_label = group
         case group
           when 'BEST SELLERS'
-            assign handles = best_sellers
             assign group_label = 'Best Sellers'
-            assign feature_handles = best_sellers | split: '|' | slice: 0, 3
             assign feature_labels = 'Care Ritual Kit|2-in-1 Hair & Facial Steamer|Facial Steamer' | split: '|'
           when 'HAIR TOOLS'
-            assign handles = hair_tools
             assign group_label = 'Hair Tools'
             assign feature_handles = 'hooded-hair-dryer|stand-ionic-hair-dryer|oil-care-straightener' | split: '|'
           when 'HAIR CARE'
             assign group_label = 'Hair Care'
           when 'HOME&ACCESSORY'
-            assign handles = home_accessory
+            assign category_handle = 'home-accessory'
             assign group_label = 'Home & Accessories'
-            assign feature_handles = home_accessory | split: '|' | slice: 0, 3
             assign feature_labels = 'Cordless Beard Straightener|Automatic Hairbrush Cleaner|Portable Steam Cleaner' | split: '|'
           when 'DISCOVER'
             assign group_label = 'Discover'
         endcase
+        capture handles
+          render 'kingsteam-category-products', category: category_handle
+        endcapture
         assign handles = handles | split: '|'
+        if group == 'BEST SELLERS' or group == 'HOME&ACCESSORY'
+          assign feature_handles = handles | slice: 0, 3
+        endif
+        assign category_url = ''
+        unless group == 'DISCOVER'
+          assign category_url = pages[category_handle].url
+        endunless
         assign panel_id = section.id | append: '-shop-nav-' | append: forloop.index
       %}
       {% capture links %}
@@ -71,14 +74,25 @@
           </ul>
         {% endif %}
       {% endcapture %}
-      <li class="ks-shop-nav__item">
+      <li class="ks-shop-nav__item{% if category_url != blank %} ks-shop-nav__item--linked{% endif %}">
+        {% if category_url != blank %}
+          <a class="ks-shop-nav__trigger ks-shop-nav__category-link" href="{{ category_url }}"{% if request.path == category_url %} aria-current="page"{% endif %}>{{ group | escape }}</a>
+        {% endif %}
         {% if mobile %}
           <details>
-            <summary class="ks-shop-nav__trigger">{{ group | escape }}</summary>
+            {% if category_url != blank %}
+              <summary class="ks-shop-nav__trigger ks-shop-nav__disclosure" aria-label="Toggle {{ group_label | escape }} submenu"></summary>
+            {% else %}
+              <summary class="ks-shop-nav__trigger">{{ group | escape }}</summary>
+            {% endif %}
             {{ links }}
           </details>
         {% else %}
-          <button type="button" class="ks-shop-nav__trigger" aria-expanded="false" aria-controls="{{ panel_id }}">{{ group | escape }}</button>
+          {% if category_url != blank %}
+            <button type="button" class="ks-shop-nav__trigger ks-shop-nav__disclosure" aria-label="Toggle {{ group_label | escape }} submenu" aria-expanded="false" aria-controls="{{ panel_id }}"></button>
+          {% else %}
+            <button type="button" class="ks-shop-nav__trigger" aria-expanded="false" aria-controls="{{ panel_id }}">{{ group | escape }}</button>
+          {% endif %}
           <div id="{{ panel_id }}" class="ks-shop-nav__panel" hidden>
             <div class="ks-shop-nav__panel-inner{% if feature_handles != blank %} ks-shop-nav__panel-inner--featured{% elsif group == 'DISCOVER' %} ks-shop-nav__panel-inner--discover{% endif %}">
               <div class="ks-shop-nav__directory">
