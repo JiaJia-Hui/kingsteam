@@ -140,11 +140,18 @@
         "sticky_atc_wishtlist": false,
         "sticky_atc_compare": false
       }
+    },
+    "stand_ionic_dryer_intro": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div class=\"kingsteam-stand-ionic-intro\" role=\"region\" aria-label=\"Stand Ionic Hair Dryer overview\">\n{% assign intro_images = 'kingsteam-stand-ionic-intro-01.jpg|kingsteam-stand-ionic-intro-02.jpg|kingsteam-stand-ionic-intro-03.jpg|kingsteam-stand-ionic-intro-04.jpg' | split: '|' %}\n{% assign intro_alt = 'A woman dries her hair hands-free under the Black Gold Stand Ionic Hair Dryer.|Ionic care illustration showing frizzy curls and a smoother, shinier finish beside the Black Gold dryer.|Stand Ionic Hair Dryer features include smart pause and resume, adjustable heat and height, ionic care, and a 360-degree rolling base.|The Black Gold dryer shown in use for wash-day drying, deep conditioning, curl setting, and low-manipulation hair care.' | split: '|' %}\n{% for filename in intro_images %}\n  {% assign intro_image = images[filename] %}\n  {% if intro_image != blank %}\n    {{ intro_image | image_url: width: 3000 | image_tag: widths: '480, 750, 1000, 1440, 1800, 2400, 3000', sizes: '100vw', loading: 'lazy', alt: intro_alt[forloop.index0], style: 'display:block;width:100%;height:auto' }}\n  {% endif %}\n{% endfor %}\n</div>"
+      }
     }
   },
   "order": [
     "d880451e-1d96-4f33-80f8-fffa1f3ffaa1",
     "1634180644dff29e33",
-    "main"
+    "main",
+    "stand_ionic_dryer_intro"
   ]
 }
