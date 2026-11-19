@@ -1,0 +1,59 @@
+{{ 'kingsteam-gift-card.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'kingsteam-gift-card.js' | asset_url }}" defer></script>
+<dialog class="ks-gift" id="ks-gift-dialog" aria-labelledby="ks-gift-title" data-proxy="{{ routes.root_url | append: '/' | replace: '//', '/' }}apps/kingsteam-gifts"{% if request.design_mode %} data-preview="true"{% endif %}>
+  <button type="button" class="ks-gift-close" data-gift-action="close" aria-label="Close">×</button>
+  <h2 id="ks-gift-title" tabindex="-1">Send a gift card</h2>
+  <div class="ks-gift-view" data-gift-view="buy">
+    <p>Choose a value. Share a private link after checkout.</p>
+    <div class="ks-gift-layout">
+      <div class="ks-gift-art" aria-hidden="true">
+        <span>KingSteam</span><strong data-gift-value>$50</strong><span>Digital gift card</span>
+      </div>
+      <form data-gift-form>
+        <fieldset class="ks-gift-amounts">
+          <legend>Gift card amount (USD)</legend>
+          <div>
+            {%- assign denominations = '10,50,100,200' | split: ',' -%}
+            {%- for value in denominations -%}
+              <label><input type="radio" name="gift-amount" value="{{ value }}"{% if value == '50' %} checked{% endif %}><span>${{ value }}</span></label>
+            {%- endfor -%}
+          </div>
+        </fieldset>
+        <button type="submit" class="ks-gift-primary" data-gift-checkout data-checkout-label="{% if request.design_mode %}Preview checkout{% else %}Continue to checkout{% endif %}">{% if request.design_mode %}Preview checkout{% else %}Continue to checkout{% endif %} · $50</button>
+        <p class="ks-gift-note">Recipients sign in to claim. Redeem on orders without other discounts.</p>
+        {% if request.design_mode %}<p class="ks-gift-note">Theme editor preview. No payment is collected.</p>{% endif %}
+      </form>
+    </div>
+  </div>
+  {% if request.design_mode %}
+    <div class="ks-gift-view" data-gift-view="preview" hidden>
+      <p>KingSteam digital gift card · <strong data-preview-amount>$50 USD</strong></p>
+      <p class="ks-gift-note">This preview does not create an order or a redeemable code.</p>
+      <div class="ks-gift-actions">
+        <button type="button" class="ks-gift-secondary" data-gift-action="back">Change amount</button>
+      </div>
+    </div>
+  {% endif %}
+  <div class="ks-gift-view" data-gift-view="pending" hidden>
+    <p>When Shopify confirms payment, your gift link will appear here.</p>
+    <div class="ks-gift-actions">
+      <button type="button" class="ks-gift-primary" data-gift-action="check">Check payment</button>
+      <a data-gift-resume hidden>Return to checkout</a>
+    </div>
+    <p class="ks-gift-note">Keep this tab to find your gift after checkout.</p>
+  </div>
+  <div class="ks-gift-view" data-gift-view="share" hidden>
+    <p>Send the link privately. Your recipient signs in to claim the gift.</p>
+    <label for="ks-gift-share-link">Gift link</label>
+    <input id="ks-gift-share-link" type="url" readonly>
+    <div class="ks-gift-actions">
+      <button type="button" class="ks-gift-primary" data-gift-action="copy">Copy link</button>
+      <a data-gift-share="whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      <a data-gift-share="sms">Text message</a>
+      <a data-gift-share="email">Email</a>
+      <button type="button" class="ks-gift-secondary" data-gift-action="share" hidden>More</button>
+    </div>
+    <button type="button" class="ks-gift-secondary ks-gift-other" data-gift-action="another">Buy another gift card</button>
+  </div>
+  <p class="ks-gift-status" data-gift-status role="status" aria-live="polite"></p>
+</dialog>

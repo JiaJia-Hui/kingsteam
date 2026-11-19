@@ -2346,6 +2346,12 @@
     "name": "Cart settings",
     "settings": [
       {
+        "type": "checkbox",
+        "id": "ks_gift_cards_enabled",
+        "label": "Enable KingSteam gift cards",
+        "default": false
+      },
+      {
         "type": "paragraph",
         "content": "[Watch tutorial](https://foxecom.link/CCbjqn) or [read How-to](https://foxecom.link/9pNg7s)"
       },

@@ -267,6 +267,7 @@
             </m-search-popup>
           {% endif %}
           {% if show_cart_icon %}
+            {% render 'kingsteam-gift-card-trigger' %}
             {% render 'cart' %}
           {% endif %}
         </div>
@@ -321,6 +322,7 @@
                   endif
 
                   if show_cart_icon
+                    render 'kingsteam-gift-card-trigger'
                     render 'cart'
                   endif
                 %}
@@ -367,6 +369,7 @@
                   endif
 
                   if show_cart_icon
+                    render 'kingsteam-gift-card-trigger'
                     render 'cart'
                   endif
                 %}
@@ -410,6 +413,7 @@
                   endif
 
                   if show_cart_icon
+                    render 'kingsteam-gift-card-trigger'
                     render 'cart'
                   endif
                 %}
@@ -455,6 +459,7 @@
                     endif
 
                     if show_cart_icon
+                      render 'kingsteam-gift-card-trigger'
                       render 'cart'
                     endif
                   %}
@@ -503,6 +508,7 @@
                     endif
 
                     if show_cart_icon
+                      render 'kingsteam-gift-card-trigger'
                       render 'cart'
                     endif
                   %}
@@ -522,6 +528,10 @@
   <div class="m-header__overlay"></div>
   {% render 'search-popup', header_settings: section.settings %}
 </m-header>
+
+{% if settings.ks_gift_cards_enabled or request.design_mode %}
+  {% render 'kingsteam-gift-card-dialog' %}
+{% endif %}
 
 <script>
   // Set header height
