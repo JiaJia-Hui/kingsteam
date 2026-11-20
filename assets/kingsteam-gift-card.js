@@ -6,9 +6,15 @@ if (giftDialog) {
   const status = giftDialog.querySelector('[data-gift-status]');
   const submit = giftDialog.querySelector('[data-gift-checkout]');
   const linkField = giftDialog.querySelector('#ks-gift-share-link');
+  const purchaseField = giftDialog.querySelector('#ks-gift-purchase-link');
   const resume = giftDialog.querySelector('[data-gift-resume]');
   const preview = giftDialog.dataset.preview === 'true';
   const storageKey = 'kingsteam.gift.purchase';
+  const claimReturnKey = 'kingsteam.gift.return-after-login';
+  if (!preview && giftDialog.dataset.account === 'true' && sessionStorage.getItem(claimReturnKey) === '1') {
+    sessionStorage.removeItem(claimReturnKey);
+    location.replace(`${giftDialog.dataset.proxy}/claim`);
+  }
   const recovered = preview ? null : /^#ks-gift-([a-f0-9]{64})$/.exec(location.hash)?.[1];
   let purchase = preview ? null : recovered || sessionStorage.getItem(storageKey);
   let busy = false;
@@ -57,6 +63,22 @@ if (giftDialog) {
     view('share', 'Your gift card is ready');
   }
 
+  function showCheckout(checkout) {
+    resume.hidden = !checkout;
+    if (checkout) resume.href = checkoutUrl(checkout);
+  }
+
+  async function copyLink(field, label) {
+    try {
+      await navigator.clipboard.writeText(field.value);
+      status.textContent = `${label} copied.`;
+    } catch {
+      field.hidden = false;
+      field.select();
+      status.textContent = `Copy the ${label.toLowerCase()} from the selected field.`;
+    }
+  }
+
   async function checkPayment() {
     if (!purchase || busy) return;
     busy = true;
@@ -67,8 +89,7 @@ if (giftDialog) {
         sharedGift(result.link);
         status.textContent = '';
       } else {
-        resume.hidden = !result.checkout;
-        if (result.checkout) resume.href = checkoutUrl(result.checkout);
+        showCheckout(result.checkout);
         status.textContent = 'Payment is not confirmed yet.';
       }
     } catch (error) {
@@ -82,7 +103,7 @@ if (giftDialog) {
     if (!giftDialog.open) giftDialog.showModal();
     status.textContent = '';
     if (purchase) {
-      resume.hidden = true;
+      showCheckout(null);
       view('pending', 'Find your gift card');
       checkPayment();
     } else {
@@ -111,18 +132,20 @@ if (giftDialog) {
     if (busy) return;
     busy = true;
     submit.disabled = true;
-    status.textContent = 'Opening Shopify checkout…';
+    status.textContent = 'Preparing Shopify checkout…';
     try {
       const attemptKey = `kingsteam.gift.attempt.${amount}`;
       const attempt = sessionStorage.getItem(attemptKey) || crypto.randomUUID();
       sessionStorage.setItem(attemptKey, attempt);
       const result = await request('purchase', { amount, attempt });
       if (!/^[a-f0-9]{64}$/.test(result.purchase)) throw new Error('Purchase could not be started.');
-      const url = checkoutUrl(result.checkout);
+      showCheckout(result.checkout);
       purchase = result.purchase;
       sessionStorage.setItem(storageKey, purchase);
       sessionStorage.removeItem(attemptKey);
-      location.assign(url);
+      purchaseField.hidden = true;
+      status.textContent = '';
+      view('pending', 'Your checkout is ready');
     } catch (error) {
       status.textContent = error.message;
     } finally {
@@ -143,13 +166,13 @@ if (giftDialog) {
       view('buy', 'Send a gift card');
     }
     if (action === 'copy') {
-      try {
-        await navigator.clipboard.writeText(linkField.value);
-        status.textContent = 'Gift link copied.';
-      } catch {
-        linkField.select();
-        status.textContent = 'Select and copy the gift link.';
-      }
+      await copyLink(linkField, 'Gift link');
+    }
+    if (action === 'save' && purchase) {
+      const url = new URL(location.pathname, location.origin);
+      url.hash = `ks-gift-${purchase}`;
+      purchaseField.value = url.href;
+      await copyLink(purchaseField, 'Purchase link');
     }
     if (action === 'share') {
       try {
