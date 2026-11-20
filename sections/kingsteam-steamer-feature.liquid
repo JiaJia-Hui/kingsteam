@@ -1,0 +1,222 @@
+<section class="ks-steamer-feature" data-steamer-feature aria-labelledby="SteamerFeature-{{ section.id }}">
+  <div class="ks-steamer-feature__layout">
+    <div class="ks-steamer-feature__photo">
+      {%- assign photo_alt = section.settings.image.alt | default: 'KingSteam tabletop steamer shown with the hair hood and facial nozzle' -%}
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1600 | image_tag: widths: '480, 720, 960, 1200, 1600', sizes: '(max-width: 899px) 100vw, 56vw', loading: 'lazy', alt: photo_alt }}
+      {%- else -%}
+        <img
+          src="{{ 'kingsteam-steamer-editorial.webp' | asset_url }}"
+          width="1536"
+          height="1024"
+          loading="lazy"
+          alt="{{ photo_alt | escape }}"
+        >
+      {%- endif -%}
+    </div>
+
+    <div class="ks-steamer-feature__copy">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="ks-steamer-feature__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h2 id="SteamerFeature-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+      <div class="ks-steamer-feature__body">{{ section.settings.body }}</div>
+      {%- if section.settings.product_url != blank and section.settings.button_label != blank -%}
+        <div class="ks-steamer-feature__action">
+          <a class="ks-steamer-feature__button" href="{{ section.settings.product_url }}">{{ section.settings.button_label | escape }}</a>
+        </div>
+      {%- endif -%}
+      {%- if section.settings.source_url != blank and section.settings.source_label != blank -%}
+        <div class="ks-steamer-feature__attribution">
+          <a href="{{ section.settings.source_url }}" target="_blank" rel="noopener noreferrer">{{ section.settings.source_label | escape }}</a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .ks-steamer-feature {
+    background: #fff;
+    color: #28221e;
+    padding-block: clamp(36px, 4.9vw, 76px);
+  }
+
+  .ks-steamer-feature__layout {
+    width: min(calc(100% - clamp(32px, 8vw, 128px)), 1424px);
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.32fr) minmax(0, 1fr);
+    min-height: clamp(425px, 37vw, 570px);
+  }
+
+  .ks-steamer-feature__photo {
+    position: relative;
+    overflow: hidden;
+    background: #efdfcf;
+  }
+
+  .ks-steamer-feature__photo img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left center;
+  }
+
+  .ks-steamer-feature__photo::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    pointer-events: none;
+    background: linear-gradient(to right, transparent 74%, rgb(255 255 255 / 0.42) 88%, #fff 100%);
+  }
+
+  .ks-steamer-feature__copy {
+    --copy-inset: clamp(24px, 3.5vw, 56px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #fff;
+    padding: clamp(28px, 3.4vw, 52px) var(--copy-inset) 76px;
+  }
+
+  .ks-steamer-feature__eyebrow {
+    margin: 0 0 14px;
+    color: #695344;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .ks-steamer-feature h2 {
+    margin: 0;
+    color: inherit;
+    font-size: clamp(34px, 3.35vw, 54px);
+    font-weight: 600;
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  .ks-steamer-feature__body {
+    margin-top: clamp(20px, 2.15vw, 30px);
+    font-size: clamp(15px, 1.2vw, 17px);
+    line-height: 1.7;
+  }
+
+  .ks-steamer-feature__body p {
+    margin: 0;
+  }
+
+  .ks-steamer-feature__body p + p {
+    margin-top: 13px;
+  }
+
+  .ks-steamer-feature__action {
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+  }
+
+  .ks-steamer-feature__button {
+    display: inline-flex;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 28px;
+    border: 1px solid #342b24;
+    border-radius: 999px;
+    background: #342b24;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-decoration: none;
+  }
+
+  .ks-steamer-feature__button:hover {
+    background: #fff;
+    color: #342b24;
+  }
+
+  .ks-steamer-feature a:focus-visible {
+    outline: 2px solid #755239;
+    outline-offset: 4px;
+  }
+
+  .ks-steamer-feature__attribution {
+    position: absolute;
+    right: var(--copy-inset);
+    bottom: 23px;
+    left: var(--copy-inset);
+    color: #594a3c;
+    font-size: 13px;
+    line-height: 1.6;
+    text-align: right;
+  }
+
+  .ks-steamer-feature__attribution a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 899px) {
+    .ks-steamer-feature__layout {
+      grid-template-columns: minmax(0, 1fr);
+      min-height: 0;
+    }
+
+    .ks-steamer-feature__photo {
+      aspect-ratio: 3 / 2;
+    }
+
+    .ks-steamer-feature__photo::after {
+      background: linear-gradient(to bottom, transparent 86%, #fff 100%);
+    }
+
+    .ks-steamer-feature__copy {
+      width: min(100%, 570px);
+      margin-inline: auto;
+      padding: 18px clamp(4px, 1.4vw, 12px) 0;
+    }
+
+    .ks-steamer-feature h2 {
+      font-size: clamp(32px, 6vw, 48px);
+    }
+
+    .ks-steamer-feature__action {
+      margin-top: 24px;
+    }
+
+    .ks-steamer-feature__attribution {
+      position: static;
+      margin-top: 25px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Steamer feature",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Product photograph" },
+    { "type": "text", "id": "eyebrow", "label": "Attribution heading", "default": "Featured in Glamour" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "2-in-1 Hair & Facial Steamer" },
+    { "type": "richtext", "id": "body", "label": "Introduction" },
+    { "type": "text", "id": "button_label", "label": "Product button text", "default": "View the steamer" },
+    { "type": "url", "id": "product_url", "label": "Product page" },
+    { "type": "text", "id": "source_label", "label": "Source link text", "default": "Read the Glamour feature" },
+    { "type": "url", "id": "source_url", "label": "Source article" }
+  ],
+  "presets": [{ "name": "Steamer feature" }]
+}
+{% endschema %}

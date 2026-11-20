@@ -367,80 +367,11 @@
             "padding_bottom": 30
           },
           "blocks": {}
-        },
-        "ai_gen_block_4be9e8c_xNd9zG": {
-          "type": "ai_gen_block_4be9e8c",
-          "settings": {
-            "image_width": 55,
-            "gap": 40,
-            "gap_mobile": 20,
-            "content_padding": 40,
-            "content_padding_mobile": 20,
-            "text_alignment": "left",
-            "image_aspect_ratio": 75,
-            "image_border_radius": 0,
-            "heading_size": 50,
-            "heading_color": "#564934",
-            "heading_spacing": 16,
-            "text_size": 20,
-            "text_color": "#5c5342",
-            "text_spacing": 34,
-            "button_padding_vertical": 12,
-            "button_padding_horizontal": 24,
-            "button_text_size": 16,
-            "button_border_radius": 10,
-            "button_bg_color": "#877564",
-            "button_text_color": "#ffffff",
-            "button_hover_bg_color": "#ede2cb",
-            "button_hover_text_color": "#222222",
-            "show_controls": true,
-            "controls_spacing": 30,
-            "arrow_size": 42,
-            "arrow_bg_color": "#ffffff",
-            "arrow_color": "#ffffff",
-            "arrow_hover_bg_color": "#ffffff",
-            "arrow_hover_color": "#ffffff",
-            "dot_size": 10,
-            "dot_color": "#cccccc",
-            "dot_active_color": "#bfad98",
-            "enable_autoplay": true,
-            "autoplay_speed": 5,
-            "slide_1_enabled": true,
-            "slide_1_image": "shopify://shop_images/2000x2000_02.jpg",
-            "slide_1_heading": "Ozone Facial Steamer",
-            "slide_1_text": "The Desktop Nano Ionic Facial Steamer offers a professional spa experience from home or salon. Perfect for adults seeking self-care, this steamer is CA Prop 65 compliant, ensuring safety.",
-            "slide_1_button_text": "Shop now",
-            "slide_1_button_link": "shopify://products/facial-steamer-with-extendable-arm-ozone-table-top-mini-spa-face-steamer-design-for-personal-care-use-at-home-or-salon-white",
-            "slide_2_enabled": true,
-            "slide_2_image": "shopify://shop_images/c6594a4a-4e3d-45fc-8db1-6b1a0d775aa7.jpg",
-            "slide_2_heading": "2 In 1 Hair and Facial Steamer",
-            "slide_2_text": "Give your hair and skin the ultimate refresh. One steamer for deep nourishment and a radiant glow.",
-            "slide_2_button_text": "Shop now",
-            "slide_2_button_link": "shopify://products/hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1",
-            "slide_3_enabled": true,
-            "slide_3_image": "shopify://shop_images/00de08b1cb004d818ec486272b7ef0f4_tplv-fhlh96nyum-origin-jpeg.jpg",
-            "slide_3_heading": "Professional Ionic Hair Dryer",
-            "slide_3_text": "Get that just-left-the-salon feeling, right at home. Our powerful, ionic drying system smooths frizz and boosts shine effortlessly.",
-            "slide_3_button_text": "Shop now",
-            "slide_3_button_link": "shopify://products/stand-ionic-hair-dryer",
-            "slide_4_enabled": false,
-            "slide_4_heading": "Slide 4 Heading",
-            "slide_4_text": "Add your slide description here. This text will appear in the middle of the right section.",
-            "slide_4_button_text": "Shop now",
-            "slide_4_button_link": "",
-            "slide_5_enabled": false,
-            "slide_5_heading": "Slide 5 Heading",
-            "slide_5_text": "Add your slide description here. This text will appear in the middle of the right section.",
-            "slide_5_button_text": "Shop now",
-            "slide_5_button_link": ""
-          },
-          "blocks": {}
         }
       },
       "block_order": [
         "ai_gen_block_c35b47b_jT7JaY",
-        "ai_gen_block_077be23_f8gVjz",
-        "ai_gen_block_4be9e8c_xNd9zG"
+        "ai_gen_block_077be23_f8gVjz"
       ],
       "settings": {}
     },
@@ -615,6 +546,18 @@
         "custom_class": "",
         "animations": "inherit"
       }
+    },
+    "ks_steamer_feature": {
+      "type": "kingsteam-steamer-feature",
+      "settings": {
+        "eyebrow": "Featured in Glamour",
+        "heading": "2-in-1 Hair & Facial Steamer",
+        "body": "<p>The tabletop hood delivers hands-free steam while you deep-condition your hair on wash day.</p><p>Switch to the facial nozzle for a separate facial steaming routine. Both attachments use the same base, and the steamer shuts off automatically.</p>",
+        "button_label": "View the steamer",
+        "product_url": "/products/hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1",
+        "source_label": "Read the Glamour feature",
+        "source_url": "https://www.glamour.com/story/best-hair-steamers?utm_source=chatgpt.com"
+      }
     }
   },
   "order": [
@@ -623,6 +566,7 @@
     "17652464915a4d6add",
     "collection_image_showcase_pgLThU",
     "17649135672c0c9e9b",
+    "ks_steamer_feature",
     "scrolling_promotion_ezffbN",
     "1762831814354cff78",
     "testimonials_CEUB87"
