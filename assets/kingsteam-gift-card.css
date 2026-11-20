@@ -1,21 +1,54 @@
-.ks-gift-trigger {
-  display: inline-grid;
+.m-header__right { --ks-header-action-width: clamp(36px, 3.25vw, 44px); }
+.m-header__mobile-right { --ks-header-action-width: clamp(34px, 10vw, 40px); align-items: center; }
+
+.m-header__right > :is(.m-header__search:not(.m-search-form--full), .m-header__account, .m-cart-icon-bubble, .ks-gift-trigger),
+.m-header__mobile-right > :is(m-search-popup, .m-header__account, .m-cart-icon-bubble, .ks-gift-trigger) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 var(--ks-header-action-width);
+  width: var(--ks-header-action-width);
+  height: 44px;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+}
+
+.m-header__right > .m-header__search:not(.m-search-form--full) > .m-search-form__button,
+.m-header__mobile-right > m-search-popup > .m-search-form__button {
+  display: grid;
   place-items: center;
-  flex: 0 0 32px;
-  width: 32px;
-  height: 40px;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+.m-header__right > :is(.m-header__search:not(.m-search-form--full), .m-header__account, .m-cart-icon-bubble) svg,
+.m-header__mobile-right > :is(m-search-popup, .m-header__account, .m-cart-icon-bubble) svg,
+.ks-gift-icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.ks-gift-trigger {
   color: inherit;
   background: none;
   border: 0;
   cursor: pointer;
 }
-.ks-gift-trigger:hover { color: #865934; }
-.ks-gift-icon { width: 17px; height: 12px; position: relative; margin-top: 7px; border: 1.5px solid; border-radius: 2px; }
-.ks-gift-icon::before, .ks-gift-icon::after { content: ''; position: absolute; width: 6px; height: 5px; bottom: 100%; border: 1.5px solid; }
-.ks-gift-icon::before { right: 50%; transform: rotate(22deg); transform-origin: right bottom; border-radius: 80% 80% 0 80%; }
-.ks-gift-icon::after { left: 50%; transform: rotate(-22deg); transform-origin: left bottom; border-radius: 80% 80% 80% 0; }
-.ks-gift-icon i { position: absolute; inset: 3px 0 0; border-top: 1.5px solid; }
-.ks-gift-icon i::after { content: ''; position: absolute; inset: -5px auto 0 50%; border-left: 1.5px solid; }
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .m-header__desktop.logo-left-menu-center .m-header__inner { margin-inline: 0; }
+  .m-header__desktop.logo-left-menu-center .m-header__logo > a { max-width: 180px; }
+}
+
+@media (max-width: 639px) {
+  .m-header__mobile > .m-menu-button { flex: 0 0 28px; width: 28px; }
+  .m-header__mobile > .m-logo--mobile { flex: 1 1 auto; width: auto; min-width: 0; padding-inline: 4px; }
+  .m-header__mobile > .m-logo--mobile a { max-width: 100%; }
+  .m-header__mobile > .m-header__mobile-right { flex: 0 0 auto; width: auto; }
+}
 
 .ks-gift {
   position: fixed;
