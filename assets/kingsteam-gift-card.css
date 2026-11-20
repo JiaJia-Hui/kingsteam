@@ -88,9 +88,10 @@
 .ks-gift .ks-gift-note, .ks-gift .ks-gift-status { margin-top: 12px; font-size: 13px; }
 .ks-gift .ks-gift-status:empty { display: none; }
 .ks-gift-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 15px; margin: 16px 0; }
-.ks-gift-actions a { color: #644830; text-decoration: underline; text-underline-offset: .2em; }
+.ks-gift-actions a:not(.ks-gift-primary) { color: #644830; text-decoration: underline; text-underline-offset: .2em; }
+.ks-gift-actions .ks-gift-primary { display: inline-block; text-decoration: none; }
 .ks-gift [for='ks-gift-share-link'] { display: block; margin: 12px 0 5px; }
-.ks-gift #ks-gift-share-link { width: 100%; min-height: 42px; padding: 7px 10px; border: 1px solid #d9cbbb; border-radius: 6px; background: #f9f4ea; }
+.ks-gift :is(#ks-gift-share-link, #ks-gift-purchase-link) { width: 100%; min-height: 42px; padding: 7px 10px; border: 1px solid #d9cbbb; border-radius: 6px; background: #f9f4ea; }
 .ks-gift .ks-gift-other { margin-top: 5px; }
 @media (max-width: 560px) {
   .ks-gift-layout { grid-template-columns: 1fr; }
