@@ -1,0 +1,89 @@
+.ks-qr-coupon {
+  box-sizing: border-box;
+  width: min(490px, calc(100% - 32px));
+  max-height: calc(100% - 32px);
+  padding: clamp(30px, 7vw, 53px);
+  border: 1px solid #e4d7c8;
+  border-radius: 22px;
+  background: linear-gradient(145deg, #f4e8da, #fff 58%);
+  color: #30251d;
+  text-align: center;
+  box-shadow: 0 18px 52px #1c120f40;
+}
+
+.ks-qr-coupon::backdrop { background: #20171180; }
+.ks-qr-coupon [hidden] { display: none !important; }
+
+.ks-qr-coupon__close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.ks-qr-coupon__brand {
+  margin: 0 0 14px;
+  font-size: 12px;
+  letter-spacing: .24em;
+  font-weight: 700;
+}
+
+.ks-qr-coupon h2 {
+  margin: 0;
+  color: inherit;
+  font-size: clamp(36px, 9vw, 58px);
+  font-weight: 600;
+  line-height: 1.05;
+}
+
+.ks-qr-coupon__status { margin: 18px 0 0; line-height: 1.5; }
+
+.ks-qr-coupon__actions {
+  display: grid;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.ks-qr-coupon__button {
+  display: inline-grid;
+  place-items: center;
+  min-height: 46px;
+  border: 0;
+  border-radius: 30px;
+  padding: 10px 16px;
+  background: #382a21;
+  color: #fff;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.ks-qr-coupon__button:disabled { opacity: .68; cursor: wait; }
+.ks-qr-coupon :focus-visible { outline: 2px solid #80593a; outline-offset: 3px; }
+
+.ks-qr-coupon__code {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px;
+  border: 1px dashed #b8a18b;
+  border-radius: 8px;
+}
+
+.ks-qr-coupon__code code {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: 13px;
+  user-select: all;
+}
+
+.ks-qr-coupon__code button { min-height: 40px; padding-inline: 8px; text-decoration: underline; }
+.ks-qr-coupon__terms { margin: 20px 0 0; color: #634d3f; font-size: 12px; line-height: 1.55; }
