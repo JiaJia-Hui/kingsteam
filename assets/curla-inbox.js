@@ -9,7 +9,7 @@
   const activatorSelector = 'button[part~="activator"]';
   const floatingSelector = '.floating-input-launcher__field';
   const promoSelector = 'shopify-forms-embed#app-embed-container-961213';
-  let host, runtime, button, art, hint, motion, hostScope, scope;
+  let host, shellRoot, runtimeRoot, button, art, hint, motion, hostScope, scope;
   const shadowChanges = new MutationObserver(bindLauncher);
   const runtimeChanges = new MutationObserver(bindLauncher);
 
@@ -17,15 +17,15 @@
     const shell = host?.shadowRoot;
     const standIn = shell?.querySelector('.curla-inbox-stand-in');
     // Inbox replaces the lightweight initial button with a nested runtime on first open.
-    const nextRuntime = shell?.querySelector('.agent-shell__runtime');
-    if (nextRuntime !== runtime) {
+    const nextRoot = shell?.querySelector('.agent-shell__runtime')?.shadowRoot;
+    if (nextRoot !== runtimeRoot) {
       runtimeChanges.disconnect();
-      runtime = nextRuntime;
-      if (runtime?.shadowRoot) {
-        runtimeChanges.observe(runtime.shadowRoot, {childList: true, subtree: true});
+      runtimeRoot = nextRoot;
+      if (runtimeRoot) {
+        runtimeChanges.observe(runtimeRoot, {childList: true, subtree: true});
       }
     }
-    const launcher = runtime?.shadowRoot?.querySelector(activatorSelector) ||
+    const launcher = runtimeRoot?.querySelector(activatorSelector) ||
       shell?.querySelector(floatingSelector) || shell?.querySelector(activatorSelector);
     if (launcher === button) return;
     scope?.abort();
@@ -63,7 +63,6 @@
       if (launcher.hasAttribute('data-curla-inbox')) motion.play('pat', {immediate: true});
     }, {capture: true, signal});
 
-    // The original icon remains the fallback until both resources are ready.
     const image = art.querySelector('img');
     let stylesReady = false;
     function decorate() {
@@ -73,9 +72,10 @@
       launcher.setAttribute('data-curla-inbox', '');
       root.host.setAttribute('data-curla-docked', '');
       host.setAttribute('data-curla-docked', '');
-      standIn.hidden = false;
+      if (standIn) standIn.hidden = false;
+      motion.refresh();
       updatePromoPosition();
-      if (root === runtime?.shadowRoot) {
+      if (root === runtimeRoot) {
         // A message-bar launcher may briefly remain in the shell during the swap.
         host.setAttribute('data-curla-runtime-ready', '');
       }
@@ -91,21 +91,25 @@
       if (root !== shell) root.host.removeAttribute('data-curla-docked');
       launcher.removeAttribute('data-curla-inbox');
       // Move the same canvas during startup so the tap reaction keeps playing.
-      if (!art.hidden) standIn.append(art, hint);
+      if (!art.hidden && standIn) standIn.append(art, hint);
       stylesheet.remove();
     }, {once: true});
   }
 
   function bindHost() {
     const next = document.querySelector('shopify-chat');
-    if (next === host) return;
+    const nextShell = next?.shadowRoot;
+    if (next === host && nextShell === shellRoot) return;
     scope?.abort();
     hostScope?.abort();
     host?.removeAttribute('data-curla-docked');
     button = art = hint = motion = undefined;
     shadowChanges.disconnect();
+    runtimeChanges.disconnect();
+    runtimeRoot = undefined;
     host = next;
-    if (host?.shadowRoot) {
+    shellRoot = nextShell;
+    if (shellRoot) {
       hostScope = new AbortController();
       const standIn = document.createElement('span');
       standIn.className = 'curla-inbox-stand-in';
@@ -113,12 +117,12 @@
       const stylesheet = document.createElement('link');
       stylesheet.rel = 'stylesheet';
       stylesheet.href = config.dataset.styles;
-      host.shadowRoot.append(stylesheet, standIn);
+      shellRoot.append(stylesheet, standIn);
       hostScope.signal.addEventListener('abort', () => {
         stylesheet.remove();
         standIn.remove();
       }, {once: true});
-      shadowChanges.observe(host.shadowRoot, {childList: true, subtree: true});
+      shadowChanges.observe(shellRoot, {childList: true, subtree: true});
     }
     bindLauncher();
   }
