@@ -3,6 +3,7 @@
 
   const size = 240;
   const rate = 24;
+  const retryDelays = [400, 1000, 2500];
   const clips = {
     idle: {frames: 121, columns: 12},
     wave: {frames: 97, columns: 11},
@@ -66,7 +67,7 @@
       }
     }
 
-    function request(name, retry = true) {
+    function request(name, attempt = 0) {
       if (reduced.matches || loading === name || active?.name === name) return;
       clearTimeout(retryTimer);
       loading = name;
@@ -75,10 +76,11 @@
         loading = undefined;
         if (!sheet) {
           if (pending !== name) return;
-          if (retry) {
+          if (attempt < retryDelays.length) {
             retryTimer = setTimeout(() => {
-              if (!signal.aborted && pending === name) request(name, false);
-            }, 600);
+              retryTimer = undefined;
+              if (!signal.aborted && pending === name) request(name, attempt + 1);
+            }, retryDelays[attempt]);
             return;
           }
           if (name === 'idle') return;
@@ -92,11 +94,13 @@
     }
 
     function prepare() {
-      if (pending !== active?.name && requested?.name !== pending) request(pending);
+      if (!retryTimer && pending !== active?.name && requested?.name !== pending) request(pending);
       schedule();
     }
 
     function selectClip(name, immediate = false) {
+      clearTimeout(retryTimer);
+      retryTimer = undefined;
       pending = name;
       interrupt = immediate;
       requested = undefined;
@@ -181,8 +185,7 @@
         lastFrame = -1;
         portrait.dataset.motion = 'poster';
       } else if (visible && !document.hidden) {
-        if (!active && !loading) prepare();
-        schedule();
+        prepare();
       }
     }
 
@@ -193,6 +196,8 @@
     observer.observe(launcher);
     reduced.addEventListener('change', sync, {signal});
     document.addEventListener('visibilitychange', sync, {signal});
+    window.addEventListener('pageshow', sync, {signal});
+    window.addEventListener('online', sync, {signal});
     signal.addEventListener('abort', () => {
       observer.disconnect();
       cancelAnimationFrame(raf);
