@@ -399,7 +399,7 @@
           <h2 class="ai-holo-slider__title-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
         {% endif %}
         {% if block.settings.show_catalog_link %}
-          <a class="ai-holo-slider__catalog-link-{{ ai_gen_id }}" href="{% render 'all-products-url' %}" aria-label="View all products">
+          <a class="ai-holo-slider__catalog-link-{{ ai_gen_id }}" href="{% if block.settings.catalog_link_url != blank %}{{ block.settings.catalog_link_url | escape }}{% else %}{% render 'all-products-url' %}{% endif %}" aria-label="View all {% if block.settings.catalog_link_url != blank and block.settings.heading != blank %}{{ block.settings.heading | strip_html | escape_once }}{% else %}products{% endif %}">
             VIEW ALL <span aria-hidden="true">&nbsp;→</span>
           </a>
         {% endif %}
@@ -992,6 +992,12 @@
       "id": "show_catalog_link",
       "label": "Show View all link",
       "default": false
+    },
+    {
+      "type": "url",
+      "id": "catalog_link_url",
+      "label": "View all link",
+      "info": "Uses the All Products page when left blank."
     },
     {
       "type": "header",
