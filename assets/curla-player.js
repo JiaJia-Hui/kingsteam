@@ -4,6 +4,7 @@
   const size = 240;
   const rate = 24;
   const retryDelays = [400, 1000, 2500];
+  const idleRetryDelay = 15000;
   const clips = {
     idle: {frames: 121, columns: 12},
     wave: {frames: 97, columns: 11},
@@ -76,14 +77,16 @@
         loading = undefined;
         if (!sheet) {
           if (pending !== name) return;
-          if (attempt < retryDelays.length) {
+          const delay = retryDelays[attempt] ?? (name === 'idle' ? idleRetryDelay : undefined);
+          if (delay !== undefined) {
             retryTimer = setTimeout(() => {
               retryTimer = undefined;
-              if (!signal.aborted && pending === name) request(name, attempt + 1);
-            }, retryDelays[attempt]);
+              if (!signal.aborted && visible && !document.hidden && pending === name) {
+                request(name, Math.min(attempt + 1, retryDelays.length));
+              }
+            }, delay);
             return;
           }
-          if (name === 'idle') return;
           if (restingClip === name) restingClip = 'idle';
           selectClip(restingClip);
           return;
@@ -151,8 +154,8 @@
       if (!active) return;
 
       const frameNumber = Math.floor(elapsed * rate / 1000);
-      const repeat = active.name === 'idle' || active.name === restingClip;
-      const frame = repeat ? frameNumber % active.frames : Math.min(frameNumber, active.frames - 1);
+      // Keep moving if a one-shot gesture ends before its scene loop is ready.
+      const frame = frameNumber % active.frames;
       const fade = Math.min(1, elapsed / 180);
       if (frame !== lastFrame || fade < 1) {
         context.clearRect(0, 0, size, size);
@@ -170,7 +173,7 @@
         canvas.hidden = false;
         poster.hidden = true;
       }
-      if (repeat || frameNumber < active.frames) schedule();
+      schedule();
     }
 
     function sync() {
