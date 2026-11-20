@@ -1,0 +1,29 @@
+<link rel="stylesheet" href="{{ 'kingsteam-qr-coupon.css' | asset_url }}">
+<script src="{{ 'kingsteam-qr-coupon.js' | asset_url }}" defer></script>
+
+<template id="KingSteamQrCouponTemplate">
+  <dialog class="ks-qr-coupon" aria-labelledby="KingSteamQrCouponTitle"
+    data-login="{{ routes.storefront_login_url | escape }}"
+    data-shop="{{ routes.all_products_collection_url | escape }}">
+    <form method="dialog">
+      <button type="submit" class="ks-qr-coupon__close" aria-label="Close">×</button>
+    </form>
+    <p class="ks-qr-coupon__brand">KINGSTEAM</p>
+    <h2 id="KingSteamQrCouponTitle">Take $5 off</h2>
+    <p class="ks-qr-coupon__status" role="status" data-status>Checking coupon availability…</p>
+    <div class="ks-qr-coupon__actions">
+      <a class="ks-qr-coupon__button" data-sign-in hidden>Sign in to claim</a>
+      <button type="button" class="ks-qr-coupon__button" data-claim hidden>Claim my $5 coupon</button>
+      <button type="button" class="ks-qr-coupon__button" data-retry hidden>Try again</button>
+      <div class="ks-qr-coupon__code" data-code-box hidden>
+        <code data-code></code>
+        <button type="button" data-copy>Copy</button>
+      </div>
+      <a class="ks-qr-coupon__button" data-apply hidden>Apply and shop</a>
+    </div>
+    <p class="ks-qr-coupon__terms" data-terms>
+      First 2,000 claims. One per account. Valid for one month after claiming.
+      Email subscribers with an unused coupon will receive a reminder in the final 7 days.
+    </p>
+  </dialog>
+</template>
