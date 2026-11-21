@@ -1,0 +1,110 @@
+{{ 'kingsteam-home.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'kingsteam-home.js' | asset_url }}" defer="defer"></script>
+{%- assign homepage_sections = section.id | split: '__' | first -%}
+{%- assign steamer = all_products['hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1'] -%}
+<div class="ks-home-refresh" data-ks-home-editorial>
+<div class="shell quick-links" aria-label="Explore KingSteam">
+      <a href="#shopify-section-{{ homepage_sections }}__ks_steamer_feature"><img src="{{ steamer.featured_image | image_url: width: 240 }}" alt="" width="96" height="96"><span><strong>Steam care</strong><small>Meet the 2-in-1 steamer</small></span><b aria-hidden="true">↗</b></a>
+      <a href="#routine"><img src="{{ 'kingsteam-home-ritual.webp' | asset_url }}" alt="" width="96" height="96"><span><strong>Build your routine</strong><small>Find your wash-day flow</small></span><b aria-hidden="true">↗</b></a>
+      <a href="/pages/about-us"><img src="{{ 'kingsteam-home-community.webp' | asset_url }}" alt="" width="96" height="96"><span><strong>Meet KingSteam</strong><small>Get to know us</small></span><b aria-hidden="true">↗</b></a>
+    </div>
+
+    <section class="hero editorial-hero" aria-labelledby="editorial-heading">
+      <div class="shell split hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> Care for curls and coils</p>
+          <h1 id="editorial-heading">Confident curls.<br>Smarter care.</h1>
+          <p class="intro">From steam on wash day to a diffused finish, find the tools that fit the way you care for your curls.</p>
+          <div class="actions"><a class="button primary" href="#shopify-section-{{ homepage_sections }}__17649135672c0c9e9b">Shop best sellers <span aria-hidden="true">↗</span></a><a class="button outline" href="#shopify-section-{{ homepage_sections }}__ks_steamer_feature">Discover steam care</a></div>
+        </div>
+        <div class="hero-media"><img src="{{ 'kingsteam-home-hero.webp' | asset_url }}" alt="Woman with full, defined natural curls in a sunlit studio" loading="lazy" width="1440" height="1080"></div>
+      </div>
+    </section>
+
+    <section class="section routine" id="routine">
+      <div class="shell">
+        <div class="split routine-intro">
+          <div><p class="eyebrow"><span></span> The wash-day routine</p><h2>From wash day<br>to the finishing touch.</h2><p class="intro">Build around what already works for your hair. Start with your wash, make time to condition, then choose how you want to dry and style.</p></div>
+          <img src="{{ 'kingsteam-home-ritual.webp' | asset_url }}" alt="Hands gently separating a section of natural curls" loading="lazy" width="1440" height="1080">
+        </div>
+        <div class="steps">
+          <article><p class="eyebrow">01 · Cleanse</p><h3>Start fresh.</h3><p>Wash with your usual cleanser, then rinse before applying your conditioner.</p><button class="text-link" type="button" data-open="wash-guide">Read the wash-day guide <span aria-hidden="true">↗</span></button></article>
+          <article><p class="eyebrow">02 · Condition</p><h3>Make time for steam.</h3><p>Pair your usual deep conditioner with the hood attachment during wash day.</p><a class="text-link" href="#shopify-section-{{ homepage_sections }}__ks_steamer_feature">Explore steam care <span aria-hidden="true">↗</span></a></article>
+          <article><p class="eyebrow">03 · Dry &amp; style</p><h3>Finish your way.</h3><p>Choose a diffuser for your curls or a hooded dryer for a hands-free finish.</p><a class="text-link" href="/pages/hair-tools">Explore hair tools <span aria-hidden="true">↗</span></a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell" id="goals">
+      <div class="section-head centered"><h2>Shop by curl need.</h2><p>Start with what your hair needs today.</p></div>
+      <div class="goal-grid">
+        <a href="/products/hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1"><img src="{{ 'kingsteam-steamer-editorial.webp' | asset_url }}" alt="" loading="lazy"><div><h3>Hydrate</h3><p>Explore steam care <span aria-hidden="true">↗</span></p></div></a>
+        <a href="/products/dryer-diffuser-for-curly-hair"><img src="{{ 'kingsteam-home-define.webp' | asset_url }}" alt="" loading="lazy"><div><h3>Define</h3><p>Shop the diffuser <span aria-hidden="true">↗</span></p></div></a>
+        <a href="/pages/hair-tools"><img src="{{ 'kingsteam-home-style.webp' | asset_url }}" alt="" loading="lazy"><div><h3>Style</h3><p>Explore hair tools <span aria-hidden="true">↗</span></p></div></a>
+      </div>
+    </section>
+
+    <section class="section community" id="community">
+      <div class="shell split">
+        <div><p class="eyebrow"><span></span> The KingSteam community</p><h2>Every curl has<br>its own routine.</h2><p class="intro">Find curl inspiration, wash-day ideas and a closer look at KingSteam tools.</p><div class="actions"><a class="button primary" href="https://www.instagram.com/kingsteam_us">Find us on Instagram <span aria-hidden="true">↗</span></a></div></div>
+        <img src="{{ 'kingsteam-home-community.webp' | asset_url }}" alt="Three women with different natural curl patterns together in a warm studio" loading="lazy" width="1440" height="960">
+      </div>
+    </section>
+
+    <section class="section learn" id="learn">
+      <div class="shell">
+        <div class="section-head centered"><p class="eyebrow">The KingSteam journal</p><h2>Get to know your curls.</h2><p>Find your curl pattern, get started with steam and build a routine you can keep.</p></div>
+        <div class="learn-grid">
+          <article><img src="{{ 'kingsteam-home-curl-guide.webp' | asset_url }}" alt="" loading="lazy" width="960" height="640"><div><h3>Curl guide</h3><p>Get to know waves, curls and coils to plan your next wash day.</p><button class="text-link" type="button" data-open="curl-guide">Read the curl guide <span aria-hidden="true">↗</span></button></div></article>
+          <article><img src="{{ 'kingsteam-steamer-editorial.webp' | asset_url }}" alt="" loading="lazy" width="1200" height="850"><div><h3>Steam care 101</h3><p>See where the hood fits into a deep-conditioning routine.</p><button class="text-link" type="button" data-open="steam-guide">Read the steam guide <span aria-hidden="true">↗</span></button></div></article>
+          <article><img src="{{ 'kingsteam-home-journal.webp' | asset_url }}" alt="" loading="lazy" width="1440" height="960"><div><h3>Routine builder</h3><p>Choose a finish and see which tool fits your routine.</p><button class="text-link" type="button" data-open="builder">Build my routine <span aria-hidden="true">↗</span></button></div></article>
+        </div>
+      </div>
+    </section>
+
+    <div class="values" aria-label="The KingSteam approach"><div class="shell">
+      <div><strong>Texture first</strong><span>Tools and guidance for curls and coils</span></div>
+      <div><strong>Steam at home</strong><span>Tools for hair and facial routines</span></div>
+      <div><strong>Make it yours</strong><span>Routines shaped by the way you style</span></div>
+      <div><strong>Here to help</strong><a href="/pages/faqs">Get answers in our FAQ <span aria-hidden="true">↗</span></a></div>
+    </div></div>
+
+<section class="footer" id="newsletter" aria-label="Newsletter and helpful links">
+    <div class="shell">
+      <div class="split signup">
+        <div><p class="eyebrow"><span></span> The KingSteam community</p><h2>Good hair days,<br>straight to your inbox.</h2><p class="intro">Get curl tips, wash-day ideas and KingSteam updates.</p>{% render 'kingsteam-home-newsletter' %}</div>
+        <img src="{{ 'kingsteam-home-journal.webp' | asset_url }}" alt="Folded towel and wide-tooth comb in a sunlit bathroom" loading="lazy" width="1440" height="960">
+      </div>
+      <div class="footer-nav">
+        <div><a class="brand" href="{{ routes.root_url }}"><img src="{{ 'kingsteam-header-wordmark.svg' | asset_url }}" alt="KingSteam" width="210" height="36"></a><p>Care for curls and coils.</p></div>
+        <div><h3>Shop</h3><a href="/collections/all">All Products</a><a href="#shopify-section-{{ homepage_sections }}__17649135672c0c9e9b">Best Sellers</a><a href="/pages/hair-tools">Hair Tools</a><a href="/pages/home-accessory">Home &amp; Accessories</a></div>
+        <div><h3>Learn</h3><a href="#learn">Curl Guide</a><a href="#shopify-section-{{ homepage_sections }}__ks_steamer_feature">Steam Care</a><a href="#routine">Wash-Day Routine</a><a href="/blogs/news">Blog</a></div>
+        <div><h3>About</h3><a href="/pages/about-us">Our Story</a><a href="#community">Community</a></div>
+        <div><h3>Support</h3><a href="/pages/faqs">FAQ</a><a href="/pages/return-policy">Returns &amp; Warranty</a><a href="/pages/privacy-policy">Privacy Policy</a><a href="/pages/terms-of-service">Terms of Service</a></div>
+      </div>
+      <div class="home-social-links" aria-label="KingSteam social media"><a href="https://www.instagram.com/kingsteam_us">Instagram</a><a href="https://www.tiktok.com/@kingsteam_us">TikTok</a><a href="https://www.youtube.com/channel/UCCheaFrypsTneDhWmM7-8OA">YouTube</a></div>
+    </div>
+  </section>
+
+<dialog id="wash-guide" aria-labelledby="wash-guide-title"><div class="dialog-body"><button type="button" class="close" aria-label="Close">×</button><p class="eyebrow">Wash-day guide</p><h2 id="wash-guide-title">Start with what works.</h2><ol><li>Cleanse with your usual wash-day products, then rinse.</li><li>Apply your usual conditioner according to its label. If you add steam, follow the steamer manual.</li><li>Rinse as directed and dry with the tool that suits your finish.</li></ol><button class="text-link" type="button" data-open="curl-guide">Explore curl patterns ↗</button></div></dialog>
+  <dialog id="curl-guide" aria-labelledby="curl-guide-title"><div class="dialog-body"><button type="button" class="close" aria-label="Close">×</button><p class="eyebrow">Curl guide</p><h2 id="curl-guide-title">Find your pattern.</h2><p>Look at how several sections of your hair sit once they’ve air-dried. It’s common to see more than one pattern on the same head.</p><dl class="curl-types"><dt>Waves</dt><dd>Loose bends or S-shaped strands. Try gentle drying to keep the wave in place.</dd><dt>Curls</dt><dd>Visible spirals or ringlets. Try drying with a diffuser if you want to disturb the curl shape less.</dd><dt>Coils</dt><dd>Tight loops or zigzags. Try working in sections to make conditioning and styling easier.</dd></dl><button class="text-link" type="button" data-open="builder">Build a wash-day routine ↗</button></div></dialog>
+  <dialog id="steam-guide" aria-labelledby="steam-guide-title"><div class="dialog-body"><button type="button" class="close" aria-label="Close">×</button><p class="eyebrow">Steam care 101</p><h2 id="steam-guide-title">Where steam fits in.</h2><p>Use the hood during your conditioning step. Set up the steamer according to its manual, follow product directions, then finish with your usual rinse and styling routine.</p><p>The facial attachment is a separate setup. Follow the manual when switching between the hood and facial attachment.</p><a class="text-link" href="/products/hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1">See the 2-in-1 steamer ↗</a></div></dialog>
+  <dialog id="builder" aria-labelledby="builder-title"><div class="dialog-body"><button type="button" class="close" aria-label="Close">×</button><p class="eyebrow">Routine builder</p><h2 id="builder-title">How do you like to finish?</h2><div class="builder-options"><button class="button outline" type="button" data-finish="diffuser" aria-pressed="false">Diffuse my curls</button><button class="button outline" type="button" data-finish="hood" aria-pressed="false">Dry hands-free</button></div><div id="routine-result" class="routine-result" aria-live="polite"></div><template id="finish-diffuser"><p>Cleanse, condition, then finish with a diffuser to dry without rearranging your curl pattern.</p><a class="text-link" href="/products/dryer-diffuser-for-curly-hair">See the Dryer Diffuser ↗</a></template><template id="finish-hood"><p>Cleanse, condition, then sit under a hooded dryer for a hands-free finish.</p><a class="text-link" href="/products/hooded-hair-dryer">See the Hooded Hair Dryer ↗</a></template></div></dialog>
+</div>
+
+{% schema %}
+{
+  "name": "KingSteam home editorial",
+  "enabled_on": {
+    "templates": [
+      "index"
+    ]
+  },
+  "settings": [],
+  "presets": [
+    {
+      "name": "KingSteam home editorial"
+    }
+  ]
+}
+{% endschema %}

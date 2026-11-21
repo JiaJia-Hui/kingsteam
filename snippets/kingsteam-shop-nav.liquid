@@ -6,6 +6,13 @@
   assign blog_url = section.settings.discover_blog_url | default: '/blogs/news'
   assign experience_label = section.settings.discover_experience_label | default: 'User Experience Sharing'
   assign experience_url = section.settings.discover_experience_url | default: '/pages/user-experience-sharing'
+  if request.page_type == 'index'
+    assign groups = 'ALL PRODUCTS|BEST SELLERS|HAIR TOOLS|Routines|Curl Guide|HOME&ACCESSORY|DISCOVER' | split: '|'
+    assign curl_quiz_label = 'Curl Guide'
+    assign curl_quiz_url = '#learn'
+    assign experience_label = 'KingSteam Community'
+    assign experience_url = '#community'
+  endif
 -%}
 
 {% if mobile %}
@@ -18,6 +25,12 @@
     {% for group in groups %}
       {% if forloop.first %}
         <li class="ks-shop-nav__item"><a class="ks-shop-nav__trigger" href="{% render 'all-products-url' %}">{{ group }}</a></li>
+        {% continue %}
+      {% endif %}
+      {% if group == 'Routines' or group == 'Curl Guide' %}
+        <li class="ks-shop-nav__item">
+          <a class="ks-shop-nav__trigger" href="{% if group == 'Routines' %}#routine{% else %}#learn{% endif %}">{{ group }}</a>
+        </li>
         {% continue %}
       {% endif %}
       {% liquid
@@ -52,6 +65,15 @@
         unless group == 'DISCOVER'
           assign category_url = pages[category_handle].url
         endunless
+        assign trigger_label = group
+        if request.page_type == 'index'
+          assign trigger_label = group_label
+          if group == 'DISCOVER'
+            assign trigger_label = 'Our Story'
+            assign group_label = trigger_label
+            assign category_url = pages['about-us'].url
+          endif
+        endif
         assign panel_id = section.id | append: '-shop-nav-' | append: forloop.index
       %}
       {% capture links %}
@@ -60,9 +82,9 @@
         {% else %}
           <ul class="ks-shop-nav__links">
             {% if group == 'DISCOVER' %}
-              <li><a href="{{ curl_quiz_url }}"><span>{{ curl_quiz_label | escape }}</span>{% unless mobile %}<small>Find your curl type.</small>{% endunless %}</a></li>
+              <li><a href="{{ curl_quiz_url }}"><span>{{ curl_quiz_label | escape }}</span>{% unless mobile %}<small>{% if request.page_type == 'index' %}Explore curl patterns and routines.{% else %}Find your curl type.{% endif %}</small>{% endunless %}</a></li>
               <li><a href="{{ blog_url }}"><span>{{ blog_label | escape }}</span>{% unless mobile %}<small>Browse the KingSteam blog.</small>{% endunless %}</a></li>
-              <li><a href="{{ experience_url }}"><span>{{ experience_label | escape }}</span>{% unless mobile %}<small>Hear from KingSteam customers.</small>{% endunless %}</a></li>
+              <li><a href="{{ experience_url }}"><span>{{ experience_label | escape }}</span>{% unless mobile %}<small>{% if request.page_type == 'index' %}Find curl inspiration.{% else %}Hear from KingSteam customers.{% endif %}</small>{% endunless %}</a></li>
             {% else %}
               {% for handle in handles %}
                 {% assign item = all_products[handle] %}
@@ -76,14 +98,14 @@
       {% endcapture %}
       <li class="ks-shop-nav__item{% if category_url != blank %} ks-shop-nav__item--linked{% endif %}">
         {% if category_url != blank %}
-          <a class="ks-shop-nav__trigger ks-shop-nav__category-link" href="{{ category_url }}"{% if request.path == category_url %} aria-current="page"{% endif %}>{{ group | escape }}</a>
+          <a class="ks-shop-nav__trigger ks-shop-nav__category-link" href="{{ category_url }}"{% if request.path == category_url %} aria-current="page"{% endif %}>{{ trigger_label | escape }}</a>
         {% endif %}
         {% if mobile %}
           <details>
             {% if category_url != blank %}
               <summary class="ks-shop-nav__trigger ks-shop-nav__disclosure" aria-label="Toggle {{ group_label | escape }} submenu"></summary>
             {% else %}
-              <summary class="ks-shop-nav__trigger">{{ group | escape }}</summary>
+              <summary class="ks-shop-nav__trigger">{{ trigger_label | escape }}</summary>
             {% endif %}
             {{ links }}
           </details>
@@ -91,7 +113,7 @@
           {% if category_url != blank %}
             <button type="button" class="ks-shop-nav__trigger ks-shop-nav__disclosure" aria-label="Toggle {{ group_label | escape }} submenu" aria-expanded="false" aria-controls="{{ panel_id }}"></button>
           {% else %}
-            <button type="button" class="ks-shop-nav__trigger" aria-expanded="false" aria-controls="{{ panel_id }}">{{ group | escape }}</button>
+            <button type="button" class="ks-shop-nav__trigger" aria-expanded="false" aria-controls="{{ panel_id }}">{{ trigger_label | escape }}</button>
           {% endif %}
           <div id="{{ panel_id }}" class="ks-shop-nav__panel" hidden>
             <div class="ks-shop-nav__panel-inner{% if feature_handles != blank %} ks-shop-nav__panel-inner--featured{% elsif group == 'DISCOVER' %} ks-shop-nav__panel-inner--discover{% endif %}">
