@@ -1,0 +1,15 @@
+{% form 'customer', id: 'ContactSubscribe-KingSteamHomepage' %}
+  <input type="hidden" name="contact[tags]" value="newsletter">
+  {% capture success_message %}{{ 'general.newsletter_form.confirmation' | t }}{% endcapture %}
+  {% render 'form__error', form: form %}
+  {% render 'form__success', form: form, success_message: success_message %}
+  <div class="newsletter-fields">
+    <label class="sr-only" for="kingsteam-home-newsletter-email">Email address</label>
+    <input id="kingsteam-home-newsletter-email" name="contact[email]" type="email" placeholder="Your email address" autocomplete="email" required>
+    <button class="button primary" type="submit">Sign up</button>
+  </div>
+  <div class="newsletter-agreement">
+    <input id="kingsteam-home-newsletter-terms" type="checkbox" name="agree_terms" value="yes" required>
+    <label for="kingsteam-home-newsletter-terms">I agree to the <a href="/pages/terms-of-service">Terms of Service</a>.</label>
+  </div>
+{% endform %}
