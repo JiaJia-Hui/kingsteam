@@ -180,6 +180,7 @@
 }
 
 .ks-home-refresh { color: #2f271c; font: 16px/1.55 var(--body); background: var(--white); }
+.ks-home-refresh :is(h1, h2, h3) { color: inherit; font-weight: 700; }
 .ks-home-refresh .accessory-card h3, .ks-home-refresh .accessories-heading h2 { font-family: var(--body); }
 .ks-home-refresh .accessories { color: var(--tools-text); }
 .ks-home-refresh .brand img { display: block; height: auto; }
