@@ -119,9 +119,15 @@
           {%- endform -%}
         </div>
       {%- when 'short_description' -%}
-        {% if product.metafields.descriptor.short_description != blank %}
+        {%- capture purchase_copy -%}
+          {%- render 'ks-pdp-purchase-copy', product: product, panel: 'short description',
+            is_featured: is_featured, section_id: section.id -%}
+        {%- endcapture -%}
+        {%- if purchase_copy != blank -%}
+          {{ purchase_copy }}
+        {%- elsif product.metafields.descriptor.short_description != blank -%}
           <div class="m-product-description">{{ product.metafields.descriptor.short_description }}</div>
-        {% endif %}
+        {%- endif -%}
       {%- when 'description' -%}
         <div class="m-product-collapsible">
           <collapsible-tab
@@ -138,7 +144,14 @@
             </button>
             <div class="m-collapsible--content" data-content hidden>
               <div class="m-collapsible--content__inner rte">
-                {{ product.description }}
+                {%- capture purchase_copy -%}
+                  {%- render 'ks-pdp-purchase-copy', product: product, panel: 'description', is_featured: is_featured, section_id: section.id -%}
+                {%- endcapture -%}
+                {%- if purchase_copy == blank -%}
+                  {{ product.description }}
+                {%- else -%}
+                  {{ purchase_copy }}
+                {%- endif -%}
               </div>
             </div>
           </collapsible-tab>
@@ -765,7 +778,15 @@
               </button>
               <div class="m-collapsible--content" data-content hidden>
                 <div class="m-collapsible--content__inner rte">
-                  {{ block.settings.content }}
+                  {%- assign purchase_panel = block.settings.heading | strip | downcase -%}
+                  {%- capture purchase_copy -%}
+                    {%- render 'ks-pdp-purchase-copy', product: product, panel: purchase_panel, is_featured: is_featured, section_id: section.id -%}
+                  {%- endcapture -%}
+                  {%- if purchase_copy == blank -%}
+                    {{ block.settings.content }}
+                  {%- else -%}
+                    {{ purchase_copy }}
+                  {%- endif -%}
                   {{ block.settings.liquid }}
                 </div>
               </div>

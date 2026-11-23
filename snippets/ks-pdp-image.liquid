@@ -1,0 +1,13 @@
+{%- liquid
+  assign selected = product.featured_image
+  for image in product.images
+    if image.src contains filename
+      assign selected = image
+      break
+    endif
+  endfor
+-%}
+{%- if selected != blank -%}
+  {%- assign image_alt = selected.alt | default: alt -%}
+  {{ selected | image_url: width: width | image_tag: widths: widths, sizes: sizes, loading: 'lazy', alt: image_alt }}
+{%- endif -%}

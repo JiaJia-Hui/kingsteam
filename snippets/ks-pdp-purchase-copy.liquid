@@ -1,0 +1,39 @@
+{%- if request.page_type == 'product' and is_featured != true and section_id contains '__main' -%}
+  {%- case product.handle -%}
+    {%- when 'hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1' -%}
+      {%- case panel -%}
+        {%- when "short description" -%}
+          <div class="m-product-description ks-steamer-buy-note"><p>Deep-condition natural curls and coils under a hands-free steam hood. Switch to the facial nozzle for a separate warm-steam routine.</p><a href="#ks-wash-day-{{ section_id | replace: '__main', '__ks_product_story' }}">See how it fits your wash day <span aria-hidden="true">↓</span></a></div>
+        {%- when "description" -%}
+          <p>The KingSteam 2-in-1 Hair and Facial Steamer adds warm steam to your deep-conditioning routine for natural, curly, coily and textured hair. Fit the hands-free hood for hair or switch to the extendable nozzle for a separate facial care session. Both attachments use the same tabletop base. Follow the product manual for setup and use.</p>
+        {%- when "features" -%}
+          <ul><li>Hands-free hair steaming for wash-day conditioning</li><li>Separate adjustable facial steam nozzle</li><li>Ozone (O₃) feature and UV lamp</li><li>Visible water level and automatic shutoff</li></ul>
+        {%- when "what's included" -%}
+          <ul><li>One tabletop steamer base</li><li>Hair steaming hood</li><li>Extendable facial nozzle assembly</li><li>Connector</li><li>Warranty Card</li><li>User Manual</li></ul>
+      {%- endcase -%}
+    {%- when 'dryer-diffuser-for-curly-hair' -%}
+      {%- case panel -%}
+        {%- when "description" -%}
+          <p>A wide diffuser bowl cradles sections of curls or coils while spreading the airflow. This is a corded dryer with its own two modes, ready for wash day or a curl refresh.</p>
+        {%- when "features" -%}
+          <ul><li>Wide diffuser bowl for curls and coils</li><li>Gentle and Quick drying modes</li><li>Integrated power cord and controls</li></ul>
+      {%- endcase -%}
+    {%- when 'facial-steamer-with-extendable-arm-ozone-table-top-mini-spa-face-steamer-design-for-personal-care-use-at-home-or-salon-white' -%}
+      {%- case panel -%}
+        {%- when "features" -%}
+          <ul><li>Warm facial steam</li><li>Adjustable nozzle</li><li>Visible water level and a separate aroma pad slot</li></ul>
+        {%- when "what's included" -%}
+          <ul><li>Tabletop facial steamer</li><li>Adjustable facial nozzle</li></ul>
+      {%- endcase -%}
+    {%- when '2-in-1-hair-and-facial-steamer-care-ritual-kit' -%}
+      {%- case panel -%}
+        {%- when "what's included" -%}
+          <ul><li>2-in-1 steamer base with hair hood and facial nozzle</li><li>Care Ritual Kit with sleep mask, bonnet, hairbrush, clips and ties, facial massager, and makeup pouch</li></ul>
+      {%- endcase -%}
+    {%- when 'kingsteam-portable-steam-cleaner-for-home' -%}
+      {%- case panel -%}
+        {%- when "short description" -%}
+          <div class="m-product-description ks-cleaner-buy-note"><p>A compact, plug-in steam cleaner with six steam levels, a removable 1.8 L tank and interchangeable tools for compatible surfaces.</p><a href="#ks-cleaner-uses-{{ section_id | replace: '__main', '__ks_product_story' }}">See where to use it <span aria-hidden="true">↓</span></a></div>
+      {%- endcase -%}
+  {%- endcase -%}
+{%- endif -%}

@@ -294,11 +294,16 @@
         "padding_bottom": 50,
         "custom_class": ""
       }
+    },
+    "ks_product_story": {
+      "type": "ks-pdp-detail",
+      "settings": {}
     }
   },
   "order": [
     "16341791918a8fdfdd",
     "main",
+    "ks_product_story",
     "custom_content_9eecKT",
     "blocks_ihtQ3e",
     "1762930190240780d1",

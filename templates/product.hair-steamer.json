@@ -294,12 +294,17 @@
       ],
       "name": "Full width image",
       "settings": {}
+    },
+    "ks_product_story": {
+      "type": "ks-pdp-detail",
+      "settings": {}
     }
   },
   "order": [
     "d880451e-1d96-4f33-80f8-fffa1f3ffaa1",
     "1634180644dff29e33",
     "main",
+    "ks_product_story",
     "custom_content_nLaLwh",
     "image_comparison_7zamyF",
     "blocks_jcpQxR"

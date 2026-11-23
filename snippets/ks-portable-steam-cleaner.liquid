@@ -1,0 +1,114 @@
+{{ 'ks-portable-steam-cleaner.css' | asset_url | stylesheet_tag }}
+{%- assign main_id = intro_id | split: '__' | first | append: '__main' | prepend: 'shopify-section-' -%}
+<section class="ks-pdp ks-cleaner" data-ks-pdp="portable-cleaner" aria-label="KingSteam portable steam cleaner details">
+  <nav class="ks-pdp-shell ks-pdp-nav" aria-label="Steam cleaner details">
+    <a href="#ks-cleaner-overview-{{ intro_id }}">Overview</a>
+    <a href="#ks-cleaner-uses-{{ intro_id }}">Where to use</a>
+    <a href="#ks-cleaner-tools-{{ intro_id }}">Attachments</a>
+    <a href="#ks-cleaner-specs-{{ intro_id }}">Specs</a>
+    <a href="#ks-cleaner-steps-{{ intro_id }}">How to use</a>
+    <a href="#ks-cleaner-faq-{{ intro_id }}">FAQs</a>
+  </nav>
+
+  <div id="ks-cleaner-overview-{{ intro_id }}" class="ks-cleaner-hero">
+    <div class="ks-pdp-shell ks-cleaner-hero-grid">
+      <div class="ks-cleaner-hero-copy">
+        <p class="ks-cleaner-label">KingSteam Portable Steam Cleaner</p>
+        <h2>Steam for the spots you keep scrubbing.</h2>
+        <p>Direct steam into grout lines, around fittings and along other edges where grime collects. Choose from six steam levels and swap attachments to suit the job.</p>
+        <a class="ks-pdp-button" href="#ks-cleaner-uses-{{ intro_id }}">Find the right setup <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="ks-cleaner-hero-image">
+        {% render 'ks-pdp-image', product: product, filename: 'kingsteam-portable-steam-cleaner-01-main.jpg', widths: '360, 560, 800, 1200', width: 1200, sizes: '(max-width: 749px) 94vw, 48vw', alt: 'KingSteam steam cleaner base, flexible hose and black handpiece' %}
+      </div>
+    </div>
+  </div>
+
+  <dl class="ks-pdp-shell ks-cleaner-metrics" aria-label="Steam cleaner at a glance">
+    <div><dt>1,500 W</dt><dd>Rated heating power</dd></div>
+    <div><dt>6 levels</dt><dd>Adjustable steam</dd></div>
+    <div><dt>1.8 L</dt><dd>Detachable water tank</dd></div>
+    <div><dt>2 m</dt><dd>Flexible steam hose</dd></div>
+  </dl>
+
+  <section id="ks-cleaner-uses-{{ intro_id }}" class="ks-pdp-shell ks-cleaner-uses" aria-labelledby="ks-cleaner-uses-title-{{ intro_id }}">
+    <header class="ks-cleaner-section-head">
+      <h2 id="ks-cleaner-uses-title-{{ intro_id }}">Match the steam to the surface.</h2>
+      <p>Follow the surface manufacturer’s care instructions and test a hidden spot before you start.</p>
+    </header>
+    <div class="ks-cleaner-use-grid">
+      <article>
+        <h3>Kitchen edges</h3>
+        <p>Use a suitable nozzle or brush around compatible backsplash seams and greasy corners, then wipe away loosened residue with a cloth.</p>
+      </article>
+      <article>
+        <h3>Tile and grout</h3>
+        <p>A small nylon brush helps you work along grout lines and around compatible bathroom fittings without covering the entire surface at once.</p>
+      </article>
+      <article>
+        <h3>Glass and tracks</h3>
+        <p>Use the squeegee on compatible glass. Fit the angled nozzle when you need to reach into a narrow track or corner.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="ks-cleaner-tools-{{ intro_id }}" class="ks-cleaner-tools" aria-labelledby="ks-cleaner-tools-title-{{ intro_id }}">
+    <div class="ks-pdp-shell">
+      <header class="ks-cleaner-section-head">
+        <h2 id="ks-cleaner-tools-title-{{ intro_id }}">The right attachment makes the difference.</h2>
+        <p>The box contains the steamer, steam gun and a kit of cleaning and maintenance tools.</p>
+      </header>
+      <div class="ks-cleaner-tool-media">
+        {% render 'ks-pdp-image', product: product, filename: 'kingsteam-portable-steam-cleaner-01-main.jpg', widths: '360, 560, 800, 1200', width: 1200, sizes: '(max-width: 749px) 94vw, 96vw', alt: 'The original accessory lineup showing the angled nozzle, brushes, scrapers, squeegee, cloth cover and cleaning needle' %}
+      </div>
+      <dl class="ks-cleaner-list ks-cleaner-tool-list">
+        <div><dt>Reach into seams</dt><dd>Angled nozzle and two sizes of gap scraper.</dd></div>
+        <div><dt>Loosen buildup</dt><dd>Large and small nylon brushes, a small metal brush and a surface scraper. Use the metal brush only on finishes approved for it.</dd></div>
+        <div><dt>Handle glass and fabric</dt><dd>Glass squeegee and cloth cover. Check that the material can be steam cleaned first.</dd></div>
+        <div><dt>Maintain the nozzle</dt><dd>Cleaning needle. Follow the manual and let the unit cool before maintenance.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="ks-cleaner-specs-{{ intro_id }}" class="ks-pdp-shell ks-cleaner-specs ks-cleaner-split" aria-labelledby="ks-cleaner-specs-title-{{ intro_id }}">
+    <div>
+      <p class="ks-cleaner-label">Model LEST-C4 · U.S. version</p>
+      <h2 id="ks-cleaner-specs-title-{{ intro_id }}">Size, power and reach.</h2>
+      <p>Set the base on a stable surface and use the hose to reach the area you’re cleaning.</p>
+    </div>
+    <dl class="ks-cleaner-list">
+      <div><dt>Power and voltage</dt><dd>1,500 W · 110–125 V</dd></div>
+      <div><dt>Steam output</dt><dd>4 bar rated pressure · approximately 100°C (212°F) · six steam levels</dd></div>
+      <div><dt>Preheat and tank</dt><dd>Approximately 15 seconds · 1.8 L detachable tank</dd></div>
+      <div><dt>Hose and power cord</dt><dd>2 m (6.6 ft) steam hose · 1.5 m (4.9 ft) power cord</dd></div>
+      <div><dt>Net weight</dt><dd>2.0 kg (4.4 lb)</dd></div>
+      <div><dt>Unit dimensions</dt><dd>245.6 × 171.8 × 144.6 mm (approx. 9.7 × 6.8 × 5.7 in)</dd></div>
+    </dl>
+  </section>
+
+  <section id="ks-cleaner-steps-{{ intro_id }}" class="ks-cleaner-steps" aria-labelledby="ks-cleaner-steps-title-{{ intro_id }}">
+    <div class="ks-pdp-shell">
+      <h2 id="ks-cleaner-steps-title-{{ intro_id }}">From setup to cleanup.</h2>
+      <ol class="ks-cleaner-step-grid">
+        <li><h3>Choose the attachment</h3><p>Check your surface’s care guide. Fit the right tool while the unit is off and cool.</p></li>
+        <li><h3>Fill the tank</h3><p>Use water according to the manual and stay within the marked fill range.</p></li>
+        <li><h3>Start at a low level</h3><p>Once the unit is ready, test in an inconspicuous area. Adjust steam only as needed and as the surface allows.</p></li>
+        <li><h3>Wipe, then let it cool</h3><p>Wipe away loosened residue. Switch off and unplug the unit, then let it cool before emptying or changing tools.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="ks-cleaner-faq-{{ intro_id }}" class="ks-pdp-shell ks-cleaner-faq ks-cleaner-split ks-pdp-faq" aria-labelledby="ks-cleaner-faq-title-{{ intro_id }}">
+    <div><h2 id="ks-cleaner-faq-title-{{ intro_id }}">Before you get started.</h2></div>
+    <div>
+      <details><summary>Can I add detergent to the tank?</summary><p>Use water only. Follow the product manual for the specified water type and fill level.</p></details>
+      <details><summary>Can I use it on upholstery?</summary><p>Check the fabric care label first. If it allows steam cleaning, use the cloth-covered tool and test a hidden area.</p></details>
+      <details><summary>Does “portable” mean cordless?</summary><p>It is a compact, plug-in unit. The U.S. model uses a 1.5 m power cord and a separate 2 m steam hose.</p></details>
+      <details><summary>How do I pick a steam level?</summary><p>Start at a low level on an approved surface and test a hidden spot. Adjust as needed within the guidance for that surface.</p></details>
+      <details><summary>Can I change attachments while the steamer is hot?</summary><p>Switch off and unplug the unit. Let it cool and follow the manual before changing attachments or removing the tank.</p></details>
+    </div>
+  </section>
+  <div class="ks-pdp-shell ks-cleaner-return">
+    <a class="ks-pdp-button" href="#{{ main_id }}">Back to product options <span aria-hidden="true">↑</span></a>
+  </div>
+</section>
