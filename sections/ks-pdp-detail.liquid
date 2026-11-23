@@ -1,0 +1,17 @@
+{%- capture story -%}
+  {%- render 'ks-pdp-content', product: product, intro_id: section.id -%}
+{%- endcapture -%}
+{%- assign story = story | strip -%}
+{%- if story != blank -%}
+  {{ 'ks-pdp-detail.css' | asset_url | stylesheet_tag }}
+  {{ story }}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "KingSteam product details",
+  "enabled_on": { "templates": ["product"] },
+  "settings": [],
+  "presets": [{ "name": "KingSteam product details" }]
+}
+{% endschema %}

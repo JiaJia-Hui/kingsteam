@@ -89,6 +89,10 @@
         "description_c686hB": {
           "type": "description",
           "settings": {}
+        },
+        "ks_cleaner_short_description": {
+          "type": "short_description",
+          "settings": {}
         }
       },
       "block_order": [
@@ -96,6 +100,7 @@
         "title",
         "judge_me_reviews_preview_badge_xeHjiP",
         "price",
+        "ks_cleaner_short_description",
         "visitors_iebkP6",
         "variant_picker",
         "buy_buttons",
@@ -150,11 +155,16 @@
         "padding_bottom": 50,
         "custom_class": ""
       }
+    },
+    "ks_product_story": {
+      "type": "ks-pdp-detail",
+      "settings": {}
     }
   },
   "order": [
     "16341791918a8fdfdd",
     "main",
+    "ks_product_story",
     "17629351106d35bb0b"
   ]
 }

@@ -156,11 +156,16 @@
       "settings": {
         "custom_liquid": "<div class=\"kingsteam-hairbrush-cleaner-intro\" role=\"region\" aria-label=\"Hairbrush cleaner overview\">\n{% assign filenames = '3000x1800_01_c2820b35-4b6c-456e-ac3f-b1727da4368d.jpg|3000x1800_02_e0bedccb-7f14-4f46-9050-77ae3431e1b4.jpg' | split: '|' %}\n{% assign captions = 'Brush care routine showing trapped hair before cleaning and a cleaner-looking brush afterward.|Product details showing the clear top tank, replaceable rollers, front cover and debris tray.' | split: '|' %}\n{% for filename in filenames %}\n  {% assign picture = images[filename] %}\n  {% assign caption = captions[forloop.index0] %}\n  {% if picture != blank %}\n    {{ picture | image_url: width: 3000 | image_tag: widths: '480, 750, 1000, 1440, 1800, 2400, 3000', sizes: '100vw', loading: 'lazy', alt: caption, style: 'display:block;width:100%;height:auto' }}\n  {% endif %}\n{% endfor %}\n</div>"
       }
+    },
+    "ks_product_story": {
+      "type": "ks-pdp-detail",
+      "settings": {}
     }
   },
   "order": [
     "16341791918a8fdfdd",
     "main",
+    "ks_product_story",
     "hairbrush_cleaner_intro",
     "17629351106d35bb0b"
   ]

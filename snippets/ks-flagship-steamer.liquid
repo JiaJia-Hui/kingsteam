@@ -1,0 +1,147 @@
+{{ 'ks-flagship-steamer.css' | asset_url | stylesheet_tag }}
+{%- assign main_id = intro_id | split: '__' | first | append: '__main' | prepend: 'shopify-section-' -%}
+<section class="ks-pdp ks-flagship" data-ks-pdp="steamer" aria-label="Discover the KingSteam 2-in-1 Hair and Facial Steamer">
+  <nav class="ks-pdp-shell ks-pdp-nav" aria-label="Steamer details">
+    <a href="#ks-wash-day-{{ intro_id }}">Wash day</a>
+    <a href="#ks-steam-modes-{{ intro_id }}">Two modes</a>
+    <a href="#ks-steamer-design-{{ intro_id }}">Design &amp; specs</a>
+    <a href="#ks-steamer-setup-{{ intro_id }}">How to use</a>
+    <a href="#ks-steamer-faq-{{ intro_id }}">FAQs</a>
+  </nav>
+
+  <div class="ks-flagship-hero">
+    <div class="ks-flagship-hero-copy">
+      <p class="ks-flagship-label">KingSteam 2-in-1 Hair &amp; Facial Steamer</p>
+      <h2>Make time for your curls.</h2>
+      <p class="ks-flagship-intro">Give deep conditioning its own moment on wash day. Sit under a hands-free steam hood made for natural curls, coils and textured hair, then switch to the facial nozzle whenever you want a separate warm-steam routine.</p>
+      <div class="ks-flagship-actions">
+        <a class="ks-pdp-button" href="#{{ main_id }}">Choose your color <span aria-hidden="true">↑</span></a>
+        <a class="ks-flagship-link" href="#ks-steam-modes-{{ intro_id }}">Explore both modes <span aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+    <div class="ks-flagship-hero-media">
+      <img src="{{ 'ks-flagship-wash-day.webp' | asset_url }}" alt="A woman with natural tightly coiled hair in a sunlit home vanity setting" width="1536" height="1024" loading="lazy">
+    </div>
+  </div>
+
+  <aside class="ks-pdp-shell ks-flagship-press" aria-label="Press recognition">
+    <p>Named <strong>“Best Hooded”</strong> in <cite>Glamour</cite>’s hair steamer roundup.</p>
+    <a class="ks-flagship-link" href="https://www.glamour.com/story/best-hair-steamers">Read the roundup <span aria-hidden="true">↗</span></a>
+  </aside>
+
+  <section id="ks-wash-day-{{ intro_id }}" class="ks-pdp-shell ks-flagship-wash" aria-labelledby="ks-wash-title-{{ intro_id }}">
+    <div>
+      <p class="ks-flagship-label">Deep conditioning at home</p>
+      <h2 id="ks-wash-title-{{ intro_id }}">Bring the salon steam step home.</h2>
+      <p class="ks-flagship-intro">For curls and coils that often feel dry, wash day is a chance to slow down and give your conditioner time to sit. Set the steamer on a stable tabletop, then sit under the hood while warm steam surrounds your hair.</p>
+    </div>
+    <div class="ks-flagship-wash-notes">
+      <article>
+        <h3>For low-porosity hair</h3>
+        <p>If you already use warm, moist air with your deep conditioner, the hood gives you a seated way to add that step. Follow the directions on your conditioner and in the steamer manual.</p>
+      </article>
+      <article>
+        <h3>For natural curls and coils</h3>
+        <p>Apply your usual deep conditioner in sections as directed. Get comfortable under the hood, then rinse and continue with your usual routine.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="ks-steam-modes-{{ intro_id }}" class="ks-flagship-modes" aria-labelledby="ks-steam-modes-title-{{ intro_id }}">
+    <div class="ks-pdp-shell">
+      <div class="ks-flagship-section-intro">
+        <p class="ks-flagship-label">The interchangeable attachments</p>
+        <h2 id="ks-steam-modes-title-{{ intro_id }}">One base. Two ways to steam.</h2>
+        <p>Set up one attachment for each session. Both attachments come with the steamer.</p>
+      </div>
+      <div class="ks-flagship-mode-grid">
+        <article class="ks-flagship-mode">
+          {% render 'ks-pdp-image', product: product, filename: '2000x2000_01_7bfe9519-ea80-4dbb-82ec-d36d4e83c520.jpg', widths: '360, 560, 800, 1200', width: 1200, sizes: '(max-width: 749px) 94vw, 45vw', alt: 'The KingSteam hair steam hood shown in a wash-day setting' %}
+          <div class="ks-flagship-mode-copy">
+            <p class="ks-flagship-label">Hair steamer</p>
+            <h3>The hands-free hood</h3>
+            <p>Use the tabletop hood with your deep-conditioning routine. The hood sits over your hair so you can stay seated without holding a steam wand.</p>
+          </div>
+        </article>
+        <article class="ks-flagship-mode">
+          {% render 'ks-pdp-image', product: product, filename: '2000x2000_03_4c140958-29d6-49c7-94ad-8703272ecc12.jpg', widths: '360, 560, 800, 1200', width: 1200, sizes: '(max-width: 749px) 94vw, 45vw', alt: 'The KingSteam facial attachment with its angled nozzle' %}
+          <div class="ks-flagship-mode-copy">
+            <p class="ks-flagship-label">Facial steamer</p>
+            <h3>The adjustable facial nozzle</h3>
+            <p>When the unit is off and cool, swap the hood for the facial nozzle. Set up a separate facial care session and follow the manual for positioning and distance.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="ks-steamer-design-{{ intro_id }}" class="ks-pdp-shell ks-flagship-design" aria-labelledby="ks-steamer-design-title-{{ intro_id }}">
+    <div class="ks-flagship-section-intro">
+      <p class="ks-flagship-label">Design &amp; specifications</p>
+      <h2 id="ks-steamer-design-title-{{ intro_id }}">A closer look at what’s included.</h2>
+    </div>
+    <div class="ks-flagship-design-grid">
+      <figure>
+        {% render 'ks-pdp-image', product: product, filename: '2000x2000_07_5b34bda4-4e71-4c19-9049-e41b785f28a6.jpg', widths: '360, 560, 800, 1200', width: 1200, sizes: '(max-width: 749px) 94vw, 48vw', alt: 'Dimension diagram for the KingSteam facial nozzle and tabletop hair hood configurations' %}
+        <figcaption>Both configurations use the same base.</figcaption>
+      </figure>
+      <dl class="ks-flagship-specs">
+        <div>
+          <dt>Ozone &amp; UV lamp</dt>
+          <dd>The unit includes an ozone (O₃) feature and a UV lamp. Follow the product manual for operation and maintenance.</dd>
+        </div>
+        <div>
+          <dt>Visible water level</dt>
+          <dd>Check the reservoir markings before starting your session. The unit also has an automatic shutoff feature.</dd>
+        </div>
+        <div>
+          <dt>Tabletop dimensions</dt>
+          <dd>Approx. 20 in tall with the hood installed. The hood is 13 in wide and the base is 7 in wide.</dd>
+        </div>
+        <div>
+          <dt>In the box</dt>
+          <dd>One steamer base, hair hood, extendable facial nozzle assembly, connector, warranty card and user manual.</dd>
+        </div>
+        <div>
+          <dt>Color options</dt>
+          <dd>Black and Blue. Both come with the hair and facial attachments.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="ks-steamer-setup-{{ intro_id }}" class="ks-flagship-setup" aria-labelledby="ks-steamer-setup-title-{{ intro_id }}">
+    <div class="ks-pdp-shell">
+      <h2 id="ks-steamer-setup-title-{{ intro_id }}">From setup to cleanup.</h2>
+      <ol class="ks-flagship-steps">
+        <li>
+          <h3>Pick your attachment</h3>
+          <p>Fit the hood for hair or the nozzle for facial steam while the base is off and cool.</p>
+        </li>
+        <li>
+          <h3>Fill and position</h3>
+          <p>Place the steamer on a level tabletop. Use the water type and fill level specified in the manual, then check your seating position.</p>
+        </li>
+        <li>
+          <h3>Steam, then cool</h3>
+          <p>Follow the manual’s distance and timing. Switch off at the end and let the unit cool before handling the attachments or reservoir.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="ks-steamer-faq-{{ intro_id }}" class="ks-pdp-shell ks-flagship-faq ks-pdp-faq" aria-labelledby="ks-steamer-faq-title-{{ intro_id }}">
+    <h2 id="ks-steamer-faq-title-{{ intro_id }}">Good to know before you steam.</h2>
+    <div>
+      <details><summary>Can I use this with low-porosity hair?</summary><p>Yes. You can use the hood when your deep-conditioning routine calls for warm, moist air. Follow both the conditioner label and the steamer manual.</p></details>
+      <details><summary>Do I need two bases for hair and facial steaming?</summary><p>One base fits both attachments. Use the hood or the facial nozzle for a session and let the unit cool before switching them.</p></details>
+      <details><summary>Does the steamer include an ozone feature and a UV lamp?</summary><p>Yes. Use the controls and care for the unit as directed in the product manual.</p></details>
+      <details><summary>How much space do I need on the counter?</summary><p>The base is approximately 7 inches wide and the hood setup is about 20 inches tall. Allow room for the 13-inch hood and for the seating distance described in the manual.</p></details>
+      <details><summary>How long should a session be?</summary><p>Use the timing in the manual for the attachment you’ve fitted. If you’re deep conditioning, also check the directions for your product.</p></details>
+      <details><summary>How is this different from the Care Ritual Kit?</summary><p>This listing includes the steamer and both attachments. The <a href="/products/2-in-1-hair-and-facial-steamer-care-ritual-kit">Care Ritual Kit</a> adds a boxed set of hair and self-care accessories.</p></details>
+    </div>
+  </section>
+  <div class="ks-pdp-shell ks-flagship-return">
+    <a class="ks-pdp-button" href="#{{ main_id }}">Back to product options <span aria-hidden="true">↑</span></a>
+  </div>
+</section>
