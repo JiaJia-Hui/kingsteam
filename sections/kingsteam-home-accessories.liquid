@@ -1,4 +1,5 @@
 {{ 'kingsteam-home.css' | asset_url | stylesheet_tag }}
+{{ 'ks-home-accessory-hover.css' | asset_url | stylesheet_tag }}
 
 {% if section.settings.products != blank %}
   <div class="ks-home-refresh">
@@ -17,12 +18,40 @@
             <article class="accessory-card">
               <a href="{{ product.url }}">
                 {% if product.featured_image %}
-                  {{ product.featured_image | image_url: width: 800 | image_tag:
-                    widths: '180, 260, 400, 600, 800',
-                    sizes: '(max-width: 650px) 50vw, 25vw',
-                    loading: 'lazy',
-                    alt: ''
-                  }}
+                  {%- liquid
+                    assign hover_url = blank
+                    case product.handle
+                      when 'kingsteam-automatic-hairbrush-cleaner-and-disinfector-machine'
+                        assign hover_url = 'ks-hover-hairbrush-cleaner.webp' | asset_url
+                      when 'kingsteam-cordless-beard-straightener-for-men'
+                        assign hover_url = 'ks-hover-cordless-beard-straightener.webp' | asset_url
+                      when 'kingsteam-portable-steam-cleaner-for-home'
+                        assign hover_url = 'ks-hover-portable-steam-cleaner.webp' | asset_url
+                      when 'kingsteam-2-in-1-hair-and-facial-steamer-accessories'
+                        for image in product.images
+                          if image.id != product.featured_image.id
+                            assign hover_url = image | image_url: width: 800
+                            break
+                          endif
+                        endfor
+                    endcase
+                  -%}
+                  <div class="accessory-card__media">
+                    {{ product.featured_image | image_url: width: 800 | image_tag:
+                      widths: '180, 260, 400, 600, 800',
+                      sizes: '(max-width: 650px) 50vw, 25vw',
+                      loading: 'lazy',
+                      alt: '',
+                      class: 'accessory-card__primary'
+                    }}
+                    {% if hover_url != blank %}
+                      <picture class="accessory-card__alternate" aria-hidden="true">
+                        <source media="(hover: hover) and (pointer: fine)" srcset="{{ hover_url | escape }}">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+                          width="800" height="800" loading="lazy" decoding="async" alt="">
+                      </picture>
+                    {% endif %}
+                  </div>
                 {% endif %}
                 <h3>{{ product.title | escape }}</h3>
               </a>
