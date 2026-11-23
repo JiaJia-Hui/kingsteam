@@ -1,0 +1,12 @@
+{%- if product.handle == 'hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1' -%}
+  {%- assign original_story_id = section.id | replace: '__ks_flagship_after_comparison', '__ks_product_story' -%}
+  {%- render 'ks-flagship-steamer', product: product, intro_id: original_story_id, after_comparison: true -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "XCL attachments and specs",
+  "enabled_on": { "templates": ["product"] },
+  "settings": []
+}
+{% endschema %}

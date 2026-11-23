@@ -298,6 +298,10 @@
     "ks_product_story": {
       "type": "ks-pdp-detail",
       "settings": {}
+    },
+    "ks_flagship_after_comparison": {
+      "type": "ks-flagship-steamer-details",
+      "settings": {}
     }
   },
   "order": [
@@ -305,8 +309,9 @@
     "1634180644dff29e33",
     "main",
     "ks_product_story",
-    "custom_content_nLaLwh",
     "image_comparison_7zamyF",
+    "ks_flagship_after_comparison",
+    "custom_content_nLaLwh",
     "blocks_jcpQxR"
   ]
 }

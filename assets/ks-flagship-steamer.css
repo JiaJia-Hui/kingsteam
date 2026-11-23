@@ -6,6 +6,8 @@
   background: var(--steam-paper);
 }
 
+.ks-flagship--continuation { margin-block-start: 0; }
+
 .ks-flagship h2,
 .ks-flagship-mode h3 {
   font-family: Georgia, 'Times New Roman', serif;
