@@ -144,7 +144,6 @@ body:has(.ks-pdp) [id^="shopify-section-"][id$="__main"]:has([id^="MainProduct-"
 
 body:has([data-ks-pdp="steamer"]) [id^="shopify-section-"][id$="__custom_content_nLaLwh"],
 body:has([data-ks-pdp="kit"]) [id^="shopify-section-"][id$="__custom_content_nLaLwh"],
-body:has([data-ks-pdp="steamer"]) [id^="shopify-section-"][id$="__image_comparison_7zamyF"],
 body:has([data-ks-pdp="kit"]) [id^="shopify-section-"][id$="__image_comparison_7zamyF"],
 body:has([data-ks-pdp="steamer"]) [id^="shopify-section-"][id$="__blocks_jcpQxR"],
 body:has([data-ks-pdp="kit"]) [id^="shopify-section-"][id$="__blocks_jcpQxR"],
