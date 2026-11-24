@@ -271,7 +271,7 @@
         "ai_gen_block_c35b47b_jT7JaY": {
           "type": "ai_gen_block_c35b47b",
           "settings": {
-            "heading": "<strong>BEST SELLERS</strong>",
+            "heading": "BEST SELLERS",
             "subheading": "",
             "products": [
               "2-in-1-hair-and-facial-steamer-care-ritual-kit",
@@ -282,6 +282,7 @@
               "dryer-diffuser-for-curly-hair"
             ],
             "show_catalog_link": true,
+            "catalog_link_url": "",
             "container_width": 1600,
             "cards_per_row_desktop": "5",
             "cards_per_row_tablet": "3",
@@ -373,6 +374,35 @@
         "ai_gen_block_c35b47b_jT7JaY",
         "ai_gen_block_077be23_f8gVjz"
       ],
+      "settings": {}
+    },
+    "ks_steamer_feature": {
+      "type": "kingsteam-steamer-feature",
+      "settings": {
+        "eyebrow": "Featured in Glamour",
+        "heading": "2-in-1 Hair & Facial Steamer",
+        "body": "<p>The tabletop hood delivers hands-free steam while you deep-condition your hair on wash day.</p><p>Switch to the facial nozzle for a separate facial steaming routine. Both attachments use the same base, and the steamer shuts off automatically.</p>",
+        "button_label": "View the steamer",
+        "product_url": "/products/hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1",
+        "source_label": "Read the Glamour feature",
+        "source_url": "https://www.glamour.com/story/best-hair-steamers?utm_source=chatgpt.com"
+      }
+    },
+    "ks_home_accessories": {
+      "type": "kingsteam-home-accessories",
+      "settings": {
+        "heading": "HOME & ACCESSORIES",
+        "products": [
+          "kingsteam-cordless-beard-straightener-for-men",
+          "kingsteam-automatic-hairbrush-cleaner-and-disinfector-machine",
+          "kingsteam-portable-steam-cleaner-for-home",
+          "kingsteam-2-in-1-hair-and-facial-steamer-accessories"
+        ],
+        "view_all": "/pages/home-accessory"
+      }
+    },
+    "ks_home_editorial": {
+      "type": "kingsteam-home-editorial",
       "settings": {}
     },
     "scrolling_promotion_ezffbN": {
@@ -525,6 +555,7 @@
         "testimonial_fWGAgg",
         "testimonial_CmtKNj"
       ],
+      "disabled": true,
       "name": "Testimonials",
       "settings": {
         "heading": "Hear It From Our Customers",
@@ -545,37 +576,7 @@
         "padding_bottom": 50,
         "custom_class": "",
         "animations": "inherit"
-      },
-      "disabled": true
-    },
-    "ks_steamer_feature": {
-      "type": "kingsteam-steamer-feature",
-      "settings": {
-        "eyebrow": "Featured in Glamour",
-        "heading": "2-in-1 Hair & Facial Steamer",
-        "body": "<p>The tabletop hood delivers hands-free steam while you deep-condition your hair on wash day.</p><p>Switch to the facial nozzle for a separate facial steaming routine. Both attachments use the same base, and the steamer shuts off automatically.</p>",
-        "button_label": "View the steamer",
-        "product_url": "/products/hair-steamer-kingsteam-2-in-1-ozone-facial-steamer-design-for-personal-care-use-at-home-or-salon-1",
-        "source_label": "Read the Glamour feature",
-        "source_url": "https://www.glamour.com/story/best-hair-steamers?utm_source=chatgpt.com"
       }
-    },
-    "ks_home_accessories": {
-      "type": "kingsteam-home-accessories",
-      "settings": {
-        "heading": "Home & Accessories",
-        "products": [
-          "kingsteam-cordless-beard-straightener-for-men",
-          "kingsteam-automatic-hairbrush-cleaner-and-disinfector-machine",
-          "kingsteam-portable-steam-cleaner-for-home",
-          "kingsteam-2-in-1-hair-and-facial-steamer-accessories"
-        ],
-        "view_all": "/pages/home-accessory"
-      }
-    },
-    "ks_home_editorial": {
-      "type": "kingsteam-home-editorial",
-      "settings": {}
     }
   },
   "order": [
