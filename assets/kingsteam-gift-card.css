@@ -67,7 +67,7 @@
 }
 .ks-gift::backdrop { background: #281d1766; }
 .ks-gift [hidden] { display: none !important; }
-.ks-gift h2 { margin: 0 24px 10px 0; font: 400 clamp(28px, 4.1vw, 42px)/1.08 Georgia, serif; letter-spacing: -.035em; }
+.ks-gift h2 { margin: 0 24px 10px 0; font: var(--font-weight-header) clamp(28px, 4.1vw, 42px)/1.08 var(--font-stack-header); letter-spacing: -.035em; }
 .ks-gift p { margin: 0; color: #67584a; }
 .ks-gift-close {
   position: absolute;
@@ -95,7 +95,7 @@
     radial-gradient(ellipse at left bottom, #97683e, #3e2a1e 70%);
 }
 .ks-gift-art span { font-size: 10px; text-transform: uppercase; letter-spacing: .22em; }
-.ks-gift-art strong { font: 400 clamp(40px, 5.4vw, 73px)/1 Georgia, serif; }
+.ks-gift-art strong { font: var(--font-weight-header) clamp(40px, 5.4vw, 73px)/1 var(--font-stack-header); }
 .ks-gift-amounts { margin: 0; padding: 0; border: 0; }
 .ks-gift-amounts legend { margin-bottom: 8px; font-weight: 600; }
 .ks-gift-amounts > div { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }

@@ -11,7 +11,7 @@ kingsteam-jy162-intro {
   --accent: #78624b;
   --panel: #ebe0d1;
   --shell: min(1280px, calc(100% - clamp(36px, 8vw, 128px)));
-  font-family: "DM Sans", "Segoe UI", sans-serif;
+  font-family: var(--font-stack-body);
   color: var(--ink);
   background: var(--paper);
 }
@@ -28,7 +28,7 @@ kingsteam-jy162-intro section[id] { scroll-margin-top: calc(72px + var(--ks-jy16
 kingsteam-jy162-intro .ks-jy162-hero { display: grid; grid-template-columns: 1fr 1.1fr; min-height: 490px; margin-top: clamp(22px, 3.5vw, 55px); overflow: hidden; background: #eee4d6; }
 kingsteam-jy162-intro .ks-jy162-hero-copy { align-self: center; padding: clamp(36px, 5.2vw, 86px); }
 kingsteam-jy162-intro .ks-jy162-kicker { color: #66533f; font-weight: 650; font-size: .82rem; letter-spacing: .13em; text-transform: uppercase; }
-kingsteam-jy162-intro h2 { font-family: Georgia, serif; font-weight: 400; line-height: 1.04; letter-spacing: -.052em; }
+kingsteam-jy162-intro h2 { font-family: var(--font-stack-header); font-weight: var(--font-weight-header); line-height: 1.04; letter-spacing: -.052em; }
 kingsteam-jy162-intro .ks-jy162-intro-title { font-size: clamp(2.85rem, 5.4vw, 5.6rem); margin-top: 1rem; }
 kingsteam-jy162-intro .ks-jy162-hero-copy > p:not(.ks-jy162-kicker) { max-width: 36ch; margin-top: 1.35rem; font-size: clamp(1rem, 1.35vw, 1.16rem); color: #4d4134; }
 kingsteam-jy162-intro .ks-jy162-primary { display: inline-flex; align-items: center; justify-content: space-between; gap: 1.2rem; padding: .8rem 1.1rem; margin-top: 1.6rem; border: 1px solid #353026; color: #fffaf2; background: #353026; text-decoration: none; font-size: .9rem; }
@@ -73,7 +73,7 @@ kingsteam-jy162-intro .ks-jy162-questions summary::after { content: "+"; color: 
 kingsteam-jy162-intro .ks-jy162-questions details[open] summary::after { content: "−"; }
 kingsteam-jy162-intro .ks-jy162-questions details p { margin: 0 0 1rem; max-width: 55ch; }
 kingsteam-jy162-intro .ks-jy162-replacement { background: var(--panel); padding: clamp(1.5rem, 4.1vw, 3.8rem); }
-kingsteam-jy162-intro .ks-jy162-replacement h3 { font-family: Georgia, serif; font-size: clamp(1.65rem, 3vw, 2.5rem); font-weight: 400; line-height: 1.15; letter-spacing: -.025em; }
+kingsteam-jy162-intro .ks-jy162-replacement h3 { font-family: var(--font-stack-header); font-size: clamp(1.65rem, 3vw, 2.5rem); font-weight: var(--font-weight-header); line-height: 1.15; letter-spacing: -.025em; }
 kingsteam-jy162-intro .ks-jy162-replacement p { margin-top: .8rem; color: #4d4034; }
 @media (max-width: 760px) {
   kingsteam-jy162-intro .ks-jy162-hero { grid-template-columns: 1fr; margin-top: 20px; }
