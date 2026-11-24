@@ -100,8 +100,8 @@
   }
 
   .ai-slider-heading-{{ ai_gen_id }} {
-    font-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
-    font-weight: {{ settings.type_header_font.weight }};
+    font-family: var(--font-stack-header);
+    font-weight: var(--font-weight-header--bolder);
     font-size: clamp(24px, 5vw, {{ block.settings.heading_size }}px);
     line-height: 1.2;
     color: {{ block.settings.text_color }};
@@ -110,8 +110,8 @@
   }
 
   .ai-slider-subheading-{{ ai_gen_id }} {
-    font-family: {{ settings.type_base_font.family }}, {{ settings.type_base_font.fallback_families }};
-    font-weight: {{ settings.type_base_font.weight }};
+    font-family: var(--font-stack-body);
+    font-weight: var(--font-weight-body);
     font-size: clamp(14px, 3vw, {{ block.settings.subheading_size }}px);
     line-height: 1.5;
     color: {{ block.settings.text_color }};

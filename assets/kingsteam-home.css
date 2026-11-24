@@ -8,7 +8,7 @@
   --dark: #2d2a25;
   --line: #dcd2c5;
   --body: var(--font-stack-body), "Segoe UI", sans-serif;
-  --head: "Trebuchet MS", var(--font-stack-body), sans-serif;
+  --head: var(--font-stack-header);
 }
 .ks-home-refresh * { box-sizing: border-box; }
 .ks-home-refresh img { display: block; width: 100%; object-fit: cover; }
@@ -79,7 +79,7 @@
 .ks-home-refresh .accessory-card { min-width: 0; text-align: left; }
 .ks-home-refresh .accessory-card a { display: block; }
 .ks-home-refresh .accessory-card img { width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; }
-.ks-home-refresh .accessory-card h3 { font-size: clamp(15px, 1.4vw, 20px); line-height: 1.35; font-weight: 500; letter-spacing: -.014em; margin-top: 13px; }
+.ks-home-refresh .accessory-card h3 { font-size: clamp(15px, 1.4vw, 20px); line-height: 1.35; font-weight: 550; letter-spacing: -.014em; margin-top: 13px; }
 .ks-home-refresh .accessory-card a:hover h3 { text-decoration: underline; text-underline-offset: 3px; }
 .ks-home-refresh .accessory-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 1px 8px; margin-top: 7px; color: var(--tools-accent); font-size: clamp(15px, 1.35vw, 19px); font-weight: 600; font-variant-numeric: tabular-nums; }
 .ks-home-refresh .accessory-price s, .ks-home-refresh .accessory-status { color: var(--tools-secondary); font-size: .84em; font-weight: 400; }
@@ -181,7 +181,7 @@
 
 .ks-home-refresh { color: #2f271c; font: 16px/1.55 var(--body); background: var(--white); }
 .ks-home-refresh :is(h1, h2, h3) { color: inherit; font-weight: 700; }
-.ks-home-refresh .accessory-card h3, .ks-home-refresh .accessories-heading h2 { font-family: var(--body); }
+.ks-home-refresh .accessory-card h3, .ks-home-refresh .accessories-heading h2 { font-family: var(--head); }
 .ks-home-refresh .accessories { color: var(--tools-text); }
 .ks-home-refresh .brand img { display: block; height: auto; }
 .ks-home-refresh .signup { padding-bottom: 32px; }

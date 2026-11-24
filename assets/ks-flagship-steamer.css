@@ -10,8 +10,8 @@
 
 .ks-flagship h2,
 .ks-flagship-mode h3 {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-weight: 400;
+  font-family: var(--font-stack-header);
+  font-weight: var(--font-weight-header);
   letter-spacing: -.035em;
   line-height: 1.06;
 }
@@ -39,7 +39,13 @@
   align-self: center;
   padding: clamp(32px, 6vw, 92px);
 }
-.ks-flagship-hero-copy h2 { max-width: 10ch; font-size: clamp(48px, 6.2vw, 99px); }
+.ks-flagship-hero-copy h2 {
+  font-size: clamp(40px, 5.65vw, 92px);
+  line-height: clamp(50.88px, 6.57vw, 104.94px);
+  letter-spacing: -.056em;
+  white-space: nowrap;
+}
+.ks-flagship-break-narrow { display: none; }
 .ks-flagship-hero .ks-flagship-label { color: #f7d6b8; }
 .ks-flagship .ks-flagship-intro { font-size: clamp(16px, 1.55vw, 22px); line-height: 1.6; margin-top: 17px; max-width: 50ch; }
 .ks-flagship-hero .ks-flagship-intro { color: #f5e4d6; }
@@ -62,7 +68,7 @@
   border-bottom: 1px solid var(--story-rule);
   font-size: 15px;
 }
-.ks-flagship-press cite { font-family: Georgia, 'Times New Roman', serif; font-size: 18px; }
+.ks-flagship-press cite { font-family: var(--font-stack-body); font-size: 18px; }
 
 .ks-flagship-wash,
 .ks-flagship-modes,
@@ -125,6 +131,9 @@
   .ks-flagship-steps,
   .ks-flagship-faq { grid-template-columns: minmax(0, 1fr); }
   .ks-flagship-hero-copy { padding: 34px 20px; }
+  .ks-flagship-hero-copy h2 { font-size: clamp(30px, 11.55vw, 48px); line-height: 1.1; }
+  .ks-flagship-break-wide { display: none; }
+  .ks-flagship-break-narrow { display: inline; }
   .ks-flagship-hero-media { min-height: 0; aspect-ratio: 1.18; }
   .ks-flagship-steps > li { padding-inline-start: 0; }
 }
