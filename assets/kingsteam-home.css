@@ -185,7 +185,37 @@
 .ks-home-refresh .accessories { color: var(--tools-text); }
 .ks-home-refresh .brand img { display: block; height: auto; }
 .ks-home-refresh .signup { padding-bottom: 32px; }
-.ks-home-refresh .home-social-links { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 18px; padding: 15px 0 20px; border-top: 1px solid #b5a593; font-size: 13px; }
+.ks-home-refresh .home-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-block-start: 9px;
+  margin-inline-start: -4px;
+}
+.ks-home-refresh .home-social-links a {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  border-radius: 50%;
+  color: #3b2c20;
+}
+.ks-home-refresh .home-social-links a::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: #fbf7f0;
+}
+.ks-home-refresh .home-social-links svg {
+  position: relative;
+  width: 19px;
+  height: 19px;
+}
+.ks-home-refresh .home-social-links a:is(:hover, :focus-visible) { color: #fbf7f0; }
+.ks-home-refresh .home-social-links a:is(:hover, :focus-visible)::before { background: #3b2c20; }
 .ks-home-refresh .signup .newsletter-fields { display: flex; gap: 8px; margin-top: 19px; }
 .ks-home-refresh .signup .newsletter-fields input { min-width: 0; flex: 1; }
 .ks-home-refresh .signup .newsletter-agreement { display: flex; align-items: baseline; gap: 8px; margin-top: 10px; font-size: 13px; }
