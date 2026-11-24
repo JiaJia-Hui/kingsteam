@@ -62,17 +62,43 @@
   color: var(--tools-text);
   padding-block: clamp(29px, 4vw, 58px) clamp(38px, 5vw, 72px);
 }
+.template-index [id$="__17649135672c0c9e9b"] h2[class^="ai-holo-slider__title-"] { font-weight: 400; }
+.template-index [id$="__17649135672c0c9e9b"] h2[class^="ai-holo-slider__title-"] strong { font-weight: inherit; }
+.template-index .ks-shop-nav__panel-inner--discover .ks-shop-nav__links {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
 .ks-home-refresh .accessories-heading {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
+  gap: 8px 12px;
   border-bottom: 1px solid #ded4c7;
   padding-bottom: clamp(13px, 1.65vw, 24px);
   margin-bottom: clamp(17px, 2.2vw, 32px);
 }
-.ks-home-refresh .accessories-heading h2 { font-size: clamp(24px, 2.85vw, 41px); font-weight: 600; letter-spacing: -.025em; }
-.ks-home-refresh .accessories-heading .text-link { flex-shrink: 0; border: 0; padding: 0; color: var(--tools-accent); font-size: 14px; font-weight: 500; }
+.ks-home-refresh .accessories-heading h2 {
+  grid-area: 1 / 2;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: clamp(23px, 2.85vw, 41px);
+  font-weight: 600;
+  letter-spacing: -.025em;
+}
+.ks-home-refresh .accessories-heading .text-link {
+  grid-area: 1 / 3;
+  justify-self: end;
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
+  color: var(--tools-accent);
+  font-size: 14px;
+  font-weight: 500;
+}
+@media (max-width: 650px) {
+  .ks-home-refresh .accessories-heading { grid-template-columns: minmax(0, 1fr); }
+  .ks-home-refresh .accessories-heading h2 { grid-area: 1 / 1; }
+  .ks-home-refresh .accessories-heading .text-link { grid-area: 2 / 1; justify-self: center; }
+}
 .ks-home-refresh .accessories-heading .text-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 .ks-home-refresh .accessories a:focus-visible { outline-color: var(--tools-accent); }
 .ks-home-refresh .accessory-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 1.65vw, 24px); }

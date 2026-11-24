@@ -7,7 +7,7 @@
   assign experience_label = section.settings.discover_experience_label | default: 'User Experience Sharing'
   assign experience_url = section.settings.discover_experience_url | default: '/pages/user-experience-sharing'
   if request.page_type == 'index'
-    assign groups = 'ALL PRODUCTS|BEST SELLERS|HAIR TOOLS|Routines|Curl Guide|HOME&ACCESSORY|DISCOVER' | split: '|'
+    assign groups = 'ALL PRODUCTS|BEST SELLERS|HAIR TOOLS|HOME&ACCESSORY|DISCOVER' | split: '|'
     assign curl_quiz_label = 'Curl Guide'
     assign curl_quiz_url = '#learn'
     assign experience_label = 'KingSteam Community'
@@ -25,12 +25,6 @@
     {% for group in groups %}
       {% if forloop.first %}
         <li class="ks-shop-nav__item"><a class="ks-shop-nav__trigger" href="{% render 'all-products-url' %}">{{ group }}</a></li>
-        {% continue %}
-      {% endif %}
-      {% if group == 'Routines' or group == 'Curl Guide' %}
-        <li class="ks-shop-nav__item">
-          <a class="ks-shop-nav__trigger" href="{% if group == 'Routines' %}#routine{% else %}#learn{% endif %}">{{ group }}</a>
-        </li>
         {% continue %}
       {% endif %}
       {% liquid
@@ -82,6 +76,9 @@
         {% else %}
           <ul class="ks-shop-nav__links">
             {% if group == 'DISCOVER' %}
+              {% if request.page_type == 'index' %}
+                <li><a href="#routine"><span>Routines</span>{% unless mobile %}<small>Explore the KingSteam wash-day routine.</small>{% endunless %}</a></li>
+              {% endif %}
               <li><a href="{{ curl_quiz_url }}"><span>{{ curl_quiz_label | escape }}</span>{% unless mobile %}<small>{% if request.page_type == 'index' %}Explore curl patterns and routines.{% else %}Find your curl type.{% endif %}</small>{% endunless %}</a></li>
               <li><a href="{{ blog_url }}"><span>{{ blog_label | escape }}</span>{% unless mobile %}<small>Browse the KingSteam blog.</small>{% endunless %}</a></li>
               <li><a href="{{ experience_url }}"><span>{{ experience_label | escape }}</span>{% unless mobile %}<small>{% if request.page_type == 'index' %}Find curl inspiration.{% else %}Hear from KingSteam customers.{% endif %}</small>{% endunless %}</a></li>
