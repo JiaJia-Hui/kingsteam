@@ -19,22 +19,11 @@
               <a href="{{ product.url }}">
                 {% if product.featured_image %}
                   {%- liquid
+                    assign hover_image = product.images[1]
                     assign hover_url = blank
-                    case product.handle
-                      when 'kingsteam-automatic-hairbrush-cleaner-and-disinfector-machine'
-                        assign hover_url = 'ks-hover-hairbrush-cleaner.webp' | asset_url
-                      when 'kingsteam-cordless-beard-straightener-for-men'
-                        assign hover_url = 'ks-hover-cordless-beard-straightener.webp' | asset_url
-                      when 'kingsteam-portable-steam-cleaner-for-home'
-                        assign hover_url = 'ks-hover-portable-steam-cleaner.webp' | asset_url
-                      when 'kingsteam-2-in-1-hair-and-facial-steamer-accessories'
-                        for image in product.images
-                          if image.id != product.featured_image.id
-                            assign hover_url = image | image_url: width: 800
-                            break
-                          endif
-                        endfor
-                    endcase
+                    if hover_image != blank and hover_image.id != product.featured_image.id
+                      assign hover_url = hover_image | image_url: width: 800
+                    endif
                   -%}
                   <div class="accessory-card__media">
                     {{ product.featured_image | image_url: width: 800 | image_tag:
