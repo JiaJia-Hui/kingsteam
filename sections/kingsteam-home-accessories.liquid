@@ -69,12 +69,20 @@
                 {%- liquid
                   assign card_variant = product.first_available_variant
                   assign needs_product_page = product.requires_selling_plan
+                  assign pictured_variant = blank
+                  assign featured_image_id = product.featured_image.id
                   for variant in product.variants
                     if variant.available and variant.quantity_rule.min > 1
                       assign needs_product_page = true
                       break
                     endif
+                    if variant.available and pictured_variant == blank and featured_image_id != blank and variant.featured_image.id == featured_image_id
+                      assign pictured_variant = variant
+                    endif
                   endfor
+                  if pictured_variant != blank
+                    assign card_variant = pictured_variant
+                  endif
                   assign form_id = 'HomeCardForm-' | append: section.id | append: '-' | append: product.id
                   assign add_to_cart = 'products.product.add_to_cart' | t
                 -%}
