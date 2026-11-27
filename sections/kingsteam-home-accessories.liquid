@@ -1,5 +1,6 @@
 {{ 'kingsteam-home.css' | asset_url | stylesheet_tag }}
 {{ 'ks-home-accessory-hover.css' | asset_url | stylesheet_tag }}
+<script type="module" src="{{ 'ks-home-card-options.js' | asset_url }}"></script>
 
 {% if section.settings.products != blank %}
   {%- liquid
@@ -84,6 +85,7 @@
                     assign card_variant = pictured_variant
                   endif
                   assign form_id = 'HomeCardForm-' | append: section.id | append: '-' | append: product.id
+                  assign options_id = form_id | append: '-options'
                   assign add_to_cart = 'products.product.add_to_cart' | t
                 -%}
                 {% if card_variant == blank %}
@@ -95,33 +97,55 @@
                     {{ 'products.product.select_options' | t }}
                   </a>
                 {% else %}
-                  <product-form class="m-product-form" data-product-id="{{ product.id }}">
-                    {% form 'product', product, id: form_id, class: 'product-card-form' %}
-                      {% if product.has_only_default_variant %}
-                        <input type="hidden" name="id" value="{{ card_variant.id }}">
-                      {% else %}
-                        <select class="accessory-card__variant" name="id" aria-label="{{ 'products.product.select_options' | t | escape }} · {{ product.title | escape }}">
-                          {% for variant in product.variants %}
-                            <option value="{{ variant.id }}"{% if variant.id == card_variant.id %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>
-                              {{ variant.title | escape }}
-                              {%- if product.price_varies %} — {{ variant.price | money }}{% endif -%}
-                              {%- unless variant.available %} — {{ 'products.product.sold_out' | t }}{% endunless -%}
-                            </option>
-                          {% endfor %}
-                        </select>
-                      {% endif %}
-                      <button class="button primary accessory-card__button m-spinner-button" type="submit" name="add" aria-label="{{ add_to_cart | escape }} · {{ product.title | escape }}">
-                        <span class="m-add-to-cart--text">{{ add_to_cart }}</span>
-                        <span class="m-spinner-icon" aria-hidden="true">
-                          <svg class="animate-spin m-svg-icon--medium" viewBox="0 0 24 24" fill="none" focusable="false">
-                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" opacity=".25"/>
-                            <path d="M22 12A10 10 0 0 0 12 2" stroke="currentColor" stroke-width="4"/>
-                          </svg>
-                        </span>
+                  {% capture quick_add_form %}
+                    <product-form class="m-product-form" data-product-id="{{ product.id }}">
+                      {% form 'product', product, id: form_id, class: 'product-card-form' %}
+                        {% if product.has_only_default_variant %}
+                          <input type="hidden" name="id" value="{{ card_variant.id }}">
+                        {% else %}
+                          <label class="accessory-card__variant-label" for="{{ options_id }}-variant">{{ product.options | join: ' / ' | escape }}</label>
+                          <select class="accessory-card__variant" id="{{ options_id }}-variant" name="id" autofocus>
+                            {% for variant in product.variants %}
+                              <option value="{{ variant.id }}"{% if variant.id == card_variant.id %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>
+                                {{ variant.title | escape }}
+                                {%- if product.price_varies %} — {{ variant.price | money }}{% endif -%}
+                                {%- unless variant.available %} — {{ 'products.product.sold_out' | t }}{% endunless -%}
+                              </option>
+                            {% endfor %}
+                          </select>
+                        {% endif %}
+                        <button class="button primary accessory-card__button m-spinner-button" type="submit" name="add" aria-label="{{ add_to_cart | escape }} · {{ product.title | escape }}">
+                          <span class="m-add-to-cart--text">{{ add_to_cart }}</span>
+                          <span class="m-spinner-icon" aria-hidden="true">
+                            <svg class="animate-spin m-svg-icon--medium" viewBox="0 0 24 24" fill="none" focusable="false">
+                              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" opacity=".25"/>
+                              <path d="M22 12A10 10 0 0 0 12 2" stroke="currentColor" stroke-width="4"/>
+                            </svg>
+                          </span>
+                        </button>
+                        <div class="m-product-form-message" aria-live="polite"></div>
+                      {% endform %}
+                    </product-form>
+                  {% endcapture %}
+                  {% if product.has_only_default_variant %}
+                    {{ quick_add_form }}
+                  {% else %}
+                    <home-card-options data-product-id="{{ product.id }}">
+                      <a class="button primary accessory-card__button" href="{{ product.url }}" data-options-fallback>
+                        {{ add_to_cart }}
+                      </a>
+                      <button class="button primary accessory-card__button" type="button" aria-haspopup="dialog" aria-controls="{{ options_id }}" aria-label="{{ add_to_cart | escape }} · {{ product.title | escape }}" data-options-open hidden>
+                        {{ add_to_cart }}
                       </button>
-                      <div class="m-product-form-message" aria-live="polite"></div>
-                    {% endform %}
-                  </product-form>
+                      <dialog class="accessory-card__dialog" id="{{ options_id }}" aria-labelledby="{{ options_id }}-heading">
+                        <div class="accessory-card__dialog-body">
+                          <button class="close accessory-card__dialog-close" type="button" aria-label="{{ 'general.accessibility.close' | t | escape }}" data-options-close>×</button>
+                          <h2 id="{{ options_id }}-heading">{{ product.title | escape }}</h2>
+                          {{ quick_add_form }}
+                        </div>
+                      </dialog>
+                    </home-card-options>
+                  {% endif %}
                 {% endif %}
               </div>
             </article>
