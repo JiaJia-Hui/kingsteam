@@ -1,13 +1,13 @@
-#home-accessories .accessory-card__media {
+.ks-home-refresh .accessories .accessory-card__media {
   position: relative;
   overflow: hidden;
 }
 
-#home-accessories .accessory-card__primary { display: block; }
-#home-accessories .accessory-card__alternate { display: none; }
+.ks-home-refresh .accessories .accessory-card__primary { display: block; }
+.ks-home-refresh .accessories .accessory-card__alternate { display: none; }
 
 @media (hover: hover) and (pointer: fine) {
-  #home-accessories .accessory-card__alternate {
+  .ks-home-refresh .accessories .accessory-card__alternate {
     display: block;
     position: absolute;
     inset: 0;
@@ -16,20 +16,20 @@
     transition: opacity .3s ease;
   }
 
-  #home-accessories .accessory-card__alternate img {
+  .ks-home-refresh .accessories .accessory-card__alternate img {
     display: block;
     height: 100%;
     object-fit: cover;
   }
 
-  #home-accessories .accessory-card:hover .accessory-card__alternate,
-  #home-accessories a:focus-visible .accessory-card__alternate {
+  .ks-home-refresh .accessories .accessory-card:hover .accessory-card__alternate,
+  .ks-home-refresh .accessories a:focus-visible .accessory-card__alternate {
     opacity: 1;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #home-accessories .accessory-card__alternate {
+  .ks-home-refresh .accessories .accessory-card__alternate {
     transition: none;
   }
 }
