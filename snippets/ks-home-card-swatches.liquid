@@ -1,0 +1,58 @@
+{%- liquid
+  assign option = product.options_with_values.first
+  assign option_name = option.name | downcase | strip
+  assign first_option_value = option.values.first
+  assign color_options = false
+  if product.options.size == 1
+    if option_name == 'color' or option_name == 'colour' or first_option_value.swatch != blank
+      assign color_options = true
+    endif
+  endif
+  assign option_group = form_id | append: '-choices'
+-%}
+<fieldset class="accessory-card__choices" data-card-choices hidden>
+  <legend class="accessory-card__choice-heading">
+    {{ product.options | join: ' / ' | escape }}: <span data-card-variant-name>{{ active_variant.title | escape }}</span>
+  </legend>
+  <div class="accessory-card__choice-list">
+    {% for variant in product.variants %}
+      {%- liquid
+        assign choice_id = option_group | append: '-' | append: variant.id
+        assign is_checked = false
+        if variant.id == active_variant.id
+          assign is_checked = true
+        endif
+        assign is_unavailable = false
+        unless variant.available
+          assign is_unavailable = true
+        endunless
+        assign compare_price = blank
+        if variant.compare_at_price > variant.price
+          assign compare_price = variant.compare_at_price | money
+        endif
+      -%}
+      {%- capture choice_data -%}
+        data-card-variant="{{ variant.id }}" data-card-name="{{ variant.title | escape }}"
+        data-card-price-value="{{ variant.price | money | escape }}" data-card-compare-value="{{ compare_price | escape }}"
+        {% if variant.featured_image %}
+          data-card-image="{{ variant.featured_image | image_url: width: 800 | escape }}"
+          data-card-srcset="{{ variant.featured_image | image_url: width: 400 | escape }} 400w, {{ variant.featured_image | image_url: width: 600 | escape }} 600w, {{ variant.featured_image | image_url: width: 800 | escape }} 800w"
+        {% endif %}
+      {%- endcapture -%}
+      {% if color_options %}
+        {%- assign tone = option.values | where: 'name', variant.option1 | first -%}
+        {%- capture help_text -%}
+          <span class="sr-only">{{ variant.title | escape }}{% if is_unavailable %} · {{ 'products.product.sold_out' | t }}{% endif %}</span>
+        {%- endcapture -%}
+        <div class="m-product-option--node m-tooltip m-tooltip--top{% if is_unavailable %} m-product-option--node__unavailable{% endif %}">
+          {% render 'swatch-input', id: choice_id, name: option_group, value: variant.title, swatch: tone.swatch, checked: is_checked, disabled: is_unavailable, visually_disabled: is_unavailable, help_text: help_text, additional_props: choice_data %}
+        </div>
+      {% else %}
+        <div class="accessory-card__text-choice">
+          <input type="radio" id="{{ choice_id }}" name="{{ option_group }}" value="{{ variant.id }}" class="sr-only" {{ choice_data }}{% if is_checked %} checked{% endif %}{% if is_unavailable %} disabled{% endif %}>
+          <label for="{{ choice_id }}">{{ variant.title | escape }}{% if is_unavailable %}<span class="sr-only"> · {{ 'products.product.sold_out' | t }}</span>{% endif %}</label>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</fieldset>

@@ -22,7 +22,7 @@
     object-fit: cover;
   }
 
-  .ks-home-refresh .accessories .accessory-card:hover .accessory-card__alternate,
+  .ks-home-refresh .accessories .accessory-card > a:hover .accessory-card__alternate,
   .ks-home-refresh .accessories a:focus-visible .accessory-card__alternate {
     opacity: 1;
   }

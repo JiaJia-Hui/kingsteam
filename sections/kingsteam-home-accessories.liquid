@@ -5,10 +5,8 @@
 {% if section.settings.products != blank %}
   {%- liquid
     assign section_anchor = 'home-accessories'
-    assign image_sizes = '(max-width: 650px) 50vw, 25vw'
     if section.settings.layout == 'best_sellers'
       assign section_anchor = 'best-sellers'
-      assign image_sizes = '(max-width: 650px) 50vw, (max-width: 1099px) 33vw, 20vw'
     endif
   -%}
   <div class="ks-home-refresh">
@@ -37,7 +35,7 @@
                   <div class="accessory-card__media">
                     {{ product.featured_image | image_url: width: 800 | image_tag:
                       widths: '180, 260, 400, 600, 800',
-                      sizes: image_sizes,
+                      sizes: '(max-width: 650px) 50vw, 25vw',
                       loading: 'lazy',
                       alt: '',
                       class: 'accessory-card__primary'
@@ -54,7 +52,7 @@
                 <h3>{{ product.title | escape }}</h3>
               </a>
               <p class="accessory-price">
-                <span>
+                <span data-card-price>
                   {%- assign display_price = product.price | money -%}
                   {%- if product.price_varies -%}
                     {{ 'products.product.from_text_html' | t: price: display_price }}
@@ -62,11 +60,9 @@
                     {{ display_price }}
                   {%- endif -%}
                 </span>
-                {% if product.compare_at_price > product.price %}
-                  <s>{{ product.compare_at_price | money }}</s>
-                {% endif %}
+                <s data-card-compare-price{% unless product.compare_at_price > product.price %} hidden{% endunless %}>{% if product.compare_at_price > product.price %}{{ product.compare_at_price | money }}{% endif %}</s>
               </p>
-              <div class="accessory-card__purchase">
+              <home-card-options class="accessory-card__purchase">
                 {%- liquid
                   assign card_variant = product.first_available_variant
                   assign needs_product_page = product.requires_selling_plan
@@ -85,9 +81,12 @@
                     assign card_variant = pictured_variant
                   endif
                   assign form_id = 'HomeCardForm-' | append: section.id | append: '-' | append: product.id
-                  assign options_id = form_id | append: '-options'
                   assign add_to_cart = 'products.product.add_to_cart' | t
                 -%}
+                {% unless product.has_only_default_variant or needs_product_page %}
+                  {% assign displayed_variant = card_variant | default: product.selected_or_first_available_variant %}
+                  {% render 'ks-home-card-swatches', product: product, active_variant: displayed_variant, form_id: form_id %}
+                {% endunless %}
                 {% if card_variant == blank %}
                   <button class="button primary accessory-card__button" type="button" disabled>
                     {{ 'products.product.sold_out' | t }}
@@ -97,14 +96,14 @@
                     {{ 'products.product.select_options' | t }}
                   </a>
                 {% else %}
-                  {% capture quick_add_form %}
-                    <product-form class="m-product-form" data-product-id="{{ product.id }}">
-                      {% form 'product', product, id: form_id, class: 'product-card-form' %}
-                        {% if product.has_only_default_variant %}
-                          <input type="hidden" name="id" value="{{ card_variant.id }}">
-                        {% else %}
-                          <label class="accessory-card__variant-label" for="{{ options_id }}-variant">{{ product.options | join: ' / ' | escape }}</label>
-                          <select class="accessory-card__variant" id="{{ options_id }}-variant" name="id" autofocus>
+                  <product-form class="m-product-form" data-product-id="{{ product.id }}">
+                    {% form 'product', product, id: form_id, class: 'product-card-form' %}
+                      {% if product.has_only_default_variant %}
+                        <input type="hidden" name="id" value="{{ card_variant.id }}">
+                      {% else %}
+                        <label class="accessory-card__variant-fallback" data-card-variant-fallback>
+                          {{ product.options | join: ' / ' | escape }}
+                          <select class="accessory-card__variant" name="id">
                             {% for variant in product.variants %}
                               <option value="{{ variant.id }}"{% if variant.id == card_variant.id %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>
                                 {{ variant.title | escape }}
@@ -113,41 +112,22 @@
                               </option>
                             {% endfor %}
                           </select>
-                        {% endif %}
-                        <button class="button primary accessory-card__button m-spinner-button" type="submit" name="add" aria-label="{{ add_to_cart | escape }} · {{ product.title | escape }}">
-                          <span class="m-add-to-cart--text">{{ add_to_cart }}</span>
-                          <span class="m-spinner-icon" aria-hidden="true">
-                            <svg class="animate-spin m-svg-icon--medium" viewBox="0 0 24 24" fill="none" focusable="false">
-                              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" opacity=".25"/>
-                              <path d="M22 12A10 10 0 0 0 12 2" stroke="currentColor" stroke-width="4"/>
-                            </svg>
-                          </span>
-                        </button>
-                        <div class="m-product-form-message" aria-live="polite"></div>
-                      {% endform %}
-                    </product-form>
-                  {% endcapture %}
-                  {% if product.has_only_default_variant %}
-                    {{ quick_add_form }}
-                  {% else %}
-                    <home-card-options data-product-id="{{ product.id }}">
-                      <a class="button primary accessory-card__button" href="{{ product.url }}" data-options-fallback>
-                        {{ add_to_cart }}
-                      </a>
-                      <button class="button primary accessory-card__button" type="button" aria-haspopup="dialog" aria-controls="{{ options_id }}" aria-label="{{ add_to_cart | escape }} · {{ product.title | escape }}" data-options-open hidden>
-                        {{ add_to_cart }}
+                        </label>
+                      {% endif %}
+                      <button class="button primary accessory-card__button m-spinner-button" type="submit" name="add" aria-label="{{ add_to_cart | escape }} · {{ product.title | escape }}">
+                        <span class="m-add-to-cart--text">{{ add_to_cart }}</span>
+                        <span class="m-spinner-icon" aria-hidden="true">
+                          <svg class="animate-spin m-svg-icon--medium" viewBox="0 0 24 24" fill="none" focusable="false">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" opacity=".25"/>
+                            <path d="M22 12A10 10 0 0 0 12 2" stroke="currentColor" stroke-width="4"/>
+                          </svg>
+                        </span>
                       </button>
-                      <dialog class="accessory-card__dialog" id="{{ options_id }}" aria-labelledby="{{ options_id }}-heading">
-                        <div class="accessory-card__dialog-body">
-                          <button class="close accessory-card__dialog-close" type="button" aria-label="{{ 'general.accessibility.close' | t | escape }}" data-options-close>×</button>
-                          <h2 id="{{ options_id }}-heading">{{ product.title | escape }}</h2>
-                          {{ quick_add_form }}
-                        </div>
-                      </dialog>
-                    </home-card-options>
-                  {% endif %}
+                      <div class="m-product-form-message" aria-live="polite"></div>
+                    {% endform %}
+                  </product-form>
                 {% endif %}
-              </div>
+              </home-card-options>
             </article>
           {% endfor %}
         </div>
