@@ -261,6 +261,7 @@
   min-width: 0;
   overflow-wrap: anywhere;
 }
+.ks-home-refresh .home-email-copy .text-link { border-bottom: 0; text-decoration: none; }
 .ks-home-refresh .home-email-copy h3 {
   display: inline;
   margin: 0;
