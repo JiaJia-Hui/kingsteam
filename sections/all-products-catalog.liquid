@@ -17,7 +17,7 @@
   {%- endcapture -%}
   <section class="ks-catalog" aria-labelledby="shop-category-heading">
     <header class="ks-catalog__header">
-      <h1 id="shop-category-heading">{{ page.title | escape }}</h1>
+      <h1 id="shop-category-heading">{{ page.title | upcase | escape }}</h1>
       <nav class="ks-catalog__categories" aria-label="Product categories"><a href="{{ catalog_url }}">All Products</a></nav>
     </header>
     <div class="ks-catalog__content container">
@@ -63,7 +63,7 @@
 
   <section class="ks-catalog" aria-labelledby="all-products-heading">
     <header class="ks-catalog__header">
-      <h1 id="all-products-heading">All Products</h1>
+      <h1 id="all-products-heading">ALL PRODUCTS</h1>
       {%- if category_links != blank -%}
         <nav class="ks-catalog__categories" aria-label="Product categories">{{ category_links }}</nav>
       {%- endif -%}
