@@ -132,8 +132,30 @@
   text-overflow: ellipsis;
 }
 .ks-home-refresh .accessory-card__variant:focus-visible { outline: 2px solid var(--tools-accent); outline-offset: 2px; }
-.ks-home-refresh .accessory-card__purchase .accessory-card__button { display: inline-flex; width: 100%; min-height: 44px; padding: 8px 5px; text-align: center; }
-.ks-home-refresh .accessory-card__button:disabled { background: #d7c9b9; color: #57493c; cursor: not-allowed; }
+.ks-home-refresh .accessory-card__purchase .accessory-card__button {
+  display: inline-flex;
+  width: min(100%, 190px);
+  min-height: 48px;
+  padding: 10px 7px;
+  border-radius: 999px;
+  background: #d9b36c;
+  color: #332514;
+  font-family: var(--head);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-align: center;
+  text-transform: uppercase;
+}
+.ks-home-refresh .accessory-card__purchase .accessory-card__button:hover:not(:disabled) { background: #e5c486; }
+.ks-home-refresh .accessory-card__purchase .accessory-card__button:disabled { background: #d7c9b9; color: #57493c; cursor: not-allowed; }
+.ks-home-refresh .accessory-card__purchase .accessory-card__button[hidden] { display: none; }
+.ks-home-refresh .accessory-card__dialog { width: min(420px, calc(100% - 28px)); max-height: calc(100dvh - 28px); border-radius: 14px; }
+.ks-home-refresh .accessory-card__dialog-body { position: relative; padding: 25px clamp(17px, 5vw, 28px); }
+.ks-home-refresh .accessory-card__dialog-body h2 { padding-inline-end: 37px; margin-bottom: 19px; font-size: 21px; line-height: 1.25; letter-spacing: -.025em; }
+.ks-home-refresh .accessory-card__dialog-close { min-width: 44px; min-height: 44px; }
+.ks-home-refresh .accessory-card__variant-label { font-size: 14px; font-weight: 600; }
+.ks-home-refresh .accessory-card__dialog .accessory-card__button { width: 100%; margin-top: 7px; }
 .ks-home-refresh .routine, .ks-home-refresh .learn { background: #f2ece5; }
 .ks-home-refresh .routine-intro img, .ks-home-refresh .community img, .ks-home-refresh .signup img { height: auto; aspect-ratio: 1.65; }
 .ks-home-refresh .routine-intro img { object-position: center 45%; }
