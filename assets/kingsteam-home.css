@@ -218,7 +218,8 @@
   margin-block-start: 9px;
   margin-inline-start: -4px;
 }
-.ks-home-refresh .home-social-links a {
+.ks-home-refresh .home-social-links a,
+.ks-home-refresh .home-email-icon {
   position: relative;
   display: grid;
   place-items: center;
@@ -228,20 +229,42 @@
   border-radius: 50%;
   color: #3b2c20;
 }
-.ks-home-refresh .home-social-links a::before {
+.ks-home-refresh .home-social-links a::before,
+.ks-home-refresh .home-email-icon::before {
   content: "";
   position: absolute;
   inset: 4px;
   border-radius: 50%;
   background: #fbf7f0;
 }
-.ks-home-refresh .home-social-links svg {
+.ks-home-refresh .home-social-links svg,
+.ks-home-refresh .home-email-icon svg {
   position: relative;
   width: 19px;
   height: 19px;
 }
-.ks-home-refresh .home-social-links a:is(:hover, :focus-visible) { color: #fbf7f0; }
-.ks-home-refresh .home-social-links a:is(:hover, :focus-visible)::before { background: #3b2c20; }
+.ks-home-refresh .home-social-links a:is(:hover, :focus-visible),
+.ks-home-refresh .home-email-contact:is(:hover, :focus-visible) .home-email-icon { color: #fbf7f0; }
+.ks-home-refresh .home-social-links a:is(:hover, :focus-visible)::before,
+.ks-home-refresh .home-email-contact:is(:hover, :focus-visible) .home-email-icon::before { background: #3b2c20; }
+.ks-home-refresh .home-email-contact {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  max-width: calc(100% + 4px);
+  margin-block-start: 4px;
+  margin-inline-start: -4px;
+}
+.ks-home-refresh .footer .home-email-contact:hover { text-decoration: none; }
+.ks-home-refresh .home-email-copy {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.ks-home-refresh .home-email-copy h3 {
+  display: inline;
+  margin: 0;
+}
 .ks-home-refresh .signup .newsletter-fields { display: flex; gap: 8px; margin-top: 19px; }
 .ks-home-refresh .signup .newsletter-fields input { min-width: 0; flex: 1; }
 .ks-home-refresh .signup .newsletter-agreement { display: flex; align-items: baseline; gap: 8px; margin-top: 10px; font-size: 13px; }
