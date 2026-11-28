@@ -1,5 +1,6 @@
 {{ 'component-product-inventory.css' | asset_url | stylesheet_tag }}
-{%- assign categories = 'steamers:Hair & Facial Steamers|dryers:Hair Dryers & Diffusers|styling:Styling Tools|towel-warmers:Towel Warmers|sanitizers:Sanitizers|heaters:Heaters|other:Other Products' | split: '|' -%}
+{%- capture category_definitions -%}{%- render 'catalog-product-categories' -%}{%- endcapture -%}
+{%- assign categories = category_definitions | split: '|' -%}
 {%- capture catalog_url -%}{%- render 'all-products-url' -%}{%- endcapture -%}
 
 {%- if request.page_type == 'page' -%}
