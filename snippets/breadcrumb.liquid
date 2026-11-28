@@ -58,24 +58,21 @@
 
         {% if template.name == 'product' %}
           {{ home }}
-          {% liquid
-            assign current_collection = null
-            if collection
-              assign current_collection = collection
-            elsif product and product.collections.size > 0
-              assign current_collection = product.collections.first
-            endif
-          %}
-          {% if current_collection %}
-            {{ separator }}
-            {% if current_collection.handle %}
-              {% capture url %}/collections/{{ current_collection.handle }}{% endcapture %}
-              <a href="{{ url }}" class="m-breadcrumb--item">{{ current_collection.title }}</a>
-            {% endif %}
-          {% endif %}
+          {%- capture product_group -%}{%- render 'catalog-product-group', product: product -%}{%- endcapture -%}
+          {%- capture category_definitions -%}{%- render 'catalog-product-categories' -%}{%- endcapture -%}
+          {%- assign categories = category_definitions | split: '|' -%}
+          {%- for category in categories -%}
+            {%- assign details = category | split: ':' -%}
+            {%- if details[0] == product_group -%}
+              {%- capture catalog_url -%}{%- render 'all-products-url' -%}{%- endcapture -%}
+              {{ separator }}
+              <a href="{{ catalog_url }}#catalog-{{ product_group | escape }}" class="m-breadcrumb--item">{{ details[1] | escape }}</a>
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
           {% unless hide_current == true %}
             {{ separator }}
-            <span class="m-breadcrumb--item-current m-breadcrumb--item">{{ product.title }}</span>
+            <span class="m-breadcrumb--item-current m-breadcrumb--item" aria-current="page">{{ product.title | escape }}</span>
           {% endunless %}
         {% elsif template.name == 'collection' and collection.handle %}
           {{ separator }}
